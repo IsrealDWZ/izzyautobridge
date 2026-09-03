@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+/* Dark mode surface tokens — toggled via <html class="dark"> */
+.dark body { background: #0B1424; color: #F2F4F8; }
+.dark .card-surface { background: #16233F; border-color: #243456; }
+
+.card-surface {
+  @apply bg-white border border-gray-200 rounded-2xl transition-colors;
+}

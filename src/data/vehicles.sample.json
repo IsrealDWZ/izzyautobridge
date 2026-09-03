@@ -1,0 +1,53 @@
+[
+  {
+    "ID": "IZZY-001",
+    "Brand": "BYD",
+    "Model": "Atto 3",
+    "Year": 2024,
+    "Variant": "Extended Range",
+    "Fuel_Type": "Electric",
+    "Body_Type": "SUV",
+    "Drive": "FWD",
+    "Color": "White",
+    "Status": "Brand new",
+    "Mileage_km": 0,
+    "Price_USD": 28000,
+    "Price_GHS": 485000,
+    "Key_Specs": "1.5L 115hp L4 • 5-seater • 230km range • 115hp • FWD • CVT",
+    "Image_URLs": ""
+  },
+  {
+    "ID": "IZZY-002",
+    "Brand": "Toyota",
+    "Model": "Camry XLE",
+    "Year": 2021,
+    "Variant": "XLE",
+    "Fuel_Type": "Petrol",
+    "Body_Type": "Sedan",
+    "Drive": "FWD",
+    "Color": "Silver",
+    "Status": "Used",
+    "Mileage_km": 32000,
+    "Price_USD": 11935,
+    "Price_GHS": 185000,
+    "Key_Specs": "2.5L 203hp L4 • 5-seater • FWD • Automatic",
+    "Image_URLs": ""
+  },
+  {
+    "ID": "IZZY-003",
+    "Brand": "Geely",
+    "Model": "Coolray",
+    "Year": 2023,
+    "Variant": "Sport",
+    "Fuel_Type": "Petrol",
+    "Body_Type": "SUV",
+    "Drive": "FWD",
+    "Color": "Blue",
+    "Status": "Available",
+    "Mileage_km": 8000,
+    "Price_USD": 15000,
+    "Price_GHS": 232500,
+    "Key_Specs": "1.5T 175hp L3 • 5-seater • FWD • DCT",
+    "Image_URLs": ""
+  }
+]
