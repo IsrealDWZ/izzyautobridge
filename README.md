@@ -1,75 +1,93 @@
-# IzzyAutoBridge — React rebuild (starter)
+# IzzyAutoBridge Ghana — Vehicle Marketplace
 
-This is a starting skeleton for rebuilding `izzy_inventory.py` as a real
-frontend app (React + Vite + Tailwind + Framer Motion), following the
-plan discussed with Claude. It is **not** feature-complete — it ports the
-architecture and the highest-impact pieces (hero, vehicle grid/card,
-compare, favorites, dark mode) so OpenCode has a real skeleton to build
-from rather than starting from nothing.
+Production-ready React + Vite + Tailwind + Framer Motion frontend for IzzyAutoBridge Ghana vehicle imports.
 
-## Run it
+## Live Demo
+Deployed on Vercel: `https://izzyautobridge.vercel.app` (after deployment)
+
+## Features Implemented
+
+| Feature | Component | Status |
+|---------|-----------|--------|
+| Hero section with scroll animations | `Hero.jsx` | ✅ |
+| Stats row (live counts from data) | `StatsRow.jsx` | ✅ |
+| Trust section (6 trust signals) | `TrustSection.jsx` | ✅ |
+| Import process (4 steps) | `ProcessSection.jsx` | ✅ |
+| Path comparison (Path 01 vs 02) | `ComparisonSection.jsx` | ✅ |
+| EV Calculator (fuel savings) | `EVCalculator.jsx` | ✅ |
+| Concierge request form | `ConciergeForm.jsx` | ✅ |
+| Vehicle grid with filters | `VehicleGrid.jsx` + `FilterSidebar.jsx` | ✅ |
+| Compare modal (max 2) | `CompareModal.jsx` | ✅ |
+| Favorites drawer | `FavoritesDrawer.jsx` | ✅ |
+| Floating WhatsApp | `FloatingWhatsApp.jsx` | ✅ |
+| Dark/Light mode | Zustand store | ✅ |
+| Error boundary | `main.jsx` | ✅ |
+
+## Data
+
+- **194 vehicles** from 6 CSV categories (Sedans, SUVs, Hatchbacks, MPVs, Pickups, Mini Cars)
+- **33 brands**: Toyota, Changan, Jetour, Honda, Chery, BYD, Haval, Geely, XPeng, AVATR, etc.
+- **5 body types**: SUV (118), Sedan (51), Hatchback (10), MPV (8), Pickup (7)
+- **445 real images** fuzzy-matched from local assets
+- **WhatsApp**: `233536225804` (configured in all components)
+
+## Quick Start
 
 ```bash
 npm install
-npm run dev
+npm run dev          # http://localhost:5173
+npm run build        # Production build to dist/
+npm run preview      # Preview production build
 ```
 
-Opens at `http://localhost:5173` by default.
+## Build-Time Data Generation
 
-## What's already ported from the Streamlit app
+```bash
+npm run build:data   # Runs build-image-index.js + generate-vehicles.js
+```
 
-- **State**: `src/store/useAppStore.js` replaces `st.session_state` —
-  compare selection (capped at 2, same as the Streamlit version),
-  favorites, theme, and filters all live here as instant client-side
-  state instead of triggering a server rerun.
-- **Vehicle card**: `src/components/VehicleCard.jsx` is the direct port
-  of `vehicle_card()` — same three actions (Compare / Favorite /
-  WhatsApp), same spec-chip and price-section layout, now real HTML
-  instead of Streamlit-rendered widgets.
-- **Compare modal**: `src/components/CompareModal.jsx` ports
-  `render_compare_modal()` — opens automatically when 2 vehicles are
-  selected, same price-difference banner, same spec table, same
-  unconditional WhatsApp links (fixing the bug OpenCode found in the
-  Streamlit version).
-- **Favorites**: `src/components/FavoritesDrawer.jsx` ports
-  `render_favorites_panel()` as a slide-in drawer instead of a sidebar
-  block, including the "send list on WhatsApp" button.
-- **Hero**: real photo + overlay (same Unsplash cargo-ship photo as the
-  Streamlit version), a real display typeface (Fraunces, loaded in
-  `index.html`) at proper scale, and a Framer Motion scroll-reveal —
-  this addresses the "not premium enough" typography/animation gap
-  from the design review.
+This:
+1. Scans 1,300+ images from `images_carimages/` and `images_serpapi/`
+2. Parses 6 CSV files from `TO UPLOAD FIRST/MAIN FEATURES SORTED/`
+3. Fuzzy-matches images to vehicles (brand + model + variant)
+4. Outputs `src/data/vehicles.json` + copies images to `public/vehicles/`
+5. `vite build` bundles everything to `dist/`
 
-## What's NOT done yet — real work for OpenCode
+## Deploy to Vercel
 
-1. **Data**: `src/data/vehicles.sample.json` has 3 hand-written sample
-   vehicles matching the CSV schema. Write a one-time script (Node or
-   Python) to convert the real `Group_Sedans.csv` (all 70 vehicles,
-   same 21 columns `load_and_transform()` used) into JSON at build
-   time, or wire up a small API if live inventory updates without a
-   redeploy matter.
-2. **Filter sidebar/UI**: the store (`filters`) and the filtering logic
-   in `VehicleGrid.jsx` exist, but there's no actual filter UI
-   component yet (brand/fuel/body/status pills or a sidebar) — port
-   `sidebar_filters()`'s logic into a real component.
-3. **Trust section, stats row, process steps, EV calculator,
-   concierge form**: not ported yet — only hero + grid + compare +
-   favorites are done. Same component patterns apply.
-4. **Real vehicle photography**: cards still fall back to the 🚗 emoji
-   placeholder when `Image_URLs` is empty, exactly like the Streamlit
-   version — getting real photos into the CSV/JSON is the single
-   biggest visual upgrade available (see design review notes).
-5. **WhatsApp number**: replace the `233XXXXXXXXX` placeholder in
-   `App.jsx` with the real number.
-6. **Deploy**: `npm run build` produces a static `dist/` folder —
-   deployable to Vercel/Netlify/any static host. Decide whether the
-   CSV→JSON step runs at build time (simplest) or you want a small
-   backend for live inventory edits without redeploying.
+1. Push to GitHub (done)
+2. Import repo in Vercel dashboard
+3. Framework: **Vite** (auto-detected)
+4. Build: `npm run build` | Output: `dist`
+5. Deploy
 
-## Design tokens
+SPA routing configured via `vercel.json`.
 
-Colors/fonts are defined in `tailwind.config.js` (`navy`, `gold`,
-`whatsapp`) and `index.html` (Fraunces + Inter fonts) — keep using
-these Tailwind classes (`bg-navy`, `text-gold`, `font-display`) rather
-than introducing new ad-hoc colors, so the site stays consistent as
-more sections get built.
+## Project Structure
+
+```
+src/
+├── components/        # 14 UI components
+├── store/useAppStore.js    # Zustand global state
+├── data/vehicles.json      # Generated (194 vehicles)
+└── App.jsx           # Main composition
+
+scripts/
+├── build-image-index.js    # Image discovery
+├── generate-vehicles.js    # CSV → JSON + image matching
+└── utils/
+    ├── fuzzy-match.js      # Levenshtein matching
+    └── csv-transform.js    # Row transformation
+
+public/vehicles/      # 445 matched images (copied at build)
+dist/                 # Production build output
+```
+
+## Tech Stack
+
+- React 18 + Vite 5
+- Tailwind CSS (custom navy/gold/whatsapp theme)
+- Framer Motion (animations)
+- Zustand (state)
+- Lucide React (icons)
+- Fraunces + Inter fonts
