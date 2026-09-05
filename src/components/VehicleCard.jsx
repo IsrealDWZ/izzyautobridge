@@ -4,12 +4,26 @@ import { useAppStore } from '../store/useAppStore';
 
 const USD_GHS_RATE = 15.5;
 
+function getFirstImage(vehicle) {
+  // New format: array of objects [{image: "url"}, ...]
+  if (Array.isArray(vehicle.Image_URLs) && vehicle.Image_URLs.length > 0) {
+    const first = vehicle.Image_URLs[0];
+    return typeof first === 'object' ? first.image : first;
+  }
+  // Old format: comma-separated string
+  if (typeof vehicle.Image_URLs === 'string' && vehicle.Image_URLs.length > 0) {
+    return vehicle.Image_URLs.split(',')[0];
+  }
+  return null;
+}
+
 export default function VehicleCard({ vehicle, whatsappNumber }) {
   const { compareSelection, toggleCompare, favorites, toggleFavorite } = useAppStore();
   const isComparing = compareSelection.includes(vehicle.ID);
   const isFavorite = favorites.includes(vehicle.ID);
 
   const specs = vehicle.Key_Specs ? vehicle.Key_Specs.split(' • ') : [];
+  const firstImage = getFirstImage(vehicle);
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     `Hi, I'm interested in ${vehicle.Brand} ${vehicle.Model} ${vehicle.Year} (${vehicle.ID})`
   )}`;
@@ -26,9 +40,9 @@ export default function VehicleCard({ vehicle, whatsappNumber }) {
         <span className="absolute top-3 left-3 z-10 text-xs font-bold px-2.5 py-1 rounded-full bg-gold/90 text-navy">
           {vehicle.Status}
         </span>
-        {vehicle.Image_URLs ? (
+        {firstImage ? (
           <img
-            src={vehicle.Image_URLs.split(',')[0]}
+            src={firstImage}
             alt={`${vehicle.Brand} ${vehicle.Model}`}
             loading="lazy"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"

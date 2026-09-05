@@ -7,6 +7,9 @@ backend:
 
 media_folder: "images_custom"
 public_folder: "/vehicles"
+media_library:
+  config:
+    multiple: true
 
 collections:
   - name: "vehicles"
@@ -33,7 +36,10 @@ collections:
           - {label: "Price USD", name: "Price_USD", widget: "number", required: true}
           - {label: "Price GHS", name: "Price_GHS", widget: "number", required: true}
           - {label: "Key Specs", name: "Key_Specs", widget: "text", required: true}
-          - {label: "Image URLs (comma-separated)", name: "Image_URLs", widget: "string", required: false}
+          - label: "Images"
+            name: "Image_URLs"
+            widget: "list"
+            field: {label: "Image", name: "image", widget: "image", choose_url: true, media_library: {config: {multiple: true}}}
 
   - name: "site_settings"
     label: "Site Settings"
