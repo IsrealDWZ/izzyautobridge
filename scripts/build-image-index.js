@@ -10,8 +10,15 @@ const IMAGE_ROOTS = [
 
 const OUTPUT_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/scripts/image-index.json';
 const PUBLIC_VEHICLES_DIR = '/home/israel/Desktop/izzyautobridge website/izzy-react/public/vehicles';
+const VEHICLES_JSON_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/src/data/vehicles.json';
 
 function buildImageIndex() {
+  // Skip if vehicles.json already exists (production/Vercel)
+  if (fs.existsSync(VEHICLES_JSON_PATH)) {
+    console.log('vehicles.json exists, skipping image index build (production mode)');
+    return {};
+  }
+
   const index = {};
   const allImages = [];
 

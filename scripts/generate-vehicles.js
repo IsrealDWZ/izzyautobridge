@@ -26,6 +26,7 @@ const ALLOWED_CSV_FILES = new Set([
 const IMAGE_INDEX_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/scripts/image-index.json';
 const OUTPUT_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/src/data/vehicles.json';
 const PUBLIC_VEHICLES_DIR = '/home/israel/Desktop/izzyautobridge website/izzy-react/public/vehicles';
+const VEHICLES_JSON_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/src/data/vehicles.json';
 
 function findCSVFiles() {
   const files = [];
@@ -43,8 +44,8 @@ function findCSVFiles() {
 
 function loadImageIndex() {
   if (!fs.existsSync(IMAGE_INDEX_PATH)) {
-    console.error('Image index not found. Run build-image-index.js first.');
-    process.exit(1);
+    console.warn('Image index not found, using empty index');
+    return {};
   }
   return JSON.parse(fs.readFileSync(IMAGE_INDEX_PATH, 'utf-8'));
 }
@@ -70,6 +71,10 @@ function matchImagesForVehicle(vehicle, imageIndex) {
   const allKeys = Object.keys(imageIndex);
   const matched = new Set();
 
+  if (allKeys.length === 0) {
+    return [];
+  }
+
   for (const term of searchTerms) {
     const matches = findAllMatches(term, allKeys, 30, 4);
     for (const m of matches) matched.add(m);
@@ -82,6 +87,12 @@ function matchImagesForVehicle(vehicle, imageIndex) {
 
 function main() {
   console.log('Starting vehicle data generation...');
+
+  // Skip if vehicles.json already exists (production/Vercel)
+  if (fs.existsSync(VEHICLES_JSON_PATH)) {
+    console.log('vehicles.json exists, skipping generation (production mode)');
+    return;
+  }
 
   const imageIndex = loadImageIndex();
   const imageKeys = Object.keys(imageIndex);
