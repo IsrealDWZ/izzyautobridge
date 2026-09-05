@@ -1,0 +1,13 @@
+# IzzyAutoBridge Ghana - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://izzyautobridge.vercel.app/sitemap.xml
+
+# Disallow admin
+Disallow: /admin/
+Disallow: /api/
+
+# Crawl-delay
+Crawl-delay: 10

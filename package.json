@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build:data": "node scripts/build-image-index.js && node scripts/generate-vehicles.js",
-    "build": "npm run build:data && vite build",
+    "build:sitemap": "node scripts/generate-sitemap.js",
+    "build": "npm run build:data && npm run build:sitemap && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
