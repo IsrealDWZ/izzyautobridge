@@ -31,6 +31,7 @@ const IMAGE_INDEX_PATH = path.join(__dirname, 'image-index.json');
 const OUTPUT_PATH = path.join(ROOT_DIR, 'src', 'data', 'vehicles.json');
 const PUBLIC_VEHICLES_DIR = path.join(ROOT_DIR, 'public', 'vehicles');
 const VEHICLES_JSON_PATH = path.join(ROOT_DIR, 'src', 'data', 'vehicles.json');
+const CUSTOM_IMAGES_DIR = path.join(ROOT_DIR, 'images_custom');
 
 function findCSVFiles() {
   const files = [];
@@ -64,7 +65,30 @@ function parseCSV(filePath) {
   return records;
 }
 
+function getCustomImages(vehicleId) {
+  const customDir = path.join(CUSTOM_IMAGES_DIR, vehicleId);
+  if (!fs.existsSync(customDir)) return [];
+  
+  const files = fs.readdirSync(customDir)
+    .filter(f => /\.(webp|jpg|jpeg|png)$/i.test(f))
+    .sort();
+  
+  return files.map(f => ({
+    path: path.join(customDir, f),
+    filename: path.basename(f, path.extname(f)),
+    ext: path.extname(f),
+  }));
+}
+
 function matchImagesForVehicle(vehicle, imageIndex) {
+  // Check custom images first
+  const customImages = getCustomImages(vehicle.ID);
+  if (customImages.length > 0) {
+    console.log(`  Using ${customImages.length} custom image(s) for ${vehicle.ID}`);
+    return customImages.map(img => `/vehicles/${vehicle.ID}-${img.filename}${img.ext}`);
+  }
+
+  // Fallback to fuzzy matching
   const searchTerms = [
     `${vehicle.Brand} ${vehicle.Model} ${vehicle.Variant}`,
     `${vehicle.Brand} ${vehicle.Model}`,
@@ -133,9 +157,25 @@ function main() {
     fs.mkdirSync(PUBLIC_VEHICLES_DIR, { recursive: true });
   }
 
+  // Copy custom images
+  let customCopied = 0;
+  for (const v of allVehicles) {
+    const customImages = getCustomImages(v.ID);
+    for (const img of customImages) {
+      const destName = `${v.ID}-${img.filename}${img.ext}`;
+      const destPath = path.join(PUBLIC_VEHICLES_DIR, destName);
+      if (!fs.existsSync(destPath)) {
+        fs.copyFileSync(img.path, destPath);
+        customCopied++;
+      }
+    }
+  }
+  if (customCopied > 0) console.log(`Copied ${customCopied} custom images to public/vehicles/`);
+
+  // Copy fuzzy-matched images
   const matchedKeys = new Set();
   for (const v of allVehicles) {
-    if (v.Image_URLs) {
+    if (v.Image_URLs && !getCustomImages(v.ID).length) {
       v.Image_URLs.split(',').forEach(url => {
         const filename = path.basename(url);
         matchedKeys.add(filename.replace(path.extname(filename), ''));
