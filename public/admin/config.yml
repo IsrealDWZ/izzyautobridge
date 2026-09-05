@@ -7,9 +7,6 @@ backend:
 
 media_folder: "images_custom"
 public_folder: "/vehicles"
-media_library:
-  config:
-    multiple: true
 
 collections:
   - name: "vehicles"
@@ -39,7 +36,7 @@ collections:
           - label: "Images"
             name: "Image_URLs"
             widget: "list"
-            field: {label: "Image", name: "image", widget: "image", choose_url: true, media_library: {config: {multiple: true}}}
+            field: {label: "Image", name: "image", widget: "image", choose_url: true}
 
   - name: "site_settings"
     label: "Site Settings"
