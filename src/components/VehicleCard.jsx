@@ -38,11 +38,11 @@ export default function VehicleCard({ vehicle, whatsappNumber }) {
         )}
       </div>
 
-      <div className="p-5 flex flex-col flex-1">
+      <div className="p-4 sm:p-5 flex flex-col flex-1">
         <span className="text-xs font-semibold text-gold uppercase tracking-widest">
           {vehicle.ID}
         </span>
-        <h3 className="font-display text-xl font-bold mt-1">
+        <h3 className="font-display text-lg sm:text-xl font-bold mt-1">
           {vehicle.Brand} {vehicle.Model} {vehicle.Year}
         </h3>
         <p className="text-sm text-gray-500 dark:text-gray-400">{vehicle.Variant}</p>
@@ -59,38 +59,38 @@ export default function VehicleCard({ vehicle, whatsappNumber }) {
         </div>
 
         <div className="mt-auto pt-3 border-t border-gray-100 dark:border-white/10">
-          <div className="text-lg font-bold">GH₵{vehicle.Price_GHS.toLocaleString()}</div>
+          <div className="text-lg sm:text-xl font-bold">GH₵{vehicle.Price_GHS.toLocaleString()}</div>
           <div className="text-xs text-gray-500">
             CIF: ${vehicle.Price_USD.toLocaleString()} • {USD_GHS_RATE} GHS/USD
           </div>
         </div>
 
-        {/* This action row is the direct port of the 3-column st.checkbox / st.button / st.link_button
-            row OpenCode added to vehicle_card() — same three actions, now real elements. */}
+        {/* Action row - mobile optimized */}
         <div className="flex items-center gap-2 mt-4">
           <button
             onClick={() => toggleCompare(vehicle.ID)}
-            className={`flex items-center gap-1.5 text-xs font-medium px-3 py-2 rounded-lg border transition ${
+            className={`flex items-center gap-1.5 text-xs font-medium px-3 py-2.5 rounded-lg border transition min-h-[44px] ${
               isComparing
                 ? 'bg-gold/15 border-gold text-navy dark:text-gold'
                 : 'border-gray-200 dark:border-white/10 text-gray-500'
             }`}
           >
             <Check size={14} className={isComparing ? 'opacity-100' : 'opacity-0'} />
-            Compare
+            <span className="hidden sm:inline">Compare</span>
+            <span className="sm:hidden" aria-label="Compare">⚖</span>
           </button>
           <button
             onClick={() => toggleFavorite(vehicle.ID)}
-            className="p-2 rounded-lg border border-gray-200 dark:border-white/10"
+            className="p-2.5 rounded-lg border border-gray-200 dark:border-white/10 min-h-[44px] min-w-[44px]"
             aria-label="Save to favorites"
           >
-            <Heart size={16} fill={isFavorite ? '#D9534F' : 'none'} stroke={isFavorite ? '#D9534F' : 'currentColor'} />
+            <Heart size={18} fill={isFavorite ? '#D9534F' : 'none'} stroke={isFavorite ? '#D9534F' : 'currentColor'} />
           </button>
           <a
             href={whatsappLink}
             target="_blank"
             rel="noreferrer"
-            className="flex-1 text-center bg-whatsapp text-white text-sm font-semibold py-2 rounded-lg hover:brightness-95 transition"
+            className="flex-1 text-center bg-whatsapp text-white text-sm font-semibold py-2.5 rounded-lg hover:brightness-95 transition min-h-[44px] flex items-center justify-center"
           >
             💬 WhatsApp
           </a>

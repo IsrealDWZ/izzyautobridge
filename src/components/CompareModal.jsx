@@ -28,30 +28,32 @@ export default function CompareModal({ vehicles, whatsappNumber }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white dark:bg-navy rounded-2xl max-w-lg w-full max-h-[80vh] overflow-auto"
+          className="bg-white dark:bg-navy rounded-2xl max-w-lg w-full max-h-[90vh] overflow-auto"
         >
-          <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-white/10 sticky top-0 bg-white dark:bg-navy">
+          <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100 dark:border-white/10 sticky top-0 bg-white dark:bg-navy">
             <h3 className="font-display text-lg font-bold">Compare vehicles</h3>
-            <button onClick={clearCompare}><X size={20} /></button>
+            <button onClick={clearCompare} className="p-2 min-h-[44px] min-w-[44px]"><X size={24} /></button>
           </div>
 
-          <div className="m-5 bg-gold/15 text-navy dark:text-gold rounded-lg px-4 py-3 text-sm font-semibold">
+          <div className="m-4 sm:m-5 bg-gold/15 text-navy dark:text-gold rounded-lg px-4 py-3 text-sm font-semibold">
             Price difference: GH₵{diff.toLocaleString()} — {cheaper.Brand} {cheaper.Model} is cheaper
           </div>
 
-          <table className="w-full text-sm">
-            <tbody>
-              {fields.map(([label, accessor]) => (
-                <tr key={label} className="border-b border-gray-100 dark:border-white/10">
-                  <th className="text-left p-3 text-gray-500 font-medium w-24">{label}</th>
-                  <td className="p-3">{typeof accessor === 'function' ? accessor(a) : a[accessor]}</td>
-                  <td className="p-3">{typeof accessor === 'function' ? accessor(b) : b[accessor]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="px-4 sm:px-5 overflow-x-auto">
+            <table className="w-full text-sm min-w-[500px]">
+              <tbody>
+                {fields.map(([label, accessor]) => (
+                  <tr key={label} className="border-b border-gray-100 dark:border-white/10">
+                    <th className="text-left p-3 text-gray-500 font-medium w-24 whitespace-nowrap">{label}</th>
+                    <td className="p-3">{typeof accessor === 'function' ? accessor(a) : a[accessor]}</td>
+                    <td className="p-3">{typeof accessor === 'function' ? accessor(b) : b[accessor]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          <div className="grid grid-cols-2 gap-3 p-5">
+          <div className="grid grid-cols-2 gap-3 p-4 sm:p-5">
             {[a, b].map((v) => (
               <a
                 key={v.ID}
@@ -59,7 +61,7 @@ export default function CompareModal({ vehicles, whatsappNumber }) {
                   `Hi, I'm interested in ${v.Brand} ${v.Model} ${v.Year}`
                 )}`}
                 target="_blank" rel="noreferrer"
-                className="text-center bg-whatsapp text-white text-sm font-semibold py-2.5 rounded-lg"
+                className="text-center bg-whatsapp text-white text-sm font-semibold py-3 rounded-lg min-h-[44px] flex items-center justify-center"
               >
                 💬 {v.ID}
               </a>

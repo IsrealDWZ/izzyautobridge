@@ -39,7 +39,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white dark:bg-navy rounded-2xl max-w-md w-full p-8 text-center"
+          className="bg-white dark:bg-navy rounded-2xl max-w-md w-full p-6 sm:p-8 text-center"
         >
           <div className="w-16 h-16 bg-gold/15 text-gold rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle size={32} />
@@ -52,7 +52,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
             href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`}
             target="_blank"
             rel="noreferrer"
-            className="block bg-whatsapp text-white font-semibold py-3 rounded-lg hover:brightness-95 transition"
+            className="block bg-whatsapp text-white font-semibold py-3 rounded-lg hover:brightness-95 transition min-h-[44px] flex items-center justify-center"
           >
             💬 Continue on WhatsApp
           </a>
@@ -68,19 +68,19 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
   }
 
   return (
-    <section className="py-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-12 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          className="text-center mb-8 sm:mb-10"
         >
           <div className="inline-flex items-center gap-2 bg-gold/15 text-navy dark:text-gold px-4 py-2 rounded-full text-sm font-semibold mb-4">
             <Sparkles size={16} /> Can't Find What You Need?
           </div>
-          <h2 className="font-display text-3xl md:text-4xl font-bold">
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold">
             Request a specific vehicle — we'll source it from our China network
           </h2>
           <p className="mt-3 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
@@ -88,17 +88,17 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
           {/* Request Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6 }}
-            className="card-surface p-8"
+            className="card-surface p-6 sm:p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Brand</label>
                   <input
@@ -106,7 +106,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                     placeholder="e.g., BYD, Toyota, Mercedes"
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -116,7 +116,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                     placeholder="e.g., Atto 3, Camry, G-Wagon"
                     value={formData.model}
                     onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                   />
                 </div>
                 <div>
@@ -124,7 +124,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                   <select
                     value={formData.year}
                     onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
-                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                   >
                     {Array.from({ length: 11 }, (_, i) => 2026 - i).map((y) => (
                       <option key={y} value={y}>{y}</option>
@@ -136,7 +136,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                   <select
                     value={formData.fuel}
                     onChange={(e) => setFormData({ ...formData, fuel: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                   >
                     <option value="Any">Any</option>
                     <option value="Petrol">Petrol</option>
@@ -151,7 +151,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                   <select
                     value={formData.body}
                     onChange={(e) => setFormData({ ...formData, body: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                   >
                     <option value="Any">Any</option>
                     <option value="SUV">SUV</option>
@@ -171,23 +171,23 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                     step={50000}
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: parseInt(e.target.value) || 0 })}
-                    className="w-full px-4 py-2.5 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                   />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Additional Requirements</label>
                 <textarea
-                  rows={3}
+                  rows={4}
                   placeholder="Color, specs, features, timeline, etc."
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  className="w-full px-4 py-2.5 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent"
+                  className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-navy text-white py-3 rounded-lg font-semibold hover:bg-navy/90 transition"
+                className="w-full bg-navy text-white py-3 rounded-lg font-semibold hover:bg-navy/90 transition min-h-[44px] text-base"
               >
                 🔍 Find My Vehicle
               </button>
@@ -200,11 +200,11 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-navy text-white rounded-2xl p-8"
+            className="bg-navy text-white rounded-2xl p-6 sm:p-8"
           >
             <div className="flex items-center gap-3 mb-6">
               <Sparkles size={28} className="text-gold" />
-              <h3 className="font-display text-2xl font-bold">Path 02: Fly & Pick</h3>
+              <h3 className="font-display text-xl sm:text-2xl font-bold">Path 02: Fly & Pick</h3>
             </div>
             <p className="text-white/80 mb-6">
               Want to inspect yourself? We arrange everything — you just show up and decide.
@@ -231,7 +231,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
               href={path02Link}
               target="_blank"
               rel="noreferrer"
-              className="inline-block bg-gold text-navy px-6 py-3 rounded-full font-bold hover:bg-gold/90 transition"
+              className="inline-block bg-gold text-navy px-6 py-3 rounded-full font-bold hover:bg-gold/90 transition min-h-[44px] flex items-center justify-center"
             >
               💬 Request Path 02 Details
             </a>

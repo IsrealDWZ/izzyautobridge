@@ -22,17 +22,17 @@ export default function App() {
   return (
     <div className={theme}>
       <div className="min-h-screen bg-white dark:bg-navy-dark text-navy dark:text-white transition-colors">
-        <nav className="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-6 py-4">
-          <span className="font-display font-bold text-white">{siteSettings.site_title}</span>
+        <nav className="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3">
+          <span className="font-display font-bold text-white text-lg sm:text-xl">{siteSettings.site_title}</span>
           <button
             onClick={toggleTheme}
-            className="text-xs bg-white/10 border border-white/20 text-white px-4 py-2 rounded-full"
+            className="text-xs sm:text-sm bg-white/10 border border-white/20 text-white px-3 py-2 rounded-full min-h-[44px] min-w-[44px]"
           >
             {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
           </button>
         </nav>
 
-        <div className="max-w-7xl mx-auto px-6 pt-24 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
           {/* Hero */}
           <Hero title={siteSettings.hero_title} subtitle={siteSettings.hero_subtitle} />
 
@@ -55,9 +55,9 @@ export default function App() {
           <ConciergeForm vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
 
           {/* Inventory Grid with Filters */}
-          <div className="flex gap-8">
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             <FilterSidebar vehicles={vehicles} />
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 w-full">
               <VehicleGrid vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
             </div>
           </div>

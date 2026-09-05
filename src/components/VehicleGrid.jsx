@@ -20,19 +20,19 @@ export default function VehicleGrid({ vehicles, whatsappNumber }) {
   }, [vehicles, filters]);
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-gray-500">
           Showing {filtered.length} of {vehicles.length} vehicles
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {filtered.map((v) => (
           <VehicleCard key={v.ID} vehicle={v} whatsappNumber={whatsappNumber} />
         ))}
       </div>
       {filtered.length === 0 && (
-        <div className="text-center py-20 border border-dashed border-gray-200 rounded-2xl">
+        <div className="text-center py-12 sm:py-20 border border-dashed border-gray-200 rounded-2xl">
           <p className="font-semibold">No vehicles match those filters</p>
           <p className="text-sm text-gray-500 mt-1">Try widening your price range or clearing a filter.</p>
         </div>

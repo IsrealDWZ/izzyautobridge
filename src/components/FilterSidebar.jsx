@@ -39,7 +39,7 @@ export default function FilterSidebar({ vehicles }) {
         <div className="sticky top-24 space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="font-display font-bold">🔍 Filters</h3>
-            <button onClick={handleReset} className="text-xs text-gray-500 hover:text-gold">Reset all</button>
+            <button onClick={handleReset} className="text-xs text-gray-500 hover:text-gold min-h-[44px]">Reset all</button>
           </div>
 
           <FilterGroup label="Brand" items={brands} selected={filters.brands} onChange={(v) => setFilter('brands', v)} />
@@ -67,10 +67,10 @@ export default function FilterSidebar({ vehicles }) {
         </div>
       </aside>
 
-      {/* Mobile Toggle Button */}
+      {/* Mobile Toggle Button - positioned to avoid WhatsApp button */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-navy text-white rounded-full px-5 py-3 text-sm font-semibold shadow-lg flex items-center gap-2"
+        className="lg:hidden fixed bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-40 bg-navy text-white rounded-full px-5 py-3 text-sm font-semibold shadow-lg flex items-center gap-2 min-h-[44px]"
       >
         <Filter size={16} /> Filters {activeCount > 0 && (
           <span className="bg-gold text-navy text-xs font-bold px-1.5 py-0.5 rounded-full">{activeCount}</span>
@@ -89,14 +89,14 @@ export default function FilterSidebar({ vehicles }) {
             <motion.div
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed bottom-0 left-0 right-0 h-[85vh] bg-white dark:bg-navy z-50 shadow-2xl flex flex-col"
+              className="fixed bottom-0 left-0 right-0 h-[90vh] max-h-[90vh] bg-white dark:bg-navy z-50 shadow-2xl flex flex-col"
             >
-              <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-white/10">
+              <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100 dark:border-white/10">
                 <h3 className="font-display font-bold">🔍 Filters</h3>
-                <button onClick={() => setMobileOpen(false)}><X size={24} /></button>
+                <button onClick={() => setMobileOpen(false)} className="p-2 min-h-[44px] min-w-[44px]"><X size={24} /></button>
               </div>
 
-              <div className="flex-1 overflow-auto p-5 space-y-6">
+              <div className="flex-1 overflow-auto p-4 sm:p-5 space-y-6">
                 <FilterGroup label="Brand" items={brands} selected={filters.brands} onChange={(v) => setFilter('brands', v)} />
                 <FilterGroup label="Fuel Type" items={fuelTypes} selected={filters.fuel} onChange={(v) => setFilter('fuel', v)} />
                 <FilterGroup label="Body Type" items={bodyTypes} selected={filters.body} onChange={(v) => setFilter('body', v)} />
@@ -120,11 +120,11 @@ export default function FilterSidebar({ vehicles }) {
                   />
                 </div>
 
-                <button onClick={handleReset} className="w-full text-center text-xs text-gray-400 py-2">Reset all filters</button>
+                <button onClick={handleReset} className="w-full text-center text-xs text-gray-400 py-3 min-h-[44px]">Reset all filters</button>
               </div>
 
-              <div className="p-5 border-t border-gray-100 dark:border-white/10">
-                <button onClick={() => setMobileOpen(false)} className="w-full bg-navy text-white py-3 rounded-lg font-semibold">
+              <div className="p-4 sm:p-5 border-t border-gray-100 dark:border-white/10">
+                <button onClick={() => setMobileOpen(false)} className="w-full bg-navy text-white py-3 rounded-lg font-semibold min-h-[44px]">
                   Done
                 </button>
               </div>
@@ -140,14 +140,14 @@ function FilterGroup({ label, items, selected, onChange }) {
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap gap-2">
         {items.map((item) => (
-          <label key={item} className="flex items-center gap-1.5 cursor-pointer">
+          <label key={item} className="flex items-center gap-2 cursor-pointer min-h-[44px]">
             <input
               type="checkbox"
               checked={selected.includes(item)}
               onChange={(e) => onChange(e.target.checked ? [...selected, item] : selected.filter(x => x !== item))}
-              className="w-4 h-4 text-gold border-gray-300 rounded focus:ring-gold"
+              className="w-5 h-5 text-gold border-gray-300 rounded focus:ring-gold"
             />
             <span className="text-sm text-gray-700 dark:text-gray-300">{item}</span>
           </label>
