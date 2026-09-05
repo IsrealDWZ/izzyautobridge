@@ -12,15 +12,7 @@ import StatsRow from './components/StatsRow';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
 import { useAppStore } from './store/useAppStore';
-import sampleVehicles from './data/vehicles.sample.json';
-
-let vehicles;
-try {
-  vehicles = require('./data/vehicles.json');
-} catch {
-  vehicles = sampleVehicles;
-  console.warn('Using sample vehicles data (run `npm run build:data` to generate real data)');
-}
+import vehicles from './data/vehicles.json';
 
 const WHATSAPP_NUMBER = '233536225804';
 
