@@ -6,13 +6,13 @@ const steps = [
     num: '1',
     icon: Search,
     title: 'Choose Your Vehicle',
-    desc: 'Browse 70+ inspected vehicles with transparent landed costs. Filter by brand, fuel, body type, budget. Or request a specific model — we source it.',
+    desc: 'Browse 194+ inspected vehicles with transparent landed costs. Filter by brand, fuel, body type, budget. Or request a specific model — we source it.',
   },
   {
     num: '2',
     icon: DollarSign,
-    title: 'Secure with 20% Deposit',
-    desc: 'Proforma issued with full cost breakdown. Deposit locks your allocation. Balance due before vehicle release at Tema.',
+    title: 'Full Payment & Proforma',
+    desc: 'Proforma issued with full landed cost breakdown. Vehicle secured only upon full payment. No deposits, no installments.',
   },
   {
     num: '3',
@@ -46,7 +46,7 @@ export default function ProcessSection() {
             Four steps from selection to your driveway — transparent, tracked, supported
           </h2>
           <p className="mt-3 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            No hidden steps. No surprises. You\'re in control the entire way.
+            No hidden steps. No surprises. You're in control the entire way.
           </p>
         </motion.div>
 
