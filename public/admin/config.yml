@@ -3,6 +3,8 @@ backend:
   repo: IsrealDWZ/izzyautobridge
   branch: master
   site_domain: izzyautobridge.vercel.app
+  proxy_url: https://izzyautobridge.vercel.app/api/auth/github
+  use_graphql: true
 
 media_folder: "images_custom"
 public_folder: "/vehicles"
