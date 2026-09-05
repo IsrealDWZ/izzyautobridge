@@ -13,17 +13,17 @@ import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
 import { useAppStore } from './store/useAppStore';
 import vehicles from './data/vehicles.json';
-
-const WHATSAPP_NUMBER = '233536225804';
+import siteSettings from './data/site_settings.json';
 
 export default function App() {
   const { theme, toggleTheme } = useAppStore();
+  const WHATSAPP_NUMBER = siteSettings.whatsapp_number;
 
   return (
     <div className={theme}>
       <div className="min-h-screen bg-white dark:bg-navy-dark text-navy dark:text-white transition-colors">
         <nav className="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-6 py-4">
-          <span className="font-display font-bold text-white">IzzyAutoBridge</span>
+          <span className="font-display font-bold text-white">{siteSettings.site_title}</span>
           <button
             onClick={toggleTheme}
             className="text-xs bg-white/10 border border-white/20 text-white px-4 py-2 rounded-full"
@@ -34,7 +34,7 @@ export default function App() {
 
         <div className="max-w-7xl mx-auto px-6 pt-24 pb-16">
           {/* Hero */}
-          <Hero />
+          <Hero title={siteSettings.hero_title} subtitle={siteSettings.hero_subtitle} />
 
           {/* Stats Row */}
           <StatsRow vehicles={vehicles} />

@@ -5,7 +5,7 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
 };
 
-export default function Hero() {
+export default function Hero({ title, subtitle }) {
   return (
     <section className="relative min-h-[80vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
@@ -33,15 +33,11 @@ export default function Hero() {
         </div>
 
         <h1 className="font-display text-5xl md:text-7xl font-bold text-white leading-[1.05] tracking-tight">
-          Your car,
-          <br />
-          bridged to Ghana.
+          {title}
         </h1>
 
         <p className="mt-6 text-lg text-white/80 max-w-xl leading-relaxed">
-          70+ inspected vehicles from China. Transparent landed costs,
-          12-month warranty, and a route you can actually track — from
-          port to your driveway.
+          {subtitle}
         </p>
 
         <div className="mt-10 flex gap-4">
@@ -54,7 +50,6 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* scroll cue, matches ecodrive's bounce indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
         <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1.5">
           <motion.div
