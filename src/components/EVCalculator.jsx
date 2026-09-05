@@ -39,35 +39,35 @@ export default function EVCalculator() {
             value={dailyKm}
             onChange={setDailyKm}
             min={10} max={200} step={5}
-            icon={<DollarSign size={16} />}
+            icon={DollarSign}
           />
           <SliderInput
             label="Petrol Price (GHS/L)"
             value={petrolPrice}
             onChange={setPetrolPrice}
             min={10} max={20} step={0.25}
-            icon={<Fuel size={16} />}
+            icon={Fuel}
           />
           <SliderInput
             label="Petrol Consumption (L/100km)"
             value={petrolConsumption}
             onChange={setPetrolConsumption}
             min={4} max={15} step={0.5}
-            icon={<Fuel size={16} />}
+            icon={Fuel}
           />
           <SliderInput
             label="Electricity Rate (GHS/kWh)"
             value={electricityRate}
             onChange={setElectricityRate}
             min={0.5} max={3} step={0.1}
-            icon={<Zap size={16} />}
+            icon={Zap}
           />
           <SliderInput
             label="EV Consumption (kWh/100km)"
             value={evConsumption}
             onChange={setEvConsumption}
             min={10} max={25} step={0.5}
-            icon={<Zap size={16} />}
+            icon={Zap}
           />
         </div>
 
