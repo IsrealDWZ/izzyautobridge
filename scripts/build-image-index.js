@@ -1,16 +1,20 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import fastGlob from 'fast-glob';
 const { globSync } = fastGlob;
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT_DIR = path.resolve(__dirname, '..');
+
 const IMAGE_ROOTS = [
-  '/home/israel/Documents/Default Project/images_carimages',
-  '/home/israel/Documents/Default Project/images_serpapi',
+  path.join(ROOT_DIR, '..', '..', '..', 'Default Project', 'images_carimages'),
+  path.join(ROOT_DIR, '..', '..', '..', 'Default Project', 'images_serpapi'),
 ];
 
-const OUTPUT_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/scripts/image-index.json';
-const PUBLIC_VEHICLES_DIR = '/home/israel/Desktop/izzyautobridge website/izzy-react/public/vehicles';
-const VEHICLES_JSON_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/src/data/vehicles.json';
+const OUTPUT_PATH = path.join(__dirname, 'image-index.json');
+const PUBLIC_VEHICLES_DIR = path.join(ROOT_DIR, 'public', 'vehicles');
+const VEHICLES_JSON_PATH = path.join(ROOT_DIR, 'src', 'data', 'vehicles.json');
 
 function buildImageIndex() {
   // Skip if vehicles.json already exists (production/Vercel)

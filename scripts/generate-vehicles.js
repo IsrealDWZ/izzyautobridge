@@ -1,11 +1,15 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { parse } from 'csv-parse/sync';
 import { findAllMatches } from './utils/fuzzy-match.js';
 import { transformRow } from './utils/csv-transform.js';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT_DIR = path.resolve(__dirname, '..');
+
 const CSV_DIRS = [
-  '/home/israel/Documents/Default Project/TO UPLOAD FIRST/MAIN FEATURES SORTED',
+  path.join(ROOT_DIR, '..', '..', '..', 'Default Project', 'TO UPLOAD FIRST', 'MAIN FEATURES SORTED'),
 ];
 
 const ALLOWED_CSV_FILES = new Set([
@@ -23,10 +27,10 @@ const ALLOWED_CSV_FILES = new Set([
   'Motorcycles.csv',
 ]);
 
-const IMAGE_INDEX_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/scripts/image-index.json';
-const OUTPUT_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/src/data/vehicles.json';
-const PUBLIC_VEHICLES_DIR = '/home/israel/Desktop/izzyautobridge website/izzy-react/public/vehicles';
-const VEHICLES_JSON_PATH = '/home/israel/Desktop/izzyautobridge website/izzy-react/src/data/vehicles.json';
+const IMAGE_INDEX_PATH = path.join(__dirname, 'image-index.json');
+const OUTPUT_PATH = path.join(ROOT_DIR, 'src', 'data', 'vehicles.json');
+const PUBLIC_VEHICLES_DIR = path.join(ROOT_DIR, 'public', 'vehicles');
+const VEHICLES_JSON_PATH = path.join(ROOT_DIR, 'src', 'data', 'vehicles.json');
 
 function findCSVFiles() {
   const files = [];
