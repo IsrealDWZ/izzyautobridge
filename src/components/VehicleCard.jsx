@@ -1,30 +1,31 @@
 import { motion } from 'framer-motion';
 import { Heart, Check } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
-
-const USD_GHS_RATE = 15.5;
+import { WHATSAPP_NUMBER, USD_GHS_RATE } from '../utils/constants';
+import { validateImageUrl } from '../utils/validation';
 
 function getFirstImage(vehicle) {
   // New format: array of objects [{image: "url"}, ...]
   if (Array.isArray(vehicle.Image_URLs) && vehicle.Image_URLs.length > 0) {
     const first = vehicle.Image_URLs[0];
-    return typeof first === 'object' ? first.image : first;
+    const url = typeof first === 'object' ? first.image : first;
+    return validateImageUrl(url);
   }
   // Old format: comma-separated string
   if (typeof vehicle.Image_URLs === 'string' && vehicle.Image_URLs.length > 0) {
-    return vehicle.Image_URLs.split(',')[0];
+    return validateImageUrl(vehicle.Image_URLs.split(',')[0]);
   }
   return null;
 }
 
-export default function VehicleCard({ vehicle, whatsappNumber }) {
+export default function VehicleCard({ vehicle, whatsappNumber = WHATSAPP_NUMBER }) {
   const { compareSelection, toggleCompare, favorites, toggleFavorite } = useAppStore();
   const isComparing = compareSelection.includes(vehicle.ID);
   const isFavorite = favorites.includes(vehicle.ID);
 
   const specs = vehicle.Key_Specs ? vehicle.Key_Specs.split(' • ') : [];
   const firstImage = getFirstImage(vehicle);
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+  const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Hi, I'm interested in ${vehicle.Brand} ${vehicle.Model} ${vehicle.Year} (${vehicle.ID})`
   )}`;
 
@@ -46,6 +47,7 @@ export default function VehicleCard({ vehicle, whatsappNumber }) {
             alt={`${vehicle.Brand} ${vehicle.Model}`}
             loading="lazy"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            onError={(e) => { e.target.style.display = 'none'; }}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-5xl">🚗</div>
@@ -101,7 +103,9 @@ export default function VehicleCard({ vehicle, whatsappNumber }) {
             <Heart size={18} fill={isFavorite ? '#D9534F' : 'none'} stroke={isFavorite ? '#D9534F' : 'currentColor'} />
           </button>
           <a
-            href={whatsappLink}
+            href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+              `Hi, I'm interested in ${vehicle.Brand} ${vehicle.Model} ${vehicle.Year} (${vehicle.ID})`
+            )}`}
             target="_blank"
             rel="noreferrer"
             className="flex-1 text-center bg-whatsapp text-white text-sm font-semibold py-2.5 rounded-lg hover:brightness-95 transition min-h-[44px] flex items-center justify-center"

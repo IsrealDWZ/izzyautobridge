@@ -2,11 +2,11 @@ import { motion } from 'framer-motion';
 import { Car, Tag, Zap, DollarSign, CheckCircle } from 'lucide-react';
 
 export default function StatsRow({ vehicles }) {
-  const total = vehicles.length;
-  const brands = [...new Set(vehicles.map(v => v.Brand))].length;
-  const avgPrice = Math.round(vehicles.reduce((sum, v) => sum + v.Price_GHS, 0) / total);
-  const available = vehicles.filter(v => ['Available', 'Brand new'].includes(v.Status)).length;
-  const evCount = vehicles.filter(v => v.Fuel_Type === 'Electric').length;
+  const total = vehicles?.length || 0;
+  const brands = total > 0 ? [...new Set(vehicles.map(v => v.Brand))].length : 0;
+  const avgPrice = total > 0 ? Math.round(vehicles.reduce((sum, v) => sum + (v.Price_GHS || 0), 0) / total) : 0;
+  const available = total > 0 ? vehicles.filter(v => ['Available', 'Brand new'].includes(v.Status)).length : 0;
+  const evCount = total > 0 ? vehicles.filter(v => v.Fuel_Type === 'Electric').length : 0;
 
   const stats = [
     { icon: Car, value: total.toLocaleString(), label: 'Total Vehicles in Inventory' },

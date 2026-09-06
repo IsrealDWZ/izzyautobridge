@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
+import { WHATSAPP_NUMBER } from '../utils/constants';
 
-export default function CompareModal({ vehicles, whatsappNumber }) {
+export default function CompareModal({ vehicles, whatsappNumber = WHATSAPP_NUMBER }) {
   const { compareSelection, clearCompare } = useAppStore();
   const isOpen = compareSelection.length === 2;
   const rows = compareSelection.map((id) => vehicles.find((v) => v.ID === id)).filter(Boolean);
@@ -57,7 +58,7 @@ export default function CompareModal({ vehicles, whatsappNumber }) {
             {[a, b].map((v) => (
               <a
                 key={v.ID}
-                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                   `Hi, I'm interested in ${v.Brand} ${v.Model} ${v.Year}`
                 )}`}
                 target="_blank" rel="noreferrer"

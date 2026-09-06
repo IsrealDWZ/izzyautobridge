@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, X, Plane, Car, Wrench, Hotel, CheckCircle, Video } from 'lucide-react';
-import { useAppStore } from '../store/useAppStore';
-
-const WHATSAPP_NUMBER = '233XXXXXXXXX';
+import { WHATSAPP_NUMBER } from '../utils/constants';
+import { sanitizeFormInput, sanitizeWhatsAppMessage, validateWhatsAppNumber } from '../utils/validation';
 
 export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMBER }) {
   const [formData, setFormData] = useState({
@@ -16,19 +15,53 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
     notes: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (field, value) => {
+    // Sanitize input on change
+    const sanitized = sanitizeFormInput(value, { maxLength: field === 'notes' ? 2000 : 200 });
+    setFormData(prev => ({ ...prev, [field]: sanitized }));
+    // Clear error for this field
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: null }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.brand.trim()) newErrors.brand = 'Brand is required';
+    if (!formData.model.trim()) newErrors.model = 'Model is required';
+    if (!formData.year || formData.year < 1990 || formData.year > new Date().getFullYear() + 2) {
+      newErrors.year = 'Valid year required';
+    }
+    if (!formData.budget || formData.budget < 50000 || formData.budget > 2000000) {
+      newErrors.budget = 'Budget must be between GH₵50,000 and GH₵2,000,000';
+    }
+    if (!validateWhatsAppNumber(WHATSAPP_NUMBER)) {
+      newErrors.whatsapp = 'Invalid WhatsApp configuration';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (validateForm()) {
+      setSubmitted(true);
+    }
   };
 
-  const path02Link = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+  const path02Link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Interested in Path 02: Fly to China and pick vehicles myself. Please send details.`
   )}`;
 
   if (submitted) {
-    const msg = `Vehicle Request: ${formData.brand} ${formData.model} ${formData.year} | Fuel: ${formData.fuel} | Body: ${formData.body} | Budget: GH₵${formData.budget.toLocaleString()} | Notes: ${formData.notes}`;
-    const waLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+    const msg = sanitizeWhatsAppMessage(
+      `Vehicle Request: ${formData.brand} ${formData.model} ${formData.year} | Fuel: ${formData.fuel} | Body: ${formData.body} | Budget: GH₵${formData.budget.toLocaleString()} | Notes: ${formData.notes}`
+    );
+    const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -49,7 +82,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
             We'll reach out on WhatsApp within 2 hours with matching vehicles.
           </p>
           <a
-            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`}
+            href={waLink}
             target="_blank"
             rel="noreferrer"
             className="block bg-whatsapp text-white font-semibold py-3 rounded-lg hover:brightness-95 transition min-h-[44px] flex items-center justify-center"
@@ -57,7 +90,11 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
             💬 Continue on WhatsApp
           </a>
           <button
-            onClick={() => { setFormData({ brand: '', model: '', year: 2024, fuel: 'Any', body: 'Any', budget: 300000, notes: '' }); setSubmitted(false); }}
+            onClick={() => { 
+              setFormData({ brand: '', model: '', year: 2024, fuel: 'Any', body: 'Any', budget: 300000, notes: '' }); 
+              setErrors({});
+              setSubmitted(false); 
+            }}
             className="mt-4 text-sm text-gray-500 hover:text-navy"
           >
             Make another request
@@ -97,7 +134,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
             transition={{ duration: 0.6 }}
             className="card-surface p-6 sm:p-8"
           >
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Brand</label>
@@ -105,9 +142,12 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                     type="text"
                     placeholder="e.g., BYD, Toyota, Mercedes"
                     value={formData.brand}
-                    onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
+                    onChange={(e) => handleChange('brand', e.target.value)}
+                    className={`w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px] ${errors.brand ? 'border-red-500' : ''}`}
+                    aria-invalid={errors.brand ? 'true' : 'false'}
+                    aria-describedby={errors.brand ? 'brand-error' : undefined}
                   />
+                  {errors.brand && <p id="brand-error" className="mt-1 text-sm text-red-500">{errors.brand}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Model</label>
@@ -115,27 +155,33 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                     type="text"
                     placeholder="e.g., Atto 3, Camry, G-Wagon"
                     value={formData.model}
-                    onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
+                    onChange={(e) => handleChange('model', e.target.value)}
+                    className={`w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px] ${errors.model ? 'border-red-500' : ''}`}
+                    aria-invalid={errors.model ? 'true' : 'false'}
+                    aria-describedby={errors.model ? 'model-error' : undefined}
                   />
+                  {errors.model && <p id="model-error" className="mt-1 text-sm text-red-500">{errors.model}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Year</label>
                   <select
                     value={formData.year}
-                    onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
-                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
+                    onChange={(e) => handleChange('year', parseInt(e.target.value) || 2024)}
+                    className={`w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px] ${errors.year ? 'border-red-500' : ''}`}
+                    aria-invalid={errors.year ? 'true' : 'false'}
+                    aria-describedby={errors.year ? 'year-error' : undefined}
                   >
                     {Array.from({ length: 11 }, (_, i) => 2026 - i).map((y) => (
                       <option key={y} value={y}>{y}</option>
                     ))}
                   </select>
+                  {errors.year && <p id="year-error" className="mt-1 text-sm text-red-500">{errors.year}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fuel Type</label>
                   <select
                     value={formData.fuel}
-                    onChange={(e) => setFormData({ ...formData, fuel: e.target.value })}
+                    onChange={(e) => handleChange('fuel', e.target.value)}
                     className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                   >
                     <option value="Any">Any</option>
@@ -150,7 +196,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Body Type</label>
                   <select
                     value={formData.body}
-                    onChange={(e) => setFormData({ ...formData, body: e.target.value })}
+                    onChange={(e) => handleChange('body', e.target.value)}
                     className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                   >
                     <option value="Any">Any</option>
@@ -170,9 +216,15 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                     max={2000000}
                     step={50000}
                     value={formData.budget}
-                    onChange={(e) => setFormData({ ...formData, budget: parseInt(e.target.value) || 0 })}
-                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      handleChange('budget', isNaN(value) ? 0 : value);
+                    }}
+                    className={`w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px] ${errors.budget ? 'border-red-500' : ''}`}
+                    aria-invalid={errors.budget ? 'true' : 'false'}
+                    aria-describedby={errors.budget ? 'budget-error' : undefined}
                   />
+                  {errors.budget && <p id="budget-error" className="mt-1 text-sm text-red-500">{errors.budget}</p>}
                 </div>
               </div>
               <div>
@@ -181,7 +233,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                   rows={4}
                   placeholder="Color, specs, features, timeline, etc."
                   value={formData.notes}
-                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                  onChange={(e) => handleChange('notes', e.target.value)}
                   className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
                 />
               </div>
@@ -228,7 +280,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
               <strong>Best for:</strong> Fleet buyers (5+ units), high-value purchases, first-time importers wanting maximum confidence.
             </p>
             <a
-              href={path02Link}
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Interested in Path 02: Fly to China and pick vehicles myself. Please send details.')}`}
               target="_blank"
               rel="noreferrer"
               className="inline-block bg-gold text-navy px-6 py-3 rounded-full font-bold hover:bg-gold/90 transition min-h-[44px] flex items-center justify-center"

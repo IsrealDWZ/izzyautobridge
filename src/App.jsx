@@ -13,17 +13,16 @@ import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
 import { useAppStore } from './store/useAppStore';
 import vehicles from './data/vehicles.json';
-import siteSettings from './data/site_settings.json';
+import { WHATSAPP_NUMBER, APP_CONFIG } from './utils/constants';
 
 export default function App() {
   const { theme, toggleTheme } = useAppStore();
-  const WHATSAPP_NUMBER = siteSettings.whatsapp_number;
 
   return (
     <div className={theme}>
       <div className="min-h-screen bg-white dark:bg-navy-dark text-navy dark:text-white transition-colors">
         <nav className="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3">
-          <span className="font-display font-bold text-white text-lg sm:text-xl">{siteSettings.site_title}</span>
+          <span className="font-display font-bold text-white text-lg sm:text-xl">{APP_CONFIG.siteTitle}</span>
           <button
             onClick={toggleTheme}
             className="text-xs sm:text-sm bg-white/10 border border-white/20 text-white px-3 py-2 rounded-full min-h-[44px] min-w-[44px]"
@@ -34,7 +33,7 @@ export default function App() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
           {/* Hero */}
-          <Hero title={siteSettings.hero_title} subtitle={siteSettings.hero_subtitle} />
+          <Hero title={APP_CONFIG.heroTitle} subtitle={APP_CONFIG.heroSubtitle} />
 
           {/* Stats Row */}
           <StatsRow vehicles={vehicles} />
@@ -70,7 +69,7 @@ export default function App() {
           <FloatingWhatsApp whatsappNumber={WHATSAPP_NUMBER} />
         </div>
 
-        <Footer whatsappNumber={WHATSAPP_NUMBER} />
+        <Footer />
       </div>
     </div>
   );

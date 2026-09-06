@@ -1,40 +1,41 @@
 import { Car, Truck, Zap, Shield, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { WHATSAPP_NUMBER } from '../utils/constants';
 
-export default function Footer({ whatsappNumber = '233244123456' }) {
-  const footerLinks = {
-    company: [
-      { label: 'About Us', href: '#' },
-      { label: 'Our Process', href: '#process' },
-      { label: 'Trust & Warranty', href: '#trust' },
-      { label: 'Careers', href: '#' },
-    ],
-    support: [
-      { label: 'Contact Us', href: `https://wa.me/${whatsappNumber}` },
-      { label: 'FAQ', href: '#' },
-      { label: 'Shipping Info', href: '#' },
-      { label: 'Customs Guide', href: '#' },
-    ],
-    services: [
-      { label: 'Vehicle Import', href: '#' },
-      { label: 'Fleet Solutions', href: '#' },
-      { label: 'EV Consulting', href: '#' },
-      { label: 'Path 02: Fly & Pick', href: '#concierge' },
-    ],
-    legal: [
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms of Service', href: '#' },
-      { label: 'Warranty Terms', href: '#' },
-    ],
-  };
+const footerLinks = {
+  company: [
+    { label: 'About Us', href: '#' },
+    { label: 'Our Process', href: '#process' },
+    { label: 'Trust & Warranty', href: '#trust' },
+    { label: 'Careers', href: '#' },
+  ],
+  support: [
+    { label: 'Contact Us', href: `https://wa.me/${WHATSAPP_NUMBER}` },
+    { label: 'FAQ', href: '#' },
+    { label: 'Shipping Info', href: '#' },
+    { label: 'Customs Guide', href: '#' },
+  ],
+  services: [
+    { label: 'Vehicle Import', href: '#' },
+    { label: 'Fleet Solutions', href: '#' },
+    { label: 'EV Consulting', href: '#' },
+    { label: 'Path 02: Fly & Pick', href: '#concierge' },
+  ],
+  legal: [
+    { label: 'Privacy Policy', href: '#' },
+    { label: 'Terms of Service', href: '#' },
+    { label: 'Warranty Terms', href: '#' },
+  ],
+};
 
-  const socialLinks = [
-    { icon: MessageCircle, href: `https://wa.me/${whatsappNumber}`, label: 'WhatsApp' },
-    { icon: Car, href: '#', label: 'Instagram' },
-    { icon: Truck, href: '#', label: 'Facebook' },
-    { icon: Zap, href: '#', label: 'LinkedIn' },
-  ];
+const socialLinks = [
+  { icon: MessageCircle, href: `https://wa.me/${WHATSAPP_NUMBER}`, label: 'WhatsApp' },
+  { icon: Car, href: '#', label: 'Instagram' },
+  { icon: Truck, href: '#', label: 'Facebook' },
+  { icon: Zap, href: '#', label: 'LinkedIn' },
+];
 
+export default function Footer() {
   return (
     <footer className="bg-navy text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-6">

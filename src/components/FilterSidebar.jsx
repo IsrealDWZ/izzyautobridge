@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Filter, SlidersHorizontal } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
+import { validatePriceRange, validateYearRange } from '../utils/validation';
 
 export default function FilterSidebar({ vehicles }) {
   const { filters, setFilter, setFilters, resetFilters } = useAppStore();
@@ -32,6 +33,20 @@ export default function FilterSidebar({ vehicles }) {
 
   const handleReset = () => resetFilters({ priceRange: [priceMin, priceMax], yearRange: [yearMin, yearMax] });
 
+  const handlePriceChange = (newRange) => {
+    const validated = validatePriceRange(newRange[0], newRange[1], priceMin, priceMax);
+    if (validated) {
+      setFilter('priceRange', [validated.low, validated.high]);
+    }
+  };
+
+  const handleYearChange = (newRange) => {
+    const validated = validateYearRange(newRange[0], newRange[1], yearMin, yearMax);
+    if (validated) {
+      setFilter('yearRange', [validated.low, validated.high]);
+    }
+  };
+
   return (
     <>
       {/* Desktop Sidebar */}
@@ -52,7 +67,7 @@ export default function FilterSidebar({ vehicles }) {
             <PriceRangeSlider
               min={priceMin} max={priceMax}
               value={filters.priceRange}
-              onChange={(v) => setFilter('priceRange', v)}
+              onChange={handlePriceChange}
             />
           </div>
 
@@ -61,7 +76,7 @@ export default function FilterSidebar({ vehicles }) {
             <PriceRangeSlider
               min={yearMin} max={yearMax}
               value={filters.yearRange}
-              onChange={(v) => setFilter('yearRange', v)}
+              onChange={handleYearChange}
             />
           </div>
         </div>
@@ -107,7 +122,7 @@ export default function FilterSidebar({ vehicles }) {
                   <PriceRangeSlider
                     min={priceMin} max={priceMax}
                     value={filters.priceRange}
-                    onChange={(v) => setFilter('priceRange', v)}
+                    onChange={handlePriceChange}
                   />
                 </div>
 
@@ -116,7 +131,7 @@ export default function FilterSidebar({ vehicles }) {
                   <PriceRangeSlider
                     min={yearMin} max={yearMax}
                     value={filters.yearRange}
-                    onChange={(v) => setFilter('yearRange', v)}
+                    onChange={handleYearChange}
                   />
                 </div>
 

@@ -9,6 +9,8 @@ dist-ssr
 # Generated data
 src/data/vehicles.json
 scripts/image-index.json
+public/vehicles/
+images_custom/
 
 # Logs
 logs
@@ -20,3 +22,12 @@ npm-debug.log*
 !.vscode/extensions.json
 .idea
 .DS_Store
+
+# Test coverage
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# Vercel
+.vercel
