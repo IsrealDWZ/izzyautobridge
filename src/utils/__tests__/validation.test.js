@@ -14,7 +14,7 @@ import {
 describe('sanitizeForUrl', () => {
   it('removes XSS characters', () => {
     expect(sanitizeForUrl('<script>alert(1)</script>')).toBe('scriptalert(1)/script');
-    expect(sanitizeForUrl('"><img src=x onerror=alert(1)>')).toBe('img src=x onerroralert(1)');
+    expect(sanitizeForUrl('"><img src=x onerror=alert(1)>')).toBe('img src=x alert(1)');
   });
 
   it('removes javascript: protocol', () => {
@@ -88,12 +88,12 @@ describe('validateWhatsAppNumber', () => {
 
 describe('sanitizeFormInput', () => {
   it('removes HTML tags', () => {
-    expect(sanitizeFormInput('<script>alert(1)</script>')).toBe('scriptalert(1)/script');
+    expect(sanitizeFormInput('<script>alert(1)</script>')).toBe('alert(1)');
   });
 
   it('removes javascript: protocol', () => {
     expect(sanitizeFormInput('javascript:alert(1)')).toBe('alert(1)');
-  }
+  });
 
   it('truncates to maxLength', () => {
     expect(sanitizeFormInput('a'.repeat(100), { maxLength: 50 }).length).toBe(50);

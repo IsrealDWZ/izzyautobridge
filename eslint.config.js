@@ -5,7 +5,9 @@ export default [
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
-      ecmaFeatures: { jsx: true },
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
       globals: {
         browser: true,
         es2022: true,
@@ -16,11 +18,11 @@ export default [
       react: { version: '18.3' },
     },
     plugins: {
-      react: require('eslint-plugin-react'),
-      'react-hooks': require('eslint-plugin-react-hooks'),
-      'react-refresh': require('eslint-plugin-react-refresh'),
-      'jsx-a11y': require('eslint-plugin-jsx-a11y'),
-      import: require('eslint-plugin-import'),
+      react: (await import('eslint-plugin-react')).default ?? (await import('eslint-plugin-react')),
+      'react-hooks': (await import('eslint-plugin-react-hooks')).default ?? (await import('eslint-plugin-react-hooks')),
+      'react-refresh': (await import('eslint-plugin-react-refresh')).default ?? (await import('eslint-plugin-react-refresh')),
+      'jsx-a11y': (await import('eslint-plugin-jsx-a11y')).default ?? (await import('eslint-plugin-jsx-a11y')),
+      import: (await import('eslint-plugin-import')).default ?? (await import('eslint-plugin-import')),
     },
     rules: {
       // React
