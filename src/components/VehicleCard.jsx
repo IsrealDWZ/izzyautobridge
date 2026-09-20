@@ -41,6 +41,9 @@ export default function VehicleCard({ vehicle, whatsappNumber = WHATSAPP_NUMBER 
         <span className="absolute top-3 left-3 z-10 text-xs font-bold px-2.5 py-1 rounded-full bg-gold/90 text-navy">
           {vehicle.Status}
         </span>
+        <span className="absolute top-3 right-3 z-10 text-xs font-medium px-2 py-1 rounded bg-white/90 dark:bg-navy/90 text-gray-700 dark:text-gray-300">
+          {vehicle.Category}
+        </span>
         {firstImage ? (
           <img
             src={firstImage}

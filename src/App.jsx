@@ -17,6 +17,7 @@ import { WHATSAPP_NUMBER, APP_CONFIG } from './utils/constants';
 
 export default function App() {
   const { theme, toggleTheme } = useAppStore();
+  const heroSubtitle = 'Direct China vehicle imports to Ghana with transparent landed costs and a route you can actually track from port to your driveway.';
 
   return (
     <div className={theme}>
@@ -33,7 +34,7 @@ export default function App() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
           {/* Hero */}
-          <Hero title={APP_CONFIG.heroTitle} subtitle={APP_CONFIG.heroSubtitle} />
+          <Hero title={APP_CONFIG.heroTitle} subtitle={heroSubtitle} />
 
           {/* Stats Row */}
           <StatsRow vehicles={vehicles} />

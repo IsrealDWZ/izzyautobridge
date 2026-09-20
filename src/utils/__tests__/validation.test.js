@@ -71,6 +71,20 @@ describe('validateImageUrl', () => {
     expect(validateImageUrl('not-a-url')).toBeNull();
     expect(validateImageUrl(null)).toBeNull();
   });
+
+  it('allows same-origin /vehicles/ relative image paths', () => {
+    expect(validateImageUrl('/vehicles/toyotabz51.webp')).toBe('/vehicles/toyotabz51.webp');
+    expect(validateImageUrl('/vehicles/car.jpg')).toBe('/vehicles/car.jpg');
+    expect(validateImageUrl('/vehicles/car.png')).toBe('/vehicles/car.png');
+    expect(validateImageUrl('/vehicles/car.svg')).toBe('/vehicles/car.svg');
+  });
+
+  it('rejects non-image or unsafe relative paths', () => {
+    expect(validateImageUrl('/vehicles/page.html')).toBeNull();
+    expect(validateImageUrl('vehicles/car.jpg')).toBeNull();
+    expect(validateImageUrl('/vehicles/../secret.webp')).toBeNull();
+    expect(validateImageUrl('/vehicles/x.js')).toBeNull();
+  });
 });
 
 describe('validateWhatsAppNumber', () => {

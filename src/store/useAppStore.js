@@ -14,6 +14,7 @@ export const useAppStore = create((set, get) => ({
     fuel: [],
     body: [],
     status: [],
+    category: [],
     priceRange: [150000, 600000],
     yearRange: [2016, 2026],
   },

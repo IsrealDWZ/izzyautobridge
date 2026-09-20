@@ -2,8 +2,10 @@ import { useMemo } from 'react';
 import VehicleCard from './VehicleCard';
 import { useAppStore } from '../store/useAppStore';
 
+const CATEGORIES = ['EV', 'Hybrid', 'Fuel', 'Bus', 'Heavy', 'Other'];
+
 export default function VehicleGrid({ vehicles, whatsappNumber }) {
-  const { filters } = useAppStore();
+  const { filters, setFilter } = useAppStore();
 
   // Direct port of the Streamlit filtering logic (brand/fuel/body/status/price/year),
   // just running client-side against the in-memory array instead of a pandas DataFrame.
@@ -13,11 +15,18 @@ export default function VehicleGrid({ vehicles, whatsappNumber }) {
       if (filters.fuel.length && !filters.fuel.includes(v.Fuel_Type)) return false;
       if (filters.body.length && !filters.body.includes(v.Body_Type)) return false;
       if (filters.status.length && !filters.status.includes(v.Status)) return false;
+      if (filters.category.length && !filters.category.includes(v.Category)) return false;
       if (v.Price_GHS < filters.priceRange[0] || v.Price_GHS > filters.priceRange[1]) return false;
       if (v.Year < filters.yearRange[0] || v.Year > filters.yearRange[1]) return false;
       return true;
     });
   }, [vehicles, filters]);
+
+  const handleCategoryToggle = (cat) => {
+    setFilter('category', filters.category.includes(cat)
+      ? filters.category.filter(c => c !== cat)
+      : [...filters.category, cat]);
+  };
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
@@ -26,6 +35,24 @@ export default function VehicleGrid({ vehicles, whatsappNumber }) {
           Showing {filtered.length} of {vehicles.length} vehicles
         </p>
       </div>
+      
+      {/* Category filter chips */}
+      <div className="mb-6 flex flex-wrap gap-2">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => handleCategoryToggle(cat)}
+            className={`text-xs font-medium px-3 py-1.5 rounded-full border transition ${
+              filters.category.includes(cat)
+                ? 'bg-gold/15 border-gold text-navy dark:bg-gold/10 dark:text-gold'
+                : 'border-gray-200 dark:border-white/10 text-gray-500'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {filtered.map((v) => (
           <VehicleCard key={v.ID} vehicle={v} whatsappNumber={whatsappNumber} />

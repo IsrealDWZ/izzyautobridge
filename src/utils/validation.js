@@ -27,9 +27,15 @@ export function sanitizeWhatsAppMessage(message) {
     .replace(/[\x00-\x1F\x7F]/g, ''); // Remove control characters
 }
 
-// Validate image URL - only allow https and approved domains
+// Validate image URL - only allow https, approved domains, or our own static /vehicles/ assets
 export function validateImageUrl(url) {
   if (typeof url !== 'string') return null;
+
+  // Same-origin static assets we publish (relative paths resolve against the current host)
+  if (url.startsWith('/vehicles/')) {
+    if (url.includes('..')) return null; // reject path traversal
+    return /\.(webp|jpg|jpeg|png|svg|avif)$/i.test(url) ? url : null;
+  }
   
   try {
     const parsed = new URL(url);
