@@ -53,10 +53,6 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
     }
   };
 
-  const _path02Link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Interested in Path 02: Fly to China and pick vehicles myself. Please send details.`
-  )}`;
-
   if (submitted) {
     const msg = sanitizeWhatsAppMessage(
       `Vehicle Request: ${formData.brand} ${formData.model} ${formData.year} | Fuel: ${formData.fuel} | Body: ${formData.body} | Budget: GH₵${formData.budget.toLocaleString()} | Notes: ${formData.notes}`

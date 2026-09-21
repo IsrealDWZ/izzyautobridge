@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle, Shield, Truck, Wrench, MapPin, Award } from 'lucide-react';
+import { CheckCircle, Shield, Truck, Wrench, Award } from 'lucide-react';
 
 const trustItems = [
   {
@@ -28,12 +28,6 @@ const trustItems = [
   },
   {
     num: '05',
-    question: 'Can I inspect before buying?',
-    answer: 'Path 02: Fly to China, pick the car yourself. We arrange visa support, airport pickup, drive you to our Foshan yard. Test drive, engine inspection with our mechanic. You decide.',
-    icon: MapPin,
-  },
-  {
-    num: '06',
     question: 'Have you been to Ghana?',
     answer: 'Accra-based. We know the roads that break suspensions and the ones that don\'t. The vehicles we ship are picked for Ghana conditions — ground clearance, AC capacity, parts availability.',
     icon: Award,

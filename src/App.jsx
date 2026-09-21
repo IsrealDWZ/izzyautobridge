@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import CompareModal from './components/CompareModal';
+import ComparisonSection from './components/ComparisonSection';
 import ConciergeForm from './components/ConciergeForm';
 import EVCalculator from './components/EVCalculator';
 import FavoritesDrawer from './components/FavoritesDrawer';
