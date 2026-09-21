@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Sparkles, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 
 import { WHATSAPP_NUMBER } from '../utils/constants';

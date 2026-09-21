@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { useAppStore } from '../store/useAppStore';
 
-export default function FavoritesDrawer({ _vehicles, _whatsappNumber }) {
+export default function FavoritesDrawer({ _vehicles, whatsappNumber }) {
   const [open, setOpen] = useState(false);
   const { favorites, toggleFavorite, clearFavorites } = useAppStore();
   const favVehicles = favorites.map((id) => vehicles.find((v) => v.ID === id)).filter(Boolean);

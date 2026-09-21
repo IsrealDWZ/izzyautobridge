@@ -5,7 +5,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { validatePriceRange, validateYearRange } from '../utils/validation';
 
-export default function FilterSidebar({ _vehicles }) {
+export default function FilterSidebar({ _vehicles = [] }) {
   const { filters, setFilter, setFilters, resetFilters } = useAppStore();
   const [mobileOpen, setMobileOpen] = useState(false);
 
