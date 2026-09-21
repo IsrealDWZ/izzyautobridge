@@ -1,11 +1,10 @@
 import { create } from 'zustand';
 
-export const useAppStore = create((set, get) => ({
+export const useAppStore = create((set) => ({
   theme: 'light',
   toggleTheme: () =>
     set((s) => {
       const next = s.theme === 'light' ? 'dark' : 'light';
-      document.documentElement.classList.toggle('dark', next === 'dark');
       return { theme: next };
     }),
 

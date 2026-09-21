@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
+
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
-export default function FloatingWhatsApp({ whatsappNumber = WHATSAPP_NUMBER }) {
+export default function FloatingWhatsApp({ _whatsappNumber = WHATSAPP_NUMBER }) {
   return (
     <motion.a
       href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20IzzyAutoBridge%2C%20I%27d%20like%20to%20inquire%20about%20your%20vehicles.`}

@@ -16,6 +16,11 @@ export default [
     },
     settings: {
       react: { version: '18.3' },
+      'import/resolver': {
+        node: {
+          extensions: ['.js', '.jsx'],
+        },
+      },
     },
     plugins: {
       react: (await import('eslint-plugin-react')).default ?? (await import('eslint-plugin-react')),
@@ -30,6 +35,7 @@ export default [
       'react/prop-types': 'off',
       'react/self-closing-comp': 'error',
       'react/jsx-no-useless-fragment': 'warn',
+      'react/jsx-uses-vars': 'error',
       
       // React Hooks
       'react-hooks/rules-of-hooks': 'error',
@@ -45,7 +51,14 @@ export default [
       'jsx-a11y/role-has-required-aria-props': 'warn',
       
       // Import
-      'import/order': ['warn', { 'newlines-between': 'always', alphabetize: { order: 'asc' } }],
+      'import/order': [
+        'warn',
+        {
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          'newlines-between': 'always',
+          alphabetize: { order: 'asc', caseInsensitive: true },
+        },
+      ],
       'import/no-unresolved': 'error',
       'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.test.jsx', '**/*.test.js', '**/*.spec.jsx', '**/*.spec.js', 'vite.config.js'] }],
       

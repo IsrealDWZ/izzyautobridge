@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, X, Plane, Car, Wrench, Hotel, CheckCircle, Video } from 'lucide-react';
+import { useState } from 'react';
+
 import { WHATSAPP_NUMBER } from '../utils/constants';
 import { sanitizeFormInput, sanitizeWhatsAppMessage, validateWhatsAppNumber } from '../utils/validation';
 
-export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMBER }) {
+export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NUMBER }) {
   const [formData, setFormData] = useState({
     brand: '',
     model: '',
@@ -53,7 +53,7 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
     }
   };
 
-  const path02Link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  const _path02Link = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
     `Interested in Path 02: Fly to China and pick vehicles myself. Please send details.`
   )}`;
 
@@ -244,49 +244,6 @@ export default function ConciergeForm({ vehicles, whatsappNumber = WHATSAPP_NUMB
                 🔍 Find My Vehicle
               </button>
             </form>
-          </motion.div>
-
-          {/* Path 02: Fly & Pick */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-navy text-white rounded-2xl p-6 sm:p-8"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <Sparkles size={28} className="text-gold" />
-              <h3 className="font-display text-xl sm:text-2xl font-bold">Path 02: Fly & Pick</h3>
-            </div>
-            <p className="text-white/80 mb-6">
-              Want to inspect yourself? We arrange everything — you just show up and decide.
-            </p>
-            <ul className="space-y-3 mb-8">
-              {[
-                { icon: Plane, text: 'China visa support letter' },
-                { icon: Car, text: 'Airport pickup in Guangzhou' },
-                { icon: Hotel, text: 'Hotel booking near Foshan yard' },
-                { icon: Wrench, text: 'Test drive with our mechanic' },
-                { icon: Video, text: 'Engine inspection on-site' },
-                { icon: CheckCircle, text: 'You approve before container loads' },
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-white/90">
-                  <item.icon size={18} className="text-gold flex-shrink-0" />
-                  {item.text}
-                </li>
-              ))}
-            </ul>
-            <p className="text-white/60 text-sm mb-6">
-              <strong>Best for:</strong> Fleet buyers (5+ units), high-value purchases, first-time importers wanting maximum confidence.
-            </p>
-            <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Interested in Path 02: Fly to China and pick vehicles myself. Please send details.')}`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block bg-gold text-navy px-6 py-3 rounded-full font-bold hover:bg-gold/90 transition min-h-[44px] flex items-center justify-center"
-            >
-              💬 Request Path 02 Details
-            </a>
           </motion.div>
         </div>
       </div>

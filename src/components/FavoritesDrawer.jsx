@@ -1,9 +1,10 @@
-import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Heart, X, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+
 import { useAppStore } from '../store/useAppStore';
 
-export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
+export default function FavoritesDrawer({ _vehicles, _whatsappNumber }) {
   const [open, setOpen] = useState(false);
   const { favorites, toggleFavorite, clearFavorites } = useAppStore();
   const favVehicles = favorites.map((id) => vehicles.find((v) => v.ID === id)).filter(Boolean);

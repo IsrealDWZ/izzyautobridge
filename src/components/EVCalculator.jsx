@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Zap, Fuel, DollarSign, Calculator } from 'lucide-react';
-
-const USD_GHS_RATE = 15.5;
+import { useState } from 'react';
 
 export default function EVCalculator() {
   const [dailyKm, setDailyKm] = useState(50);

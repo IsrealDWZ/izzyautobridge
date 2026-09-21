@@ -1,10 +1,21 @@
-import { useMemo } from 'react';
-import VehicleCard from './VehicleCard';
+/* eslint-disable import/order */
+import { useMemo, useCallback } from 'react';
+import { Grid as FixedSizeGrid } from 'react-window';
+import { AutoSizer } from 'react-virtualized-auto-sizer';
+
 import { useAppStore } from '../store/useAppStore';
+import VehicleCard from './VehicleCard';
 
 const CATEGORIES = ['EV', 'Hybrid', 'Fuel', 'Bus', 'Heavy', 'Other'];
 
-export default function VehicleGrid({ vehicles, whatsappNumber }) {
+const CARD_WIDTH = 340; // Approximate card width
+const CARD_HEIGHT = 500; // Approximate card height
+
+function VehicleCardWrapper({ vehicle }) {
+  return <VehicleCard vehicle={vehicle} />;
+}
+
+export default function VehicleGrid({ vehicles, _whatsappNumber }) {
   const { filters, setFilter } = useAppStore();
 
   // Direct port of the Streamlit filtering logic (brand/fuel/body/status/price/year),
@@ -22,11 +33,25 @@ export default function VehicleGrid({ vehicles, whatsappNumber }) {
     });
   }, [vehicles, filters]);
 
-  const handleCategoryToggle = (cat) => {
+  const handleCategoryToggle = useCallback((cat) => {
     setFilter('category', filters.category.includes(cat)
       ? filters.category.filter(c => c !== cat)
       : [...filters.category, cat]);
-  };
+  }, [filters.category, setFilter]);
+
+  const CellRenderer = useCallback(({ index, style }) => {
+    const vehicle = filtered[index];
+    if (!vehicle) return null;
+    return (
+      <div style={style}>
+        <VehicleCardWrapper vehicle={filtered[index]} />
+      </div>
+    );
+  }, [filtered]);
+
+  const handleCategoryToggleWrapper = useCallback((cat) => {
+    handleCategoryToggle(cat);
+  }, [handleCategoryToggle]);
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
@@ -41,7 +66,7 @@ export default function VehicleGrid({ vehicles, whatsappNumber }) {
         {CATEGORIES.map((cat) => (
           <button
             key={cat}
-            onClick={() => handleCategoryToggle(cat)}
+            onClick={() => handleCategoryToggleWrapper(cat)}
             className={`text-xs font-medium px-3 py-1.5 rounded-full border transition ${
               filters.category.includes(cat)
                 ? 'bg-gold/15 border-gold text-navy dark:bg-gold/10 dark:text-gold'
@@ -53,12 +78,30 @@ export default function VehicleGrid({ vehicles, whatsappNumber }) {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        {filtered.map((v) => (
-          <VehicleCard key={v.ID} vehicle={v} whatsappNumber={whatsappNumber} />
-        ))}
-      </div>
-      {filtered.length === 0 && (
+      {filtered.length > 0 ? (
+        <AutoSizer>
+          {({ width, height }) => {
+            const columnCount = Math.max(1, Math.floor(width / CARD_WIDTH));
+            const rowCount = Math.ceil(filtered.length / columnCount);
+            
+            return (
+              <FixedSizeGrid
+                columnCount={columnCount}
+                rowCount={rowCount}
+                columnWidth={CARD_WIDTH}
+                rowHeight={CARD_HEIGHT}
+                width={width}
+                height={height}
+                itemData={filtered}
+                itemKey={({ index }) => filtered[index].ID}
+                className="vehicle-grid"
+              >
+                {CellRenderer}
+              </FixedSizeGrid>
+            );
+          }}
+        </AutoSizer>
+      ) : (
         <div className="text-center py-12 sm:py-20 border border-dashed border-gray-200 rounded-2xl">
           <p className="font-semibold">No vehicles match those filters</p>
           <p className="text-sm text-gray-500 mt-1">Try widening your price range or clearing a filter.</p>

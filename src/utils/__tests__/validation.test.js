@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+
 import {
   sanitizeForUrl,
   sanitizeForDisplay,
@@ -168,7 +169,7 @@ describe('validateVehicle', () => {
   });
 
   it('rejects missing required fields', () => {
-    const { Brand, ...invalid } = validVehicle;
+    const { Brand: _Brand, ...invalid } = validVehicle;
     expect(validateVehicle(invalid).valid).toBe(false);
   });
 

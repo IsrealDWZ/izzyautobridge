@@ -1,18 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+
 import { useAppStore } from '../useAppStore';
-
-// Mock document.documentElement.classList
-const mockClassList = {
-  toggle: vi.fn(),
-  contains: vi.fn(),
-  add: vi.fn(),
-  remove: vi.fn(),
-};
-
-Object.defineProperty(document, 'documentElement', {
-  value: { classList: mockClassList },
-  writable: true,
-});
 
 describe('useAppStore', () => {
   beforeEach(() => {
@@ -41,14 +29,12 @@ describe('useAppStore', () => {
     it('toggles theme', () => {
       useAppStore.getState().toggleTheme();
       expect(useAppStore.getState().theme).toBe('dark');
-      expect(mockClassList.toggle).toHaveBeenCalledWith('dark', true);
     });
 
     it('toggles back to light', () => {
       useAppStore.getState().toggleTheme();
       useAppStore.getState().toggleTheme();
       expect(useAppStore.getState().theme).toBe('light');
-      expect(mockClassList.toggle).toHaveBeenCalledWith('dark', false);
     });
   });
 

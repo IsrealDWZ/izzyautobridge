@@ -1,23 +1,28 @@
-import Hero from './components/Hero';
-import VehicleGrid from './components/VehicleGrid';
+import { useEffect } from 'react';
+
 import CompareModal from './components/CompareModal';
+import ConciergeForm from './components/ConciergeForm';
+import EVCalculator from './components/EVCalculator';
 import FavoritesDrawer from './components/FavoritesDrawer';
 import FilterSidebar from './components/FilterSidebar';
-import EVCalculator from './components/EVCalculator';
-import TrustSection from './components/TrustSection';
-import ProcessSection from './components/ProcessSection';
-import ComparisonSection from './components/ComparisonSection';
-import ConciergeForm from './components/ConciergeForm';
-import StatsRow from './components/StatsRow';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
-import { useAppStore } from './store/useAppStore';
+import Hero from './components/Hero';
+import ProcessSection from './components/ProcessSection';
+import StatsRow from './components/StatsRow';
+import TrustSection from './components/TrustSection';
+import VehicleGrid from './components/VehicleGrid';
 import vehicles from './data/vehicles.json';
+import { useAppStore } from './store/useAppStore';
 import { WHATSAPP_NUMBER, APP_CONFIG } from './utils/constants';
 
 export default function App() {
   const { theme, toggleTheme } = useAppStore();
   const heroSubtitle = 'Direct China vehicle imports to Ghana with transparent landed costs and a route you can actually track from port to your driveway.';
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
 
   return (
     <div className={theme}>

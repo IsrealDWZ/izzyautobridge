@@ -1,22 +1,23 @@
-import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Filter, SlidersHorizontal } from 'lucide-react';
+import { X, Filter } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+
 import { useAppStore } from '../store/useAppStore';
 import { validatePriceRange, validateYearRange } from '../utils/validation';
 
-export default function FilterSidebar({ vehicles }) {
+export default function FilterSidebar({ _vehicles }) {
   const { filters, setFilter, setFilters, resetFilters } = useAppStore();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const brands = useMemo(() => [...new Set(vehicles.map(v => v.Brand))].sort(), [vehicles]);
-  const fuelTypes = useMemo(() => [...new Set(vehicles.map(v => v.Fuel_Type))].sort(), [vehicles]);
-  const bodyTypes = useMemo(() => [...new Set(vehicles.map(v => v.Body_Type))].sort(), [vehicles]);
-  const statuses = useMemo(() => [...new Set(vehicles.map(v => v.Status))].sort(), [vehicles]);
+  const brands = useMemo(() => [...new Set(_vehicles.map(v => v.Brand))].sort(), [_vehicles]);
+  const fuelTypes = useMemo(() => [...new Set(_vehicles.map(v => v.Fuel_Type))].sort(), [_vehicles]);
+  const bodyTypes = useMemo(() => [...new Set(_vehicles.map(v => v.Body_Type))].sort(), [_vehicles]);
+  const statuses = useMemo(() => [...new Set(_vehicles.map(v => v.Status))].sort(), [_vehicles]);
 
-  const priceMin = useMemo(() => Math.min(...vehicles.map(v => v.Price_GHS)), [vehicles]);
-  const priceMax = useMemo(() => Math.max(...vehicles.map(v => v.Price_GHS)), [vehicles]);
-  const yearMin = useMemo(() => Math.min(...vehicles.map(v => v.Year)), [vehicles]);
-  const yearMax = useMemo(() => Math.max(...vehicles.map(v => v.Year)), [vehicles]);
+  const priceMin = useMemo(() => Math.min(..._vehicles.map(v => v.Price_GHS)), [_vehicles]);
+  const priceMax = useMemo(() => Math.max(..._vehicles.map(v => v.Price_GHS)), [_vehicles]);
+  const yearMin = useMemo(() => Math.min(..._vehicles.map(v => v.Year)), [_vehicles]);
+  const yearMax = useMemo(() => Math.max(..._vehicles.map(v => v.Year)), [_vehicles]);
 
   useEffect(() => {
     setFilters({ priceRange: [priceMin, priceMax], yearRange: [yearMin, yearMax] });

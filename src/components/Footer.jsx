@@ -1,5 +1,6 @@
-import { Car, Truck, Zap, Shield, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Car, Truck, Zap, Shield, MessageCircle } from 'lucide-react';
+
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 const footerLinks = {
@@ -19,7 +20,6 @@ const footerLinks = {
     { label: 'Vehicle Import', href: '#' },
     { label: 'Fleet Solutions', href: '#' },
     { label: 'EV Consulting', href: '#' },
-    { label: 'Path 02: Fly & Pick', href: '#concierge' },
   ],
   legal: [
     { label: 'Privacy Policy', href: '#' },
