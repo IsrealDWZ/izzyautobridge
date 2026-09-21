@@ -17,7 +17,7 @@ export default function FavoritesDrawer({ _vehicles, whatsappNumber }) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-40 bg-navy text-white rounded-full px-5 py-3 text-sm font-semibold shadow-lg flex items-center gap-2"
+        className="fixed bottom-6 left-6 z-40 bg-navy text-white rounded-full px-5 py-3 text-sm font-semibold shadow-lg flex items-center gap-2"
       >
         <Heart size={16} fill="currentColor" /> {favorites.length} Saved
       </button>
