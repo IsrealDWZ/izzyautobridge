@@ -24,11 +24,11 @@ export default function Hero({ title, subtitle }) {
         className="relative z-10 px-6 md:px-12 max-w-3xl"
       >
         <div className="flex flex-wrap gap-2 mb-6">
-          <span className="text-xs uppercase tracking-widest bg-gold text-navy font-bold px-3 py-1.5 rounded-full">
-            🇨🇳 Direct from China
+          <span className="text-xs uppercase tracking-widest bg-white/20 border border-white/30 text-white px-4 py-1.5 rounded-full backdrop-blur-sm">
+            Direct from China
           </span>
-          <span className="text-xs uppercase tracking-widest bg-white/10 border border-white/20 text-white px-3 py-1.5 rounded-full">
-            📦 CIF Tema Shipping Included
+          <span className="text-xs uppercase tracking-widest bg-white/20 border border-white/30 text-white px-4 py-1.5 rounded-full backdrop-blur-sm">
+            CIF Tema Shipping Included
           </span>
         </div>
 
