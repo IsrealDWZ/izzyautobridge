@@ -12,9 +12,13 @@ import ProcessSection from './components/ProcessSection';
 import StatsRow from './components/StatsRow';
 import TrustSection from './components/TrustSection';
 import VehicleGrid from './components/VehicleGrid';
+import { Background } from './components/Background';
 import vehicles from './data/vehicles.json';
 import { useAppStore } from './store/useAppStore';
 import { WHATSAPP_NUMBER, APP_CONFIG } from './utils/constants';
+
+// Force Background into bundle to prevent tree-shaking
+const _forceBackground = Background;
 
 export default function App() {
   const { theme, toggleTheme } = useAppStore();
