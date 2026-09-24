@@ -1,0 +1,21 @@
+{
+  "name": "IzzyAutoBridge Ghana",
+  "short_name": "IzzyAutoBridge",
+  "description": "Direct China vehicle imports to Ghana with transparent landed costs, SGS inspection, and 12-month warranty.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1B2A4A",
+  "theme_color": "#1B2A4A",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "shopping", "automotive"],
+  "lang": "en-GH",
+  "dir": "ltr"
+}

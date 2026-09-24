@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 
+// Force Background component into bundle to prevent tree-shaking
+import { Background } from './components/Background';
+const _forceBackground = Background;
+
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
