@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
-import { CheckCircle, Shield, Truck, Wrench, Award } from 'lucide-react';
+import { CheckCircle, Shield, Truck, Wrench, Award, MapPin } from 'lucide-react';
+
+import { Background } from './Background';
 
 const trustItems = [
   {
@@ -28,6 +30,12 @@ const trustItems = [
   },
   {
     num: '05',
+    question: 'Can I inspect before buying?',
+    answer: 'We arrange pre-shipment inspection videos and SGS certification. Live video calls available from our Foshan yard before container loads.',
+    icon: MapPin,
+  },
+  {
+    num: '06',
     question: 'Have you been to Ghana?',
     answer: 'Accra-based. We know the roads that break suspensions and the ones that don\'t. The vehicles we ship are picked for Ghana conditions — ground clearance, AC capacity, parts availability.',
     icon: Award,
@@ -36,50 +44,91 @@ const trustItems = [
 
 export default function TrustSection() {
   return (
-    <section className="py-16">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="container-custom section-padding relative">
+      <Background variant="section">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          viewport={{ once: true, margin: '-100px' }}
+          className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 bg-gold/15 text-navy dark:text-gold px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <motion.span
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="badge badge-accent px-4 py-2 text-sm"
+          >
             Why Buyers Trust IzzyAutoBridge
-          </div>
-          <h2 className="font-display text-3xl md:text-4xl font-bold">
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mt-4 mb-4 text-balance"
+          >
             Six questions every Ghana importer should ask — we answer them upfront
-          </h2>
-          <p className="mt-3 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto"
+          >
             We don't disappear at port. Every vehicle is inspected, documented, and backed by our Accra team.
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trustItems.map((item, i) => (
             <motion.article
               key={item.num}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="card-surface p-6 hover:border-gold/50 hover:shadow-xl transition-all"
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.34, 1.56, 0.64, 1] }}
+              className="group card card-hover p-6 relative overflow-hidden"
             >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gold/15 text-navy dark:text-gold rounded-xl flex items-center justify-center">
-                  <item.icon size={24} />
-                </div>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent)]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              />
+              <div className="relative flex items-start gap-4">
+                <motion.div
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.3, ease: 'easeInOut' }}
+                  className="flex-shrink-0 w-14 h-14 bg-[var(--color-accent-glow)] text-[var(--color-accent)] rounded-2xl flex items-center justify-center"
+                >
+                  <item.icon size={26} strokeWidth={2} />
+                </motion.div>
                 <div className="flex-1">
-                  <span className="text-2xl font-bold text-gold/50">{item.num}</span>
-                  <h3 className="font-display font-bold text-lg mt-1">{item.question}</h3>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.answer}</p>
+                  <motion.span
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-3xl font-extrabold text-[var(--color-accent)] font-mono"
+                  >
+                    {item.num}
+                  </motion.span>
+                  <motion.h3
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                    className="font-display font-bold text-lg mt-1 text-white group-hover:text-[var(--color-accent)] transition-colors"
+                  >
+                    {item.question}
+                  </motion.h3>
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-2 text-sm text-[var(--color-text-muted)] leading-relaxed"
+                  >
+                    {item.answer}
+                  </motion.p>
                 </div>
               </div>
             </motion.article>
           ))}
         </div>
-      </div>
+      </Background>
     </section>
   );
 }

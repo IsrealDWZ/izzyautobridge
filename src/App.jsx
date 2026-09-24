@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 import CompareModal from './components/CompareModal';
-import ComparisonSection from './components/ComparisonSection';
 import ConciergeForm from './components/ConciergeForm';
 import EVCalculator from './components/EVCalculator';
 import FavoritesDrawer from './components/FavoritesDrawer';
@@ -26,58 +25,53 @@ export default function App() {
   }, [theme]);
 
   return (
-    <div className={theme}>
-      <div className="min-h-screen bg-white dark:bg-navy-dark text-navy dark:text-white transition-colors">
-        <nav className="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3">
-          <span className="font-display font-bold text-white text-lg sm:text-xl">{APP_CONFIG.siteTitle}</span>
-          <button
-            onClick={toggleTheme}
-            className="text-xs sm:text-sm bg-white/10 border border-white/20 text-white px-3 py-2 rounded-full min-h-[44px] min-w-[44px]"
-          >
-            {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
-          </button>
-        </nav>
+    <div className="min-h-screen bg-bg text-text antialiased">
+      <nav className="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3 bg-bg/80 backdrop-blur-md border-b border-border">
+        <span className="font-display font-bold text-white text-lg sm:text-xl">{APP_CONFIG.siteTitle}</span>
+        <button
+          onClick={toggleTheme}
+          className="text-xs sm:text-sm bg-bg-elevated border border-border text-white px-3 py-2 rounded-full min-h-[44px] min-w-[44px] hover:bg-bg-hover hover:border-accent-dim transition-all"
+        >
+          {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+        </button>
+      </nav>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
-          {/* Hero */}
-          <Hero title={APP_CONFIG.heroTitle} subtitle={heroSubtitle} />
+      <main className="pt-20 sm:pt-24 pb-12 sm:pb-16">
+        {/* Hero */}
+        <Hero title={APP_CONFIG.heroTitle} subtitle={heroSubtitle} />
 
-          {/* Stats Row */}
-          <StatsRow vehicles={vehicles} />
+        {/* Stats Row */}
+        <StatsRow vehicles={vehicles} />
 
-          {/* Trust Section */}
-          <TrustSection />
+        {/* Trust Section */}
+        <TrustSection />
 
-          {/* Process Section */}
-          <ProcessSection />
+        {/* Process Section */}
+        <ProcessSection />
 
-          {/* Comparison Section */}
-          <ComparisonSection />
+        {/* EV Calculator */}
+        <EVCalculator />
 
-          {/* EV Calculator */}
-          <EVCalculator />
+        {/* Concierge Form */}
+        <ConciergeForm vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
 
-          {/* Concierge Form */}
-          <ConciergeForm vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
-
-          {/* Inventory Grid with Filters */}
-          <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-            <FilterSidebar vehicles={vehicles} />
-            <div className="flex-1 min-w-0 w-full">
-              <VehicleGrid vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
-            </div>
+        {/* Inventory Grid with Filters */}
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+          <FilterSidebar vehicles={vehicles} />
+          <div className="flex-1 min-w-0 w-full">
+            <VehicleGrid vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
           </div>
-
-          {/* Modals & Drawers */}
-          <CompareModal vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
-          <FavoritesDrawer vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
-
-          {/* Floating Elements */}
-          <FloatingWhatsApp whatsappNumber={WHATSAPP_NUMBER} />
         </div>
 
-        <Footer />
-      </div>
+        {/* Modals & Drawers */}
+        <CompareModal vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
+        <FavoritesDrawer vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
+
+        {/* Floating Elements */}
+        <FloatingWhatsApp whatsappNumber={WHATSAPP_NUMBER} />
+      </main>
+
+      <Footer />
     </div>
   );
 }
