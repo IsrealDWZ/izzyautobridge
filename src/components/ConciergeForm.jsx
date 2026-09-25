@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { WHATSAPP_NUMBER } from '../utils/constants';
 import { sanitizeFormInput, sanitizeWhatsAppMessage, validateWhatsAppNumber } from '../utils/validation';
+import { Background } from './Background';
 
 const fieldIcons = {
   brand: Car,

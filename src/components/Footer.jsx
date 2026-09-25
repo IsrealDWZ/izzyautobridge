@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Car, Truck, Zap, Shield, MessageCircle, MapPin, Clock, Globe, Heart } from 'lucide-react';
 
 import { WHATSAPP_NUMBER } from '../utils/constants';
+import { Background } from './Background';
 
 const footerLinks = {
   company: [

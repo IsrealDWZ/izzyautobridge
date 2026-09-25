@@ -1,4 +1,5 @@
-import { motion, useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { AutoSizer } from 'react-virtualized-auto-sizer';
 import { Grid as FixedSizeGrid } from 'react-window';
 
