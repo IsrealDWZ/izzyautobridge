@@ -88,7 +88,7 @@ export default function EVCalculator() {
 
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div>
-              <div className="text-4xl md:text-6xl font-bold">GH₵{monthlySave.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</div>
+              <div className="text-3xl md:text-4xl font-bold">GH₵{monthlySave.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</div>
               <div className="text-sm opacity-90 mt-1">Monthly Fuel Savings</div>
             </div>
             <div className="border-l border-white/20 py-4 md:py-0">
