@@ -41,7 +41,7 @@ export default function Hero({ title, subtitle }) {
         </p>
 
         <div className="mt-10 flex gap-4">
-          <button className="bg-gold text-navy font-semibold px-8 py-4 rounded-full text-sm tracking-wide hover:brightness-95 transition">
+          <button className="bg-transparent border border-white/50 text-white font-semibold px-8 py-4 rounded-full text-sm tracking-wide hover:bg-white/10 transition">
             Browse Inventory
           </button>
           <button className="border border-white/30 text-white font-medium px-8 py-4 rounded-full text-sm tracking-wide hover:bg-white/10 transition">
