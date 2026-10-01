@@ -74,9 +74,19 @@ export default function EVCalculator() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-gradient-to-br from-success to-emerald-600 rounded-2xl p-8 text-white"
+          className="relative overflow-hidden rounded-2xl p-8 text-white"
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div className="absolute inset-0">
+            <img
+              src="/media/fuelpump-bg.jpg"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-navy/75" />
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div>
               <div className="text-4xl md:text-6xl font-bold">GH₵{monthlySave.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</div>
               <div className="text-sm opacity-90 mt-1">Monthly Fuel Savings</div>
@@ -91,7 +101,7 @@ export default function EVCalculator() {
             </div>
           </div>
 
-          <div className="mt-8 pt-8 border-t border-white/20 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+          <div className="relative z-10 mt-8 pt-8 border-t border-white/20 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
             <div>
               <div className="text-lg font-bold">Petrol: GH₵{petrolDaily.toFixed(2)}/day</div>
               <div className="text-xs opacity-75">@ {petrolPrice} GHS/L, {petrolConsumption}L/100km</div>
