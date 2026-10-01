@@ -59,7 +59,7 @@ export default function ComparisonSection() {
             {/* IzzyAutoBridge */}
             <div className="p-6 bg-gold/15 border border-gold/30 rounded-xl">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xs uppercase tracking-widest bg-gold text-navy px-3 py-1.5 rounded-full font-semibold">
+                <span className="text-xs uppercase tracking-widest bg-transparent border border-gold/40 text-gold-light px-3 py-1.5 rounded-full font-semibold">
                   🚢 IzzyAutoBridge Direct
                 </span>
               </div>
