@@ -69,7 +69,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white dark:bg-navy rounded-2xl max-w-md w-full p-6 sm:p-8 text-center"
+          className="bg-white dark:bg-panel rounded-2xl max-w-md w-full p-6 sm:p-8 text-center"
         >
           <div className="w-16 h-16 bg-gold/15 text-gold rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle size={32} />

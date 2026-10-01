@@ -134,7 +134,7 @@ function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
           step={step}
           value={value}
           onChange={(e) => onChange(parseFloat(e.target.value))}
-          className="flex-1 h-2 bg-gray-200 dark:bg-navy rounded-lg appearance-none accent-gold"
+          className="flex-1 h-2 bg-gray-200 dark:bg-panel rounded-lg appearance-none accent-gold"
         />
         <input
           type="number"
@@ -143,7 +143,7 @@ function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
           step={step}
           value={value}
           onChange={(e) => onChange(parseFloat(e.target.value))}
-          className="w-20 px-2 py-1 text-center bg-gray-100 dark:bg-navy border border-gray-200 dark:border-white/10 rounded-lg text-sm font-medium"
+          className="w-20 px-2 py-1 text-center bg-gray-100 dark:bg-panel border border-gray-200 dark:border-white/10 rounded-lg text-sm font-medium"
         />
       </div>
     </div>

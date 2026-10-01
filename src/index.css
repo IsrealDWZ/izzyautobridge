@@ -13,8 +13,10 @@ body {
 }
 
 /* Dark mode surface tokens — toggled via <html class="dark"> */
-.dark body { background: #0B1424; color: #F2F4F8; }
-.dark .card-surface { background: #16233F; border-color: #243456; }
+:root { color-scheme: light; }
+.dark { color-scheme: dark; }
+.dark body { background: #000; color: #F2F4F8; }
+.dark .card-surface { background: #0E0E11; border-color: #26262B; }
 
 .card-surface {
   @apply bg-white border border-gray-200 rounded-2xl transition-colors;

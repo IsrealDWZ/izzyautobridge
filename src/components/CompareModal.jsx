@@ -30,9 +30,9 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white dark:bg-navy rounded-2xl max-w-lg w-full max-h-[90vh] overflow-auto"
+          className="bg-white dark:bg-panel rounded-2xl max-w-lg w-full max-h-[90vh] overflow-auto"
         >
-          <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100 dark:border-white/10 sticky top-0 bg-white dark:bg-navy">
+          <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100 dark:border-white/10 sticky top-0 bg-white dark:bg-panel">
             <h3 className="font-display text-lg font-bold">Compare vehicles</h3>
             <button onClick={clearCompare} className="p-2 min-h-[44px] min-w-[44px]"><X size={24} /></button>
           </div>

@@ -46,7 +46,7 @@ export default function ShowcaseVideo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-[#243456] bg-black"
+          className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-[#26262B] bg-black"
           onContextMenu={blockMenu}
         >
           <video

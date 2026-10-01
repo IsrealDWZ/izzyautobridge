@@ -17,11 +17,11 @@ export function VehicleImage({ vehicle }) {
   const firstImage = getFirstImage(vehicle);
 
   return (
-    <div className="relative aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-navy-deep dark:to-navy overflow-hidden">
+    <div className="relative aspect-video bg-gradient-to-br from-gray-100 to-gray-200 dark:from-navy-deep dark:to-panel overflow-hidden">
       <span className="absolute top-3 left-3 z-10 text-xs font-bold px-2.5 py-1 rounded-full bg-gold/90 text-navy">
         {vehicle.Status}
       </span>
-      <span className="absolute top-3 right-3 z-10 text-xs font-medium px-2 py-1 rounded bg-white/90 dark:bg-navy/90 text-gray-700 dark:text-gray-300">
+      <span className="absolute top-3 right-3 z-10 text-xs font-medium px-2 py-1 rounded bg-white/90 dark:bg-panel/90 text-gray-700 dark:text-gray-300">
         {vehicle.Category}
       </span>
       {firstImage ? (

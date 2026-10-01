@@ -105,7 +105,7 @@ export default function FilterSidebar({ _vehicles = [] }) {
             <motion.div
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed bottom-0 left-0 right-0 h-[90vh] max-h-[90vh] bg-white dark:bg-navy z-50 shadow-2xl flex flex-col"
+              className="fixed bottom-0 left-0 right-0 h-[90vh] max-h-[90vh] bg-white dark:bg-panel z-50 shadow-2xl flex flex-col"
             >
               <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100 dark:border-white/10">
                 <h3 className="font-display font-bold">🔍 Filters</h3>
