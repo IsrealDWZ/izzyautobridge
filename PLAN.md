@@ -22,7 +22,7 @@ Status: plan approved 2026-10-01. Video integration is the "try first" task; ful
 - **Placement: dedicated mid-page showcase band** (recommended slot: between TrustSection and ProcessSection) — NOT hero bg (video has its own headline + CTA text).
 - [x] Copy to `public/media/izzy-promo.mp4`.
 - [x] Re-encode 5.0 MB → 469 KB (h264 CRF30, no audio, faststart) + poster frame 56 KB.
-- [x] New `ShowcaseVideo.jsx`: muted autoplay loop playsInline, preload=metadata, poster, pause/play control (WCAG 2.2.2) top-right, prefers-reduced-motion → no autoplay, `#showcase` anchor.
+- [x] New `ShowcaseVideo.jsx`: muted autoplay loop playsInline, preload=metadata, poster, `#showcase` anchor. **No pause control + download-hardened per user request** (pointer-events-none, no context menu, disablePictureInPicture, controlsList nodownload/noplaybackrate/nofullscreen, no controls attr). Reduced-motion → poster only (a11y exemption path).
 - [x] Wired between TrustSection and ProcessSection in App.jsx.
 - [x] QA via headless Chrome: header + video frame + controls verified rendering; build ✅; tests 47/47 ✅; eslint clean ✅.
 - Open: watermark decision (accept / re-export from Jitter paid) — user to confirm.

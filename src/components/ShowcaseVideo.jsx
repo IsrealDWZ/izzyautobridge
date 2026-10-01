@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion';
-import { Play, Pause } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function ShowcaseVideo() {
   const videoRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -13,26 +11,14 @@ export default function ShowcaseVideo() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) {
       video.pause();
-      setPlaying(false);
       return undefined;
     }
     const attempt = video.play();
-    if (attempt) {
-      attempt.then(() => setPlaying(true)).catch(() => setPlaying(false));
-    }
+    if (attempt) attempt.catch(() => {});
     return undefined;
   }, []);
 
-  const toggle = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      video.play().then(() => setPlaying(true)).catch(() => {});
-    } else {
-      video.pause();
-      setPlaying(false);
-    }
-  };
+  const blockMenu = (event) => event.preventDefault();
 
   return (
     <section id="showcase" className="py-16">
@@ -61,10 +47,11 @@ export default function ShowcaseVideo() {
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, delay: 0.15 }}
           className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-[#243456] bg-black"
+          onContextMenu={blockMenu}
         >
           <video
             ref={videoRef}
-            className="block w-full h-auto aspect-video"
+            className="block w-full h-auto aspect-video pointer-events-none select-none"
             src="/media/izzy-promo.mp4"
             poster="/media/izzy-promo-poster.jpg"
             autoPlay
@@ -72,16 +59,12 @@ export default function ShowcaseVideo() {
             loop
             playsInline
             preload="metadata"
+            disablePictureInPicture
+            controlsList="nodownload noplaybackrate nofullscreen"
+            onContextMenu={blockMenu}
+            draggable={false}
             aria-label="IzzyAutoBridge promo: source, ship, clear — order via WhatsApp"
           />
-          <button
-            type="button"
-            onClick={toggle}
-            aria-label={playing ? 'Pause video' : 'Play video'}
-            className="absolute top-3 right-3 w-11 h-11 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            {playing ? <Pause size={20} aria-hidden="true" /> : <Play size={20} aria-hidden="true" />}
-          </button>
         </motion.div>
       </div>
     </section>
