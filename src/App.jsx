@@ -30,10 +30,10 @@ export default function App() {
     <div className={theme}>
       <div className="min-h-screen bg-white dark:bg-navy-dark text-navy dark:text-white transition-colors">
         <nav className="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3">
-          <span className="font-display font-bold text-white text-lg sm:text-xl">{APP_CONFIG.siteTitle}</span>
+          <span className="font-display font-bold text-navy dark:text-white text-lg sm:text-xl">{APP_CONFIG.siteTitle}</span>
           <button
             onClick={toggleTheme}
-            className="text-xs sm:text-sm bg-white/10 border border-white/20 text-white px-3 py-2 rounded-full min-h-[44px] min-w-[44px]"
+            className="text-xs sm:text-sm bg-white border border-navy/20 text-navy dark:bg-white/10 dark:border-white/20 dark:text-white px-3 py-2 rounded-full min-h-[44px] min-w-[44px]"
           >
             {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
           </button>
