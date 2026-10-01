@@ -10,6 +10,7 @@ import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
 import ProcessSection from './components/ProcessSection';
+import ShowcaseVideo from './components/ShowcaseVideo';
 import StatsRow from './components/StatsRow';
 import TrustSection from './components/TrustSection';
 import VehicleGrid from './components/VehicleGrid';
@@ -47,6 +48,9 @@ export default function App() {
 
           {/* Trust Section */}
           <TrustSection />
+
+          {/* Showcase Video */}
+          <ShowcaseVideo />
 
           {/* Process Section */}
           <ProcessSection />

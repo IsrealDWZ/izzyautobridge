@@ -10,21 +10,21 @@ Status: plan approved 2026-10-01. Video integration is the "try first" task; ful
 
 ## Phase 0 — Unblock git auth (prerequisite for any push)
 - [x] Leaked classic PAT `ghp_…GcPfI` revoked by user (was embedded in origin URL).
-- [ ] `git remote set-url origin https://github.com/IsrealDWZ/izzyautobridge.git`
-- [ ] Credential helper reading `$GITHUB_PERSONAL_ACCESS_TOKEN` (verified push:admin on repo) — token never stored in repo config.
-- [ ] Verify `git ls-remote origin`.
-- [ ] Verify `.env.local` stays git-ignored.
-- [ ] Commit pending `ai` package.json/lock + index.ts as separate `chore:` commit.
-- [ ] Create branch `redesign/light-refresh`.
+- [x] `git remote set-url origin https://github.com/IsrealDWZ/izzyautobridge.git`
+- [x] Credential helper reading `$GITHUB_PERSONAL_ACCESS_TOKEN` (verified push:admin on repo) — token never stored in repo config.
+- [x] Verify `git ls-remote origin`.
+- [x] Verify `.env.local` stays git-ignored.
+- [x] Commit pending `ai` package.json/lock + index.ts as separate `chore:` commit.
+- [x] Create branch `redesign/light-refresh`.
 
 ## Video integration (ACTIVE — user's first request)
 - Source: `~/Downloads/16-9.mp4` — 1280×720, ~4.2s, H.264, no audio, 5.0 MB, branded promo w/ text overlays + jitter.video watermark.
 - **Placement: dedicated mid-page showcase band** (recommended slot: between TrustSection and ProcessSection) — NOT hero bg (video has its own headline + CTA text).
-- Implementation:
-  - Copy to `public/media/izzy-promo.mp4` (CSP: `default-src 'self'` covers same-origin media — no CSP change).
-  - New `ShowcaseVideo.jsx`: muted + autoplay + loop + playsinline, `preload="metadata"`, poster frame, visible pause/play control (WCAG 2.2.2), `prefers-reduced-motion` → no autoplay.
-  - Poster: extract clean frame via ffmpeg/imageio-ffmpeg.
-  - Performance: 5 MB too heavy (Ghana mobile) → re-encode to ≤1 MB (720p, CRF ~28) if tooling available; else ship as-is with metadata preload and note follow-up.
+- [x] Copy to `public/media/izzy-promo.mp4`.
+- [x] Re-encode 5.0 MB → 469 KB (h264 CRF30, no audio, faststart) + poster frame 56 KB.
+- [x] New `ShowcaseVideo.jsx`: muted autoplay loop playsInline, preload=metadata, poster, pause/play control (WCAG 2.2.2) top-right, prefers-reduced-motion → no autoplay, `#showcase` anchor.
+- [x] Wired between TrustSection and ProcessSection in App.jsx.
+- [x] QA via headless Chrome: header + video frame + controls verified rendering; build ✅; tests 47/47 ✅; eslint clean ✅.
 - Open: watermark decision (accept / re-export from Jitter paid) — user to confirm.
 
 ## Phase 1 — Install 4 skills
