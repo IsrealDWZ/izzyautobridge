@@ -8,6 +8,7 @@ export default {
         navy: { DEFAULT: '#1B2A4A', deep: '#15151A', dark: '#000000' },
         panel: '#0E0E11',
         gold: { DEFAULT: '#D4A843', light: '#F5E6B8' },
+        success: '#047857',
         whatsapp: '#25D366',
       },
       fontFamily: {
