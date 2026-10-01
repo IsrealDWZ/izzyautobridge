@@ -29,8 +29,14 @@ export default function ComparisonSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="bg-gradient-to-br from-navy via-navy/80 to-navy/60 rounded-2xl p-8 md:p-12 text-white relative overflow-hidden"
         >
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-[-50%] right-[-10%] w-[300px] h-[300px] bg-gold rounded-full blur-3xl" />
+          <div className="absolute inset-0">
+            <img
+              src="/media/comparison-bg.jpg"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-navy/75" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
@@ -57,8 +63,8 @@ export default function ComparisonSection() {
                   🚢 IzzyAutoBridge Direct
                 </span>
               </div>
-              <div className="text-4xl md:text-5xl font-bold text-navy mb-2">GH₵440,000</div>
-              <div className="text-navy/80 mb-6 space-y-2 text-sm">
+              <div className="text-4xl md:text-5xl font-bold text-gold-light mb-2">GH₵440,000</div>
+              <div className="text-white/70 mb-6 space-y-2 text-sm">
                 <p>• Wholesale + fixed fee only</p>
                 <p>• Full landed cost breakdown</p>
                 <p>• 70+ models from China</p>
