@@ -35,10 +35,10 @@ export default function StatsRow({ vehicles }) {
             className="card-surface p-4 sm:p-6 text-center hover:border-gold/50 hover:shadow-xl hover:-translate-y-1 transition-all"
           >
             <stat.icon className="text-2xl sm:text-3xl mx-auto mb-2" style={{ color: stat.isGold ? '#D4A843' : '#1B2A4A' }} />
-            <div className="text-2xl sm:text-3xl font-bold" style={{ color: stat.isGold ? '#D4A843' : '#1B2A4A' }}>
+            <div className="text-sm sm:text-base font-bold text-black dark:text-white">
               {stat.value}
             </div>
-            <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">{stat.label}</div>
+            <div className="text-sm sm:text-base text-black dark:text-white mt-1">{stat.label}</div>
           </motion.div>
         ))}
       </div>
