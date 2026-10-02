@@ -55,7 +55,7 @@ export default function FilterSidebar({ _vehicles = [] }) {
         <div className="sticky top-24 space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="font-display font-bold">🔍 Filters</h3>
-            <button onClick={handleReset} className="text-xs text-gray-500 hover:text-gold min-h-[44px]">Reset all</button>
+            <button onClick={handleReset} className="text-xs text-gray-500 dark:text-gray-400 hover:text-gold min-h-[44px]">Reset all</button>
           </div>
 
           <FilterGroup label="Brand" items={brands} selected={filters.brands} onChange={(v) => setFilter('brands', v)} />
@@ -177,7 +177,7 @@ function PriceRangeSlider({ min, max, value, onChange }) {
   const [low, high] = value;
   return (
     <div className="space-y-2">
-      <div className="flex justify-between text-xs text-gray-500">
+      <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
         <span>GH₵{low.toLocaleString()}</span>
         <span>GH₵{high.toLocaleString()}</span>
       </div>

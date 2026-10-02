@@ -46,7 +46,7 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
               <tbody>
                 {fields.map(([label, accessor]) => (
                   <tr key={label} className="border-b border-gray-100 dark:border-white/10">
-                    <th className="text-left p-3 text-gray-500 font-medium w-24 whitespace-nowrap">{label}</th>
+                    <th className="text-left p-3 text-gray-500 dark:text-gray-400 font-medium w-24 whitespace-nowrap">{label}</th>
                     <td className="p-3">{typeof accessor === 'function' ? accessor(a) : a[accessor]}</td>
                     <td className="p-3">{typeof accessor === 'function' ? accessor(b) : b[accessor]}</td>
                   </tr>

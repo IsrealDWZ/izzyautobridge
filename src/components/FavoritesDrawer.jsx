@@ -42,7 +42,7 @@ export default function FavoritesDrawer({ _vehicles, whatsappNumber }) {
 
               <div className="flex-1 overflow-auto p-5 space-y-2">
                 {favVehicles.length === 0 && (
-                  <p className="text-sm text-gray-500 text-center py-8">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-8">
                     Nothing saved yet — tap the heart on a car to add it here.
                   </p>
                 )}
@@ -50,7 +50,7 @@ export default function FavoritesDrawer({ _vehicles, whatsappNumber }) {
                   <div key={v.ID} className="flex items-center justify-between bg-gray-50 dark:bg-navy-deep rounded-lg p-3">
                     <div>
                       <p className="text-sm font-semibold">{v.Brand} {v.Model} {v.Year}</p>
-                      <p className="text-xs text-gray-500">GH₵{v.Price_GHS.toLocaleString()}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">GH₵{v.Price_GHS.toLocaleString()}</p>
                     </div>
                     <button onClick={() => toggleFavorite(v.ID)} aria-label="Remove">
                       <Trash2 size={16} className="text-gray-400" />

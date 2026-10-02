@@ -92,7 +92,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
               setErrors({});
               setSubmitted(false); 
             }}
-            className="mt-4 text-sm text-gray-500 hover:text-navy"
+            className="mt-4 text-sm text-gray-500 dark:text-gray-400 hover:text-navy dark:hover:text-gold"
           >
             Make another request
           </button>

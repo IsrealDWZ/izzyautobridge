@@ -71,7 +71,7 @@ export default function TrustSection() {
                   <item.icon size={24} />
                 </div>
                 <div className="flex-1">
-                  <span className="text-2xl font-bold text-gold/50">{item.num}</span>
+                  <span className="text-2xl font-bold text-navy dark:text-gold">{item.num}</span>
                   <h3 className="font-display font-bold text-lg mt-1">{item.question}</h3>
                   <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.answer}</p>
                 </div>

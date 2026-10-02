@@ -96,10 +96,10 @@ export default function Footer() {
           className="border-t border-white/10 pt-8"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-white/40 text-sm">
+            <p className="text-white/60 text-sm">
               © {new Date().getFullYear()} IzzyAutoBridge Ghana Ltd. All rights reserved.
             </p>
-            <div className="flex items-center gap-6 text-sm text-white/40">
+            <div className="flex items-center gap-6 text-sm text-white/60">
               <span className="flex items-center gap-1.5">
                 <Shield size={14} /> DVLA Class C Licensed
               </span>

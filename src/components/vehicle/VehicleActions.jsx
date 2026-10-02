@@ -11,7 +11,7 @@ export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompa
         className={`flex items-center gap-1.5 text-xs font-medium px-3 py-2.5 rounded-lg border transition min-h-[44px] ${
           isComparing
             ? 'bg-gold/15 border-gold text-navy dark:text-gold'
-            : 'border-gray-200 dark:border-white/10 text-gray-500'
+            : 'border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400'
         }`}
       >
         <Check size={14} className={isComparing ? 'opacity-100' : 'opacity-0'} />
