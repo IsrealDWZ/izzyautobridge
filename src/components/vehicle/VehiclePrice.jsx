@@ -1,3 +1,5 @@
+import { Ship } from 'lucide-react';
+
 import { USD_GHS_RATE } from '../../utils/constants';
 
 export function VehiclePrice({ vehicle }) {
@@ -6,6 +8,10 @@ export function VehiclePrice({ vehicle }) {
       <div className="text-lg sm:text-xl font-bold">GH₵{vehicle.Price_GHS.toLocaleString()}</div>
       <div className="text-xs text-gray-500 dark:text-gray-400">
         CIF: ${vehicle.Price_USD.toLocaleString()} • {USD_GHS_RATE} GHS/USD
+      </div>
+      <div className="mt-1.5 inline-flex items-center gap-1 bg-gold text-navy text-[10px] sm:text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded-full">
+        <Ship size={12} aria-hidden="true" />
+        Free shipping to Tema
       </div>
     </div>
   );

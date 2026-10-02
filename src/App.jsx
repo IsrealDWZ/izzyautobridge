@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+import { Ship } from 'lucide-react';
 import { useEffect } from 'react';
 
 import CompareModal from './components/CompareModal';
@@ -21,7 +23,7 @@ import { WHATSAPP_NUMBER, APP_CONFIG } from './utils/constants';
 
 export default function App() {
   const { theme, toggleTheme } = useAppStore();
-  const heroSubtitle = 'Direct China vehicle imports to Ghana with transparent landed costs — CIF Tema shipping included — and a route you can actually track from port to your driveway.';
+  const heroSubtitle = 'Direct China vehicle imports to Ghana with transparent landed costs — free shipping to Tema included — and a route you can actually track from port to your driveway.';
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -31,17 +33,30 @@ export default function App() {
     <div className={theme}>
       <div className="min-h-screen bg-white dark:bg-navy-dark text-navy dark:text-white transition-colors">
         <ScrollProgress />
-        <nav className="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3">
-          <span className="font-display font-bold text-navy dark:text-white text-lg sm:text-xl">{APP_CONFIG.siteTitle}</span>
-          <button
-            onClick={toggleTheme}
-            className="text-xs sm:text-sm bg-white border border-navy/20 text-navy dark:bg-white/10 dark:border-white/20 dark:text-white px-3 py-2 rounded-full min-h-[44px] min-w-[44px]"
+        <div className="fixed top-0 inset-x-0 z-30">
+          <motion.div
+            initial={{ y: -48 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
+            className="bg-gold text-navy text-xs sm:text-sm font-bold uppercase tracking-wider py-2 px-4 flex items-center justify-center gap-2 text-center"
           >
-            {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
-          </button>
-        </nav>
+            <Ship size={16} className="shrink-0" aria-hidden="true" />
+            <span>Free shipping — CIF Tema port delivery included on every vehicle</span>
+          </motion.div>
+          <nav className="flex items-center justify-between px-4 sm:px-6 py-3">
+            <span className="font-display font-bold text-navy dark:text-white text-lg sm:text-xl">
+              {APP_CONFIG.siteTitle}
+            </span>
+            <button
+              onClick={toggleTheme}
+              className="text-xs sm:text-sm bg-white border border-navy/20 text-navy dark:bg-white/10 dark:border-white/20 dark:text-white px-3 py-2 rounded-full min-h-[44px] min-w-[44px]"
+            >
+              {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+            </button>
+          </nav>
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-12 sm:pb-16">
           {/* Hero */}
           <Hero title={APP_CONFIG.heroTitle} subtitle={heroSubtitle} />
 

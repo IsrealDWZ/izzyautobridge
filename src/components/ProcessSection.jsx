@@ -18,7 +18,7 @@ const steps = [
     num: '3',
     icon: Truck,
     title: 'We Ship — You Track',
-    desc: 'Friend sources, SGS inspects, ships CIF Tema (60 days). You get video loading proof, Bill of Lading, all docs via WhatsApp before vessel arrives.',
+    desc: 'Friend sources, SGS inspects, ships free — CIF Tema (60 days), freight and insurance included in your price. Video loading proof, Bill of Lading, all docs via WhatsApp before vessel arrives.',
   },
   {
     num: '4',

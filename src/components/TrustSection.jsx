@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle, Shield, Truck, Wrench, Award } from 'lucide-react';
+import { CheckCircle, Shield, Truck, Wrench, Award, Ship } from 'lucide-react';
 
 const trustItems = [
   {
@@ -31,6 +31,12 @@ const trustItems = [
     question: 'Have you been to Ghana?',
     answer: 'Accra-based. We know the roads that break suspensions and the ones that don\'t. The vehicles we ship are picked for Ghana conditions — ground clearance, AC capacity, parts availability.',
     icon: Award,
+  },
+  {
+    num: '06',
+    question: 'Is shipping really free?',
+    answer: 'Yes — every quoted price is CIF Tema. Ocean freight and marine insurance to Tema port are built into the price you see. You never get a surprise freight bill after paying.',
+    icon: Ship,
   },
 ];
 

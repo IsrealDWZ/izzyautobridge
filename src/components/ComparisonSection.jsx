@@ -67,6 +67,7 @@ export default function ComparisonSection() {
               <div className="text-white/80 mb-6 space-y-2 text-sm">
                 <p>• Wholesale + fixed fee only</p>
                 <p>• Full landed cost breakdown</p>
+                <p>• Free shipping — CIF Tema included</p>
                 <p>• 70+ models from China</p>
                 <p>• Video proof & SGS inspection</p>
               </div>

@@ -9,7 +9,7 @@ export default function ScrollProgress() {
     <motion.div
       aria-hidden="true"
       style={{ scaleX }}
-      className="fixed top-0 left-0 right-0 z-[60] h-[3px] origin-left bg-gold"
+      className="fixed top-0 left-0 right-0 z-[60] h-[3px] origin-left bg-navy"
     />
   );
 }
