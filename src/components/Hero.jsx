@@ -26,15 +26,6 @@ export default function Hero({ title, subtitle }) {
         variants={fadeUp}
         className="relative z-10 px-6 md:px-12 max-w-3xl"
       >
-        <div className="flex flex-wrap gap-2 mb-6">
-          <span className="text-xs uppercase tracking-widest bg-navy/80 border border-white/30 text-white px-4 py-1.5 rounded-full backdrop-blur-sm">
-            Direct from China
-          </span>
-          <span className="text-xs uppercase tracking-widest bg-navy/80 border border-white/30 text-white px-4 py-1.5 rounded-full backdrop-blur-sm">
-            CIF Tema Shipping Included
-          </span>
-        </div>
-
         <h1 className="font-display text-5xl md:text-7xl font-bold text-white leading-[1.05] tracking-tight">
           {title}
         </h1>

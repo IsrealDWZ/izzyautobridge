@@ -21,7 +21,7 @@ import { WHATSAPP_NUMBER, APP_CONFIG } from './utils/constants';
 
 export default function App() {
   const { theme, toggleTheme } = useAppStore();
-  const heroSubtitle = 'Direct China vehicle imports to Ghana with transparent landed costs and a route you can actually track from port to your driveway.';
+  const heroSubtitle = 'Direct China vehicle imports to Ghana with transparent landed costs — CIF Tema shipping included — and a route you can actually track from port to your driveway.';
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
