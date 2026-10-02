@@ -36,7 +36,7 @@ export default function ComparisonSection() {
               aria-hidden="true"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-navy/75" />
+            <div className="absolute inset-0 bg-navy/85" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
@@ -47,8 +47,8 @@ export default function ComparisonSection() {
                   🏪 Local Dealer
                 </span>
               </div>
-              <div className="text-4xl md:text-5xl font-bold mb-2">GH₵550,000</div>
-              <div className="text-white/70 mb-6 space-y-2 text-sm">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">GH₵550,000</div>
+              <div className="text-white/80 mb-6 space-y-2 text-sm">
                 <p>• Dealer markup 25-35%</p>
                 <p>• Hidden fees & commissions</p>
                 <p>• Limited model selection</p>
@@ -63,8 +63,8 @@ export default function ComparisonSection() {
                   🚢 IzzyAutoBridge Direct
                 </span>
               </div>
-              <div className="text-4xl md:text-5xl font-bold text-gold-light mb-2">GH₵440,000</div>
-              <div className="text-white/70 mb-6 space-y-2 text-sm">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gold-light mb-2">GH₵440,000</div>
+              <div className="text-white/80 mb-6 space-y-2 text-sm">
                 <p>• Wholesale + fixed fee only</p>
                 <p>• Full landed cost breakdown</p>
                 <p>• 70+ models from China</p>
