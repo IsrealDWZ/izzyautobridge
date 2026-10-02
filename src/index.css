@@ -21,3 +21,9 @@ body {
 .card-surface {
   @apply bg-white border border-gray-200 rounded-2xl transition-colors;
 }
+
+/* BrandMarquee — doubled track slides -50% for a seamless loop; hover pauses via group-hover */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

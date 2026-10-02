@@ -10,6 +10,7 @@ import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
 import ProcessSection from './components/ProcessSection';
+import ScrollProgress from './components/ScrollProgress';
 import ShowcaseVideo from './components/ShowcaseVideo';
 import StatsRow from './components/StatsRow';
 import TrustSection from './components/TrustSection';
@@ -29,6 +30,7 @@ export default function App() {
   return (
     <div className={theme}>
       <div className="min-h-screen bg-white dark:bg-navy-dark text-navy dark:text-white transition-colors">
+        <ScrollProgress />
         <nav className="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3">
           <span className="font-display font-bold text-navy dark:text-white text-lg sm:text-xl">{APP_CONFIG.siteTitle}</span>
           <button

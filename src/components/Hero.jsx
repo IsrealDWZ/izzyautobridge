@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
 
+import BrandMarquee from './BrandMarquee';
+import ScrollChevrons from './ScrollChevrons';
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
@@ -48,17 +51,13 @@ export default function Hero({ title, subtitle }) {
             EV Savings Calculator
           </button>
         </div>
+
+        <div className="mt-8">
+          <BrandMarquee />
+        </div>
       </motion.div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1.5">
-          <motion.div
-            className="w-1.5 h-1.5 rounded-full bg-white/60"
-            animate={{ y: [0, 10, 0], opacity: [1, 0.3, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </div>
-      </div>
+      <ScrollChevrons targetId="next" />
     </section>
   );
 }

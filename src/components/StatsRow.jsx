@@ -22,7 +22,8 @@ export default function StatsRow({ vehicles }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6 }}
-      className="mt-8 sm:mt-12 mb-8 sm:mb-12"
+      id="next"
+      className="mt-8 sm:mt-12 mb-8 sm:mb-12 scroll-mt-24"
     >
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
         {stats.map((stat, i) => (
