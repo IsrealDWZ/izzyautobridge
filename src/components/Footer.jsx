@@ -1,13 +1,14 @@
 import { motion } from 'framer-motion';
 import { Car, Truck, Zap, Shield, MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 const footerLinks = {
   company: [
     { label: 'About Us', href: '#' },
-    { label: 'Our Process', href: '#process' },
-    { label: 'Trust & Warranty', href: '#trust' },
+    { label: 'Our Process', to: '/#process' },
+    { label: 'Trust & Warranty', to: '/#trust' },
     { label: 'Careers', href: '#' },
   ],
   support: [
@@ -17,7 +18,7 @@ const footerLinks = {
     { label: 'Customs Guide', href: '#' },
   ],
   services: [
-    { label: 'Vehicle Import', href: '#' },
+    { label: 'Vehicle Import', to: '/inventory' },
     { label: 'Fleet Solutions', href: '#' },
     { label: 'EV Consulting', href: '#' },
   ],
@@ -74,14 +75,23 @@ export default function Footer() {
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      target={link.href.startsWith('http') ? '_blank' : undefined}
-                      rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                      className="text-white/70 hover:text-gold transition-colors text-sm"
-                    >
-                      {link.label}
-                    </a>
+                    {link.to ? (
+                      <Link
+                        to={link.to}
+                        className="text-white/70 hover:text-gold transition-colors text-sm"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        target={link.href.startsWith('http') ? '_blank' : undefined}
+                        rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                        className="text-white/70 hover:text-gold transition-colors text-sm"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

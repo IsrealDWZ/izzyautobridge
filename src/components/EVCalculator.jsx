@@ -17,7 +17,7 @@ export default function EVCalculator() {
   const savePercent = petrolDaily > 0 ? ((dailySave / petrolDaily) * 100).toFixed(0) : 0;
 
   return (
-    <section className="py-16">
+    <section id="calculator" className="py-16">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-gold/15 text-navy dark:text-gold px-4 py-2 rounded-full text-sm font-semibold mb-4">
