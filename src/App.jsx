@@ -1,18 +1,26 @@
 import { motion } from 'framer-motion';
 import { Ship } from 'lucide-react';
 import { useEffect } from 'react';
-import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import CompareModal from './components/CompareModal';
 import FavoritesDrawer from './components/FavoritesDrawer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
+import Marquee from './components/Marquee';
 import ScrollProgress from './components/ScrollProgress';
 import vehicles from './data/vehicles.json';
 import HomePage from './pages/HomePage';
 import InventoryPage from './pages/InventoryPage';
 import { useAppStore } from './store/useAppStore';
 import { APP_CONFIG, WHATSAPP_NUMBER } from './utils/constants';
+
+const shipItems = Array.from({ length: 6 }, (_, i) => (
+  <span key={i} className="flex items-center gap-2">
+    <Ship size={15} aria-hidden="true" />
+    Free shipping — CIF Tema port delivery included on every vehicle
+  </span>
+));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -49,10 +57,14 @@ export default function App() {
             initial={{ y: -48 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
-            className="bg-gold text-navy text-xs sm:text-sm font-bold uppercase tracking-wider py-2 px-4 flex items-center justify-center gap-2 text-center overflow-hidden"
+            className="bg-gold text-navy py-2 overflow-hidden"
           >
-            <Ship size={16} className="shrink-0" aria-hidden="true" />
-            <span>Free shipping — CIF Tema port delivery included on every vehicle</span>
+            <Marquee
+              items={shipItems}
+              duration={40}
+              gap="gap-12"
+              itemClassName="text-xs sm:text-sm font-bold uppercase tracking-wider"
+            />
           </motion.div>
           <nav className="flex items-center justify-between px-4 sm:px-6 py-3">
             <div className="flex items-center gap-5">
@@ -62,7 +74,7 @@ export default function App() {
               >
                 {APP_CONFIG.siteTitle}
               </Link>
-              <Link
+              <NavLink
                 to="/inventory"
                 className={({ isActive }) =>
                   `text-xs sm:text-sm font-semibold uppercase tracking-wide transition-colors ${
@@ -73,7 +85,7 @@ export default function App() {
                 }
               >
                 Inventory
-              </Link>
+              </NavLink>
             </div>
             <button
               onClick={toggleTheme}

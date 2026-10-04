@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
-import BrandMarquee from './BrandMarquee';
 import ScrollChevrons from './ScrollChevrons';
 
 const fadeUp = {
@@ -52,10 +51,6 @@ export default function Hero({ title, subtitle }) {
           >
             EV Savings Calculator
           </button>
-        </div>
-
-        <div className="mt-8">
-          <BrandMarquee />
         </div>
       </motion.div>
 

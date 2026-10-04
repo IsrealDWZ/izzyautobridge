@@ -1,6 +1,7 @@
 import { Car } from 'lucide-react';
 import { useEffect } from 'react';
 
+import BrandMarquee from '../components/BrandMarquee';
 import FilterSidebar from '../components/FilterSidebar';
 import VehicleGrid from '../components/VehicleGrid';
 import vehicles from '../data/vehicles.json';
@@ -13,7 +14,7 @@ export default function InventoryPage() {
 
   return (
     <>
-      <header className="rounded-2xl bg-navy text-white p-8 sm:p-10 mb-8">
+      <header className="rounded-2xl bg-navy text-white p-8 sm:p-10 mb-8 overflow-hidden">
         <div className="inline-flex items-center gap-2 bg-gold text-navy px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-5">
           <Car size={16} aria-hidden="true" /> Inventory
         </div>
@@ -24,6 +25,9 @@ export default function InventoryPage() {
           Live stock from our China partners — filter by brand, price and year.
           Free shipping to Tema included in every landed price.
         </p>
+        <div className="-mx-8 sm:-mx-10 mt-7">
+          <BrandMarquee />
+        </div>
       </header>
 
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
