@@ -46,6 +46,23 @@ export default function App() {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
 
+  // Auto-hide scrollbar: show the thumb while scrolling, hide it ~700ms after
+  // the last scroll event (CSS in index.css keys off html.is-scrolling).
+  useEffect(() => {
+    const el = document.documentElement;
+    let timer;
+    const onScroll = () => {
+      el.classList.add('is-scrolling');
+      clearTimeout(timer);
+      timer = setTimeout(() => el.classList.remove('is-scrolling'), 700);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <div className={theme}>
       <div className="min-h-screen bg-primary text-main transition-colors">
