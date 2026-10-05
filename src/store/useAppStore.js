@@ -24,7 +24,7 @@ export const useAppStore = create((set) => ({
   resetFilters: (dynamicDefaults) =>
     set({
       filters: {
-        brands: [], fuel: [], body: [], status: [],
+        brands: [], fuel: [], body: [], status: [], category: [],
         priceRange: dynamicDefaults?.priceRange || [150000, 600000],
         yearRange: dynamicDefaults?.yearRange || [2016, 2026],
       },

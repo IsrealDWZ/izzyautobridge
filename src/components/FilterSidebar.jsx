@@ -28,6 +28,7 @@ export default function FilterSidebar({ vehicles = [] }) {
     filters.fuel.length,
     filters.body.length,
     filters.status.length,
+    filters.category.length,
     filters.priceRange[0] !== priceMin || filters.priceRange[1] !== priceMax,
     filters.yearRange[0] !== yearMin || filters.yearRange[1] !== yearMax,
   ].filter(Boolean).length;

@@ -67,18 +67,22 @@ describe('useAppStore', () => {
 
     it('resets filters with dynamic defaults', () => {
       useAppStore.getState().setFilter('brands', ['Toyota']);
+      useAppStore.getState().setFilter('category', ['EV']);
       useAppStore.getState().resetFilters({ priceRange: [100000, 500000], yearRange: [2020, 2024] });
       
       expect(useAppStore.getState().filters.brands).toEqual([]);
+      expect(useAppStore.getState().filters.category).toEqual([]);
       expect(useAppStore.getState().filters.priceRange).toEqual([100000, 500000]);
       expect(useAppStore.getState().filters.yearRange).toEqual([2020, 2024]);
     });
 
     it('resets filters with fallback defaults when no dynamic defaults provided', () => {
       useAppStore.getState().setFilter('brands', ['Toyota']);
+      useAppStore.getState().setFilter('category', ['EV']);
       useAppStore.getState().resetFilters();
       
       expect(useAppStore.getState().filters.brands).toEqual([]);
+      expect(useAppStore.getState().filters.category).toEqual([]);
       expect(useAppStore.getState().filters.priceRange).toEqual([150000, 600000]);
       expect(useAppStore.getState().filters.yearRange).toEqual([2016, 2026]);
     });
