@@ -66,7 +66,7 @@ export default function App() {
               itemClassName="text-xs sm:text-sm font-bold uppercase tracking-wider"
             />
           </motion.div>
-          <nav className="flex items-center gap-2 sm:gap-5 px-4 sm:px-6 py-3">
+          <nav className="flex items-center gap-2 sm:gap-5 px-4 sm:px-6 py-3 bg-white dark:bg-black">
             <Link
               to="/"
               className="font-display font-bold text-navy dark:text-white text-base sm:text-xl whitespace-nowrap"
