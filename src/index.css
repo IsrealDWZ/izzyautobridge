@@ -2,7 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* clip (not hidden) so full-bleed elements can span past the layout box
+     without a horizontal scrollbar or scroll range, while keeping
+     position:sticky working. Must be on html: Chrome doesn't propagate
+     body's overflow-x to the viewport for `clip`. */
+  overflow-x: clip;
+}
+
+/* Subtle scrollbars: thin translucent thumb on a transparent track.
+   Standard properties (Firefox/modern Chrome) + webkit pseudo (classic Chrome/Safari). */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(27, 42, 74, 0.3) transparent;
+}
+.dark {
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(27, 42, 74, 0.3);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(27, 42, 74, 0.5);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
