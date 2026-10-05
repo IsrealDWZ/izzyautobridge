@@ -1,4 +1,4 @@
-# IzzyAutoBridge — "Nomad + Terracotta Energy" Design System
+# IzzyAutoBridge — "Browns Amortage Premium Minimal" Design System
 
 Single source of truth for design tokens. CSS custom properties live in
 `src/index.css` (`:root` = light base, `.dark` = dark matrix); Tailwind
@@ -8,14 +8,15 @@ semantic colors in `tailwind.config.js` map to these exact variables.
 
 | Token | Value | Role |
 |---|---|---|
-| `--bg-primary` | `#ebe9e7` | Alabaster Off-White (Global site background/canvas space) |
-| `--bg-card` | `#ffffff` | Pure White (Floating dashboard containers, grid cards, data blocks) |
+| `--bg-primary` | `#e7e7e7` | Platinum Silk (Global app background canvas) |
+| `--bg-card` | `#ffffff` | Pure White (Floating visual components & data blocks) |
 | `--bg-secondary` | `#4f3928` | Dark Chocolate (Primary navigation bars, app footers, control strips) |
-| `--text-main` | `#3c2411` | Espresso Near-Black (All main h1/h2 headers, body reading text) |
-| `--text-muted` | `#4f3928` | Dark Chocolate (Secondary metadata, item specs, table labels) |
-| `--border-subtle` | `#c4bdb7` | Greige (Input field strokes, container borders, visual divider lines) |
+| `--text-main` | `#78635e` | Moccasin Brown (Primary typography & headers) — **AA-adjusted** from spec `#907771`, see audit rule 1 |
+| `--text-muted` | `#74655a` | Driftwood (Secondary descriptive blocks) — **AA-adjusted** from spec `#afa298`, see audit rule 1 |
+| `--border-subtle` | `#aca6a0` | Pebble Gray (Structural boundaries & clean divider lines) |
+| `--accent-surface` | `#beb4ad` | Warm Sand (Deactivated states or pill tag backdrops) |
 
-## Dark Mode Matrix (Triggered via `class="dark"` or `data-theme="dark"` on the root HTML element)
+## Dark Mode Matrix (Triggered via `class="dark"` or `data-theme="dark"` on the root HTML element — UNCHANGED by the Browns Amortage refresh)
 
 | Token | Value | Role |
 |---|---|---|
@@ -29,19 +30,36 @@ semantic colors in `tailwind.config.js` map to these exact variables.
 
 | Token | Value | Role |
 |---|---|---|
-| `--accent-action` | `#c86b45` | Terracotta (Primary call-to-actions, "Place Bid", billing submissions) |
-| `--accent-alert` | `#b85329` | Burnt Amber/Rust (Live countdown clocks, urgency notifications, ticking timers) |
+| `--accent-action` | `#907771` | Moccasin (Primary interactive UI trigger backgrounds, CTA fills, icon accents) |
+| `--accent-alert` | `#b85329` | Burnt Amber/Rust (Live countdown clocks, urgency notifications, form validation errors) |
 | `--accent-hover` | `#8a7b70` | Taupe (Interactive state transitions for links and secondary buttons) |
+| `--accent-surface` | `#beb4ad` | Warm Sand (Deactivated states or pill tag backdrops — eyebrows, spec tags, inactive filter chips) |
 
-## Typographic Accessibility Rules (WCAG AA — minimum 4.5:1)
+## Typographic Visibility Rules (WCAG AA — minimum 4.5:1)
 
-1. Every typographic asset must sustain a minimum contrast ratio of 4.5:1.
-2. Primary text on light backgrounds exclusively uses `--text-main` (`#3c2411`).
-3. Primary text on dark backgrounds exclusively uses `--text-main` (`#ebe9e7`).
+1. Every typographic asset must sustain a minimum contrast ratio of 4.5:1
+   (large text: ≥18.66px bold / ≥24px regular may use the 3:1 threshold).
+   The spec's literal text hexes cannot meet this on the spec's own
+   backgrounds, so the two TEXT tokens are AA-adjusted to the lightest
+   same-hue values that pass on the Platinum Silk canvas:
+
+   | Pair | Spec value | Adjusted | Ratio |
+   |---|---|---|---|
+   | primary text on `#e7e7e7` canvas | `#907771` → **3.35:1** ✗ | `#78635e` | **4.53:1** ✓ |
+   | secondary text on `#e7e7e7` canvas | `#afa298` → **2.01:1** ✗ | `#74655a` | **4.53:1** ✓ |
+   | white label on `#907771` action fill | `#907771` | kept literal | 4.15:1 — passes the 3:1 large-text threshold only |
+
+   All non-text spec hexes (`#e7e7e7`, `#ffffff`, `#aca6a0`, `#beb4ad`,
+   `#907771`) are kept **exactly** as specified.
+2. Primary text on light backgrounds exclusively uses `--text-main`.
+3. Primary text on dark backgrounds exclusively uses `--text-main`
+   (`#ebe9e7`); text on `--bg-secondary` chrome uses `--text-inverse`.
 4. **Forbidden combinations:**
-   - ❌ `#8a7b70` (Taupe) text on a `#ebe9e7` (Alabaster) canvas
-   - ❌ `#4f3928` (Dark Chocolate) text on a `#3c2411` (Espresso) dark-mode background
-   - ❌ Pure white text on `#c4bdb7` (Greige) outlined components or badges
+   - ❌ `#aca6a0` (Pebble Gray) text on the `#e7e7e7` (Platinum Silk) canvas — 1.95:1
+   - ❌ `#beb4ad` (Warm Sand) text onto pure `#ffffff` containers — 2.03:1
+   - ❌ `--text-main` (`#78635e`) as text ONTO `--accent-surface` (`#beb4ad`) — 2.75:1
+     (pill labels use espresso `#3c2411` instead — 7.11:1)
+   - ❌ `--accent-hover` (taupe) as a text color on any canvas (3.37:1 / 4.08:1)
 
 ## Implementation Notes
 
@@ -52,14 +70,15 @@ semantic colors in `tailwind.config.js` map to these exact variables.
   this keeps Tailwind opacity modifiers (`bg-action/10`, `border-action/40`)
   working; var()-based tokens are used without alpha modifiers.
 - **Text on `--bg-secondary` surfaces** (nav, footer, marquee strip,
-  dark panels) uses `--text-inverse` (`#ebe9e7`, constant) — the light-mode
-  value of `--text-main` would be espresso-on-chocolate and fails 4.5:1.
-- **Primary CTAs** = `bg-action` + white label at ≥19px bold
-  (WCAG "large text" threshold, 3:1 — white on `#c86b45` measures 3.72:1).
-- **Small labels never sit on terracotta** (3.72:1 < 4.5) — badges/chips use
-  `--bg-secondary`/espresso fills with alabaster text, or the fixed
-  alabaster-on-espresso `.chip-badge`.
-- **`--accent-hover` (taupe) never carries text** (fails 4.5:1 on both
-  canvases) — it drives hover underlines, background tints, and icon
-  states; link text transitions to `--text-main`/white instead.
+  dark panels) uses `--text-inverse` (`#ebe9e7`, constant).
+- **Primary CTAs** = `bg-action` (`#907771`) + white label at ≥19px bold
+  (WCAG large-text threshold 3:1 — white on `#907771` measures 4.15:1).
+  Every white-on-action label in the codebase is `text-xl font-bold`.
+- **Warm Sand pills** (`.chip-soft` eyebrows, spec tags, inactive filter/
+  category chips, deactivated compare states) use `bg-accent-surface` with
+  espresso `text-navy` (`#3c2411`) labels — 7.11:1.
+- **Selected/active pills** keep `.pill-active` inversion
+  (`--text-main` fill, `--bg-primary` label) — 4.53:1.
+- **`--accent-hover` (taupe) never carries text** — hover underlines,
+  background tints (`bg-accent-hover/15`), and icon states only.
 - **Urgency text** uses `--accent-alert` (`#b85329`): 4.88:1 on white cards.

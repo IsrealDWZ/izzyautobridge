@@ -3,22 +3,23 @@
 @tailwind utilities;
 
 /* ============================================================
-   Nomad + Terracotta Energy — design tokens (see DESIGN.md)
+   Browns Amortage Premium Minimal — design tokens (see DESIGN.md)
    ============================================================ */
 :root {
   /* Light Mode (default base) */
-  --bg-primary: #ebe9e7;
-  --bg-card: #ffffff;
-  --bg-secondary: #4f3928;
-  --text-main: #3c2411;
-  --text-muted: #4f3928;
-  --border-subtle: #c4bdb7;
+  --bg-primary: #e7e7e7; /* Platinum Silk */
+  --bg-card: #ffffff; /* Pure White */
+  --bg-secondary: #4f3928; /* Dark Chocolate (nav/footer — unchanged) */
+  --text-main: #78635e; /* Moccasin, AA-adjusted from #907771 (4.53:1 on canvas) */
+  --text-muted: #74655a; /* Driftwood, AA-adjusted from #afa298 (4.53:1 on canvas) */
+  --border-subtle: #aca6a0; /* Pebble Gray */
   /* Text on --bg-secondary surfaces (constant; = dark-mode --text-main) */
   --text-inverse: #ebe9e7;
   /* Global interactive accents (constant across light + dark) */
-  --accent-action: #c86b45;
-  --accent-alert: #b85329;
-  --accent-hover: #8a7b70;
+  --accent-action: #907771; /* Moccasin trigger fills */
+  --accent-alert: #b85329; /* Burnt Amber urgency/errors */
+  --accent-hover: #8a7b70; /* Taupe transitions */
+  --accent-surface: #beb4ad; /* Warm Sand pill/deactivated backdrops */
   color-scheme: light;
 }
 
@@ -113,11 +114,12 @@ body {
   @apply bg-card border border-subtle rounded-2xl transition-colors;
 }
 
-/* Soft eyebrow pill — tint of --bg-secondary, text flips with the theme */
+/* Soft eyebrow pill — Warm Sand backdrop, espresso label (7.11:1).
+   text-main on sand fails 4.5:1, so labels are espresso per DESIGN.md */
 .chip-soft {
   @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold;
-  background: rgba(79, 57, 40, 0.12);
-  color: var(--text-main);
+  background: var(--accent-surface);
+  color: #3c2411;
   border: 1px solid var(--border-subtle);
 }
 
