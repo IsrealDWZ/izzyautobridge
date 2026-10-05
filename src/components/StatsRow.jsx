@@ -33,13 +33,13 @@ export default function StatsRow({ vehicles }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="card-surface p-4 sm:p-6 text-center hover:border-gold/50 hover:shadow-xl hover:-translate-y-1 transition-all"
+            className="card-surface p-4 sm:p-6 text-center hover:border-action/50 hover:shadow-xl hover:-translate-y-1 transition-all"
           >
-            <stat.icon className="text-2xl sm:text-3xl mx-auto mb-2" style={{ color: stat.isGold ? '#D4A843' : '#1B2A4A' }} />
-            <div className="text-sm sm:text-base font-bold text-black dark:text-white">
+            <stat.icon className="text-2xl sm:text-3xl mx-auto mb-2" style={{ color: stat.isGold ? 'var(--accent-action)' : 'var(--text-main)' }} />
+            <div className="text-sm sm:text-base font-bold text-main">
               {stat.value}
             </div>
-            <div className="text-sm sm:text-base text-black dark:text-white mt-1">{stat.label}</div>
+            <div className="text-sm sm:text-base text-muted mt-1">{stat.label}</div>
           </motion.div>
         ))}
       </div>

@@ -2,6 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   Nomad + Terracotta Energy — design tokens (see DESIGN.md)
+   ============================================================ */
+:root {
+  /* Light Mode (default base) */
+  --bg-primary: #ebe9e7;
+  --bg-card: #ffffff;
+  --bg-secondary: #4f3928;
+  --text-main: #3c2411;
+  --text-muted: #4f3928;
+  --border-subtle: #c4bdb7;
+  /* Text on --bg-secondary surfaces (constant; = dark-mode --text-main) */
+  --text-inverse: #ebe9e7;
+  /* Global interactive accents (constant across light + dark) */
+  --accent-action: #c86b45;
+  --accent-alert: #b85329;
+  --accent-hover: #8a7b70;
+  color-scheme: light;
+}
+
+/* Dark Mode Matrix — root element carries class="dark" or data-theme="dark" */
+.dark,
+[data-theme='dark'] {
+  --bg-primary: #3c2411;
+  --bg-card: #4f3928;
+  --text-main: #ebe9e7;
+  --text-muted: #c4bdb7;
+  --border-subtle: #8a7b70;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-main);
+}
+
 html {
   scroll-behavior: smooth;
   /* clip (not hidden) so full-bleed elements can span past the layout box
@@ -15,10 +51,10 @@ html {
    Standard properties (Firefox/modern Chrome) + webkit pseudo (classic Chrome/Safari). */
 html {
   scrollbar-width: thin;
-  scrollbar-color: rgba(27, 42, 74, 0.3) transparent;
+  scrollbar-color: rgba(60, 36, 17, 0.3) transparent;
 }
 .dark {
-  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  scrollbar-color: rgba(235, 233, 231, 0.25) transparent;
 }
 ::-webkit-scrollbar {
   width: 8px;
@@ -28,17 +64,17 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(27, 42, 74, 0.3);
+  background: rgba(60, 36, 17, 0.3);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(27, 42, 74, 0.5);
+  background: rgba(60, 36, 17, 0.5);
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(235, 233, 231, 0.25);
 }
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(235, 233, 231, 0.4);
 }
 
 body {
@@ -52,14 +88,31 @@ body {
   font-family: 'Fraunces', Georgia, serif;
 }
 
-/* Dark mode surface tokens — toggled via <html class="dark"> */
-:root { color-scheme: light; }
-.dark { color-scheme: dark; }
-.dark body { background: #000; color: #F2F4F8; }
-.dark .card-surface { background: #0E0E11; border-color: #26262B; }
-
+/* Card surface — light: pure white + greige stroke; dark: espresso/chocolate
+   via the token remap (no dark: duplication needed) */
 .card-surface {
-  @apply bg-white border border-gray-200 rounded-2xl transition-colors;
+  @apply bg-card border border-subtle rounded-2xl transition-colors;
+}
+
+/* Soft eyebrow pill — tint of --bg-secondary, text flips with the theme */
+.chip-soft {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold;
+  background: rgba(79, 57, 40, 0.12);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Fixed light badge for dark (--bg-secondary) surfaces — alabaster on espresso */
+.chip-badge {
+  background: #ebe9e7;
+  color: #3c2411;
+}
+
+/* Selected/active pill — inverts with the theme (espresso<->alabaster) */
+.pill-active {
+  background: var(--text-main);
+  color: var(--bg-primary);
+  border-color: var(--text-main);
 }
 
 /* BrandMarquee — doubled track slides -50% for a seamless loop; hover pauses via group-hover */

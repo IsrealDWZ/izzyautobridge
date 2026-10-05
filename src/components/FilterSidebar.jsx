@@ -56,7 +56,7 @@ export default function FilterSidebar({ vehicles = [] }) {
         <div className="sticky top-24 space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="font-display font-bold">🔍 Filters</h3>
-            <button onClick={handleReset} className="text-xs text-gray-500 dark:text-gray-400 hover:text-gold min-h-[44px]">Reset all</button>
+            <button onClick={handleReset} className="text-xs text-muted hover:text-main hover:underline decoration-accent-hover decoration-2 underline-offset-4 min-h-[44px]">Reset all</button>
           </div>
 
           <FilterGroup label="Brand" items={brands} selected={filters.brands} onChange={(v) => setFilter('brands', v)} />
@@ -65,7 +65,7 @@ export default function FilterSidebar({ vehicles = [] }) {
           <FilterGroup label="Status" items={statuses} selected={filters.status} onChange={(v) => setFilter('status', v)} />
 
           <div className="space-y-3">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">💰 Price Range (GHS)</label>
+            <label className="block text-sm font-medium text-main">💰 Price Range (GHS)</label>
             <PriceRangeSlider
               min={priceMin} max={priceMax}
               value={filters.priceRange}
@@ -74,7 +74,7 @@ export default function FilterSidebar({ vehicles = [] }) {
           </div>
 
           <div className="space-y-3">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Year</label>
+            <label className="block text-sm font-medium text-main">Year</label>
             <PriceRangeSlider
               min={yearMin} max={yearMax}
               value={filters.yearRange}
@@ -87,10 +87,10 @@ export default function FilterSidebar({ vehicles = [] }) {
       {/* Mobile Toggle Button - positioned to avoid WhatsApp button */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="lg:hidden fixed bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-40 bg-navy text-white rounded-full px-5 py-3 text-sm font-semibold shadow-lg flex items-center gap-2 min-h-[44px]"
+        className="lg:hidden fixed bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-40 bg-secondary text-onsecondary rounded-full px-5 py-3 text-sm font-semibold shadow-lg flex items-center gap-2 min-h-[44px]"
       >
         <Filter size={16} /> Filters {activeCount > 0 && (
-          <span className="bg-gold text-navy text-xs font-bold px-1.5 py-0.5 rounded-full">{activeCount}</span>
+          <span className="chip-badge text-xs font-bold px-1.5 py-0.5 rounded-full">{activeCount}</span>
         )}
       </button>
 
@@ -100,15 +100,15 @@ export default function FilterSidebar({ vehicles = [] }) {
           <>
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-navy/40 z-40"
+              className="fixed inset-0 bg-black/50 z-40"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
-              className="fixed bottom-0 left-0 right-0 h-[90vh] max-h-[90vh] bg-white dark:bg-panel z-50 shadow-2xl flex flex-col"
+              className="fixed bottom-0 left-0 right-0 h-[90vh] max-h-[90vh] bg-card z-50 shadow-2xl flex flex-col"
             >
-              <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100 dark:border-white/10">
+              <div className="flex items-center justify-between p-4 sm:p-5 border-b border-subtle">
                 <h3 className="font-display font-bold">🔍 Filters</h3>
                 <button onClick={() => setMobileOpen(false)} className="p-2 min-h-[44px] min-w-[44px]"><X size={24} /></button>
               </div>
@@ -120,7 +120,7 @@ export default function FilterSidebar({ vehicles = [] }) {
                 <FilterGroup label="Status" items={statuses} selected={filters.status} onChange={(v) => setFilter('status', v)} />
 
                 <div className="space-y-3">
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">💰 Price Range (GHS)</label>
+                  <label className="block text-sm font-medium text-main">💰 Price Range (GHS)</label>
                   <PriceRangeSlider
                     min={priceMin} max={priceMax}
                     value={filters.priceRange}
@@ -129,7 +129,7 @@ export default function FilterSidebar({ vehicles = [] }) {
                 </div>
 
                 <div className="space-y-3">
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Year</label>
+                  <label className="block text-sm font-medium text-main">Year</label>
                   <PriceRangeSlider
                     min={yearMin} max={yearMax}
                     value={filters.yearRange}
@@ -137,11 +137,11 @@ export default function FilterSidebar({ vehicles = [] }) {
                   />
                 </div>
 
-                <button onClick={handleReset} className="w-full text-center text-xs text-gray-400 py-3 min-h-[44px]">Reset all filters</button>
+                <button onClick={handleReset} className="w-full text-center text-xs text-muted py-3 min-h-[44px] hover:text-main min-h-[44px]">Reset all filters</button>
               </div>
 
-              <div className="p-4 sm:p-5 border-t border-gray-100 dark:border-white/10">
-                <button onClick={() => setMobileOpen(false)} className="w-full bg-navy text-white py-3 rounded-lg font-semibold min-h-[44px]">
+              <div className="p-4 sm:p-5 border-t border-subtle">
+                <button onClick={() => setMobileOpen(false)} className="w-full bg-secondary text-onsecondary py-3 rounded-lg font-semibold min-h-[44px]">
                   Done
                 </button>
               </div>
@@ -156,7 +156,7 @@ export default function FilterSidebar({ vehicles = [] }) {
 function FilterGroup({ label, items, selected, onChange }) {
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
+      <label className="block text-sm font-medium text-main">{label}</label>
       <div className="flex flex-wrap gap-2">
         {items.map((item) => (
           <label key={item} className="flex items-center gap-2 cursor-pointer min-h-[44px]">
@@ -164,9 +164,9 @@ function FilterGroup({ label, items, selected, onChange }) {
               type="checkbox"
               checked={selected.includes(item)}
               onChange={(e) => onChange(e.target.checked ? [...selected, item] : selected.filter(x => x !== item))}
-              className="w-5 h-5 text-gold border-gray-300 rounded focus:ring-gold"
+              className="w-5 h-5 text-action border-subtle rounded accent-action focus:ring-action"
             />
-            <span className="text-sm text-gray-700 dark:text-gray-300">{item}</span>
+            <span className="text-sm text-main">{item}</span>
           </label>
         ))}
       </div>
@@ -178,7 +178,7 @@ function PriceRangeSlider({ min, max, value, onChange }) {
   const [low, high] = value;
   return (
     <div className="space-y-2">
-      <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+      <div className="flex justify-between text-xs text-muted">
         <span>GH₵{low.toLocaleString()}</span>
         <span>GH₵{high.toLocaleString()}</span>
       </div>
@@ -191,7 +191,7 @@ function PriceRangeSlider({ min, max, value, onChange }) {
           const newLow = parseInt(e.target.value);
           if (newLow <= high) onChange([newLow, high]);
         }}
-        className="w-full h-2 bg-gray-200 dark:bg-navy-deep rounded-lg appearance-none accent-gold"
+        className="w-full h-2 bg-primary border border-subtle rounded-lg appearance-none accent-action"
       />
       <input
         type="range"
@@ -202,7 +202,7 @@ function PriceRangeSlider({ min, max, value, onChange }) {
           const newHigh = parseInt(e.target.value);
           if (newHigh >= low) onChange([low, newHigh]);
         }}
-        className="w-full h-2 bg-gray-200 dark:bg-navy-deep rounded-lg appearance-none accent-gold"
+        className="w-full h-2 bg-primary border border-subtle rounded-lg appearance-none accent-action"
       />
     </div>
   );

@@ -41,7 +41,7 @@ export default function VehicleGrid({ vehicles, _whatsappNumber }) {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <div className="flex items-center justify-between mb-6">
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-muted">
           Showing {filtered.length} of {vehicles.length} vehicles
         </p>
       </div>
@@ -54,8 +54,8 @@ export default function VehicleGrid({ vehicles, _whatsappNumber }) {
             onClick={() => handleCategoryToggleWrapper(cat)}
             className={`text-xs font-medium px-3 py-1.5 rounded-full border transition ${
               filters.category.includes(cat)
-                ? 'bg-gold/15 border-gold text-navy dark:bg-gold/10 dark:text-gold'
-                : 'border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400'
+                ? 'pill-active font-semibold'
+                : 'border-subtle text-muted hover:text-main hover:bg-accent-hover/15'
             }`}
           >
             {cat}
@@ -70,9 +70,9 @@ export default function VehicleGrid({ vehicles, _whatsappNumber }) {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 sm:py-20 border border-dashed border-gray-200 rounded-2xl">
+        <div className="text-center py-12 sm:py-20 border border-dashed border-subtle rounded-2xl">
           <p className="font-semibold">No vehicles match those filters</p>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Try widening your price range or clearing a filter.</p>
+          <p className="text-sm text-muted mt-1">Try widening your price range or clearing a filter.</p>
         </div>
       )}
     </section>

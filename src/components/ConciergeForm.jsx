@@ -63,26 +63,26 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="fixed inset-0 bg-navy/60 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 bg-black/55 z-50 flex items-center justify-center p-4"
         onClick={() => setSubmitted(false)}
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white dark:bg-panel rounded-2xl max-w-md w-full p-6 sm:p-8 text-center"
+          className="bg-card rounded-2xl max-w-md w-full p-6 sm:p-8 text-center"
         >
-          <div className="w-16 h-16 bg-gold/15 text-gold rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-action/10 text-action rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle size={32} />
           </div>
           <h3 className="font-display text-2xl font-bold mb-2">Request Sent!</h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-muted mb-6">
             We'll reach out on WhatsApp within 2 hours with matching vehicles.
           </p>
           <a
             href={waLink}
             target="_blank"
             rel="noreferrer"
-            className="block bg-whatsapp text-white font-semibold py-3 rounded-lg hover:brightness-95 transition min-h-[44px] flex items-center justify-center"
+            className="block bg-whatsapp text-navy font-bold py-3 rounded-lg hover:brightness-95 transition min-h-[44px] flex items-center justify-center"
           >
             💬 Continue on WhatsApp
           </a>
@@ -92,7 +92,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
               setErrors({});
               setSubmitted(false); 
             }}
-            className="mt-4 text-sm text-gray-500 dark:text-gray-400 hover:text-navy dark:hover:text-gold"
+            className="mt-4 text-sm text-muted hover:text-main hover:underline decoration-accent-hover decoration-2 underline-offset-4"
           >
             Make another request
           </button>
@@ -111,13 +111,13 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
           transition={{ duration: 0.6 }}
           className="text-center mb-8 sm:mb-10"
         >
-          <div className="inline-flex items-center gap-2 bg-gold/15 text-navy dark:text-gold px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <div className="chip-soft mb-4">
             <Sparkles size={16} /> Can't Find What You Need?
           </div>
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold">
             Request a specific vehicle — we'll source it from our China network
           </h2>
-          <p className="mt-3 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-3 text-muted max-w-2xl mx-auto">
             Tell us exactly what you're looking for. We'll search our network and send matches within 24 hours.
           </p>
         </motion.div>
@@ -134,37 +134,37 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Brand</label>
+                  <label className="block text-sm font-medium text-main mb-1">Brand</label>
                   <input
                     type="text"
                     placeholder="e.g., BYD, Toyota, Mercedes"
                     value={formData.brand}
                     onChange={(e) => handleChange('brand', e.target.value)}
-                    className={`w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px] ${errors.brand ? 'border-red-500' : ''}`}
+                    className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.brand ? 'border-alert' : ''}`}
                     aria-invalid={errors.brand ? 'true' : 'false'}
                     aria-describedby={errors.brand ? 'brand-error' : undefined}
                   />
-                  {errors.brand && <p id="brand-error" className="mt-1 text-sm text-red-500">{errors.brand}</p>}
+                  {errors.brand && <p id="brand-error" className="mt-1 text-sm text-alert font-medium">{errors.brand}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Model</label>
+                  <label className="block text-sm font-medium text-main mb-1">Model</label>
                   <input
                     type="text"
                     placeholder="e.g., Atto 3, Camry, G-Wagon"
                     value={formData.model}
                     onChange={(e) => handleChange('model', e.target.value)}
-                    className={`w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px] ${errors.model ? 'border-red-500' : ''}`}
+                    className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.model ? 'border-alert' : ''}`}
                     aria-invalid={errors.model ? 'true' : 'false'}
                     aria-describedby={errors.model ? 'model-error' : undefined}
                   />
-                  {errors.model && <p id="model-error" className="mt-1 text-sm text-red-500">{errors.model}</p>}
+                  {errors.model && <p id="model-error" className="mt-1 text-sm text-alert font-medium">{errors.model}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Year</label>
+                  <label className="block text-sm font-medium text-main mb-1">Year</label>
                   <select
                     value={formData.year}
                     onChange={(e) => handleChange('year', parseInt(e.target.value) || 2024)}
-                    className={`w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px] ${errors.year ? 'border-red-500' : ''}`}
+                    className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.year ? 'border-alert' : ''}`}
                     aria-invalid={errors.year ? 'true' : 'false'}
                     aria-describedby={errors.year ? 'year-error' : undefined}
                   >
@@ -172,14 +172,14 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                       <option key={y} value={y}>{y}</option>
                     ))}
                   </select>
-                  {errors.year && <p id="year-error" className="mt-1 text-sm text-red-500">{errors.year}</p>}
+                  {errors.year && <p id="year-error" className="mt-1 text-sm text-alert font-medium">{errors.year}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fuel Type</label>
+                  <label className="block text-sm font-medium text-main mb-1">Fuel Type</label>
                   <select
                     value={formData.fuel}
                     onChange={(e) => handleChange('fuel', e.target.value)}
-                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
+                    className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
                   >
                     <option value="Any">Any</option>
                     <option value="Petrol">Petrol</option>
@@ -190,11 +190,11 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Body Type</label>
+                  <label className="block text-sm font-medium text-main mb-1">Body Type</label>
                   <select
                     value={formData.body}
                     onChange={(e) => handleChange('body', e.target.value)}
-                    className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
+                    className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
                   >
                     <option value="Any">Any</option>
                     <option value="SUV">SUV</option>
@@ -206,7 +206,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Budget (GHS)</label>
+                  <label className="block text-sm font-medium text-main mb-1">Budget (GHS)</label>
                   <input
                     type="number"
                     min={50000}
@@ -217,26 +217,26 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                       const value = parseInt(e.target.value);
                       handleChange('budget', isNaN(value) ? 0 : value);
                     }}
-                    className={`w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px] ${errors.budget ? 'border-red-500' : ''}`}
+                    className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.budget ? 'border-alert' : ''}`}
                     aria-invalid={errors.budget ? 'true' : 'false'}
                     aria-describedby={errors.budget ? 'budget-error' : undefined}
                   />
-                  {errors.budget && <p id="budget-error" className="mt-1 text-sm text-red-500">{errors.budget}</p>}
+                  {errors.budget && <p id="budget-error" className="mt-1 text-sm text-alert font-medium">{errors.budget}</p>}
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Additional Requirements</label>
+                <label className="block text-sm font-medium text-main mb-1">Additional Requirements</label>
                 <textarea
                   rows={4}
                   placeholder="Color, specs, features, timeline, etc."
                   value={formData.notes}
                   onChange={(e) => handleChange('notes', e.target.value)}
-                  className="w-full px-4 py-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent min-h-[44px]"
+                  className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-navy text-white py-3 rounded-lg font-semibold hover:bg-navy/90 transition min-h-[44px] text-base"
+                className="w-full bg-action text-white py-3.5 rounded-lg font-bold transition min-h-[44px] text-xl hover:brightness-95"
               >
                 🔍 Find My Vehicle
               </button>

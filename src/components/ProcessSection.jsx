@@ -30,7 +30,7 @@ const steps = [
 
 export default function ProcessSection() {
   return (
-    <section id="process" className="py-16 bg-gray-50 dark:bg-navy-deep/50 scroll-mt-32">
+    <section id="process" className="py-16 bg-card scroll-mt-32">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,13 +39,13 @@ export default function ProcessSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 bg-gold/15 text-navy dark:text-gold px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <div className="chip-soft mb-4">
             How It Works
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold">
             Four steps from selection to your driveway — transparent, tracked, supported
           </h2>
-          <p className="mt-3 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-3 text-muted max-w-2xl mx-auto">
             No hidden steps. No surprises. You're in control the entire way.
           </p>
         </motion.div>
@@ -58,17 +58,17 @@ export default function ProcessSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="relative card-surface p-6 hover:border-gold/50 hover:shadow-xl transition-all"
+              className="relative card-surface p-6 hover:border-action/50 hover:shadow-xl transition-all"
             >
-              <div className="absolute -top-6 left-6 w-12 h-12 bg-gold text-navy rounded-full flex items-center justify-center font-bold text-xl">
+              <div className="absolute -top-6 left-6 w-12 h-12 bg-action text-white rounded-full flex items-center justify-center font-bold text-xl">
                 {step.num}
               </div>
               <div className="pt-4">
-                <div className="w-12 h-12 bg-gold/15 text-navy dark:text-gold rounded-xl flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-action/10 text-action rounded-xl flex items-center justify-center mb-4">
                   <step.icon size={28} />
                 </div>
                 <h3 className="font-display font-bold text-lg mb-2">{step.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{step.desc}</p>
+                <p className="text-sm text-muted leading-relaxed">{step.desc}</p>
               </div>
             </motion.article>
           ))}

@@ -51,13 +51,13 @@ export default function TrustSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 bg-gold/15 text-navy dark:text-gold px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <div className="chip-soft mb-4">
             Why Buyers Trust IzzyAutoBridge
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold">
             Six questions every Ghana importer should ask — we answer them upfront
           </h2>
-          <p className="mt-3 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-3 text-muted max-w-2xl mx-auto">
             We don't disappear at port. Every vehicle is inspected, documented, and backed by our Accra team.
           </p>
         </motion.div>
@@ -70,16 +70,16 @@ export default function TrustSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="card-surface p-6 hover:border-gold/50 hover:shadow-xl transition-all"
+              className="card-surface p-6 hover:border-action/50 hover:shadow-xl transition-all"
             >
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gold/15 text-navy dark:text-gold rounded-xl flex items-center justify-center">
+                <div className="flex-shrink-0 w-12 h-12 bg-action/10 text-action rounded-xl flex items-center justify-center">
                   <item.icon size={24} />
                 </div>
                 <div className="flex-1">
-                  <span className="text-2xl font-bold text-navy dark:text-gold">{item.num}</span>
+                  <span className="text-2xl font-bold text-action">{item.num}</span>
                   <h3 className="font-display font-bold text-lg mt-1">{item.question}</h3>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.answer}</p>
+                  <p className="mt-2 text-sm text-muted leading-relaxed">{item.answer}</p>
                 </div>
               </div>
             </motion.article>

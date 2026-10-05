@@ -38,13 +38,13 @@ export default function EVCalculator() {
     <section id="calculator" className="py-16 scroll-mt-32">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-gold/15 text-navy dark:text-gold px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <div className="chip-soft mb-4">
             <Calculator size={16} /> EV Savings Calculator
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold">
             Electric vs. Petrol — Daily Cost Comparison
           </h2>
-          <p className="mt-3 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-3 text-muted max-w-2xl mx-auto">
             See exactly how much you save on fuel vs. petrol in Ghana today.
             Adjust the sliders to match your driving habits.
           </p>
@@ -52,13 +52,13 @@ export default function EVCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
           {/* Inputs panel */}
-          <div className="lg:col-span-3 bg-white dark:bg-navy-deep border border-gray-200 dark:border-white/10 rounded-2xl p-6 sm:p-8">
+          <div className="lg:col-span-3 bg-card border border-subtle rounded-2xl p-6 sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-6">
               <h3 className="font-display text-lg font-semibold flex items-center gap-2">
-                <SlidersHorizontal size={18} className="text-gold" />
+                <SlidersHorizontal size={18} className="text-action" />
                 Your driving
               </h3>
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-muted">
                 Adjust to match your commute
               </span>
             </div>
@@ -108,19 +108,19 @@ export default function EVCalculator() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-2 relative overflow-hidden rounded-2xl bg-navy text-white p-6 sm:p-8 lg:sticky lg:top-32"
+            className="lg:col-span-2 relative overflow-hidden rounded-2xl bg-secondary text-onsecondary p-6 sm:p-8 lg:sticky lg:top-32"
           >
             <div
               aria-hidden="true"
-              className="absolute -top-16 -right-16 w-52 h-52 rounded-full bg-gold/15 blur-3xl"
+              className="absolute -top-16 -right-16 w-52 h-52 rounded-full bg-action/20 blur-3xl"
             />
 
             <div className="relative">
               <div className="flex items-center justify-between gap-3 mb-5">
-                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gold">
+                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-onsecondary">
                   <Zap size={14} /> Projected savings
                 </span>
-                <span className="bg-gold text-navy px-3 py-1 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap">
+                <span className="chip-badge px-3 py-1 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap">
                   {savePercent >= 0 ? `Save ${savePercent}%` : `+${-savePercent}% cost`}
                 </span>
               </div>
@@ -147,7 +147,7 @@ export default function EVCalculator() {
                   label="Electric"
                   amount={evDaily}
                   width={(evDaily / maxDaily) * 100}
-                  barClass="bg-gold"
+                  barClass="bg-action"
                   detail={`@ ${electricityRate} GHS/kWh · ${evConsumption} kWh/100km`}
                 />
               </div>
@@ -170,15 +170,15 @@ export default function EVCalculator() {
           </motion.div>
         </div>
 
-        <div className="mt-8 p-6 rounded-2xl border-l-4 border-gold bg-gray-50 dark:bg-navy-deep">
+        <div className="mt-8 p-6 rounded-2xl border border-subtle border-l-4 border-l-action bg-card">
           <h3 className="font-display text-lg font-semibold mb-2 flex items-center gap-2">
-            <Lightbulb size={18} className="text-gold" />
+            <Lightbulb size={18} className="text-action" />
             Real-world example
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-muted">
             A BYD Atto 3 (16 kWh/100km) vs. a 2.0L petrol SUV (8.5L/100km) driven
             50km/day in Accra:
-            <strong className="text-navy dark:text-gold"> ~GH₵38,000/year saved</strong>.
+            <strong className="text-main font-bold"> ~GH₵38,000/year saved</strong>.
             That&apos;s a new phone every year, or school fees covered.
           </p>
         </div>
@@ -191,8 +191,8 @@ function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
   return (
     <div>
       <div className="flex items-center justify-between gap-3 mb-2">
-        <label className="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-          <Icon size={15} className="text-gold shrink-0" />
+        <label className="flex items-center gap-2 text-sm font-medium text-main">
+          <Icon size={15} className="text-action shrink-0" />
           {label}
         </label>
         <input
@@ -202,7 +202,7 @@ function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
           step={step}
           value={value}
           onChange={(e) => onChange(parseFloat(e.target.value))}
-          className="w-24 px-2 py-1.5 text-right text-sm font-semibold bg-gray-50 dark:bg-panel border border-gray-200 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50"
+          className="w-24 px-2 py-1.5 text-right text-sm font-semibold bg-primary border border-subtle rounded-lg focus:outline-none focus:ring-2 focus:ring-action/60 text-main"
         />
       </div>
       <input
@@ -212,7 +212,7 @@ function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
         step={step}
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-full h-2 bg-gray-200 dark:bg-panel rounded-lg appearance-none accent-gold cursor-pointer"
+        className="w-full h-2 bg-primary border border-subtle rounded-lg appearance-none accent-action cursor-pointer"
       />
     </div>
   );

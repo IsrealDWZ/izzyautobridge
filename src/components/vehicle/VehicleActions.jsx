@@ -10,8 +10,8 @@ export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompa
         onClick={onToggleCompare}
         className={`flex items-center gap-1.5 text-xs font-medium px-3 py-2.5 rounded-lg border transition min-h-[44px] ${
           isComparing
-            ? 'bg-gold/15 border-gold text-navy dark:text-gold'
-            : 'border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400'
+            ? 'pill-active font-semibold'
+            : 'border-subtle text-muted hover:text-main hover:bg-accent-hover/15'
         }`}
       >
         <Check size={14} className={isComparing ? 'opacity-100' : 'opacity-0'} />
@@ -20,7 +20,7 @@ export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompa
       </button>
       <button
         onClick={onToggleFavorite}
-        className="p-2.5 rounded-lg border border-gray-200 dark:border-white/10 min-h-[44px] min-w-[44px]"
+        className="p-2.5 rounded-lg border border-subtle min-h-[44px] min-w-[44px] hover:bg-accent-hover/15 transition-colors"
         aria-label="Save to favorites"
       >
         <Heart size={18} fill={isFavorite ? '#D9534F' : 'none'} stroke={isFavorite ? '#D9534F' : 'currentColor'} />
@@ -31,7 +31,7 @@ export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompa
         )}`}
         target="_blank"
         rel="noreferrer"
-        className="flex-1 text-center bg-whatsapp text-white text-sm font-semibold py-2.5 rounded-lg hover:brightness-95 transition min-h-[44px] flex items-center justify-center"
+        className="flex-1 text-center bg-whatsapp text-navy text-sm font-bold py-2.5 rounded-lg hover:brightness-95 transition min-h-[44px] flex items-center justify-center"
       >
         💬 WhatsApp
       </a>

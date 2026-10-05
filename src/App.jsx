@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <div className={theme}>
-      <div className="min-h-screen bg-white dark:bg-navy-dark text-navy dark:text-white transition-colors">
+      <div className="min-h-screen bg-primary text-main transition-colors">
         <ScrollProgress />
         <ScrollManager />
 
@@ -57,7 +57,7 @@ export default function App() {
             initial={{ y: -48 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
-            className="bg-gold text-navy py-2 overflow-hidden"
+            className="bg-secondary text-onsecondary py-2 overflow-hidden"
           >
             <Marquee
               items={shipItems}
@@ -66,21 +66,21 @@ export default function App() {
               itemClassName="text-xs sm:text-sm font-bold uppercase tracking-wider"
             />
           </motion.div>
-          <nav className="flex items-center justify-between pl-4 pr-3 sm:px-6 py-3 bg-white dark:bg-black">
+          <nav className="flex items-center justify-between pl-4 pr-3 sm:px-6 py-3 bg-secondary">
             <div className="flex items-center gap-2 sm:gap-5">
               <Link
                 to="/"
-                className="font-display font-bold text-navy dark:text-white text-[15px] sm:text-xl whitespace-nowrap"
+                className="font-display font-bold text-onsecondary text-[15px] sm:text-xl whitespace-nowrap"
               >
                 {APP_CONFIG.siteTitle}
               </Link>
               <NavLink
                 to="/inventory"
                 className={({ isActive }) =>
-                  `text-xs sm:text-sm font-semibold uppercase tracking-wide transition-colors whitespace-nowrap ${
+                  `text-xs sm:text-sm font-semibold uppercase tracking-wide transition-colors whitespace-nowrap px-1 -mb-1 border-b-2 ${
                     isActive
-                      ? 'text-gold'
-                      : 'text-navy/60 dark:text-white/60 hover:text-gold'
+                      ? 'text-onsecondary border-onsecondary'
+                      : 'text-onsecondary/75 border-transparent hover:text-onsecondary hover:border-accent-hover hover:bg-accent-hover/20'
                   }`
                 }
               >
@@ -89,7 +89,7 @@ export default function App() {
             </div>
             <button
               onClick={toggleTheme}
-              className="text-xs sm:text-sm bg-white border border-navy/20 text-navy dark:bg-white/10 dark:border-white/20 dark:text-white px-1 sm:px-3 py-2 rounded-full min-h-[44px] min-w-[44px] whitespace-nowrap shrink-0"
+              className="text-xs sm:text-sm bg-card border border-subtle text-main px-1 sm:px-3 py-2 rounded-full min-h-[44px] min-w-[44px] whitespace-nowrap shrink-0 hover:bg-accent-hover/20 transition-colors"
             >
               {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
             </button>

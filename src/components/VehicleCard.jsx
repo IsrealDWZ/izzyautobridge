@@ -15,17 +15,17 @@ export default function VehicleCard({ vehicle }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5 }}
-      className="card-surface overflow-hidden flex flex-col hover:shadow-xl hover:border-gold/50 transition-all group"
+      className="card-surface overflow-hidden flex flex-col hover:shadow-xl hover:border-action/50 transition-all group"
     >
       <VehicleImage vehicle={vehicle} />
       <div className="p-4 sm:p-5 flex flex-col flex-1">
-        <span className="text-xs font-semibold text-gold uppercase tracking-widest">
+        <span className="text-xs font-semibold text-muted uppercase tracking-widest">
           {vehicle.ID}
         </span>
         <h3 className="font-display text-lg sm:text-xl font-bold mt-1">
           {vehicle.Brand} {vehicle.Model} {vehicle.Year}
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">{vehicle.Variant}</p>
+        <p className="text-sm text-muted">{vehicle.Variant}</p>
 
         <VehicleSpecs vehicle={vehicle} />
 

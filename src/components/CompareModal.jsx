@@ -24,20 +24,20 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-navy/60 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 bg-black/55 z-50 flex items-center justify-center p-4"
         onClick={clearCompare}
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
           onClick={(e) => e.stopPropagation()}
-          className="bg-white dark:bg-panel rounded-2xl max-w-lg w-full max-h-[90vh] overflow-auto"
+          className="bg-card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-auto"
         >
-          <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100 dark:border-white/10 sticky top-0 bg-white dark:bg-panel">
+          <div className="flex items-center justify-between p-4 sm:p-5 border-b border-subtle sticky top-0 bg-card">
             <h3 className="font-display text-lg font-bold">Compare vehicles</h3>
             <button onClick={clearCompare} className="p-2 min-h-[44px] min-w-[44px]"><X size={24} /></button>
           </div>
 
-          <div className="m-4 sm:m-5 bg-gold/15 text-navy dark:text-gold rounded-lg px-4 py-3 text-sm font-semibold">
+          <div className="m-4 sm:m-5 bg-action/10 border border-action/30 text-main rounded-lg px-4 py-3 text-sm font-semibold">
             Price difference: GH₵{diff.toLocaleString()} — {cheaper.Brand} {cheaper.Model} is cheaper
           </div>
 
@@ -45,8 +45,8 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
             <table className="w-full text-sm min-w-[500px]">
               <tbody>
                 {fields.map(([label, accessor]) => (
-                  <tr key={label} className="border-b border-gray-100 dark:border-white/10">
-                    <th className="text-left p-3 text-gray-500 dark:text-gray-400 font-medium w-24 whitespace-nowrap">{label}</th>
+                  <tr key={label} className="border-b border-subtle">
+                    <th className="text-left p-3 text-muted font-medium w-24 whitespace-nowrap">{label}</th>
                     <td className="p-3">{typeof accessor === 'function' ? accessor(a) : a[accessor]}</td>
                     <td className="p-3">{typeof accessor === 'function' ? accessor(b) : b[accessor]}</td>
                   </tr>
@@ -63,7 +63,7 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
                   `Hi, I'm interested in ${v.Brand} ${v.Model} ${v.Year}`
                 )}`}
                 target="_blank" rel="noreferrer"
-                className="text-center bg-whatsapp text-white text-sm font-semibold py-3 rounded-lg min-h-[44px] flex items-center justify-center"
+                className="text-center bg-whatsapp text-navy text-sm font-bold py-3 rounded-lg min-h-[44px] flex items-center justify-center"
               >
                 💬 {v.ID}
               </a>

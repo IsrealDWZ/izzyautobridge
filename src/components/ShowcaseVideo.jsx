@@ -30,13 +30,13 @@ export default function ShowcaseVideo() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <div className="inline-flex items-center gap-2 bg-gold/15 text-navy dark:text-gold px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <div className="chip-soft mb-4">
             See it in motion
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold">
             Your car, bridged — in four seconds
           </h2>
-          <p className="mt-3 text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="mt-3 text-muted max-w-2xl mx-auto">
             Inspected in China, shipped, cleared at Tema, delivered to your door.
           </p>
         </motion.div>
@@ -46,7 +46,7 @@ export default function ShowcaseVideo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-[#26262B] bg-black"
+          className="relative rounded-2xl overflow-hidden border border-subtle bg-black"
           onContextMenu={blockMenu}
         >
           <video

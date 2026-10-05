@@ -14,14 +14,14 @@ export default function InventoryPage() {
 
   return (
     <>
-      <header className="rounded-2xl bg-navy text-white p-8 sm:p-10 mb-8 overflow-hidden">
-        <div className="inline-flex items-center gap-2 bg-gold text-navy px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-5">
+      <header className="rounded-2xl bg-secondary text-onsecondary p-8 sm:p-10 mb-8 overflow-hidden">
+        <div className="inline-flex items-center gap-2 chip-badge px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-5">
           <Car size={16} aria-hidden="true" /> Inventory
         </div>
         <h1 className="font-display text-3xl md:text-5xl font-bold leading-tight">
           Browse {vehicles.length} inspected vehicles
         </h1>
-        <p className="mt-3 text-white/70 max-w-2xl">
+        <p className="mt-3 text-onsecondary/75 max-w-2xl">
           Live stock from our China partners — filter by brand, price and year.
           Free shipping to Tema included in every landed price.
         </p>

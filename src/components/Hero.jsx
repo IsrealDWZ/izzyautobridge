@@ -17,7 +17,7 @@ export default function Hero({ title, subtitle }) {
           alt="Cargo ship carrying containers at sea"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/55 to-navy/35" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#3c2411] via-[#3c2411]/60 to-[#3c2411]/40" />
       </div>
 
       <motion.div
@@ -34,10 +34,10 @@ export default function Hero({ title, subtitle }) {
           {subtitle}
         </p>
 
-        <div className="mt-10 flex gap-4">
+        <div className="mt-10 flex flex-wrap gap-4">
           <Link
             to="/inventory"
-            className="bg-transparent border border-white/50 text-white font-semibold px-8 py-4 rounded-full text-sm tracking-wide hover:bg-white/10 transition"
+            className="bg-action text-white font-bold text-xl px-8 py-4 rounded-full tracking-wide hover:brightness-95 transition"
           >
             Browse Inventory
           </Link>
@@ -47,7 +47,7 @@ export default function Hero({ title, subtitle }) {
                 .getElementById('calculator')
                 ?.scrollIntoView({ behavior: 'smooth' })
             }
-            className="border border-white/30 text-white font-medium px-8 py-4 rounded-full text-sm tracking-wide hover:bg-white/10 transition"
+            className="border border-white/50 text-white font-semibold px-8 py-4 rounded-full tracking-wide hover:bg-white/10 transition"
           >
             EV Savings Calculator
           </button>
