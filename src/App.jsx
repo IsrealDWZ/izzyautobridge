@@ -66,30 +66,28 @@ export default function App() {
               itemClassName="text-xs sm:text-sm font-bold uppercase tracking-wider"
             />
           </motion.div>
-          <nav className="flex items-center justify-between px-4 sm:px-6 py-3">
-            <div className="flex items-center gap-5">
-              <Link
-                to="/"
-                className="font-display font-bold text-navy dark:text-white text-lg sm:text-xl"
-              >
-                {APP_CONFIG.siteTitle}
-              </Link>
-              <NavLink
-                to="/inventory"
-                className={({ isActive }) =>
-                  `text-xs sm:text-sm font-semibold uppercase tracking-wide transition-colors ${
-                    isActive
-                      ? 'text-gold'
-                      : 'text-navy/60 dark:text-white/60 hover:text-gold'
-                  }`
-                }
-              >
-                Inventory
-              </NavLink>
-            </div>
+          <nav className="flex items-center gap-2 sm:gap-5 px-4 sm:px-6 py-3">
+            <Link
+              to="/"
+              className="font-display font-bold text-navy dark:text-white text-base sm:text-xl whitespace-nowrap"
+            >
+              {APP_CONFIG.siteTitle}
+            </Link>
+            <NavLink
+              to="/inventory"
+              className={({ isActive }) =>
+                `text-xs sm:text-sm font-semibold uppercase tracking-wide transition-colors whitespace-nowrap ${
+                  isActive
+                    ? 'text-gold'
+                    : 'text-navy/60 dark:text-white/60 hover:text-gold'
+                }`
+              }
+            >
+              Inventory
+            </NavLink>
             <button
               onClick={toggleTheme}
-              className="text-xs sm:text-sm bg-white border border-navy/20 text-navy dark:bg-white/10 dark:border-white/20 dark:text-white px-3 py-2 rounded-full min-h-[44px] min-w-[44px]"
+              className="text-xs sm:text-sm bg-white border border-navy/20 text-navy dark:bg-white/10 dark:border-white/20 dark:text-white px-2 sm:px-3 py-2 rounded-full min-h-[44px] min-w-[44px] whitespace-nowrap shrink-0"
             >
               {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
             </button>
