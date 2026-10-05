@@ -10,8 +10,8 @@ const fadeUp = {
 
 export default function Hero({ title, subtitle }) {
   return (
-    <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-      <div className="absolute inset-0">
+    <section className="relative min-h-[80vh] flex items-center">
+      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-screen overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1605745341112-85968b19335b?fm=jpg&q=80&w=1920&auto=format&fit=crop"
           alt="Cargo ship carrying containers at sea"

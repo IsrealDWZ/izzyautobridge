@@ -6,6 +6,9 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
+  /* clip (not hidden) so full-bleed elements can span past the layout box
+     without a horizontal scrollbar, while keeping position:sticky working */
+  overflow-x: clip;
 }
 
 .font-display {
