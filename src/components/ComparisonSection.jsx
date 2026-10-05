@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export default function ComparisonSection() {
   return (
-    <section className="py-16">
+    <section id="comparison" className="py-16 scroll-mt-32">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

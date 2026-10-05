@@ -26,7 +26,7 @@ function generateSitemap() {
       lastmod: today,
     },
     {
-      url: `${baseUrl}/#inventory`,
+      url: `${baseUrl}/inventory`,
       changefreq: 'daily',
       priority: '0.9',
       lastmod: today,
@@ -44,7 +44,7 @@ function generateSitemap() {
       lastmod: today,
     },
     {
-      url: `${baseUrl}/#ev-calculator`,
+      url: `${baseUrl}/#calculator`,
       changefreq: 'monthly',
       priority: '0.6',
       lastmod: today,
@@ -88,10 +88,10 @@ function generateBasicSitemap() {
 
   const urls = [
     { url: baseUrl, changefreq: 'daily', priority: '1.0' },
-    { url: `${baseUrl}/#inventory`, changefreq: 'daily', priority: '0.9' },
+    { url: `${baseUrl}/inventory`, changefreq: 'daily', priority: '0.9' },
     { url: `${baseUrl}/#process`, changefreq: 'monthly', priority: '0.7' },
     { url: `${baseUrl}/#comparison`, changefreq: 'monthly', priority: '0.7' },
-    { url: `${baseUrl}/#ev-calculator`, changefreq: 'monthly', priority: '0.6' },
+    { url: `${baseUrl}/#calculator`, changefreq: 'monthly', priority: '0.6' },
     { url: `${baseUrl}/#concierge`, changefreq: 'monthly', priority: '0.6' },
   ];
 
