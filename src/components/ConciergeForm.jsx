@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Sparkles, CheckCircle } from 'lucide-react';
+import { Sparkles, CheckCircle, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 
 import { WHATSAPP_NUMBER } from '../utils/constants';
@@ -82,9 +82,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
             href={waLink}
             target="_blank"
             rel="noreferrer"
-            className="block bg-whatsapp text-navy font-bold py-3 rounded-lg hover:brightness-95 transition min-h-[44px] flex items-center justify-center"
+            className="block bg-action text-onaction font-bold py-3 rounded-lg hover:opacity-85 transition min-h-[44px] flex items-center justify-center gap-2"
           >
-            💬 Continue on WhatsApp
+            <MessageCircle size={17} /> Continue on WhatsApp
           </a>
           <button
             onClick={() => { 
@@ -236,9 +236,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
               </div>
               <button
                 type="submit"
-                className="w-full bg-action text-white py-3.5 rounded-lg font-bold transition min-h-[44px] text-xl hover:brightness-95"
+                className="w-full bg-action text-onaction py-3.5 rounded-lg font-bold transition min-h-[44px] text-xl hover:opacity-85"
               >
-                🔍 Find My Vehicle
+                Find My Vehicle
               </button>
             </form>
           </motion.div>

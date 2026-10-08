@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, MessageCircle } from 'lucide-react';
 
 import { useAppStore } from '../store/useAppStore';
 import { WHATSAPP_NUMBER } from '../utils/constants';
@@ -63,9 +63,9 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
                   `Hi, I'm interested in ${v.Brand} ${v.Model} ${v.Year}`
                 )}`}
                 target="_blank" rel="noreferrer"
-                className="text-center bg-whatsapp text-navy text-sm font-bold py-3 rounded-lg min-h-[44px] flex items-center justify-center"
+                className="text-center bg-action text-onaction text-sm font-bold py-3 rounded-lg min-h-[44px] flex items-center justify-center gap-1.5 hover:opacity-85 transition"
               >
-                💬 {v.ID}
+                <MessageCircle size={15} /> {v.ID}
               </a>
             ))}
           </div>

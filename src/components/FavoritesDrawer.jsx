@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { Heart, X, Trash2 } from 'lucide-react';
+import { Heart, X, Trash2, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 
 import { useAppStore } from '../store/useAppStore';
@@ -62,9 +62,9 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
               <div className="p-5 border-t border-subtle space-y-2">
                 <a
                   href={sendAllLink} target="_blank" rel="noreferrer"
-                  className="block text-center bg-whatsapp text-navy text-sm font-bold py-2.5 rounded-lg"
+                  className="block text-center bg-action text-onaction text-sm font-bold py-2.5 rounded-lg hover:opacity-85 transition flex items-center justify-center gap-1.5"
                 >
-                  💬 Send list on WhatsApp
+                  <MessageCircle size={15} /> Send list on WhatsApp
                 </a>
                 {favVehicles.length > 0 && (
                   <button

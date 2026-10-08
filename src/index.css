@@ -5,7 +5,7 @@
 /* ============================================================
    Apple Premium Minimal — design tokens (see DESIGN.md)
    60-30-10: canvas #f5f5f7 (60%) · white surfaces (30%) ·
-   single blue accent #0071e3 / #2997ff (<=10%)
+   monochrome accent (<=10%): near-black #1d1d1f / off-white #f5f5f7
    ============================================================ */
 :root {
   /* Light Mode (default base) */
@@ -18,12 +18,14 @@
   /* Text on --bg-secondary surfaces (flips with the theme) */
   --text-inverse: #1d1d1f;
   --text-inverse-muted: rgba(29, 29, 31, 0.75); /* 7.33:1 on white */
-  /* Interactive accents — hex kept for CSS/design parity,
-     rgb triple feeds Tailwind so opacity modifiers keep working */
-  --accent-action: #0071e3; /* Links, primary buttons, chevrons */
-  --accent-action-rgb: 0 113 227;
-  --accent-alert: #d70015; /* Apple-accessible red (5.38:1 on white) */
-  --accent-alert-rgb: 215 0 21;
+  /* Interactive accents — monochrome: near-black in light, off-white in dark.
+     Hex kept for CSS/design parity, rgb triple feeds Tailwind so opacity
+     modifiers keep working */
+  --accent-action: #1d1d1f; /* CTAs, links, chevrons, focus rings */
+  --accent-action-rgb: 29 29 31;
+  --text-on-action: #f5f5f7; /* Text/icons on --accent-action surfaces */
+  --accent-alert: #6e6e73; /* Ash — validation states (never colored) */
+  --accent-alert-rgb: 110 110 115;
   --accent-hover: #6e6e73; /* Neutral gray transitions */
   --accent-surface: #ffffff; /* Pill/deactivated backdrops (= secondary) */
   color-scheme: light;
@@ -41,10 +43,11 @@
   --border-subtle: #424245;
   --text-inverse: #f5f5f7;
   --text-inverse-muted: rgba(245, 245, 247, 0.75); /* 9.17:1 on #1d1d1f */
-  --accent-action: #2997ff;
-  --accent-action-rgb: 41 151 255;
-  --accent-alert: #ff6961;
-  --accent-alert-rgb: 255 105 97;
+  --accent-action: #f5f5f7;
+  --accent-action-rgb: 245 245 247;
+  --text-on-action: #1d1d1f;
+  --accent-alert: #86868b;
+  --accent-alert-rgb: 134 134 139;
   --accent-hover: #6e6e73;
   --accent-surface: #1d1d1f;
   color-scheme: dark;

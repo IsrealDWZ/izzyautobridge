@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Ship } from 'lucide-react';
+import { Ship, Moon, Sun } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
@@ -106,9 +106,9 @@ export default function App() {
             </div>
             <button
               onClick={toggleTheme}
-              className="text-xs sm:text-sm bg-card border border-subtle text-main px-1 sm:px-3 py-2 rounded-full min-h-[44px] min-w-[44px] whitespace-nowrap shrink-0 hover:bg-accent-hover/20 transition-colors"
+              className="flex items-center gap-1.5 text-xs sm:text-sm bg-card border border-subtle text-main px-1 sm:px-3 py-2 rounded-full min-h-[44px] min-w-[44px] whitespace-nowrap shrink-0 hover:bg-accent-hover/20 transition-colors"
             >
-              {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+              {theme === 'light' ? <><Moon size={13} /> Dark</> : <><Sun size={13} /> Light</>}
             </button>
           </nav>
         </div>

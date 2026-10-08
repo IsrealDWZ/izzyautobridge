@@ -44,7 +44,7 @@ export default function ComparisonSection() {
             <div className="p-6 bg-white/5 border border-white/10 rounded-xl backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-xs uppercase tracking-widest bg-white/10 border border-white/20 text-white px-3 py-1.5 rounded-full">
-                  🏪 Local Dealer
+                  Local Dealer
                 </span>
               </div>
               <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">GH₵550,000</div>
@@ -57,10 +57,10 @@ export default function ComparisonSection() {
             </div>
 
             {/* IzzyAutoBridge */}
-            <div className="p-6 bg-action/15 border border-action/40 rounded-xl">
+            <div className="p-6 bg-white/10 border border-white/20 rounded-xl">
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xs uppercase tracking-widest bg-transparent border border-action/60 text-white px-3 py-1.5 rounded-full font-semibold">
-                  🚢 IzzyAutoBridge Direct
+                <span className="text-xs uppercase tracking-widest bg-transparent border border-white/30 text-white px-3 py-1.5 rounded-full font-semibold">
+                  IzzyAutoBridge Direct
                 </span>
               </div>
               <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">GH₵440,000</div>
@@ -79,9 +79,9 @@ export default function ComparisonSection() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="inline-block bg-action text-white px-8 py-3 rounded-full font-bold text-xl"
+              className="inline-block bg-white text-[#1d1d1f] px-8 py-3 rounded-full font-bold text-xl transition hover:opacity-90"
             >
-              💰 Save ~GH₵110,000+ per vehicle
+              Save ~GH₵110,000+ per vehicle
             </motion.div>
           </div>
         </motion.div>

@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+import { Car } from 'lucide-react';
 import { validateImageUrl } from '../../utils/validation';
 
 export function VehicleImage({ vehicle }) {
@@ -33,7 +34,9 @@ export function VehicleImage({ vehicle }) {
           onError={(e) => { e.target.style.display = 'none'; }}
         />
       ) : (
-        <div className="w-full h-full flex items-center justify-center text-5xl">🚗</div>
+        <div className="w-full h-full flex items-center justify-center">
+          <Car size={56} className="text-muted" />
+        </div>
       )}
     </div>
   );

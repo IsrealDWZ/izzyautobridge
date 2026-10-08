@@ -55,7 +55,7 @@ export default function FilterSidebar({ vehicles = [] }) {
       <aside className="hidden lg:block w-72 flex-shrink-0">
         <div className="sticky top-24 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="font-display font-bold">🔍 Filters</h3>
+            <h3 className="font-display font-bold">Filters</h3>
             <button onClick={handleReset} className="text-xs text-muted hover:text-main hover:underline decoration-accent-hover decoration-2 underline-offset-4 min-h-[44px]">Reset all</button>
           </div>
 
@@ -65,7 +65,7 @@ export default function FilterSidebar({ vehicles = [] }) {
           <FilterGroup label="Status" items={statuses} selected={filters.status} onChange={(v) => setFilter('status', v)} />
 
           <div className="space-y-3">
-            <label className="block text-sm font-medium text-main">💰 Price Range (GHS)</label>
+            <label className="block text-sm font-medium text-main">Price Range (GHS)</label>
             <PriceRangeSlider
               min={priceMin} max={priceMax}
               value={filters.priceRange}
@@ -109,7 +109,7 @@ export default function FilterSidebar({ vehicles = [] }) {
               className="fixed bottom-0 left-0 right-0 h-[90vh] max-h-[90vh] bg-card z-50 shadow-2xl flex flex-col"
             >
               <div className="flex items-center justify-between p-4 sm:p-5 border-b border-subtle">
-                <h3 className="font-display font-bold">🔍 Filters</h3>
+                <h3 className="font-display font-bold">Filters</h3>
                 <button onClick={() => setMobileOpen(false)} className="p-2 min-h-[44px] min-w-[44px]"><X size={24} /></button>
               </div>
 
@@ -120,7 +120,7 @@ export default function FilterSidebar({ vehicles = [] }) {
                 <FilterGroup label="Status" items={statuses} selected={filters.status} onChange={(v) => setFilter('status', v)} />
 
                 <div className="space-y-3">
-                  <label className="block text-sm font-medium text-main">💰 Price Range (GHS)</label>
+                  <label className="block text-sm font-medium text-main">Price Range (GHS)</label>
                   <PriceRangeSlider
                     min={priceMin} max={priceMax}
                     value={filters.priceRange}

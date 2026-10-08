@@ -112,7 +112,7 @@ export default function EVCalculator() {
           >
             <div
               aria-hidden="true"
-              className="absolute -top-16 -right-16 w-52 h-52 rounded-full bg-action/20 blur-3xl"
+              className="absolute -top-16 -right-16 w-52 h-52 rounded-full bg-white/10 blur-3xl"
             />
 
             <div className="relative">
@@ -147,7 +147,7 @@ export default function EVCalculator() {
                   label="Electric"
                   amount={evDaily}
                   width={(evDaily / maxDaily) * 100}
-                  barClass="bg-action"
+                  barClass="bg-white"
                   detail={`@ ${electricityRate} GHS/kWh · ${evConsumption} kWh/100km`}
                 />
               </div>

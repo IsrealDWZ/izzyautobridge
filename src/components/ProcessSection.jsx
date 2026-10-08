@@ -60,7 +60,7 @@ export default function ProcessSection() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="relative card-surface p-6 hover:border-action/50 hover:shadow-xl transition-all"
             >
-              <div className="absolute -top-6 left-6 w-12 h-12 bg-action text-white rounded-full flex items-center justify-center font-bold text-xl">
+              <div className="absolute -top-6 left-6 w-12 h-12 bg-action text-onaction rounded-full flex items-center justify-center font-bold text-xl">
                 {step.num}
               </div>
               <div className="pt-4">
