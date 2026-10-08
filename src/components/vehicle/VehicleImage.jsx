@@ -21,7 +21,7 @@ export function VehicleImage({ vehicle }) {
       <span className="absolute top-3 left-3 z-10 text-xs font-bold px-2.5 py-1 rounded-full pill-active">
         {vehicle.Status}
       </span>
-      <span className="absolute top-3 right-3 z-10 text-xs font-medium px-2 py-1 rounded bg-card/95 text-main border border-subtle">
+      <span className="absolute top-3 right-3 z-10 text-xs font-medium px-2 py-1 rounded bg-card text-main border border-subtle">
         {vehicle.Category}
       </span>
       {firstImage ? (

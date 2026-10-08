@@ -11,7 +11,7 @@ export default function BrandMarquee({ badges = DEFAULT_BADGES, duration = 30 })
       items={badges}
       duration={duration}
       gap="gap-3"
-      itemClassName="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm text-white/90 backdrop-blur"
+      itemClassName="rounded-full border border-subtle bg-primary px-4 py-1.5 text-sm text-main"
     />
   );
 }

@@ -97,7 +97,7 @@ export default function App() {
                   `text-xs sm:text-sm font-semibold uppercase tracking-wide transition-colors whitespace-nowrap px-1 -mb-1 border-b-2 ${
                     isActive
                       ? 'text-onsecondary border-onsecondary'
-                      : 'text-onsecondary/75 border-transparent hover:text-onsecondary hover:border-accent-hover hover:bg-accent-hover/20'
+                      : 'text-onsecondary-muted border-transparent hover:text-onsecondary hover:border-accent-hover hover:bg-accent-hover/20'
                   }`
                 }
               >

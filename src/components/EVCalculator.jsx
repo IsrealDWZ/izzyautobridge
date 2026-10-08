@@ -108,7 +108,7 @@ export default function EVCalculator() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-2 relative overflow-hidden rounded-2xl bg-secondary text-onsecondary p-6 sm:p-8 lg:sticky lg:top-32"
+            className="lg:col-span-2 relative overflow-hidden rounded-2xl bg-[#1d1d1f] text-white p-6 sm:p-8 lg:sticky lg:top-32"
           >
             <div
               aria-hidden="true"
@@ -117,7 +117,7 @@ export default function EVCalculator() {
 
             <div className="relative">
               <div className="flex items-center justify-between gap-3 mb-5">
-                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-onsecondary">
+                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white">
                   <Zap size={14} /> Projected savings
                 </span>
                 <span className="chip-badge px-3 py-1 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap">

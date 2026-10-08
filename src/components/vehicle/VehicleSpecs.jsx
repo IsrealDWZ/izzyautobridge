@@ -6,7 +6,7 @@ export function VehicleSpecs({ vehicle }) {
       {specs.slice(0, 4).map((spec, i) => (
         <span
           key={i}
-          className="text-xs bg-accent-surface text-navy border border-subtle px-2.5 py-1 rounded-full"
+          className="text-xs bg-accent-surface text-main border border-subtle px-2.5 py-1 rounded-full"
         >
           {spec}
         </span>

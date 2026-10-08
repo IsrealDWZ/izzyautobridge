@@ -3,34 +3,50 @@
 @tailwind utilities;
 
 /* ============================================================
-   Browns Amortage Premium Minimal — design tokens (see DESIGN.md)
+   Apple Premium Minimal — design tokens (see DESIGN.md)
+   60-30-10: canvas #f5f5f7 (60%) · white surfaces (30%) ·
+   single blue accent #0071e3 / #2997ff (<=10%)
    ============================================================ */
 :root {
   /* Light Mode (default base) */
-  --bg-primary: #e7e7e7; /* Platinum Silk */
-  --bg-card: #ffffff; /* Pure White */
-  --bg-secondary: #4f3928; /* Dark Chocolate (nav/footer — unchanged) */
-  --text-main: #78635e; /* Moccasin, AA-adjusted from #907771 (4.53:1 on canvas) */
-  --text-muted: #74655a; /* Driftwood, AA-adjusted from #afa298 (4.53:1 on canvas) */
-  --border-subtle: #aca6a0; /* Pebble Gray */
-  /* Text on --bg-secondary surfaces (constant; = dark-mode --text-main) */
-  --text-inverse: #ebe9e7;
-  /* Global interactive accents (constant across light + dark) */
-  --accent-action: #907771; /* Moccasin trigger fills */
-  --accent-alert: #b85329; /* Burnt Amber urgency/errors */
-  --accent-hover: #8a7b70; /* Taupe transitions */
-  --accent-surface: #beb4ad; /* Warm Sand pill/deactivated backdrops */
+  --bg-primary: #f5f5f7; /* Soft off-white canvas */
+  --bg-card: #ffffff; /* Product cards, menus, grid containers */
+  --bg-secondary: #ffffff; /* Nav strip, footer, marquee, badges */
+  --text-main: #1d1d1f; /* Sharp headings and body copy */
+  --text-muted: #6e6e73; /* Captions, subheadings, muted details */
+  --border-subtle: #d2d2d7; /* Subtle lines and container outlines */
+  /* Text on --bg-secondary surfaces (flips with the theme) */
+  --text-inverse: #1d1d1f;
+  --text-inverse-muted: rgba(29, 29, 31, 0.75); /* 7.33:1 on white */
+  /* Interactive accents — hex kept for CSS/design parity,
+     rgb triple feeds Tailwind so opacity modifiers keep working */
+  --accent-action: #0071e3; /* Links, primary buttons, chevrons */
+  --accent-action-rgb: 0 113 227;
+  --accent-alert: #d70015; /* Apple-accessible red (5.38:1 on white) */
+  --accent-alert-rgb: 215 0 21;
+  --accent-hover: #6e6e73; /* Neutral gray transitions */
+  --accent-surface: #ffffff; /* Pill/deactivated backdrops (= secondary) */
   color-scheme: light;
 }
 
-/* Dark Mode Matrix — root element carries class="dark" or data-theme="dark" */
+/* Dark Mode Matrix — root element carries class="dark" (manual toggle).
+   Same values as prefers-color-scheme; toggle drives the class instead. */
 .dark,
 [data-theme='dark'] {
-  --bg-primary: #3c2411;
-  --bg-card: #4f3928;
-  --text-main: #ebe9e7;
-  --text-muted: #c4bdb7;
-  --border-subtle: #8a7b70;
+  --bg-primary: #000000; /* True black for contrast */
+  --bg-card: #1d1d1f; /* Elevated surfaces */
+  --bg-secondary: #1d1d1f; /* Nav/footer on black */
+  --text-main: #f5f5f7;
+  --text-muted: #86868b;
+  --border-subtle: #424245;
+  --text-inverse: #f5f5f7;
+  --text-inverse-muted: rgba(245, 245, 247, 0.75); /* 9.17:1 on #1d1d1f */
+  --accent-action: #2997ff;
+  --accent-action-rgb: 41 151 255;
+  --accent-alert: #ff6961;
+  --accent-alert-rgb: 255 105 97;
+  --accent-hover: #6e6e73;
+  --accent-surface: #1d1d1f;
   color-scheme: dark;
 }
 
@@ -59,13 +75,13 @@ html {
   scrollbar-color: transparent transparent;
 }
 html.is-scrolling {
-  scrollbar-color: rgba(60, 36, 17, 0.3) transparent;
+  scrollbar-color: rgba(29, 29, 31, 0.3) transparent;
 }
 html.dark {
   scrollbar-color: transparent transparent;
 }
 html.dark.is-scrolling {
-  scrollbar-color: rgba(235, 233, 231, 0.25) transparent;
+  scrollbar-color: rgba(245, 245, 247, 0.25) transparent;
 }
 ::-webkit-scrollbar {
   width: 8px;
@@ -79,57 +95,64 @@ html.dark.is-scrolling {
   border-radius: 999px;
 }
 html:not(.is-scrolling):not(.dark) ::-webkit-scrollbar-thumb:hover {
-  background: rgba(60, 36, 17, 0.3);
+  background: rgba(29, 29, 31, 0.3);
 }
 html:not(.is-scrolling).dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(235, 233, 231, 0.25);
+  background: rgba(245, 245, 247, 0.25);
 }
 html.is-scrolling:not(.dark) ::-webkit-scrollbar-thumb {
-  background: rgba(60, 36, 17, 0.3);
+  background: rgba(29, 29, 31, 0.3);
 }
 html.is-scrolling:not(.dark) ::-webkit-scrollbar-thumb:hover {
-  background: rgba(60, 36, 17, 0.5);
+  background: rgba(29, 29, 31, 0.5);
 }
 html.is-scrolling.dark ::-webkit-scrollbar-thumb {
-  background: rgba(235, 233, 231, 0.25);
+  background: rgba(245, 245, 247, 0.25);
 }
 html.is-scrolling.dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(235, 233, 231, 0.4);
+  background: rgba(245, 245, 247, 0.4);
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  /* clip (not hidden) so full-bleed elements can span past the layout box
-     without a horizontal scrollbar, while keeping position:sticky working */
+  /* Apple system font stack — no webfonts, instant render */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  /* clip (not hidden) so full-bleed elements can span past the layout box,
+     while keeping position:sticky working */
   overflow-x: clip;
 }
 
 .font-display {
-  font-family: 'Fraunces', Georgia, serif;
+  /* Display headings: same SF stack with Apple-style tight tracking */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  letter-spacing: -0.018em;
 }
 
-/* Card surface — light: pure white + greige stroke; dark: espresso/chocolate
-   via the token remap (no dark: duplication needed) */
+/* Card surface — light: white + hairline; dark: #1d1d1f via token remap */
 .card-surface {
   @apply bg-card border border-subtle rounded-2xl transition-colors;
 }
 
-/* Soft eyebrow pill — Warm Sand backdrop, espresso label (7.11:1).
-   text-main on sand fails 4.5:1, so labels are espresso per DESIGN.md */
+/* Soft eyebrow pill — secondary-canvas backdrop + primary text.
+   Flips with the theme (15.5:1 light / 15.5:1 dark) */
 .chip-soft {
   @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold;
   background: var(--accent-surface);
-  color: #3c2411;
+  color: var(--text-main);
   border: 1px solid var(--border-subtle);
 }
 
-/* Fixed light badge for dark (--bg-secondary) surfaces — alabaster on espresso */
+/* Badge chip — canvas tint + hairline so it reads on white headers
+   and over vehicle photos in both modes */
 .chip-badge {
-  background: #ebe9e7;
-  color: #3c2411;
+  background: var(--bg-primary);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
 }
 
-/* Selected/active pill — inverts with the theme (espresso<->alabaster) */
+/* Selected/active pill — inverts with the theme:
+   light = near-black pill on white (15.5:1), dark = off-white pill on black */
 .pill-active {
   background: var(--text-main);
   color: var(--bg-primary);

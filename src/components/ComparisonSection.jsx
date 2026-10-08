@@ -27,7 +27,7 @@ export default function ComparisonSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-gradient-to-br from-[#3c2411] via-[#3c2411]/90 to-[#3c2411]/75 rounded-2xl p-8 md:p-12 text-white relative overflow-hidden"
+          className="bg-gradient-to-br from-[#1d1d1f] via-[#1d1d1f]/90 to-[#1d1d1f]/75 rounded-2xl p-8 md:p-12 text-white relative overflow-hidden"
         >
           <div className="absolute inset-0">
             <img
@@ -36,7 +36,7 @@ export default function ComparisonSection() {
               aria-hidden="true"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-[#3c2411]/85" />
+            <div className="absolute inset-0 bg-[#1d1d1f]/85" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">

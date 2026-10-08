@@ -17,7 +17,7 @@ export default function Hero({ title, subtitle }) {
           alt="Cargo ship carrying containers at sea"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#3c2411] via-[#3c2411]/60 to-[#3c2411]/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/40" />
       </div>
 
       <motion.div

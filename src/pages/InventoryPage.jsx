@@ -21,7 +21,7 @@ export default function InventoryPage() {
         <h1 className="font-display text-3xl md:text-5xl font-bold leading-tight">
           Browse {vehicles.length} inspected vehicles
         </h1>
-        <p className="mt-3 text-onsecondary/75 max-w-2xl">
+        <p className="mt-3 text-onsecondary-muted max-w-2xl">
           Live stock from our China partners — filter by brand, price and year.
           Free shipping to Tema included in every landed price.
         </p>

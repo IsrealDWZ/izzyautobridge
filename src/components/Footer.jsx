@@ -51,7 +51,7 @@ export default function Footer() {
               <Car size={28} className="text-action" />
               <span className="font-display font-bold text-xl">IzzyAutoBridge</span>
             </div>
-            <p className="text-onsecondary/75 mb-6 max-w-xs">
+            <p className="text-onsecondary-muted mb-6 max-w-xs">
               Direct China vehicle supply to Ghana. Transparent landed costs. 60-day delivery. 12-month warranty.
             </p>
             <div className="flex gap-4">
@@ -61,7 +61,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-onsecondary hover:bg-accent-hover hover:text-white hover:border-accent-hover transition-all"
+                  className="w-10 h-10 bg-primary border border-subtle rounded-full flex items-center justify-center text-onsecondary hover:bg-accent-hover hover:text-white hover:border-accent-hover transition-all"
                 >
                   <social.icon size={18} />
                 </a>
@@ -78,7 +78,7 @@ export default function Footer() {
                     {link.to ? (
                       <Link
                         to={link.to}
-                        className="text-onsecondary/75 hover:text-white hover:underline hover:decoration-accent-hover hover:decoration-2 underline-offset-4 transition-colors text-sm"
+                        className="text-onsecondary-muted hover:text-onsecondary hover:underline hover:decoration-accent-hover hover:decoration-2 underline-offset-4 transition-colors text-sm"
                       >
                         {link.label}
                       </Link>
@@ -87,7 +87,7 @@ export default function Footer() {
                         href={link.href}
                         target={link.href.startsWith('http') ? '_blank' : undefined}
                         rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                        className="text-onsecondary/75 hover:text-white hover:underline hover:decoration-accent-hover hover:decoration-2 underline-offset-4 transition-colors text-sm"
+                        className="text-onsecondary-muted hover:text-onsecondary hover:underline hover:decoration-accent-hover hover:decoration-2 underline-offset-4 transition-colors text-sm"
                       >
                         {link.label}
                       </a>
@@ -103,13 +103,13 @@ export default function Footer() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
-          className="border-t border-white/15 pt-8"
+          className="border-t border-subtle pt-8"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-onsecondary/75 text-sm">
+            <p className="text-onsecondary-muted text-sm">
               © {new Date().getFullYear()} IzzyAutoBridge Ghana Ltd. All rights reserved.
             </p>
-            <div className="flex items-center gap-6 text-sm text-onsecondary/75">
+            <div className="flex items-center gap-6 text-sm text-onsecondary-muted">
               <span className="flex items-center gap-1.5">
                 <Shield size={14} /> DVLA Class C Licensed
               </span>

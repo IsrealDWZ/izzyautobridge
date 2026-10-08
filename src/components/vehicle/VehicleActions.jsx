@@ -11,7 +11,7 @@ export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompa
         className={`flex items-center gap-1.5 text-xs font-medium px-3 py-2.5 rounded-lg border transition min-h-[44px] ${
           isComparing
             ? 'pill-active font-semibold'
-            : 'bg-accent-surface text-navy border-subtle hover:bg-accent-hover/15'
+            : 'bg-accent-surface text-main border-subtle hover:bg-accent-hover/15'
         }`}
       >
         <Check size={14} className={isComparing ? 'opacity-100' : 'opacity-0'} />
@@ -23,7 +23,7 @@ export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompa
         className="p-2.5 rounded-lg border border-subtle min-h-[44px] min-w-[44px] hover:bg-accent-hover/15 transition-colors"
         aria-label="Save to favorites"
       >
-        <Heart size={18} fill={isFavorite ? '#D9534F' : 'none'} stroke={isFavorite ? '#D9534F' : 'currentColor'} />
+        <Heart size={18} fill={isFavorite ? '#FF3B30' : 'none'} stroke={isFavorite ? '#FF3B30' : 'currentColor'} />
       </button>
       <a
         href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(

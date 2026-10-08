@@ -55,7 +55,7 @@ export default function VehicleGrid({ vehicles, _whatsappNumber }) {
             className={`text-xs font-medium px-3 py-1.5 rounded-full border transition ${
               filters.category.includes(cat)
                 ? 'pill-active font-semibold'
-                : 'bg-accent-surface text-navy border-subtle hover:bg-accent-hover/15'
+                : 'bg-accent-surface text-main border-subtle hover:bg-accent-hover/15'
             }`}
           >
             {cat}
