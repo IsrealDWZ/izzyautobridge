@@ -7,7 +7,7 @@ export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompa
   return (
     <div className="flex items-center gap-2 mt-4">
       <button
-        onClick={onToggleCompare}
+        onClick={() => onToggleCompare(vehicle.ID)}
         className={`flex items-center gap-1.5 text-xs font-medium px-3 py-2.5 rounded-lg border transition min-h-[44px] ${
           isComparing
             ? 'pill-active font-semibold'
@@ -19,7 +19,7 @@ export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompa
         <span className="sm:hidden" aria-label="Compare">⚖</span>
       </button>
       <button
-        onClick={onToggleFavorite}
+        onClick={() => onToggleFavorite(vehicle.ID)}
         className="p-2.5 rounded-lg border border-subtle min-h-[44px] min-w-[44px] hover:bg-accent-hover/15 transition-colors"
         aria-label="Save to favorites"
       >
