@@ -12,7 +12,7 @@
     "build:data": "npm run fetch:rate && node scripts/build-image-index.js && node scripts/generate-vehicles.js",
     "build:sitemap": "node scripts/generate-sitemap.js",
     "match:images": "node scripts/bulk-match-images.js",
-    "build": "npm run build:data && npm run build:sitemap && vite build",
+    "build": "npm run build:data && npm run build:sitemap && vite build && node scripts/prerender-routes.js",
     "preview": "vite preview",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --fix",
