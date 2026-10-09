@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 import { useAppStore } from '../store/useAppStore';
 
@@ -23,7 +24,12 @@ export default function VehicleCard({ vehicle }) {
           {vehicle.ID}
         </span>
         <h3 className="font-display text-lg sm:text-xl font-bold mt-1">
-          {vehicle.Brand} {vehicle.Model} {vehicle.Year}
+          <Link
+            to={`/vehicle/${vehicle.ID}`}
+            className="hover:text-action transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action rounded"
+          >
+            {vehicle.Brand} {vehicle.Model} {vehicle.Year}
+          </Link>
         </h3>
         <p className="text-sm text-muted">{vehicle.Variant}</p>
 

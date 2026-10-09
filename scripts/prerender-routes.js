@@ -10,9 +10,10 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 const OUT_DIR = path.resolve(process.argv[2] || path.join(ROOT_DIR, 'dist'));
+const VEHICLES_JSON_PATH = path.join(ROOT_DIR, 'src', 'data', 'vehicles.json');
 const BASE = 'https://izzyautobridge.vercel.app';
 
-const ROUTES = [
+const STATIC_ROUTES = [
   {
     // Directory index (/inventory/index.html) so the static host serves it for
     // /inventory before the SPA rewrite kicks in (plain inventory.html is only
@@ -24,6 +25,25 @@ const ROUTES = [
     canonical: `${BASE}/inventory`,
   },
 ];
+
+function buildVehicleRoutes() {
+  if (!fs.existsSync(VEHICLES_JSON_PATH)) return [];
+  const vehicles = JSON.parse(fs.readFileSync(VEHICLES_JSON_PATH, 'utf-8'));
+  return vehicles.map((v) => {
+    const title = `${v.Brand} ${v.Model} ${v.Year} — IzzyAutoBridge Ghana`;
+    const variant = v.Variant ? ` (${v.Variant})` : '';
+    const specs = v.Key_Specs ? ` Key specs: ${v.Key_Specs}.` : '';
+    const description = `${v.Brand} ${v.Model} ${v.Year}${variant} available now in Ghana. GH₵${Number(
+      v.Price_GHS
+    ).toLocaleString()} · SGS inspected · 12-month warranty · free shipping to Tema.${specs}`;
+    return {
+      out: `vehicle/${v.ID}/index.html`,
+      title,
+      description,
+      canonical: `${BASE}/vehicle/${v.ID}`,
+    };
+  });
+}
 
 function replaceOnce(html, pattern, replacement, label, file) {
   if (!pattern.test(html)) {
@@ -40,6 +60,7 @@ function prerender() {
     process.exit(1);
   }
   const template = fs.readFileSync(indexPath, 'utf-8');
+  const ROUTES = [...STATIC_ROUTES, ...buildVehicleRoutes()];
 
   for (const route of ROUTES) {
     let html = template;

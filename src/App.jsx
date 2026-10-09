@@ -12,6 +12,7 @@ import ScrollProgress from './components/ScrollProgress';
 import vehicles from './data/vehicles.json';
 import HomePage from './pages/HomePage';
 import InventoryPage from './pages/InventoryPage';
+import VehicleDetailPage from './pages/VehicleDetailPage';
 import { useAppStore } from './store/useAppStore';
 import { APP_CONFIG, WHATSAPP_NUMBER } from './utils/constants';
 
@@ -117,6 +118,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/inventory" element={<InventoryPage />} />
+            <Route path="/vehicle/:slug" element={<VehicleDetailPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
