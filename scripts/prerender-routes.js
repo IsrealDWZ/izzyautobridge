@@ -14,7 +14,10 @@ const BASE = 'https://izzyautobridge.vercel.app';
 
 const ROUTES = [
   {
-    out: 'inventory.html',
+    // Directory index (/inventory/index.html) so the static host serves it for
+    // /inventory before the SPA rewrite kicks in (plain inventory.html is only
+    // reachable at /inventory.html without cleanUrls).
+    out: 'inventory/index.html',
     title: 'Browse Inventory — IzzyAutoBridge Ghana',
     description:
       'Browse 194+ inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent landed costs, SGS inspection, 12-month warranty.',
@@ -59,6 +62,7 @@ function prerender() {
       `<meta name="twitter:description" content="${route.description}" />`, 'twitter:description', route.out);
 
     const outPath = path.join(OUT_DIR, route.out);
+    fs.mkdirSync(path.dirname(outPath), { recursive: true });
     fs.writeFileSync(outPath, html);
     console.log(`✓ Prerendered ${route.out}`);
   }
