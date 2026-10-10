@@ -46,6 +46,10 @@
         padding: 2rem 1.5rem;
       }
       .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: center;
         font-size: 0.95rem;
         font-weight: 600;
         letter-spacing: 0.12em;
@@ -53,6 +57,7 @@
         color: var(--secondary);
         margin-bottom: 2.5rem;
       }
+      .brand svg { width: 1.4em; height: 1.4em; }
       h1 {
         font-size: clamp(5rem, 16vw, 8.5rem);
         font-weight: 700;
@@ -113,7 +118,14 @@
     </style>
   </head>
   <body>
-    <div class="brand">IzzyAutoBridge</div>
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <circle cx="30" cy="30" r="6" fill="currentColor"/>
+        <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+        <path fill="currentColor" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+      </svg>
+      IzzyAutoBridge
+    </div>
     <h1>404</h1>
     <h2>Page not found</h2>
     <p>

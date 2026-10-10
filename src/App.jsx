@@ -3,6 +3,7 @@ import { Ship, Moon, Sun } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
+import BrandMark from './components/BrandMark';
 import CompareModal from './components/CompareModal';
 import ConsentBanner from './components/ConsentBanner';
 import FavoritesDrawer from './components/FavoritesDrawer';
@@ -90,11 +91,11 @@ export default function App() {
           </motion.div>
           <nav className="flex items-center justify-between pl-4 pr-3 sm:px-6 py-3 bg-secondary">
             <div className="flex items-center gap-2 sm:gap-5">
-              <Link
-                to="/"
-                className="font-display font-bold text-onsecondary text-[15px] sm:text-xl whitespace-nowrap"
-              >
-                {APP_CONFIG.siteTitle}
+              <Link to="/" className="flex items-center gap-2 whitespace-nowrap">
+                <BrandMark size={28} className="text-onsecondary" />
+                <span className="font-display font-bold text-onsecondary text-[15px] sm:text-xl">
+                  {APP_CONFIG.siteTitle}
+                </span>
               </Link>
               <NavLink
                 to="/inventory"
