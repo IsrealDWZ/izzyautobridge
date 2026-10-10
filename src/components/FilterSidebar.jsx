@@ -70,6 +70,7 @@ export default function FilterSidebar({ vehicles = [] }) {
               min={priceMin} max={priceMax}
               value={filters.priceRange}
               onChange={handlePriceChange}
+              label="Price range"
             />
           </div>
 
@@ -79,6 +80,7 @@ export default function FilterSidebar({ vehicles = [] }) {
               min={yearMin} max={yearMax}
               value={filters.yearRange}
               onChange={handleYearChange}
+              label="Year"
             />
           </div>
         </div>
@@ -125,6 +127,7 @@ export default function FilterSidebar({ vehicles = [] }) {
                     min={priceMin} max={priceMax}
                     value={filters.priceRange}
                     onChange={handlePriceChange}
+              label="Price range"
                   />
                 </div>
 
@@ -134,6 +137,7 @@ export default function FilterSidebar({ vehicles = [] }) {
                     min={yearMin} max={yearMax}
                     value={filters.yearRange}
                     onChange={handleYearChange}
+              label="Year"
                   />
                 </div>
 
@@ -174,7 +178,7 @@ function FilterGroup({ label, items, selected, onChange }) {
   );
 }
 
-function PriceRangeSlider({ min, max, value, onChange }) {
+function PriceRangeSlider({ min, max, value, onChange, label }) {
   const [low, high] = value;
   return (
     <div className="space-y-2">
@@ -184,6 +188,7 @@ function PriceRangeSlider({ min, max, value, onChange }) {
       </div>
       <input
         type="range"
+        aria-label={`${label} minimum`}
         min={min}
         max={max}
         value={low}
@@ -195,6 +200,7 @@ function PriceRangeSlider({ min, max, value, onChange }) {
       />
       <input
         type="range"
+        aria-label={`${label} maximum`}
         min={min}
         max={max}
         value={high}

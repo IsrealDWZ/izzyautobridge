@@ -134,8 +134,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-main mb-1">Brand</label>
+                  <label htmlFor="cq-brand" className="block text-sm font-medium text-main mb-1">Brand</label>
                   <input
+                    id="cq-brand"
                     type="text"
                     placeholder="e.g., BYD, Toyota, Mercedes"
                     value={formData.brand}
@@ -147,8 +148,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                   {errors.brand && <p id="brand-error" className="mt-1 text-sm text-alert font-medium">{errors.brand}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-main mb-1">Model</label>
+                  <label htmlFor="cq-model" className="block text-sm font-medium text-main mb-1">Model</label>
                   <input
+                    id="cq-model"
                     type="text"
                     placeholder="e.g., Atto 3, Camry, G-Wagon"
                     value={formData.model}
@@ -160,8 +162,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                   {errors.model && <p id="model-error" className="mt-1 text-sm text-alert font-medium">{errors.model}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-main mb-1">Year</label>
+                  <label htmlFor="cq-year" className="block text-sm font-medium text-main mb-1">Year</label>
                   <select
+                    id="cq-year"
                     value={formData.year}
                     onChange={(e) => handleChange('year', parseInt(e.target.value) || 2024)}
                     className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.year ? 'border-alert' : ''}`}
@@ -175,8 +178,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                   {errors.year && <p id="year-error" className="mt-1 text-sm text-alert font-medium">{errors.year}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-main mb-1">Fuel Type</label>
+                  <label htmlFor="cq-fuel" className="block text-sm font-medium text-main mb-1">Fuel Type</label>
                   <select
+                    id="cq-fuel"
                     value={formData.fuel}
                     onChange={(e) => handleChange('fuel', e.target.value)}
                     className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
@@ -190,8 +194,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-main mb-1">Body Type</label>
+                  <label htmlFor="cq-body" className="block text-sm font-medium text-main mb-1">Body Type</label>
                   <select
+                    id="cq-body"
                     value={formData.body}
                     onChange={(e) => handleChange('body', e.target.value)}
                     className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
@@ -206,8 +211,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-main mb-1">Budget (GHS)</label>
+                  <label htmlFor="cq-budget" className="block text-sm font-medium text-main mb-1">Budget (GHS)</label>
                   <input
+                    id="cq-budget"
                     type="number"
                     min={50000}
                     max={2000000}
@@ -225,8 +231,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-main mb-1">Additional Requirements</label>
+                <label htmlFor="cq-notes" className="block text-sm font-medium text-main mb-1">Additional Requirements</label>
                 <textarea
+                  id="cq-notes"
                   rows={4}
                   placeholder="Color, specs, features, timeline, etc."
                   value={formData.notes}

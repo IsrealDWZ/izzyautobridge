@@ -188,14 +188,16 @@ export default function EVCalculator() {
 }
 
 function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
+  const inputId = `ev-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
   return (
     <div>
       <div className="flex items-center justify-between gap-3 mb-2">
-        <label className="flex items-center gap-2 text-sm font-medium text-main">
+        <label htmlFor={inputId} className="flex items-center gap-2 text-sm font-medium text-main">
           <Icon size={15} className="text-action shrink-0" />
           {label}
         </label>
         <input
+          id={inputId}
           type="number"
           min={min}
           max={max}
@@ -207,6 +209,7 @@ function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
       </div>
       <input
         type="range"
+        aria-label={`${label} slider`}
         min={min}
         max={max}
         step={step}

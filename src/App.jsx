@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Ship, Moon, Sun } from 'lucide-react';
 import { useEffect } from 'react';
-import { Link, NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
 import CompareModal from './components/CompareModal';
 import FavoritesDrawer from './components/FavoritesDrawer';
@@ -12,6 +12,7 @@ import ScrollProgress from './components/ScrollProgress';
 import vehicles from './data/vehicles.json';
 import HomePage from './pages/HomePage';
 import InventoryPage from './pages/InventoryPage';
+import NotFound from './pages/NotFound';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import VehicleDetailPage from './pages/VehicleDetailPage';
@@ -123,7 +124,7 @@ export default function App() {
             <Route path="/vehicle/:slug" element={<VehicleDetailPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 

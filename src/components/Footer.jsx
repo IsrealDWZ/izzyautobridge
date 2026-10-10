@@ -49,6 +49,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label={social.label}
                   className="w-10 h-10 bg-primary border border-subtle rounded-full flex items-center justify-center text-onsecondary hover:bg-accent-hover hover:text-white hover:border-accent-hover transition-all"
                 >
                   <social.icon size={18} />
@@ -59,7 +60,7 @@ export default function Footer() {
 
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h4 className="font-semibold mb-4">{category.charAt(0).toUpperCase() + category.slice(1)}</h4>
+              <h3 className="font-semibold mb-4">{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
