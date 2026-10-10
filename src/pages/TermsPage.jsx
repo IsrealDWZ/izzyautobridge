@@ -77,8 +77,9 @@ export default function TermsPage() {
         <p>
           Every vehicle is road-tested by us and inspected by SGS before loading. Photos,
           mileage, year and specifications on each vehicle page describe the specific unit
-          for sale. Vehicles are second-hand; minor cosmetic wear consistent with age and
-          mileage should be expected and is disclosed in the listing.
+          for sale. Our inventory includes both brand-new and pre-owned vehicles — each
+          listing states the condition, year and mileage of the specific unit. Any cosmetic
+          wear consistent with age and mileage is disclosed in the listing.
         </p>
       </LegalSection>
 
