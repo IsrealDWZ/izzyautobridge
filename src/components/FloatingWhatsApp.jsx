@@ -15,7 +15,6 @@ export default function FloatingWhatsApp({ _whatsappNumber = WHATSAPP_NUMBER }) 
       aria-label="Chat on WhatsApp"
     >
       <MessageCircle size={28} />
-      <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-main border border-subtle text-xs font-bold rounded-full flex items-center justify-center" aria-hidden="true">1</span>
       <motion.span
         className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-secondary text-onsecondary px-3 py-1.5 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 pointer-events-none hidden sm:block"
         initial={{ opacity: 0, x: 10 }}
