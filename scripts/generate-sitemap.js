@@ -12,6 +12,8 @@ const OUTPUT_PATH = path.join(ROOT_DIR, 'public', 'sitemap.xml');
 const STATIC_ROUTES = [
   { path: '', changefreq: 'daily', priority: '1.0' },
   { path: '/inventory', changefreq: 'daily', priority: '0.9' },
+  { path: '/privacy', changefreq: 'yearly', priority: '0.2' },
+  { path: '/terms', changefreq: 'yearly', priority: '0.2' },
 ];
 
 function generateSitemap() {

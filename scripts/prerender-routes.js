@@ -24,6 +24,20 @@ const STATIC_ROUTES = [
       'Browse 194+ inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent landed costs, SGS inspection, 12-month warranty.',
     canonical: `${BASE}/inventory`,
   },
+  {
+    out: 'privacy/index.html',
+    title: 'Privacy Policy — IzzyAutoBridge Ghana',
+    description:
+      "How IzzyAutoBridge Ghana handles your data. We don't use cookies or tracking — see what little the site stores and your rights under Ghana's Data Protection Act, 2012.",
+    canonical: `${BASE}/privacy`,
+  },
+  {
+    out: 'terms/index.html',
+    title: 'Terms of Service — IzzyAutoBridge Ghana',
+    description:
+      'Terms governing IzzyAutoBridge vehicle orders: full-payment policy, 60-day shipping estimate, 12-month warranty coverage, clearance options and Ghana consumer rights.',
+    canonical: `${BASE}/terms`,
+  },
 ];
 
 function buildVehicleRoutes() {

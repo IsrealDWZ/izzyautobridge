@@ -1,39 +1,28 @@
 import { motion } from 'framer-motion';
-import { Car, Truck, Zap, Shield, MessageCircle } from 'lucide-react';
+import { Car, Shield, Zap, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 const footerLinks = {
-  company: [
-    { label: 'About Us', href: '#' },
+  explore: [
+    { label: 'Browse Inventory', to: '/inventory' },
     { label: 'Our Process', to: '/#process' },
     { label: 'Trust & Warranty', to: '/#trust' },
-    { label: 'Careers', href: '#' },
+    { label: 'Request a Vehicle', to: '/#concierge' },
   ],
   support: [
     { label: 'Contact Us', href: `https://wa.me/${WHATSAPP_NUMBER}` },
-    { label: 'FAQ', href: '#' },
-    { label: 'Shipping Info', href: '#' },
-    { label: 'Customs Guide', href: '#' },
-  ],
-  services: [
-    { label: 'Vehicle Import', to: '/inventory' },
-    { label: 'Fleet Solutions', href: '#' },
-    { label: 'EV Consulting', href: '#' },
   ],
   legal: [
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Service', href: '#' },
-    { label: 'Warranty Terms', href: '#' },
+    { label: 'Privacy Policy', to: '/privacy' },
+    { label: 'Terms of Service', to: '/terms' },
+    { label: 'Warranty Terms', to: '/terms#warranty' },
   ],
 };
 
 const socialLinks = [
   { icon: MessageCircle, href: `https://wa.me/${WHATSAPP_NUMBER}`, label: 'WhatsApp' },
-  { icon: Car, href: '#', label: 'Instagram' },
-  { icon: Truck, href: '#', label: 'Facebook' },
-  { icon: Zap, href: '#', label: 'LinkedIn' },
 ];
 
 export default function Footer() {
