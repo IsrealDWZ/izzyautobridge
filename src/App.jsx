@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
 import CompareModal from './components/CompareModal';
+import ConsentBanner from './components/ConsentBanner';
 import FavoritesDrawer from './components/FavoritesDrawer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
@@ -133,6 +134,7 @@ export default function App() {
         <CompareModal vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
         <FavoritesDrawer vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
         <FloatingWhatsApp whatsappNumber={WHATSAPP_NUMBER} />
+        <ConsentBanner />
       </div>
     </div>
   );

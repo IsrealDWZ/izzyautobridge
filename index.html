@@ -35,7 +35,24 @@
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+
+  <!-- Google Analytics (GA4) — loads only after consent. Consent Mode v2 defaults everything to denied. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-REGLS30J5B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-REGLS30J5B', { anonymize_ip: true });
+  </script>
+
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {

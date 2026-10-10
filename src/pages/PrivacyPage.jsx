@@ -12,7 +12,7 @@ export default function PrivacyPage() {
     <LegalArticle
       title="Privacy Policy"
       updated="10 October 2026"
-      intro="We collect almost nothing. This page explains exactly what the izzyautobridge.vercel.app website does with your information — in plain language."
+      intro="We collect almost nothing. This page explains exactly what the izzyautobridge.vercel.app website does with your information — in plain language. We run Google Analytics, but only if you allow it."
     >
       <LegalSection title="Who we are" id="who">
         <p>
@@ -41,6 +41,9 @@ export default function PrivacyPage() {
           <li>Your saved/favorite vehicles</li>
           <li>Your vehicle comparison selections</li>
           <li>Your light/dark theme choice</li>
+          <li>
+            Your analytics consent choice (accepted or declined), so we can remember it
+          </li>
         </ul>
         <p>
           This data stays on your device. It is never transmitted to us or to any third
@@ -50,16 +53,38 @@ export default function PrivacyPage() {
 
       <LegalSection title="Cookies" id="cookies">
         <p>
-          <strong>This website does not use cookies.</strong> If we ever add analytics or
-          other cookie-based tools, we will update this page and ask for your consent first.
+          <strong>This website does not use cookies.</strong> Google Analytics uses
+          browser storage rather than advertising cookies, and it only activates if you
+          accept the analytics consent banner. If we ever add other cookie-based tools, we
+          will update this page and ask for your consent first.
         </p>
       </LegalSection>
 
-      <LegalSection title="Analytics" id="analytics">
+      <LegalSection title="Analytics (Google Analytics)" id="analytics">
         <p>
-          We do not currently run analytics on this website. There is no Google Analytics,
-          Facebook Pixel or similar tracking.
+          We use <strong>Google Analytics 4</strong> to understand aggregate usage — which
+          pages are viewed and how people reach the site. It is not used for advertising.
         </p>
+        <ul className="list-disc pl-5 space-y-1.5">
+          <li>
+            <strong>Off until you accept.</strong> Google Analytics is loaded and enabled
+            only after you click Accept on the consent banner. If you decline (or ignore
+            the banner), no analytics data is collected.
+          </li>
+          <li>
+            <strong>Anonymised IP.</strong> We enable IP anonymisation so your address is
+            not stored in full.
+          </li>
+          <li>
+            <strong>No ad profile.</strong> We do not use Google's advertising features,
+            remarketing, or audience personalisation.
+          </li>
+          <li>
+            <strong>Opt out any time.</strong> Clear this site's storage (or use your
+            browser's "clear data") to reset your choice; the banner will ask again. You
+            can also use Google's browser opt-out tools.
+          </li>
+        </ul>
       </LegalSection>
 
       <LegalSection title="Third-party services the site touches" id="third-party">
@@ -77,6 +102,10 @@ export default function PrivacyPage() {
             to calculate displayed prices. No personal data is sent.
           </li>
           <li>
+            <strong>Google Analytics.</strong> Runs only if you accept the consent banner.
+            Measures aggregate page usage; no advertising profile is built.
+          </li>
+          <li>
             <strong>Google site verification.</strong> A single verification tag proves to
             Google that we own this site for Search Console. It is not tracking.
           </li>
@@ -86,9 +115,9 @@ export default function PrivacyPage() {
       <LegalSection title="Your rights under Ghana's Data Protection Act, 2012" id="rights">
         <p>
           Ghana's Data Protection Act gives you the right to ask what personal data we hold
-          about you and to have it corrected or deleted. Because this site does not collect
-          personal data, we almost certainly hold none — but you are welcome to ask, and we
-          will confirm.
+          about you and to have it corrected or deleted. The website itself does not collect
+          personal details for accounts or orders — and analytics, if you allow it, is
+          aggregate and anonymised. You are welcome to ask, and we will confirm.
         </p>
       </LegalSection>
 
@@ -100,9 +129,8 @@ export default function PrivacyPage() {
       </LegalSection>
       <LegalSection title="Changes to this policy" id="changes">
         <p>
-          If we change how the site handles data (for example, adding analytics), this page
-          will be updated and the "last updated" date revised before those changes take
-          effect.
+          If we change how the site handles data, this page will be updated and the "last
+          updated" date revised before those changes take effect.
         </p>
       </LegalSection>
 
