@@ -8,7 +8,7 @@ const footerLinks = {
   explore: [
     { label: 'Browse Inventory', to: '/inventory' },
     { label: 'Our Process', to: '/#process' },
-    { label: 'Trust & Warranty', to: '/#trust' },
+    { label: 'Why Us', to: '/#trust' },
     { label: 'Request a Vehicle', to: '/#concierge' },
   ],
   support: [
@@ -17,7 +17,6 @@ const footerLinks = {
   legal: [
     { label: 'Privacy Policy', to: '/privacy' },
     { label: 'Terms of Service', to: '/terms' },
-    { label: 'Warranty Terms', to: '/terms#warranty' },
   ],
 };
 
@@ -41,7 +40,7 @@ export default function Footer() {
               <span className="font-display font-bold text-xl">IzzyAutoBridge</span>
             </div>
             <p className="text-onsecondary-muted mb-6 max-w-xs">
-              Direct China vehicle supply to Ghana. Transparent landed costs. 60-day delivery. 12-month warranty.
+              Direct China vehicle supply to Ghana. Transparent landed costs. 60-day delivery.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (

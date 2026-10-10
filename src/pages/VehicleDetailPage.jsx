@@ -89,7 +89,7 @@ export default function VehicleDetailPage() {
             </div>
             <div className="flex items-center gap-2.5 text-sm text-muted">
               <ShieldCheck size={16} className="text-main shrink-0" aria-hidden="true" />
-              SGS inspected · 12-month warranty
+              SGS inspected before loading
             </div>
           </div>
         </div>

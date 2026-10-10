@@ -21,7 +21,7 @@ const STATIC_ROUTES = [
     out: 'inventory/index.html',
     title: 'Browse Inventory — IzzyAutoBridge Ghana',
     description:
-      'Browse 194+ inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent landed costs, SGS inspection, 12-month warranty.',
+      'Browse 194+ inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent landed costs and SGS inspection.',
     canonical: `${BASE}/inventory`,
   },
   {
@@ -35,7 +35,7 @@ const STATIC_ROUTES = [
     out: 'terms/index.html',
     title: 'Terms of Service — IzzyAutoBridge Ghana',
     description:
-      'Terms governing IzzyAutoBridge vehicle orders: full-payment policy, 60-day shipping estimate, 12-month warranty coverage, clearance options and Ghana consumer rights.',
+      'Terms governing IzzyAutoBridge vehicle orders: full-payment policy, 60-day shipping estimate, clearance options and Ghana consumer rights.',
     canonical: `${BASE}/terms`,
   },
 ];
@@ -49,7 +49,7 @@ function buildVehicleRoutes() {
     const specs = v.Key_Specs ? ` Key specs: ${v.Key_Specs}.` : '';
     const description = `${v.Brand} ${v.Model} ${v.Year}${variant} available now in Ghana. GH₵${Number(
       v.Price_GHS
-    ).toLocaleString()} · SGS inspected · 12-month warranty · free shipping to Tema.${specs}`;
+    ).toLocaleString()} · SGS inspected · free shipping to Tema.${specs}`;
     return {
       out: `vehicle/${v.ID}/index.html`,
       title,

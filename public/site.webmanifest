@@ -1,11 +1,11 @@
 {
   "name": "IzzyAutoBridge Ghana",
   "short_name": "IzzyAutoBridge",
-  "description": "Direct China vehicle imports to Ghana with transparent landed costs, SGS inspection, and 12-month warranty.",
+  "description": "Direct China vehicle imports to Ghana with transparent landed costs and SGS inspection.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1B2A4A",
-  "theme_color": "#1B2A4A",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
   "orientation": "portrait-primary",
   "icons": [
     {
@@ -15,7 +15,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["business", "shopping", "automotive"],
+  "categories": [
+    "business",
+    "shopping",
+    "automotive"
+  ],
   "lang": "en-GH",
   "dir": "ltr"
 }

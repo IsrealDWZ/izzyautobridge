@@ -83,37 +83,7 @@ export default function TermsPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="7. Warranty" id="warranty">
-        <p>
-          Every vehicle comes with a <strong>12-month limited warranty</strong>, written on
-          your proforma and starting on delivery. It covers:
-        </p>
-        <ul className="list-disc pl-5 space-y-1.5">
-          <li>Engine and transmission (petrol/hybrid)</li>
-          <li>Motor and battery (electric vehicles)</li>
-        </ul>
-        <p>It does not cover:</p>
-        <ul className="list-disc pl-5 space-y-1.5">
-          <li>Consumables and wear items (brakes, tyres, wipers, fluids, filters)</li>
-          <li>Damage from accidents, misuse, neglect or unauthorised modification</li>
-          <li>Bodywork, paint, interior trim, or any cosmetic damage</li>
-        </ul>
-        <p>
-          To make a claim, message us on{' '}
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER}`}
-            target="_blank"
-            rel="noreferrer"
-            className="font-medium underline decoration-accent-hover decoration-2 underline-offset-4 hover:text-action transition-colors"
-          >
-            WhatsApp
-          </a>{' '}
-          with your vehicle ID and a description of the fault. We diagnose, source parts and
-          coordinate repair with our partner workshops in Accra and Kumasi.
-        </p>
-      </LegalSection>
-
-      <LegalSection title="8. Import compliance" id="compliance">
+      <LegalSection title="7. Import compliance" id="compliance">
         <p>
           You are responsible for meeting Ghana's import regulations, including vehicle age
           limits and any duties or levies assessed by Customs. We provide guidance and all
@@ -122,7 +92,7 @@ export default function TermsPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="9. Limitation of liability" id="liability">
+      <LegalSection title="8. Limitation of liability" id="liability">
         <p>
           To the maximum extent permitted by law, our liability for any claim arising from a
           vehicle order is limited to the amount you paid for that vehicle. We are not
@@ -131,18 +101,18 @@ export default function TermsPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="10. Governing law" id="law">
+      <LegalSection title="9. Governing law" id="law">
         <p>These terms are governed by the laws of the Republic of Ghana.</p>
       </LegalSection>
 
-      <LegalSection title="11. Changes to these terms" id="changes">
+      <LegalSection title="10. Changes to these terms" id="changes">
         <p>
           We may update these terms. The version in effect at the time of your order — the
           one dated on your proforma — is the one that applies to that order.
         </p>
       </LegalSection>
 
-      <LegalSection title="12. Contact" id="contact">
+      <LegalSection title="11. Contact" id="contact">
         <p>
           Questions about these terms? Message us on{' '}
           <a

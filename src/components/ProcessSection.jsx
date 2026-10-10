@@ -24,7 +24,7 @@ const steps = [
     num: '4',
     icon: Key,
     title: 'Clear & Drive',
-    desc: 'Your agent clears (we supply docs) or we clear for GH₵4,000. DVLA registration, delivery to your door. 12-month warranty starts.',
+    desc: 'Your agent clears (we supply docs) or we clear for GH₵4,000. DVLA registration, delivery to your door.',
   },
 ];
 

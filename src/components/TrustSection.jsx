@@ -16,13 +16,13 @@ const trustItems = [
   },
   {
     num: '03',
-    question: 'What if it breaks in month four?',
-    answer: '12-month limited warranty on engine & transmission (EV: motor/battery). Written on proforma. WhatsApp us — we diagnose, source parts, coordinate repair with partner workshops in Accra/Kumasi.',
+    question: 'What about parts and repairs?',
+    answer: 'WhatsApp us — we source parts and coordinate with partner workshops in Accra and Kumasi. We stay reachable after delivery.',
     icon: Wrench,
   },
   {
     num: '04',
-    question: 'Whose name is on the warranty?',
+    question: 'Who is the importer of record?',
     answer: 'Ours. IzzyAutoBridge Ghana Ltd is the importer of record. We don\'t disappear at port — we\'re based in Accra, licensed by DVLA (Class C).',
     icon: Shield,
   },
