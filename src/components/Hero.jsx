@@ -13,8 +13,10 @@ export default function Hero({ title, subtitle }) {
     <section className="relative min-h-[80vh] flex items-center">
       <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-screen overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1605745341112-85968b19335b?fm=jpg&q=80&w=1920&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1605745341112-85968b19335b?fm=webp&q=70&w=1280&auto=format&fit=crop"
           alt="Cargo ship carrying containers at sea"
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/40" />
