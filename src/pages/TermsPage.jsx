@@ -57,10 +57,10 @@ export default function TermsPage() {
 
       <LegalSection title="4. Pricing" id="pricing">
         <p>
-          Prices shown on vehicle pages in GHS are indicative and include an estimated duty
-          and clearance component. The final landed cost is confirmed in your proforma
-          invoice and is based on the prevailing exchange rate and customs valuation at the
-          time of processing. CIF prices in USD are also shown for transparency.
+          Prices shown on vehicle pages are the prices. The final landed cost is confirmed
+          in your proforma invoice before you pay and is based on the prevailing exchange
+          rate at the time of processing. CIF prices in USD are also shown for
+          transparency.
         </p>
       </LegalSection>
 
