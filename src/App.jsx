@@ -92,7 +92,7 @@ export default function App() {
           <nav className="flex items-center justify-between pl-4 pr-3 sm:px-6 py-3 bg-secondary">
             <div className="flex items-center gap-2 sm:gap-5">
               <Link to="/" className="flex items-center gap-2 whitespace-nowrap">
-                <BrandMark size={28} className="text-onsecondary" />
+                <BrandMark size={38} className="text-onsecondary" />
                 <span className="font-display font-bold text-onsecondary text-[15px] sm:text-xl">
                   {APP_CONFIG.siteTitle}
                 </span>

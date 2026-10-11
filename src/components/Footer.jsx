@@ -3,6 +3,7 @@ import { Shield, Zap, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { WHATSAPP_NUMBER } from '../utils/constants';
+
 import BrandMark from './BrandMark';
 
 const footerLinks = {
@@ -37,7 +38,7 @@ export default function Footer() {
         >
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <BrandMark size={28} className="text-action" />
+              <BrandMark size={38} className="text-action" />
               <span className="font-display font-bold text-xl">IzzyAutoBridge</span>
             </div>
             <p className="text-onsecondary-muted mb-6 max-w-xs">
