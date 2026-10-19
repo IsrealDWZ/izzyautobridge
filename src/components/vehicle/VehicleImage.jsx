@@ -30,6 +30,9 @@ export function VehicleImage({ vehicle }) {
           src={firstImage}
           alt={`${vehicle.Brand} ${vehicle.Model}`}
           loading="lazy"
+          decoding="async"
+          width={400}
+          height={300}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           onError={(e) => { e.target.style.display = 'none'; }}
         />
