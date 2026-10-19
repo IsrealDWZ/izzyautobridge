@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, MessageCircle } from 'lucide-react';
 
 import { useAppStore } from '../store/useAppStore';
+import { useEffect } from 'react';
+
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMBER }) {
@@ -26,15 +28,22 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         className="fixed inset-0 bg-black/55 z-50 flex items-center justify-center p-4"
         onClick={clearCompare}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Compare vehicles"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
           onClick={(e) => e.stopPropagation()}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Comparison details"
           className="bg-card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-auto"
         >
           <div className="flex items-center justify-between p-4 sm:p-5 border-b border-subtle sticky top-0 bg-card">
             <h3 className="font-display text-lg font-bold">Compare vehicles</h3>
-            <button onClick={clearCompare} className="p-2 min-h-[44px] min-w-[44px]"><X size={24} /></button>
+            <button onClick={clearCompare} className="p-2 min-h-[44px] min-w-[44px]" aria-label="Close comparison">
+          <X size={24} />
           </div>
 
           <div className="m-4 sm:m-5 bg-action/10 border border-action/30 text-main rounded-lg px-4 py-3 text-sm font-semibold">

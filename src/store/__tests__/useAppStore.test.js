@@ -12,8 +12,8 @@ describe('useAppStore', () => {
         fuel: [],
         body: [],
         status: [],
-        priceRange: [150000, 600000],
-        yearRange: [2016, 2026],
+        priceRange: [0, 10000000],
+        yearRange: [1900, 2030],
       },
       compareSelection: [],
       favorites: [],
@@ -45,8 +45,8 @@ describe('useAppStore', () => {
       expect(state.filters.fuel).toEqual([]);
       expect(state.filters.body).toEqual([]);
       expect(state.filters.status).toEqual([]);
-      expect(state.filters.priceRange).toEqual([150000, 600000]);
-      expect(state.filters.yearRange).toEqual([2016, 2026]);
+      expect(state.filters.priceRange).toEqual([0, 10000000]);
+      expect(state.filters.yearRange).toEqual([1900, 2030]);
     });
 
     it('sets individual filter', () => {
@@ -83,8 +83,8 @@ describe('useAppStore', () => {
       
       expect(useAppStore.getState().filters.brands).toEqual([]);
       expect(useAppStore.getState().filters.category).toEqual([]);
-      expect(useAppStore.getState().filters.priceRange).toEqual([150000, 600000]);
-      expect(useAppStore.getState().filters.yearRange).toEqual([2016, 2026]);
+      expect(useAppStore.getState().filters.priceRange).toEqual([0, 10000000]);
+      expect(useAppStore.getState().filters.yearRange).toEqual([1900, 2030]);
     });
   });
 

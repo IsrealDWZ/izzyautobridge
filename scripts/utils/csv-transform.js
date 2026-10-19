@@ -10,7 +10,12 @@ export function parsePrice(priceStr) {
 export function parseIntSafe(val, fallback = 0) {
   if (!val) return fallback;
   const cleaned = val.replace(/[^0-9]/g, '');
-  const num = parseInt(cleaned, 10);
+  let num = parseInt(cleaned, 10);
+  // Reject unreasonably large numbers (e.g. "100-60,000 km" → 10060000)
+  if (num > 1000000) {
+    const first = val.match(/(\d+)/);
+    num = first ? parseInt(first[1], 10) : fallback;
+  }
   return isNaN(num) ? fallback : num;
 }
 

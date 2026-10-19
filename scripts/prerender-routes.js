@@ -2,6 +2,27 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+// HTML escape for attribute context (prevents breaking out of content="...")
+function escapeAttr(input) {
+  if (typeof input !== 'string') return '';
+  return input
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"')
+    .replace(/'/g, '&#039;');
+}
+
+// HTML escape for text content context
+function escapeHtml(input) {
+  if (typeof input !== 'string') return '';
+  return input
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"');
+}
+
 // Build-time prerender of route-specific <head> (option A).
 // Copies the vite-built index.html and swaps title/meta/canonical/OG tags so
 // crawlers and social scrapers get the correct head without running JS.
@@ -21,7 +42,7 @@ const STATIC_ROUTES = [
     out: 'inventory/index.html',
     title: 'Browse Inventory — IzzyAutoBridge Ghana',
     description:
-      'Browse 194+ inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent landed costs and SGS inspection.',
+      'Browse 129 inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent landed costs and SGS inspection.',
     canonical: `${BASE}/inventory`,
   },
   {
@@ -78,23 +99,23 @@ function prerender() {
 
   for (const route of ROUTES) {
     let html = template;
-    html = replaceOnce(html, /<title>[\s\S]*?<\/title>/, `<title>${route.title}</title>`, 'title', route.out);
+    html = replaceOnce(html, /<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(route.title)}</title>`, 'title', route.out);
     html = replaceOnce(html, /<meta name="description" content="[^"]*" \/>/,
-      `<meta name="description" content="${route.description}" />`, 'description', route.out);
+      `<meta name="description" content="${escapeAttr(route.description)}" />`, 'description', route.out);
     html = replaceOnce(html, /<link rel="canonical" href="[^"]*" \/>/,
-      `<link rel="canonical" href="${route.canonical}" />`, 'canonical', route.out);
+      `<link rel="canonical" href="${escapeAttr(route.canonical)}" />`, 'canonical', route.out);
     html = replaceOnce(html, /<meta property="og:url" content="[^"]*" \/>/,
-      `<meta property="og:url" content="${route.canonical}" />`, 'og:url', route.out);
+      `<meta property="og:url" content="${escapeAttr(route.canonical)}" />`, 'og:url', route.out);
     html = replaceOnce(html, /<meta property="og:title" content="[^"]*" \/>/,
-      `<meta property="og:title" content="${route.title}" />`, 'og:title', route.out);
+      `<meta property="og:title" content="${escapeHtml(route.title)}" />`, 'og:title', route.out);
     html = replaceOnce(html, /<meta property="og:description" content="[^"]*" \/>/,
-      `<meta property="og:description" content="${route.description}" />`, 'og:description', route.out);
+      `<meta property="og:description" content="${escapeAttr(route.description)}" />`, 'og:description', route.out);
     html = replaceOnce(html, /<meta name="twitter:url" content="[^"]*" \/>/,
-      `<meta name="twitter:url" content="${route.canonical}" />`, 'twitter:url', route.out);
+      `<meta name="twitter:url" content="${escapeAttr(route.canonical)}" />`, 'twitter:url', route.out);
     html = replaceOnce(html, /<meta name="twitter:title" content="[^"]*" \/>/,
-      `<meta name="twitter:title" content="${route.title}" />`, 'twitter:title', route.out);
+      `<meta name="twitter:title" content="${escapeHtml(route.title)}" />`, 'twitter:title', route.out);
     html = replaceOnce(html, /<meta name="twitter:description" content="[^"]*" \/>/,
-      `<meta name="twitter:description" content="${route.description}" />`, 'twitter:description', route.out);
+      `<meta name="twitter:description" content="${escapeAttr(route.description)}" />`, 'twitter:description', route.out);
 
     const outPath = path.join(OUT_DIR, route.out);
     fs.mkdirSync(path.dirname(outPath), { recursive: true });

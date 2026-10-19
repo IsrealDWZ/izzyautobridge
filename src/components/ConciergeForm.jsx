@@ -17,48 +17,72 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
   });
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
+  const [step, setStep] = useState(1); // 1=essentials, 2=details, 3=complete
+  const [progress, setProgress] = useState(1 / 3);
 
-  const handleChange = (field, value) => {
-    // Sanitize input on change
-    const sanitized = sanitizeFormInput(value, { maxLength: field === 'notes' ? 2000 : 200 });
-    setFormData(prev => ({ ...prev, [field]: sanitized }));
-    // Clear error for this field
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: null }));
-    }
-  };
-
-  const validateForm = () => {
+  // Hick's Law: Only validate visible step fields
+  const validateStep = () => {
     const newErrors = {};
     
-    if (!formData.brand.trim()) newErrors.brand = 'Brand is required';
-    if (!formData.model.trim()) newErrors.model = 'Model is required';
-    if (!formData.year || formData.year < 1990 || formData.year > new Date().getFullYear() + 2) {
-      newErrors.year = 'Valid year required';
+    if (step === 1) {
+      // Essentials only: brand + budget
+      if (!formData.brand.trim()) newErrors.brand = 'Brand is required';
+      if (!formData.budget || formData.budget < 50000 || formData.budget > 2000000) {
+        newErrors.budget = 'Budget must be between GH₵50,000 and GH₵2,000,000';
+      }
     }
-    if (!formData.budget || formData.budget < 50000 || formData.budget > 2000000) {
-      newErrors.budget = 'Budget must be between GH₵50,000 and GH₵2,000,000';
-    }
-    if (!validateWhatsAppNumber(WHATSAPP_NUMBER)) {
-      newErrors.whatsapp = 'Invalid WhatsApp configuration';
+    if (step === 2) {
+      // Details: model + year (if on step 2)
+      if (!formData.model.trim()) newErrors.model = 'Model is required';
+      if (!formData.year || formData.year < 1990 || formData.year > new Date().getFullYear() + 2) {
+        newErrors.year = 'Valid year required';
+      }
     }
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleChange = (field, value) => {
+    // Only sanitize strings; pass numbers through unchanged (year/budget are numbers from <select>/<input>)
+    const sanitized = typeof value === 'string' ? sanitizeFormInput(value, { maxLength: field === 'notes' ? 2000 : 200 }) : value;
+    setFormData(prev => ({ ...prev, [field]: sanitized }));
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: null }));
+    }
+  };
+
+  // Progress bar update based on step
+  const updateProgress = () => {
+    if (step === 1) setProgress(1 / 3);
+    if (step === 2) setProgress(2 / 3);
+    if (step === 3) setProgress(1);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
+    if (validateStep()) {
       setSubmitted(true);
+      // Zeigarnik Effect: Complete the loop by sending the request
+      const msg = sanitizeWhatsAppMessage(
+        `Vehicle Request: ${formData.brand} ${formData.model} ${formData.year} | Fuel: ${formData.fuel} | Body: ${formData.body} | Budget: GH₵${formData.budget.toLocaleString()} | Notes: ${formData.notes}`
+      );
+      const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+      window.open(waLink, '_blank');
+      setStep(3);
+      setProgress(1);
+    }
+  };
+
+  // Auto-advance steps when essentials are filled (Fogg Behavior: reduce ability friction)
+  const autoAdvance = () => {
+    if (step === 1 && formData.brand.trim() && formData.budget >= 50000 && formData.budget <= 2000000) {
+      setStep(2);
+      setProgress(2 / 3);
     }
   };
 
   if (submitted) {
-    const msg = sanitizeWhatsAppMessage(
-      `Vehicle Request: ${formData.brand} ${formData.model} ${formData.year} | Fuel: ${formData.fuel} | Body: ${formData.body} | Budget: GH₵${formData.budget.toLocaleString()} | Notes: ${formData.notes}`
-    );
-    const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -69,14 +93,17 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Request submitted"
           className="bg-card rounded-2xl max-w-md w-full p-6 sm:p-8 text-center"
         >
           <div className="w-16 h-16 bg-action/10 text-action rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle size={32} />
           </div>
-          <h3 className="font-display text-2xl font-bold mb-2">Request Sent!</h3>
+          <h3 className="font-display text-2xl font-bold mb-2">Request Submitted</h3>
           <p className="text-muted mb-6">
-            We'll reach out on WhatsApp within 2 hours with matching vehicles.
+            Opening WhatsApp to send your vehicle request.
           </p>
           <a
             href={waLink}
@@ -91,6 +118,8 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
               setFormData({ brand: '', model: '', year: 2024, fuel: 'Any', body: 'Any', budget: 300000, notes: '' }); 
               setErrors({});
               setSubmitted(false); 
+              setStep(1);
+              setProgress(1 / 3);
             }}
             className="mt-4 text-sm text-muted hover:text-main hover:underline decoration-accent-hover decoration-2 underline-offset-4"
           >
@@ -132,120 +161,148 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
             className="card-surface p-6 sm:p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="cq-brand" className="block text-sm font-medium text-main mb-1">Brand</label>
-                  <input
-                    id="cq-brand"
-                    type="text"
-                    placeholder="e.g., BYD, Toyota, Mercedes"
-                    value={formData.brand}
-                    onChange={(e) => handleChange('brand', e.target.value)}
-                    className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.brand ? 'border-alert' : ''}`}
-                    aria-invalid={errors.brand ? 'true' : 'false'}
-                    aria-describedby={errors.brand ? 'brand-error' : undefined}
-                  />
-                  {errors.brand && <p id="brand-error" className="mt-1 text-sm text-alert font-medium">{errors.brand}</p>}
+              {/* Progress Bar - Zeigarnik Effect: shows open loop, retention */}
+              <div className="mb-6">
+                <div className="flex justify-between text-xs text-muted mb-2">
+                  <span>Essentials</span>
+                  <span>Details</span>
+                  <span>Complete</span>
                 </div>
-                <div>
-                  <label htmlFor="cq-model" className="block text-sm font-medium text-main mb-1">Model</label>
-                  <input
-                    id="cq-model"
-                    type="text"
-                    placeholder="e.g., Atto 3, Camry, G-Wagon"
-                    value={formData.model}
-                    onChange={(e) => handleChange('model', e.target.value)}
-                    className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.model ? 'border-alert' : ''}`}
-                    aria-invalid={errors.model ? 'true' : 'false'}
-                    aria-describedby={errors.model ? 'model-error' : undefined}
-                  />
-                  {errors.model && <p id="model-error" className="mt-1 text-sm text-alert font-medium">{errors.model}</p>}
-                </div>
-                <div>
-                  <label htmlFor="cq-year" className="block text-sm font-medium text-main mb-1">Year</label>
-                  <select
-                    id="cq-year"
-                    value={formData.year}
-                    onChange={(e) => handleChange('year', parseInt(e.target.value) || 2024)}
-                    className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.year ? 'border-alert' : ''}`}
-                    aria-invalid={errors.year ? 'true' : 'false'}
-                    aria-describedby={errors.year ? 'year-error' : undefined}
-                  >
-                    {Array.from({ length: 11 }, (_, i) => 2026 - i).map((y) => (
-                      <option key={y} value={y}>{y}</option>
-                    ))}
-                  </select>
-                  {errors.year && <p id="year-error" className="mt-1 text-sm text-alert font-medium">{errors.year}</p>}
-                </div>
-                <div>
-                  <label htmlFor="cq-fuel" className="block text-sm font-medium text-main mb-1">Fuel Type</label>
-                  <select
-                    id="cq-fuel"
-                    value={formData.fuel}
-                    onChange={(e) => handleChange('fuel', e.target.value)}
-                    className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
-                  >
-                    <option value="Any">Any</option>
-                    <option value="Petrol">Petrol</option>
-                    <option value="Diesel">Diesel</option>
-                    <option value="Hybrid">Hybrid</option>
-                    <option value="EV">Electric</option>
-                    <option value="PHEV">PHEV</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="cq-body" className="block text-sm font-medium text-main mb-1">Body Type</label>
-                  <select
-                    id="cq-body"
-                    value={formData.body}
-                    onChange={(e) => handleChange('body', e.target.value)}
-                    className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
-                  >
-                    <option value="Any">Any</option>
-                    <option value="SUV">SUV</option>
-                    <option value="Sedan">Sedan</option>
-                    <option value="Pickup">Pickup</option>
-                    <option value="Van/Minibus">Van/Minibus</option>
-                    <option value="Hatchback">Hatchback</option>
-                    <option value="Coupe">Coupe</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="cq-budget" className="block text-sm font-medium text-main mb-1">Budget (GHS)</label>
-                  <input
-                    id="cq-budget"
-                    type="number"
-                    min={50000}
-                    max={2000000}
-                    step={50000}
-                    value={formData.budget}
-                    onChange={(e) => {
-                      const value = parseInt(e.target.value);
-                      handleChange('budget', isNaN(value) ? 0 : value);
-                    }}
-                    className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.budget ? 'border-alert' : ''}`}
-                    aria-invalid={errors.budget ? 'true' : 'false'}
-                    aria-describedby={errors.budget ? 'budget-error' : undefined}
-                  />
-                  {errors.budget && <p id="budget-error" className="mt-1 text-sm text-alert font-medium">{errors.budget}</p>}
+                <div className="bg-action/10 rounded-full h-2.5 overflow-hidden">
+                  <div 
+                    className="bg-action h-full transition-all duration-300 ease-in-out" 
+                    style={{ width: `${progress * 100}%` }}
+                  ></div>
                 </div>
               </div>
-              <div>
-                <label htmlFor="cq-notes" className="block text-sm font-medium text-main mb-1">Additional Requirements</label>
-                <textarea
-                  id="cq-notes"
-                  rows={4}
-                  placeholder="Color, specs, features, timeline, etc."
-                  value={formData.notes}
-                  onChange={(e) => handleChange('notes', e.target.value)}
-                  className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
-                />
-              </div>
+
+              {/* Step 1: Essentials (Hick's Law - reduced choices) */}
+              {step === 1 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="cq-brand" className="block text-sm font-medium text-main mb-1">Brand</label>
+                    <input
+                      id="cq-brand"
+                      type="text"
+                      placeholder="e.g., BYD, Toyota, Mercedes"
+                      value={formData.brand}
+                      onChange={(e) => { handleChange('brand', e.target.value); autoAdvance(); }}
+                      className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.brand ? 'border-alert' : ''}`}
+                      aria-invalid={errors.brand ? 'true' : 'false'}
+                      aria-describedby={errors.brand ? 'brand-error' : undefined}
+                    />
+                    {errors.brand && <p id="brand-error" className="mt-1 text-sm text-alert font-medium">{errors.brand}</p>}
+                  </div>
+                  <div>
+                    <label htmlFor="cq-budget" className="block text-sm font-medium text-main mb-1">Budget (GHS)</label>
+                    <input
+                      id="cq-budget"
+                      type="number"
+                      min={50000}
+                      max={2000000}
+                      step={50000}
+                      value={formData.budget}
+                      onChange={(e) => { 
+                        const value = parseInt(e.target.value); 
+                        handleChange('budget', isNaN(value) ? 0 : value); 
+                        autoAdvance(); 
+                      }}
+                      className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.budget ? 'border-alert' : ''}`}
+                      aria-invalid={errors.budget ? 'true' : 'false'}
+                      aria-describedby={errors.budget ? 'budget-error' : undefined}
+                    />
+                    {errors.budget && <p id="budget-error" className="mt-1 text-sm text-alert font-medium">{errors.budget}</p>}
+                  </div>
+                </div>
+              )}
+
+              {/* Step 2: Details (Fogg Behavior: ability + prompt) */}
+              {step === 2 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="cq-model" className="block text-sm font-medium text-main mb-1">Model</label>
+                    <input
+                      id="cq-model"
+                      type="text"
+                      placeholder="e.g., Atto 3, Camry, G-Wagon"
+                      value={formData.model}
+                      onChange={(e) => handleChange('model', e.target.value)}
+                      className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.model ? 'border-alert' : ''}`}
+                      aria-invalid={errors.model ? 'true' : 'false'}
+                      aria-describedby={errors.model ? 'model-error' : undefined}
+                    />
+                    {errors.model && <p id="model-error" className="mt-1 text-sm text-alert font-medium">{errors.model}</p>}
+                  </div>
+                  <div>
+                    <label htmlFor="cq-year" className="block text-sm font-medium text-main mb-1">Year</label>
+                    <select
+                      id="cq-year"
+                      value={formData.year}
+                      onChange={(e) => handleChange('year', parseInt(e.target.value) || 2024)}
+                      className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.year ? 'border-alert' : ''}`}
+                      aria-invalid={errors.year ? 'true' : 'false'}
+                      aria-describedby={errors.year ? 'year-error' : undefined}
+                    >
+                      {Array.from({ length: 11 }, (_, i) => 2026 - i).map((y) => (
+                        <option key={y} value={y}>{y}</option>
+                      ))}
+                    </select>
+                    {errors.year && <p id="year-error" className="mt-1 text-sm text-alert font-medium">{errors.year}</p>}
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Complete (Risk Reversal + social proof) */}
+              {step === 3 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="cq-fuel" className="block text-sm font-medium text-main mb-1">Fuel Type</label>
+                    <select
+                      id="cq-fuel"
+                      value={formData.fuel}
+                      onChange={(e) => handleChange('fuel', e.target.value)}
+                      className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
+                    >
+                      <option value="Any">Any</option>
+                      <option value="Petrol">Petrol</option>
+                      <option value="Diesel">Diesel</option>
+                      <option value="Hybrid">Hybrid</option>
+                      <option value="EV">Electric</option>
+                      <option value="PHEV">PHEV</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label htmlFor="cq-body" className="block text-sm font-medium text-main mb-1">Body Type</label>
+                    <select
+                      id="cq-body"
+                      value={formData.body}
+                      onChange={(e) => handleChange('body', e.target.value)}
+                      className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
+                    >
+                      <option value="Any">Any</option>
+                      <option value="SUV">SUV</option>
+                      <option value="Sedan">Sedan</option>
+                      <option value="Pickup">Pickup</option>
+                      <option value="Van/Minibus">Van/Minibus</option>
+                      <option value="Hatchback">Hatchback</option>
+                      <option value="Coupe">Coupe</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {/* Risk Reversal microcopy near CTA */}
+              {step !== 3 && (
+                <p className="text-xs text-muted/80 mb-4">
+                  No deposit required. We source from verified suppliers. First match is free to review.
+                </p>
+              )}
+
               <button
                 type="submit"
                 className="w-full bg-action text-onaction py-3.5 rounded-lg font-bold transition min-h-[44px] text-xl hover:opacity-85"
               >
-                Find My Vehicle
+                {step === 3 ? 'Send Request on WhatsApp' : 'Find My Vehicle'}
               </button>
             </form>
           </motion.div>

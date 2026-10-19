@@ -33,11 +33,21 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
             <motion.div
               initial={{ x: 360 }} animate={{ x: 0 }} exit={{ x: 360 }}
               transition={{ type: 'tween', duration: 0.25 }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Saved vehicles"
               className="fixed top-0 right-0 h-full w-[340px] bg-card z-50 shadow-2xl flex flex-col"
             >
               <div className="flex items-center justify-between p-5 border-b border-subtle">
                 <h3 className="font-display font-bold">Saved vehicles</h3>
-                <button onClick={() => setOpen(false)}><X size={20} /></button>
+                <button
+                  ref={closeRef}
+                  onClick={() => setOpen(false)}
+                  aria-label="Close favorites"
+                  className="p-2 min-h-[44px] min-w-[44px]"
+                >
+                  <X size={20} />
+                </button>
               </div>
 
               <div className="flex-1 overflow-auto p-5 space-y-2">

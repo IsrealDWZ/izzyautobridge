@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>IzzyAutoBridge — Brand Lab Round 2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #e8e8ea; color: #1d1d1f; }
+  .section { padding: 26px 32px 18px; border-bottom: 2px solid #1d1d1f; }
+  .section h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 3px; }
+  .section .sub { font-size: 12px; color: #6e6e73; margin-bottom: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cell { border-radius: 12px; padding: 14px 16px 12px; border: 1px solid #d2d2d7; }
+  .cell.light { background: #f5f5f7; color: #1d1d1f; }
+  .cell.dark  { background: #1d1d1f; color: #f5f5f7; border-color: #424245; }
+  .cell .tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.55; margin-bottom: 10px; }
+  .navbar-mock { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; }
+  .navbar-mock.on-light { background: #ffffff; border: 1px solid #d2d2d7; }
+  .navbar-mock.on-dark  { background: #000000; border: 1px solid #424245; }
+  .navlink { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.75; }
+  .row { display: flex; align-items: flex-end; gap: 26px; flex-wrap: wrap; }
+  .metric { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
+  .metric .cap { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; }
+  .favstrip { display: flex; align-items: flex-end; gap: 14px; }
+  .favbox { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .favbox .cap { font-size: 9px; opacity: 0.5; }
+  .lockup { display: flex; align-items: center; gap: 10px; }
+  .wordmark { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
+</style>
+</head>
+<body>
+
+<!-- ============ V1 PURE LIGATURE ============ -->
+<section class="section" id="m1">
+  <h1>V1 — iA pure ligature</h1>
+  <div class="sub">Geometric iA, thick strokes · rounded-square tile · the clean Apple-style baseline</div>
+  <div class="grid">
+    <div class="cell light">
+      <div class="tag">Light bg</div>
+      <div class="navbar-mock on-light">
+        <div class="lockup">
+          <svg viewBox="0 0 100 100" fill="none" style="width:30px;height:30px;color:#1d1d1f">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M48.5 62 H64.5" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+          <span class="wordmark" style="color:#1d1d1f">IzzyAutoBridge</span>
+        </div>
+        <span class="navlink" style="color:#1d1d1f">Inventory</span>
+      </div>
+      <div class="row">
+        <div class="metric"><div class="cap">Tile 56px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:56px;height:56px">
+            <rect width="100" height="100" rx="22" fill="#1d1d1f"/>
+            <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+            <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M48.5 62 H64.5" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="metric"><div class="cap">Footer bare 24px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:24px;height:24px;color:#1d1d1f">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M48.5 62 H64.5" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="favstrip">
+          <div class="favbox"><div class="cap">Favicon 32</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:32px;height:32px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M48.5 62 H64.5" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="favbox"><div class="cap">Favicon 16</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:16px;height:16px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M48.5 62 H64.5" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cell dark">
+      <div class="tag">Dark bg</div>
+      <div class="navbar-mock on-dark">
+        <div class="lockup">
+          <svg viewBox="0 0 100 100" fill="none" style="width:30px;height:30px;color:#f5f5f7">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M48.5 62 H64.5" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+          <span class="wordmark" style="color:#f5f5f7">IzzyAutoBridge</span>
+        </div>
+        <span class="navlink" style="color:#f5f5f7">Inventory</span>
+      </div>
+      <div class="row">
+        <div class="metric"><div class="cap">Tile 56px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:56px;height:56px">
+            <rect width="100" height="100" rx="22" fill="#1d1d1f" stroke="#424245" stroke-width="2"/>
+            <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+            <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M48.5 62 H64.5" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="metric"><div class="cap">Footer bare 24px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:24px;height:24px;color:#f5f5f7">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M48.5 62 H64.5" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="favstrip">
+          <div class="favbox"><div class="cap">Favicon 32</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:32px;height:32px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f" stroke="#424245" stroke-width="2"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M48.5 62 H64.5" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="favbox"><div class="cap">Favicon 16</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:16px;height:16px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f" stroke="#424245" stroke-width="2"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M48.5 62 H64.5" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V2 HIGHWAY CROSSBAR ============ -->
+<section class="section" id="m2">
+  <h1>V2 — iA extended highway crossbar</h1>
+  <div class="sub">The A's crossbar extends past both legs like a road running through the letter — automotive without illustration</div>
+  <div class="grid">
+    <div class="cell light">
+      <div class="tag">Light bg</div>
+      <div class="navbar-mock on-light">
+        <div class="lockup">
+          <svg viewBox="0 0 100 100" fill="none" style="width:30px;height:30px;color:#1d1d1f">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M38 62 H75" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+          <span class="wordmark" style="color:#1d1d1f">IzzyAutoBridge</span>
+        </div>
+        <span class="navlink" style="color:#1d1d1f">Inventory</span>
+      </div>
+      <div class="row">
+        <div class="metric"><div class="cap">Tile 56px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:56px;height:56px">
+            <rect width="100" height="100" rx="22" fill="#1d1d1f"/>
+            <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+            <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M38 62 H75" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="metric"><div class="cap">Footer bare 24px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:24px;height:24px;color:#1d1d1f">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M38 62 H75" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="favstrip">
+          <div class="favbox"><div class="cap">Favicon 32</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:32px;height:32px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M38 62 H75" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="favbox"><div class="cap">Favicon 16</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:16px;height:16px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M38 62 H75" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cell dark">
+      <div class="tag">Dark bg</div>
+      <div class="navbar-mock on-dark">
+        <div class="lockup">
+          <svg viewBox="0 0 100 100" fill="none" style="width:30px;height:30px;color:#f5f5f7">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M38 62 H75" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+          <span class="wordmark" style="color:#f5f5f7">IzzyAutoBridge</span>
+        </div>
+        <span class="navlink" style="color:#f5f5f7">Inventory</span>
+      </div>
+      <div class="row">
+        <div class="metric"><div class="cap">Tile 56px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:56px;height:56px">
+            <rect width="100" height="100" rx="22" fill="#1d1d1f" stroke="#424245" stroke-width="2"/>
+            <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+            <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M38 62 H75" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="metric"><div class="cap">Footer bare 24px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:24px;height:24px;color:#f5f5f7">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path d="M44 74 L56.5 40 L69 74" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M38 62 H75" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="favstrip">
+          <div class="favbox"><div class="cap">Favicon 32</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:32px;height:32px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f" stroke="#424245" stroke-width="2"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M38 62 H75" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="favbox"><div class="cap">Favicon 16</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:16px;height:16px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f" stroke="#424245" stroke-width="2"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path d="M44 74 L56.5 40 L69 74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M38 62 H75" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V3 GATEWAY ARCH ============ -->
+<section class="section" id="m3">
+  <h1>V3 — iA gateway arch</h1>
+  <div class="sub">The A is a filled gateway with an arched counter — the 'Bridge' idea built into the letterform</div>
+  <div class="grid">
+    <div class="cell light">
+      <div class="tag">Light bg</div>
+      <div class="navbar-mock on-light">
+        <div class="lockup">
+          <svg viewBox="0 0 100 100" fill="none" style="width:30px;height:30px;color:#1d1d1f">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path fill="currentColor" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+          </svg>
+          <span class="wordmark" style="color:#1d1d1f">IzzyAutoBridge</span>
+        </div>
+        <span class="navlink" style="color:#1d1d1f">Inventory</span>
+      </div>
+      <div class="row">
+        <div class="metric"><div class="cap">Tile 56px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:56px;height:56px">
+            <rect width="100" height="100" rx="22" fill="#1d1d1f"/>
+            <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+            <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            <path fill="#f5f5f7" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+          </svg>
+        </div>
+        <div class="metric"><div class="cap">Footer bare 24px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:24px;height:24px;color:#1d1d1f">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path fill="currentColor" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+          </svg>
+        </div>
+        <div class="favstrip">
+          <div class="favbox"><div class="cap">Favicon 32</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:32px;height:32px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path fill="#f5f5f7" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+            </svg>
+          </div>
+          <div class="favbox"><div class="cap">Favicon 16</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:16px;height:16px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path fill="#f5f5f7" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cell dark">
+      <div class="tag">Dark bg</div>
+      <div class="navbar-mock on-dark">
+        <div class="lockup">
+          <svg viewBox="0 0 100 100" fill="none" style="width:30px;height:30px;color:#f5f5f7">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path fill="currentColor" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+          </svg>
+          <span class="wordmark" style="color:#f5f5f7">IzzyAutoBridge</span>
+        </div>
+        <span class="navlink" style="color:#f5f5f7">Inventory</span>
+      </div>
+      <div class="row">
+        <div class="metric"><div class="cap">Tile 56px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:56px;height:56px">
+            <rect width="100" height="100" rx="22" fill="#1d1d1f" stroke="#424245" stroke-width="2"/>
+            <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+            <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+            <path fill="#f5f5f7" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+          </svg>
+        </div>
+        <div class="metric"><div class="cap">Footer bare 24px</div>
+          <svg viewBox="0 0 100 100" fill="none" style="width:24px;height:24px;color:#f5f5f7">
+            <circle cx="30" cy="30" r="6" fill="currentColor"/>
+            <path d="M30 44 V74" stroke="currentColor" stroke-width="9" stroke-linecap="round"/>
+            <path fill="currentColor" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+          </svg>
+        </div>
+        <div class="favstrip">
+          <div class="favbox"><div class="cap">Favicon 32</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:32px;height:32px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f" stroke="#424245" stroke-width="2"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path fill="#f5f5f7" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+            </svg>
+          </div>
+          <div class="favbox"><div class="cap">Favicon 16</div>
+            <svg viewBox="0 0 100 100" fill="none" style="width:16px;height:16px">
+              <rect width="100" height="100" rx="22" fill="#1d1d1f" stroke="#424245" stroke-width="2"/>
+              <circle cx="30" cy="30" r="6" fill="#f5f5f7"/>
+              <path d="M30 44 V74" stroke="#f5f5f7" stroke-width="9" stroke-linecap="round"/>
+              <path fill="#f5f5f7" fill-rule="evenodd" d="M42 76 L58 38 L74 76 Z M51 76 V62 Q58 50 65 62 V76 Z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ B CONCEPT 1 REBORN ============ -->
+<section class="section" id="b1">
+  <h1>B — Concept 1 reborn (favicon-safe)</h1>
+  <div class="sub">Your closest pick, redrawn in a 32-viewBox with stroke 3 — same monoline bridge connection, now survives 16px</div>
+  <div class="grid">
+    <div class="cell light">
+      <div class="tag">Light bg</div>
+      <div class="navbar-mock on-light">
+        <div class="lockup">
+          <svg viewBox="0 0 32 32" fill="none" style="width:30px;height:30px;color:#1d1d1f" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+            <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+            <circle cx="16" cy="16" r="1.7" fill="currentColor" stroke="none"/>
+          </svg>
+          <span class="wordmark" style="color:#1d1d1f">IzzyAutoBridge</span>
+        </div>
+        <span class="navlink" style="color:#1d1d1f">Inventory</span>
+      </div>
+      <div class="row">
+        <div class="metric"><div class="cap">Tile 56px</div>
+          <svg viewBox="0 0 32 32" fill="none" style="width:56px;height:56px">
+            <rect width="32" height="32" rx="7" fill="#1d1d1f"/>
+            <g stroke="#f5f5f7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+              <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+            </g>
+            <circle cx="16" cy="16" r="1.7" fill="#f5f5f7"/>
+          </svg>
+        </div>
+        <div class="metric"><div class="cap">Footer bare 24px</div>
+          <svg viewBox="0 0 32 32" fill="none" style="width:24px;height:24px;color:#1d1d1f" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+            <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+            <circle cx="16" cy="16" r="1.7" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div class="favstrip">
+          <div class="favbox"><div class="cap">Favicon 32</div>
+            <svg viewBox="0 0 32 32" fill="none" style="width:32px;height:32px">
+              <rect width="32" height="32" rx="7" fill="#1d1d1f"/>
+              <g stroke="#f5f5f7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+                <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+              </g>
+              <circle cx="16" cy="16" r="1.7" fill="#f5f5f7"/>
+            </svg>
+          </div>
+          <div class="favbox"><div class="cap">Favicon 16</div>
+            <svg viewBox="0 0 32 32" fill="none" style="width:16px;height:16px">
+              <rect width="32" height="32" rx="7" fill="#1d1d1f"/>
+              <g stroke="#f5f5f7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+                <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+              </g>
+              <circle cx="16" cy="16" r="1.7" fill="#f5f5f7"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cell dark">
+      <div class="tag">Dark bg</div>
+      <div class="navbar-mock on-dark">
+        <div class="lockup">
+          <svg viewBox="0 0 32 32" fill="none" style="width:30px;height:30px;color:#f5f5f7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+            <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+            <circle cx="16" cy="16" r="1.7" fill="currentColor" stroke="none"/>
+          </svg>
+          <span class="wordmark" style="color:#f5f5f7">IzzyAutoBridge</span>
+        </div>
+        <span class="navlink" style="color:#f5f5f7">Inventory</span>
+      </div>
+      <div class="row">
+        <div class="metric"><div class="cap">Tile 56px</div>
+          <svg viewBox="0 0 32 32" fill="none" style="width:56px;height:56px">
+            <rect width="32" height="32" rx="7" fill="#1d1d1f" stroke="#424245" stroke-width="1"/>
+            <g stroke="#f5f5f7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+              <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+            </g>
+            <circle cx="16" cy="16" r="1.7" fill="#f5f5f7"/>
+          </svg>
+        </div>
+        <div class="metric"><div class="cap">Footer bare 24px</div>
+          <svg viewBox="0 0 32 32" fill="none" style="width:24px;height:24px;color:#f5f5f7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+            <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+            <circle cx="16" cy="16" r="1.7" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div class="favstrip">
+          <div class="favbox"><div class="cap">Favicon 32</div>
+            <svg viewBox="0 0 32 32" fill="none" style="width:32px;height:32px">
+              <rect width="32" height="32" rx="7" fill="#1d1d1f" stroke="#424245" stroke-width="1"/>
+              <g stroke="#f5f5f7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+                <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+              </g>
+              <circle cx="16" cy="16" r="1.7" fill="#f5f5f7"/>
+            </svg>
+          </div>
+          <div class="favbox"><div class="cap">Favicon 16</div>
+            <svg viewBox="0 0 32 32" fill="none" style="width:16px;height:16px">
+              <rect width="32" height="32" rx="7" fill="#1d1d1f" stroke="#424245" stroke-width="1"/>
+              <g stroke="#f5f5f7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6.5 16 H12.5 L14 14.5 V11.5 L12.5 10"/>
+                <path d="M25.5 16 H19.5 L18 17.5 V20.5 L19.5 22"/>
+              </g>
+              <circle cx="16" cy="16" r="1.7" fill="#f5f5f7"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

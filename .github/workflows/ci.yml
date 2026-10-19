@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: /site
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Audit
+        run: npm audit --audit-level=high
+
+      - name: Build data part
+        run: npm run build:data
+
+      - name: Verify catalog non-empty
+        run: |
+          echo "Published vehicles: $(node -e "const v = require('./src/data/vehicles.json'); console.log(v.length)")"
+          MIN=129
+          ACTUAL=$(node -e "const v = require('./src/data/vehicles.json'); console.log(v.length)")
+          if [ "$ACTUAL" -lt "$MIN" ]; then
+            echo "❌ Catalog has $ACTUAL vehicles, expected at least $MIN"
+            exit 1
+          fi
+          echo "✅ Catalog has $ACTUAL vehicles (minimum $MIN)"

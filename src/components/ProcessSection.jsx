@@ -6,7 +6,7 @@ const steps = [
     num: '1',
     icon: Search,
     title: 'Choose Your Vehicle',
-    desc: 'Browse 194+ inspected vehicles with transparent landed costs. Filter by brand, fuel, body type, budget. Or request a specific model — we source it.',
+    desc: 'Browse 129 inspected vehicles with transparent landed costs. Filter by brand, fuel, body type, budget. Or request a specific model — we source it.',
   },
   {
     num: '2',

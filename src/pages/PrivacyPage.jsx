@@ -67,9 +67,7 @@ export default function PrivacyPage() {
         </p>
         <ul className="list-disc pl-5 space-y-1.5">
           <li>
-            <strong>Off until you accept.</strong> Google Analytics is loaded and enabled
-            only after you click Accept on the consent banner. If you decline (or ignore
-            the banner), no analytics data is collected.
+            <strong>Script loads on page visit.</strong> The Google Analytics script (gtag.js) downloads on every page view. With Consent Mode v2 defaults set to "denied", no analytics cookies are set and no event data is transmitted to Google until you click Accept. If you decline (or ignore the banner), the script still loads but measurement remains disabled — Google does not receive analytics data.
           </li>
           <li>
             <strong>Anonymised IP.</strong> We enable IP anonymisation so your address is

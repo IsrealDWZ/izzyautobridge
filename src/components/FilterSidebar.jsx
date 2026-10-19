@@ -8,6 +8,24 @@ import { validatePriceRange, validateYearRange } from '../utils/validation';
 export default function FilterSidebar({ vehicles = [] }) {
   const { filters, setFilter, setFilters, resetFilters } = useAppStore();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (mobileOpen && !focused) {
+      const firstFocusable = closeRef.current;
+      if (firstFocusable) firstFocusable.focus();
+      setFocused(true);
+    }
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false);
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [mobileOpen]);
 
   const brands = useMemo(() => [...new Set(vehicles.map(v => v.Brand))].sort(), [vehicles]);
   const fuelTypes = useMemo(() => [...new Set(vehicles.map(v => v.Fuel_Type))].sort(), [vehicles]);
@@ -108,11 +126,21 @@ export default function FilterSidebar({ vehicles = [] }) {
             <motion.div
               initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Filters"
               className="fixed bottom-0 left-0 right-0 h-[90vh] max-h-[90vh] bg-card z-50 shadow-2xl flex flex-col"
             >
               <div className="flex items-center justify-between p-4 sm:p-5 border-b border-subtle">
                 <h3 className="font-display font-bold">Filters</h3>
-                <button onClick={() => setMobileOpen(false)} className="p-2 min-h-[44px] min-w-[44px]"><X size={24} /></button>
+                <button
+                  ref={closeRef}
+                  onClick={() => setMobileOpen(false)}
+                  aria-label="Close filters"
+                  className="p-2 min-h-[44px] min-w-[44px]"
+                >
+                  <X size={24} />
+                </button>
               </div>
 
               <div className="flex-1 overflow-auto p-4 sm:p-5 space-y-6">

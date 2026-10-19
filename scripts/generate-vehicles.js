@@ -119,7 +119,12 @@ function parsePrice(priceStr) {
 function parseIntSafe(val, fallback = 0) {
   if (!val) return fallback;
   const cleaned = val.replace(/[^0-9]/g, '');
-  const num = parseInt(cleaned, 10);
+  let num = parseInt(cleaned, 10);
+  // Reject unreasonably large numbers (e.g. "100-60,000 km" → 10060000)
+  if (num > 1000000) {
+    const first = val.match(/(\d+)/);
+    num = first ? parseInt(first[1], 10) : fallback;
+  }
   return isNaN(num) ? fallback : num;
 }
 
@@ -202,7 +207,8 @@ async function main() {
   let withoutImages = 0;
 
   for (const row of masterRows) {
-    const existingUrls = existingImagesById.get(row.ID) || [];
+    const generatedId = generateId(row.Makes?.trim() || 'Unknown', row.Models?.trim() || 'Unknown', parseIntSafe(row.Years));
+    const existingUrls = existingImagesById.get(generatedId) || [];
     const imageMatches = matchImagesForVehicle(row, imageIndex, existingUrls);
 
     const vehicle = transformMasterRow(row, imageMatches);
@@ -261,7 +267,24 @@ async function main() {
   console.log(`Copied images for ${matchedKeys.size} vehicles to public/vehicles/`);
 
   const vehiclesWithImages = allVehicles.filter(v => v.Image_URLs && v.Image_URLs.length > 0);
-  console.log(`\nPublishing ${vehiclesWithImages.length} vehicles with images (${allVehicles.length - vehiclesWithImages.length} dormant)`);
+  const publishedCount = vehiclesWithImages.length;
+  const masterRowCount = allVehicles.length;
+  const DROP_THRESHOLD = masterRowCount * 0.9;
+
+  if (publishedCount < DROP_THRESHOLD) {
+    console.warn(`⚠️  ${masterRowCount - publishedCount} of ${masterRowCount} vehicles dropped (${publishedCount}/${masterRowCount} < 90% threshold)`);
+    const droppedIds = allVehicles
+      .filter(v => !v.Image_URLs || v.Image_URLs.length === 0)
+      .map(v => v.ID);
+    console.warn('Dropped vehicle IDs:', droppedIds);
+  }
+
+  if (publishedCount === 0) {
+    console.error('✗ No vehicles have images - aborting publish. Add images or check image index.');
+    process.exit(1);
+  }
+
+  console.log(`\nPublishing ${publishedCount} vehicles with images (${allVehicles.length - publishedCount} dormant)`);
 
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(vehiclesWithImages, null, 2));
   console.log(`\n✓ Generated ${OUTPUT_PATH} with ${vehiclesWithImages.length} vehicles`);
