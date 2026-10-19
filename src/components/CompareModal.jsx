@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, MessageCircle } from 'lucide-react';
 
 import { useAppStore } from '../store/useAppStore';
-import { useEffect } from 'react';
 
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
@@ -43,12 +42,13 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
           <div className="flex items-center justify-between p-4 sm:p-5 border-b border-subtle sticky top-0 bg-card">
             <h3 className="font-display text-lg font-bold">Compare vehicles</h3>
             <button onClick={clearCompare} className="p-2 min-h-[44px] min-w-[44px]" aria-label="Close comparison">
-          <X size={24} />
-          </button>
+              <X size={24} />
+            </button>
+          </div>
 
           <div className="m-4 sm:m-5 bg-action/10 border border-action/30 text-main rounded-lg px-4 py-3 text-sm font-semibold">
             Price difference: GH₵{diff.toLocaleString()} — {cheaper.Brand} {cheaper.Model} is cheaper
-          </button>
+          </div>
 
           <div className="px-4 sm:px-5 overflow-x-auto">
             <table className="w-full text-sm min-w-[500px]">
@@ -62,7 +62,7 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
                 ))}
               </tbody>
             </table>
-          </button>
+          </div>
 
           <div className="grid grid-cols-2 gap-3 p-4 sm:p-5">
             {[a, b].map((v) => (
@@ -77,7 +77,7 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
                 <MessageCircle size={15} /> {v.ID}
               </a>
             ))}
-          </button>
+          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>

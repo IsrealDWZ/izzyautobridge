@@ -20,7 +20,7 @@ export default function FilterSidebar({ vehicles = [] }) {
   }, [mobileOpen]);
 
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
+    const handler = (e) => {
       if (e.key === 'Escape') setMobileOpen(false);
     };
     document.addEventListener('keydown', handler);
