@@ -12,6 +12,7 @@ export default defineConfig({
           vendor: ['react', 'react-dom', 'zustand'],
           motion: ['framer-motion'],
           icons: ['lucide-react'],
+          'vehicles-data': ['src/data/vehicles.json'],
         },
       },
     },
