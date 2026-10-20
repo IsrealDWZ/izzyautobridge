@@ -5,6 +5,7 @@ import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
 import BrandMark from './components/BrandMark';
 import CompareModal from './components/CompareModal';
+import ComparePage from './pages/ComparePage';
 import ConsentBanner from './components/ConsentBanner';
 import FavoritesDrawer from './components/FavoritesDrawer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
@@ -123,6 +124,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/inventory" element={<InventoryPage />} />
+            <Route path="/compare" element={<ComparePage />} />
             <Route path="/vehicle/:slug" element={<VehicleDetailPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />
             <Route path="/terms" element={<TermsPage />} />
