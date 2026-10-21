@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 
-import ComparisonSection from '../components/ComparisonSection';
-import ConciergeForm from '../components/ConciergeForm';
-import EVCalculator from '../components/EVCalculator';
-import Hero from '../components/Hero';
-import ProcessSection from '../components/ProcessSection';
-import ShowcaseVideo from '../components/ShowcaseVideo';
+import LandingHero from '../components/LandingHero';
 import StatsRow from '../components/StatsRow';
 import TrustSection from '../components/TrustSection';
+import LandingVehicleGrid from '../components/LandingVehicleGrid';
+import LandingTools from '../components/LandingTools';
+import LandingDiscover from '../components/LandingDiscover';
+import LandingFooter from '../components/LandingFooter';
 import vehicles from '../data/vehicles.json';
 import { APP_CONFIG, WHATSAPP_NUMBER } from '../utils/constants';
 
@@ -22,7 +21,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <Hero title={APP_CONFIG.heroTitle} subtitle={heroSubtitle} />
+      <LandingHero title={APP_CONFIG.heroTitle} subtitle={heroSubtitle} />
 
       {/* Stats Row */}
       <StatsRow vehicles={vehicles} />
@@ -30,20 +29,17 @@ export default function HomePage() {
       {/* Trust Section */}
       <TrustSection />
 
-      {/* Showcase Video */}
-      <ShowcaseVideo />
+      {/* Vehicle Grid */}
+      <LandingVehicleGrid />
 
-      {/* Process Section */}
-      <ProcessSection />
+      {/* Shopping Tools */}
+      <LandingTools />
 
-      {/* Comparison Section */}
-      <ComparisonSection />
+      {/* Discover */}
+      <LandingDiscover />
 
-      {/* EV Calculator */}
-      <EVCalculator />
-
-      {/* Concierge Form */}
-      <ConciergeForm vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
+      {/* Footer */}
+      <LandingFooter />
     </>
   );
 }
