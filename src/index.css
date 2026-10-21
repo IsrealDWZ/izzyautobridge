@@ -134,13 +134,22 @@ body {
 
 /* Card surface — light: white + hairline; dark: #1d1d1f via token remap */
 .card-surface {
-  @apply bg-card border border-subtle rounded-2xl transition-colors;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 /* Soft eyebrow pill — secondary-canvas backdrop + primary text.
    Flips with the theme (15.5:1 light / 15.5:1 dark) */
 .chip-soft {
-  @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
   background: var(--accent-surface);
   color: var(--text-main);
   border: 1px solid var(--border-subtle);
