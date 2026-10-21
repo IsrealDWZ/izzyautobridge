@@ -1,5 +1,5 @@
 import { Car } from 'lucide-react';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 
 import BrandMarquee from '../components/BrandMarquee';
 import FilterSidebar from '../components/FilterSidebar';
