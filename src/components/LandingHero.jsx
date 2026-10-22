@@ -7,13 +7,13 @@ export default function LandingHero() {
       {/* Cargo ship hero image */}
       <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-screen overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1605745341112-85968b19335b?fm=webp&amp;q=70&amp;w=1280&amp;auto=format&amp;fit=crop"
+          src="https://images.unsplash.com/photo-1605745341112-85968b19335b?fm=webp&q=70&w=1280&auto=format&fit=crop"
           alt="Cargo ship carrying containers at sea"
           fetchPriority="high"
           decoding="async"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-50"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-black/20"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
