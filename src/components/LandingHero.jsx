@@ -4,15 +4,16 @@ import { ArrowRight } from 'lucide-react';
 export default function LandingHero() {
   return (
     <section className="relative h-[640px] sm:h-[720px] w-full overflow-hidden bg-slate-950">
-      {/* Decorative background gradient */}
-      <div className="absolute inset-0">
+      {/* Cargo ship hero image */}
+      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-screen overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1920&q=80&auto=format&fit=crop"
-          alt=""
-          className="w-full h-full object-cover object-center opacity-35"
-          aria-hidden="true"
+          src="https://images.unsplash.com/photo-1605745341112-85968b19335b?fm=webp&amp;q=70&amp;w=1280&amp;auto=format&amp;fit=crop"
+          alt="Cargo ship carrying containers at sea"
+          fetchPriority="high"
+          decoding="async"
+          className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/60 to-slate-950/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/40"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
