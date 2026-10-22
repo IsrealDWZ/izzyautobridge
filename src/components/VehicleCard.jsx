@@ -3,17 +3,48 @@ import { Link } from 'react-router-dom';
 
 import { useAppStore } from '../store/useAppStore';
 
-import { VehicleImage, VehiclePrice, VehicleActions, VehicleSpecs } from './vehicle';
+import { VehicleImage } from './vehicle/VehicleImage';
+import { VehiclePrice } from './vehicle/VehiclePrice';
+import { VehicleActions } from './vehicle/VehicleActions';
+import { VehicleSpecs } from './vehicle/VehicleSpecs';
 
-export default function VehicleCard({ vehicle }) {
+export default function VehicleCard({ vehicle, loading = false }) {
   const { compareSelection, toggleCompare, favorites, toggleFavorite } = useAppStore();
   const isComparing = compareSelection.includes(vehicle.ID);
   const isFavorite = favorites.includes(vehicle.ID);
 
+  if (loading) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="card-surface overflow-hidden flex flex-col hover:shadow-xl hover:border-action/50 transition-all"
+      >
+        <div className="aspect-video bg-accent-surface rounded-3xl mb-5 animate-pulse" />
+        <div className="p-4 sm:p-5 flex flex-col flex-1">
+          <div className="h-4 bg-accent-surface w-1/4 rounded mb-4 animate-pulse" />
+          <div className="h-5 bg-accent-surface w-3/4 rounded mb-2 animate-pulse" />
+          <div className="h-4 bg-accent-surface w-1/2 rounded mb-2 animate-pulse" />
+          <div className="flex gap-2 h-8">
+            <div className="w-1/3 h-4 bg-accent-surface rounded animate-pulse" />
+            <div className="w-1/3 h-4 bg-accent-surface rounded animate-pulse" />
+            <div className="w-1/3 h-4 bg-accent-surface rounded animate-pulse" />
+          </div>
+          <div className="h-4 bg-accent-surface w-1/2 rounded mb-2 animate-pulse" />
+          <div className="flex items-center gap-2">
+            <div className="w-1/3 h-10 bg-accent-surface rounded animate-pulse" />
+            <div className="flex-1 h-10 bg-accent-surface rounded animate-pulse" />
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5 }}
       className="card-surface overflow-hidden flex flex-col hover:shadow-xl hover:border-action/50 transition-all group"

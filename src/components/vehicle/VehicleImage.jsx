@@ -34,7 +34,10 @@ export function VehicleImage({ vehicle }) {
           width={400}
           height={300}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          onError={(e) => { e.target.style.display = 'none'; }}
+          onError={(e) => {
+            console.warn(`Image load failed: ${firstImage}`);
+            e.target.style.display = 'none';
+          }}
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center">

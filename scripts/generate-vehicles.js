@@ -224,6 +224,20 @@ async function main() {
 
   console.log(`\nTotal vehicles: ${allVehicles.length} (with images: ${withImages}, without: ${withoutImages})`);
 
+  // Detect duplicate vehicle IDs
+  const idCounts = new Map();
+  allVehicles.forEach((v) => {
+    idCounts.set(v.ID, (idCounts.get(v.ID) || 0) + 1);
+  });
+  const duplicates = [...idCounts.entries()].filter(([_, count]) => count > 1);
+  if (duplicates.length > 0) {
+    console.warn('\n⚠️  Duplicate vehicle IDs detected:');
+    duplicates.forEach(([id, count]) => {
+      console.warn(`  ${id}: ${count} occurrences`);
+    });
+    console.warn('  This will cause React key warnings and broken compare/favorites.');
+  }
+
   if (!fs.existsSync(PUBLIC_VEHICLES_DIR)) {
     fs.mkdirSync(PUBLIC_VEHICLES_DIR, { recursive: true });
   }
