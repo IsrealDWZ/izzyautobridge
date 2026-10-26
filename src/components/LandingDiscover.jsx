@@ -52,7 +52,7 @@ export default function LandingDiscover() {
                 loading="lazy"
                 decoding="async"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 sm:p-10 z-10">
                 <div className="flex items-center gap-2 mb-4">
                   <card.icon size={16} className="text-emerald-400" />

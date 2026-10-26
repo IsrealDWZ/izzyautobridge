@@ -10,8 +10,8 @@ function VehicleCardWrapper({ vehicle, onToggleCompare, onToggleFavorite }) {
   return (
     <VehicleCard
       vehicle={vehicle}
-      onToggleCompare={toggleCompare}
-      onToggleFavorite={toggleFavorite}
+      onToggleCompare={onToggleCompare}
+      onToggleFavorite={onToggleFavorite}
     />
   );
 }
@@ -72,7 +72,12 @@ export default function VehicleGrid({ vehicles, _whatsappNumber }) {
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {filtered.map((vehicle) => (
-            <VehicleCardWrapper key={vehicle.ID} vehicle={vehicle} />
+            <VehicleCardWrapper
+              key={vehicle.ID}
+              vehicle={vehicle}
+              onToggleCompare={toggleCompare}
+              onToggleFavorite={toggleFavorite}
+            />
           ))}
         </div>
       ) : (

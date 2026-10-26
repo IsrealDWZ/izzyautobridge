@@ -169,10 +169,10 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                   <span>Complete</span>
                 </div>
                 <div className="bg-action/10 rounded-full h-2.5 overflow-hidden">
-                  <div 
-                    className="bg-action h-full transition-all duration-300 ease-in-out" 
+                  <div
+                    className="bg-action h-full transition-all duration-300 ease-in-out"
                     style={{ width: `${progress * 100}%` }}
-                  ></div>
+                  />
                 </div>
               </div>
 

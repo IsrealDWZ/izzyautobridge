@@ -25,6 +25,13 @@ export default function ComparePage() {
     ['Price', (v) => `GH₵${v.Price_GHS.toLocaleString()}`],
   ];
 
+  const [a, b] = rows;
+
+  useEffect(() => {
+    if (!a || !b) return;
+    document.title = `Compare ${a.Brand} ${a.Model} vs ${b.Brand} ${b.Model} — IzzyAutoBridge Ghana`;
+  }, [a, b]);
+
   if (rows.length < 2) {
     return (
       <motion.div
@@ -49,13 +56,8 @@ export default function ComparePage() {
     );
   }
 
-  const [a, b] = rows;
   const diff = Math.abs(a.Price_GHS - b.Price_GHS);
   const cheaper = a.Price_GHS < b.Price_GHS ? a : b;
-
-  useEffect(() => {
-    document.title = `Compare ${a.Brand} ${a.Model} vs ${b.Brand} ${b.Model} — IzzyAutoBridge Ghana`;
-  }, [a, b]);
 
   const waText = encodeURIComponent(
     `Hi, I'm interested in comparing ${a.Brand} ${a.Model} ${a.Year} vs ${b.Brand} ${b.Model} ${b.Year}. Can you send me more details and landed-cost breakdown for both?`
