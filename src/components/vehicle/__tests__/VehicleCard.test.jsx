@@ -95,7 +95,7 @@ describe('VehicleCard', () => {
     );
 
     expect(screen.queryByText('IZZY-TOYOTA-COROLLA-2022')).not.toBeInTheDocument();
-    expect(screen.getAllByClassName(/animate-pulse/).length).toBeGreaterThan(0);
+    expect(document.querySelectorAll('.animate-pulse').length).toBeGreaterThan(0);
   });
 
   it('navigates to vehicle detail page when clicking title', () => {

@@ -8,8 +8,8 @@ import { VehiclePrice } from './vehicle/VehiclePrice';
 import { VehicleActions } from './vehicle/VehicleActions';
 import { VehicleSpecs } from './vehicle/VehicleSpecs';
 
-export default function VehicleCard({ vehicle, loading = false }) {
-  const { compareSelection, toggleCompare, favorites, toggleFavorite } = useAppStore();
+export default function VehicleCard({ vehicle, loading = false, onToggleCompare, onToggleFavorite }) {
+  const { compareSelection, favorites } = useAppStore();
   const isComparing = compareSelection.includes(vehicle.ID);
   const isFavorite = favorites.includes(vehicle.ID);
 
@@ -72,8 +72,8 @@ export default function VehicleCard({ vehicle, loading = false }) {
           vehicle={vehicle}
           isComparing={isComparing}
           isFavorite={isFavorite}
-          onToggleCompare={toggleCompare}
-          onToggleFavorite={toggleFavorite}
+          onToggleCompare={onToggleCompare}
+          onToggleFavorite={onToggleFavorite}
         />
       </div>
     </motion.div>

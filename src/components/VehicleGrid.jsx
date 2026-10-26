@@ -7,11 +7,17 @@ import VehicleCard from './VehicleCard';
 const CATEGORIES = ['EV', 'Hybrid', 'Fuel', 'Bus', 'Heavy', 'Other'];
 
 function VehicleCardWrapper({ vehicle }) {
-  return <VehicleCard vehicle={vehicle} />;
+  return (
+    <VehicleCard
+      vehicle={vehicle}
+      onToggleCompare={toggleCompare}
+      onToggleFavorite={toggleFavorite}
+    />
+  );
 }
 
 export default function VehicleGrid({ vehicles, _whatsappNumber }) {
-  const { filters, setFilter } = useAppStore();
+  const { filters, setFilter, toggleCompare, toggleFavorite } = useAppStore();
 
   // Direct port of the Streamlit filtering logic (brand/fuel/body/status/price/year),
   // just running client-side against the in-memory array instead of a pandas DataFrame.

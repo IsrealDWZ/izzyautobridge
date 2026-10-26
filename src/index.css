@@ -7,6 +7,28 @@
    60-30-10: canvas #f5f5f7 (60%) · white surfaces (30%) ·
    monochrome accent (<=10%): near-black #1d1d1f / off-white #f5f5f7
    ============================================================ */
+@theme {
+  --color-primary: var(--bg-primary);
+  --color-card: var(--bg-card);
+  --color-secondary: var(--bg-secondary);
+  --color-main: var(--text-main);
+  --color-muted: var(--text-muted);
+  --color-subtle: var(--border-subtle);
+  --color-accent-action: var(--accent-action);
+  --color-accent-alert: var(--accent-alert);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-surface: var(--accent-surface);
+  --color-text-on-action: var(--text-on-action);
+  --color-text-onsecondary: var(--text-inverse);
+  --color-text-onsecondary-muted: var(--text-inverse-muted);
+  --color-navy: #1d1d1f;
+  --color-panel: #1d1d1f;
+  --color-gold: #1d1d1f;
+  --color-success: #6e6e73;
+  --color-whatsapp: var(--accent-action);
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
 :root {
   /* Light Mode (default base) */
   --bg-primary: #f5f5f7; /* Soft off-white canvas */
