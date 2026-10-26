@@ -9,7 +9,7 @@ export default function FilterSidebar({ vehicles = [] }) {
   const { filters, setFilter, setFilters, resetFilters } = useAppStore();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [focused, setFocused] = useState(false);
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef(null);
 
   useEffect(() => {
     if (mobileOpen && !focused) {
@@ -17,7 +17,7 @@ export default function FilterSidebar({ vehicles = [] }) {
       if (firstFocusable) firstFocusable.focus();
       setFocused(true);
     }
-  }, [mobileOpen]);
+  }, [mobileOpen, focused]);
 
   useEffect(() => {
     const handler = (e) => {
