@@ -2,6 +2,7 @@
 import { useMemo, useCallback } from 'react';
 
 import { useAppStore } from '../store/useAppStore';
+import { filterVehicles } from '../utils/filterVehicles';
 import VehicleCard from './VehicleCard';
 
 const CATEGORIES = ['EV', 'Hybrid', 'Fuel', 'Bus', 'Heavy', 'Other'];
@@ -16,23 +17,13 @@ function VehicleCardWrapper({ vehicle, onToggleCompare, onToggleFavorite }) {
   );
 }
 
-export default function VehicleGrid({ vehicles, _whatsappNumber }) {
+export default function VehicleGrid({ vehicles, searchQuery = '', _whatsappNumber }) {
   const { filters, setFilter, toggleCompare, toggleFavorite } = useAppStore();
 
-  // Direct port of the Streamlit filtering logic (brand/fuel/body/status/price/year),
-  // just running client-side against the in-memory array instead of a pandas DataFrame.
-  const filtered = useMemo(() => {
-    return vehicles.filter((v) => {
-      if (filters.brands.length && !filters.brands.includes(v.Brand)) return false;
-      if (filters.fuel.length && !filters.fuel.includes(v.Fuel_Type)) return false;
-      if (filters.body.length && !filters.body.includes(v.Body_Type)) return false;
-      if (filters.status.length && !filters.status.includes(v.Status)) return false;
-      if (filters.category.length && !filters.category.includes(v.Category)) return false;
-      if (v.Price_GHS < filters.priceRange[0] || v.Price_GHS > filters.priceRange[1]) return false;
-      if (v.Year < filters.yearRange[0] || v.Year > filters.yearRange[1]) return false;
-      return true;
-    });
-  }, [vehicles, filters]);
+  const filtered = useMemo(
+    () => filterVehicles(vehicles, filters, searchQuery),
+    [vehicles, filters, searchQuery]
+  );
 
   const handleCategoryToggle = useCallback((cat) => {
     setFilter('category', filters.category.includes(cat)
@@ -47,7 +38,7 @@ export default function VehicleGrid({ vehicles, _whatsappNumber }) {
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <div className="flex items-center justify-between mb-6">
-        <p className="text-sm text-muted">
+        <p className="text-sm text-muted" aria-live="polite">
           Showing {filtered.length} of {vehicles.length} vehicles
         </p>
       </div>
@@ -82,8 +73,14 @@ export default function VehicleGrid({ vehicles, _whatsappNumber }) {
         </div>
       ) : (
         <div className="text-center py-12 sm:py-20 border border-dashed border-subtle rounded-2xl">
-          <p className="font-semibold">No vehicles match those filters</p>
-          <p className="text-sm text-muted mt-1">Try widening your price range or clearing a filter.</p>
+          <p className="font-semibold">
+            {searchQuery ? `No vehicles match “${searchQuery}”` : 'No vehicles match those filters'}
+          </p>
+          <p className="text-sm text-muted mt-1">
+            {searchQuery
+              ? 'Try a different keyword or clear the search.'
+              : 'Try widening your price range or clearing a filter.'}
+          </p>
         </div>
       )}
     </section>

@@ -1,31 +1,27 @@
 import { Car } from 'lucide-react';
-import { useMemo, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import BrandMarquee from '../components/BrandMarquee';
 import FilterSidebar from '../components/FilterSidebar';
+import InventorySearch from '../components/InventorySearch';
 import VehicleGrid from '../components/VehicleGrid';
 import vehicles from '../data/vehicles.json';
-import { WHATSAPP_NUMBER } from '../utils/constants';
 import { useAppStore } from '../store/useAppStore';
+import { WHATSAPP_NUMBER } from '../utils/constants';
+import { filterVehicles } from '../utils/filterVehicles';
 
 export default function InventoryPage() {
   const { filters } = useAppStore();
+  const [searchQuery, setSearchQuery] = useState('');
+
   useEffect(() => {
     document.title = 'Browse Inventory — IzzyAutoBridge Ghana';
   }, []);
 
-  const filtered = useMemo(() => {
-    return vehicles.filter((v) => {
-      if (filters.brands.length && !filters.brands.includes(v.Brand)) return false;
-      if (filters.fuel.length && !filters.fuel.includes(v.Fuel_Type)) return false;
-      if (filters.body.length && !filters.body.includes(v.Body_Type)) return false;
-      if (filters.status.length && !filters.status.includes(v.Status)) return false;
-      if (filters.category.length && !filters.category.includes(v.Category)) return false;
-      if (v.Price_GHS < filters.priceRange[0] || v.Price_GHS > filters.priceRange[1]) return false;
-      if (v.Year < filters.yearRange[0] || v.Year > filters.yearRange[1]) return false;
-      return true;
-    });
-  }, [vehicles, filters]);
+  const matchingVehicles = useMemo(
+    () => filterVehicles(vehicles, filters, searchQuery),
+    [filters, searchQuery]
+  );
 
   return (
     <>
@@ -35,11 +31,11 @@ export default function InventoryPage() {
         </div>
         <div className="mb-5">
           <h1 className="font-display text-3xl md:text-5xl font-bold leading-tight">
-            Browse {filtered.length} of {vehicles.length} inspected vehicles
+            Browse {matchingVehicles.length} of {vehicles.length} inspected vehicles
           </h1>
-          {filtered.length !== vehicles.length && (
+          {matchingVehicles.length !== vehicles.length && (
             <p className="text-sm text-onsecondary-muted mt-1">
-              {filtered.length} of {vehicles.length} vehicles match your filters
+              {matchingVehicles.length} of {vehicles.length} vehicles match your search and filters
             </p>
           )}
         </div>
@@ -52,10 +48,18 @@ export default function InventoryPage() {
         </div>
       </header>
 
+      <div className="mb-6">
+        <InventorySearch value={searchQuery} onChange={setSearchQuery} />
+      </div>
+
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
         <FilterSidebar vehicles={vehicles} />
         <div className="flex-1 min-w-0 w-full">
-          <VehicleGrid vehicles={filtered} whatsappNumber={WHATSAPP_NUMBER} />
+          <VehicleGrid
+            vehicles={vehicles}
+            searchQuery={searchQuery}
+            whatsappNumber={WHATSAPP_NUMBER}
+          />
         </div>
       </div>
     </>

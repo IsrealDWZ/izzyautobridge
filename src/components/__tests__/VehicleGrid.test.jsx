@@ -24,6 +24,17 @@ const VEHICLE = {
   Image_URLs: '/vehicles/IZZY-TOYOTA-COROLLA-2022-01.jpg',
 };
 
+const OTHER_VEHICLE = {
+  ...VEHICLE,
+  ID: 'IZZY-BMW-X5-2022',
+  Brand: 'BMW',
+  Model: 'X5',
+  Variant: 'xDrive40i',
+  Body_Type: 'SUV',
+  Price_GHS: 650000,
+  Image_URLs: '/vehicles/IZZY-BMW-X5-2022-01.jpg',
+};
+
 describe('VehicleGrid', () => {
   beforeEach(() => {
     useAppStore.setState({
@@ -65,5 +76,17 @@ describe('VehicleGrid', () => {
     fireEvent.click(screen.getByLabelText('Save to favorites'));
 
     expect(useAppStore.getState().favorites).toEqual(['IZZY-TOYOTA-COROLLA-2022']);
+  });
+
+  it('filters the grid by the search query', () => {
+    render(
+      <MemoryRouter>
+        <VehicleGrid vehicles={[VEHICLE, OTHER_VEHICLE]} searchQuery="bmw" />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('Showing 1 of 2 vehicles')).toBeInTheDocument();
+    expect(screen.getByText('BMW X5 2022')).toBeInTheDocument();
+    expect(screen.queryByText('Toyota Corolla 2022')).not.toBeInTheDocument();
   });
 });
