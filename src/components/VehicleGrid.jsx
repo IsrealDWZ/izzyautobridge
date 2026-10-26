@@ -6,7 +6,7 @@ import VehicleCard from './VehicleCard';
 
 const CATEGORIES = ['EV', 'Hybrid', 'Fuel', 'Bus', 'Heavy', 'Other'];
 
-function VehicleCardWrapper({ vehicle }) {
+function VehicleCardWrapper({ vehicle, onToggleCompare, onToggleFavorite }) {
   return (
     <VehicleCard
       vehicle={vehicle}
