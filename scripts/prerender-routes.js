@@ -59,6 +59,13 @@ const STATIC_ROUTES = [
       'Terms governing IzzyAutoBridge vehicle orders: full-payment policy, 60-day shipping estimate, clearance options and Ghana consumer rights.',
     canonical: `${BASE}/terms`,
   },
+  {
+    out: 'compare/index.html',
+    title: 'Compare vehicles — IzzyAutoBridge Ghana',
+    description:
+      'Compare inspected China-import vehicles side by side: price, year, fuel, body type and key specs, with transparent landed costs to Tema.',
+    canonical: `${BASE}/compare`,
+  },
 ];
 
 function buildVehicleRoutes() {
