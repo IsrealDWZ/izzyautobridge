@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 import ComparisonSection from '../components/ComparisonSection';
 import ConciergeForm from '../components/ConciergeForm';
-import EVCalculator from '../components/EVCalculator';
 import Hero from '../components/Hero';
 import ProcessSection from '../components/ProcessSection';
 import ShowcaseVideo from '../components/ShowcaseVideo';
@@ -38,9 +37,6 @@ export default function AboutPage() {
 
       {/* Comparison Section */}
       <ComparisonSection />
-
-      {/* EV Calculator */}
-      <EVCalculator />
 
       {/* Concierge Form */}
       <ConciergeForm vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />

@@ -43,16 +43,12 @@ export default function Hero({ title, subtitle }) {
           >
             Browse Inventory
           </Link>
-          <button
-            onClick={() =>
-              document
-                .getElementById('calculator')
-                ?.scrollIntoView({ behavior: 'smooth' })
-            }
+          <Link
+            to="/#calculator"
             className="border border-white/50 text-white font-semibold px-8 py-4 rounded-full tracking-wide hover:bg-white/10 transition"
           >
             EV Savings Calculator
-          </button>
+          </Link>
         </div>
       </motion.div>
 

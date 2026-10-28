@@ -3,9 +3,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import BrandMarquee from '../components/BrandMarquee';
+import EVCalculator from '../components/EVCalculator';
 import ExchangeRateNote from '../components/ExchangeRateNote';
 import FilterSidebar from '../components/FilterSidebar';
 import InventorySearch from '../components/InventorySearch';
+import ProcessSection from '../components/ProcessSection';
 import VehicleGrid from '../components/VehicleGrid';
 import vehicles from '../data/vehicles.json';
 import { useAppStore } from '../store/useAppStore';
@@ -77,6 +79,12 @@ export default function InventoryPage() {
             whatsappNumber={WHATSAPP_NUMBER}
           />
         </div>
+      </div>
+
+      {/* Everything below the cars. The grid always comes first. */}
+      <div className="-mx-4 sm:-mx-6 mt-16 border-t border-subtle">
+        <ProcessSection />
+        <EVCalculator />
       </div>
     </>
   );
