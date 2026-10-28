@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 import BrandMark from './BrandMark';
+import ExchangeRateNote from './ExchangeRateNote';
 
 const footerLinks = {
   explore: [
@@ -97,9 +98,12 @@ export default function Footer() {
           className="border-t border-subtle pt-8"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-onsecondary-muted text-sm">
-              © {new Date().getFullYear()} IzzyAutoBridge Ghana Ltd. All rights reserved.
-            </p>
+            <div>
+              <p className="text-onsecondary-muted text-sm">
+                © {new Date().getFullYear()} IzzyAutoBridge Ghana Ltd. All rights reserved.
+              </p>
+              <ExchangeRateNote className="text-onsecondary-muted mt-2" />
+            </div>
             <div className="flex items-center gap-6 text-sm text-onsecondary-muted">
               <span className="flex items-center gap-1.5">
                 <Shield size={14} /> DVLA Class C Licensed

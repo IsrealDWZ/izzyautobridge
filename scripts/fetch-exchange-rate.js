@@ -8,7 +8,7 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const CACHE_PATH = path.join(ROOT_DIR, 'src', 'data', 'exchange-rate.json');
 const SAFETY_MARGIN = 0.03; // 3% buffer to avoid losses
 const API_URL = 'https://open.er-api.com/v6/latest/USD';
-const FALLBACK_RATE = 15.5;
+const FALLBACK_RATE = 12.0;
 
 async function fetchRate() {
   try {
@@ -37,13 +37,12 @@ async function fetchRate() {
   }
 }
 
-function loadCachedRate() {
+function loadCache() {
   if (!fs.existsSync(CACHE_PATH)) return null;
   try {
     const data = JSON.parse(fs.readFileSync(CACHE_PATH, 'utf-8'));
     if (data.rate && typeof data.rate === 'number') {
-      console.log(`Using cached rate: 1 USD = ${data.rate} GHS (fetched ${data.fetchedAt})`);
-      return data.rate;
+      return data;
     }
   } catch {}
   return null;
@@ -70,20 +69,22 @@ async function main() {
   console.log('=== FETCHING EXCHANGE RATE ===');
   
   const liveRate = await fetchRate();
+  const cache = loadCache();
   let finalRate;
   
   if (liveRate) {
     finalRate = applySafetyMargin(liveRate);
-    saveRate(finalRate);
-  } else {
-    const cached = loadCachedRate();
-    if (cached) {
-      finalRate = cached;
-      console.log('Using cached rate (live fetch failed)');
+    if (cache?.rate === finalRate) {
+      console.log(`Rate unchanged at ${finalRate} GHS/USD; keeping cache timestamp.`);
     } else {
-      finalRate = applySafetyMargin(FALLBACK_RATE);
-      console.log(`Using fallback rate with margin: ${finalRate}`);
+      saveRate(finalRate);
     }
+  } else if (cache?.rate) {
+    finalRate = cache.rate;
+    console.log(`Using cached rate: 1 USD = ${finalRate} GHS (fetched ${cache.fetchedAt})`);
+  } else {
+    finalRate = applySafetyMargin(FALLBACK_RATE);
+    console.log(`Using fallback rate with margin: ${finalRate}`);
   }
   
   console.log(`\nFinal USD/GHS rate for this build: ${finalRate}`);

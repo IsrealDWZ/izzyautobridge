@@ -2,6 +2,7 @@ import { Car } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 
 import BrandMarquee from '../components/BrandMarquee';
+import ExchangeRateNote from '../components/ExchangeRateNote';
 import FilterSidebar from '../components/FilterSidebar';
 import InventorySearch from '../components/InventorySearch';
 import VehicleGrid from '../components/VehicleGrid';
@@ -43,6 +44,7 @@ export default function InventoryPage() {
           Live stock from our China partners — filter by brand, price and year.
           Free shipping to Tema included in every landed price.
         </p>
+        <ExchangeRateNote className="text-onsecondary-muted mt-3" />
         <div className="-mx-8 sm:-mx-10 mt-7">
           <BrandMarquee />
         </div>

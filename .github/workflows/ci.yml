@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     branches: [master, main]
+    paths-ignore:
+      - 'src/data/exchange-rate.json'
   pull_request:
     branches: [master, main]
 

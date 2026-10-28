@@ -67,9 +67,10 @@ npm run build:sitemap  # Generate sitemap.xml
 
 ### Exchange Rate
 - **Source**: exchangerate-api.com (open.er-api.com)
-- **Cache**: `src/data/exchange-rate.json` (fetched at build)
+- **Cache**: `src/data/exchange-rate.json` (fetched at build; rewritten only when the rounded rate changes)
+- **Refresh**: `.github/workflows/refresh-exchange-rate.yml` checks daily at 06:00 UTC, commits the new rate when it changes, and lets Vercel redeploy. If a `VERCEL_DEPLOY_HOOK_URL` repo secret exists, it triggers a rebuild even when the rate is unchanged.
 - **Margin**: 3% safety buffer
-- **Fallback**: 15.5 (cached → fallback)
+- **Fallback**: 12.0 + 3% margin = 12.36 (only when both live fetch and cache fail)
 - **Inlined** at build via `import rateData from '../data/exchange-rate.json'`
 
 ## Key Files
@@ -87,6 +88,7 @@ npm run build:sitemap  # Generate sitemap.xml
 | `src/utils/validation.js` | All validators |
 | `src/utils/constants.js` | USD_GHS_RATE, WHATSAPP_NUMBER, APP_CONFIG |
 | `scripts/fetch-exchange-rate.js` | Live rate fetcher |
+| `.github/workflows/refresh-exchange-rate.yml` | Daily rate refresh + Vercel rebuild |
 | `scripts/build-master-catalog.js` | Master CSV generator |
 | `scripts/generate-vehicles.js` | vehicles.json generator |
 | `src/data/master-inventory.csv` | Dormant master catalog (219 vehicles) |

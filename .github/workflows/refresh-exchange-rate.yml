@@ -1,0 +1,55 @@
+name: Refresh exchange rate
+
+on:
+  schedule:
+    # 06:00 UTC daily (Ghana is UTC+0)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-exchange-rate
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Fetch latest USD/GHS rate
+        run: node scripts/fetch-exchange-rate.js
+
+      - name: Commit rate change
+        id: rate
+        run: |
+          if git diff --quiet -- src/data/exchange-rate.json; then
+            echo "Rate unchanged."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/exchange-rate.json
+          git commit -m "chore: refresh USD/GHS exchange rate"
+          git push origin master
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger Vercel rebuild
+        if: steps.rate.outputs.changed == 'false' && env.VERCEL_DEPLOY_HOOK_URL != ''
+        run: |
+          curl -fsS -X POST "$VERCEL_DEPLOY_HOOK_URL" > /dev/null
+          echo "Triggered a Vercel rebuild via deploy hook."
