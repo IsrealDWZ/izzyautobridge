@@ -38,7 +38,7 @@ export default function Hero({ title, subtitle }) {
 
         <div className="mt-10 flex flex-wrap gap-4">
           <Link
-            to="/inventory"
+            to="/"
             className="bg-action text-onaction font-bold text-xl px-8 py-4 rounded-full tracking-wide hover:opacity-85 transition"
           >
             Browse Inventory

@@ -9,10 +9,11 @@ import ExchangeRateNote from './ExchangeRateNote';
 
 const footerLinks = {
   explore: [
-    { label: 'Browse Inventory', to: '/inventory' },
-    { label: 'Our Process', to: '/#process' },
-    { label: 'Why Us', to: '/#trust' },
-    { label: 'Request a Vehicle', to: '/#concierge' },
+    { label: 'Browse Inventory', to: '/' },
+    { label: 'About Us', to: '/about' },
+    { label: 'Our Process', to: '/about#process' },
+    { label: 'Why Us', to: '/about#trust' },
+    { label: 'Request a Vehicle', to: '/about#concierge' },
   ],
   support: [
     { label: 'Contact Us', href: `https://wa.me/${WHATSAPP_NUMBER}` },

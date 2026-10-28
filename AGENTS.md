@@ -7,6 +7,23 @@
 - **Deployment**: Vercel (auto-deploy from GitHub `master`)
 - **Live URL**: https://izzyautobridge.vercel.app
 
+### Routes
+
+Cars are the priority on entry: the site root **is** the inventory.
+
+| Path | Page | Notes |
+|------|------|-------|
+| `/` | `InventoryPage` | Home. Search, filters and the car grid come first. |
+| `/inventory` | `InventoryPage` | Legacy alias of `/`; canonical points at `/`. Keep it working. |
+| `/about` | `AboutPage` | Marketing page: hero, stats, trust, process, EV calculator, request form. |
+| `/vehicle/:slug` | `VehicleDetailPage` | |
+| `/compare` | `ComparePage` | |
+| `/privacy`, `/terms` | | |
+
+Prerendered static HTML is generated per route by `scripts/prerender-routes.js`
+(Vercel serves `<route>/index.html`); a route missing from `STATIC_ROUTES`
+falls through to `public/404.html`.
+
 ## Development Rules
 
 ### Code Style

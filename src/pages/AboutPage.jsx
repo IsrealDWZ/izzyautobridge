@@ -14,9 +14,9 @@ import { APP_CONFIG, WHATSAPP_NUMBER } from '../utils/constants';
 const heroSubtitle =
   'Direct China vehicle imports to Ghana with transparent landed costs — free shipping to Tema included — and a route you can actually track from port to your driveway.';
 
-export default function HomePage() {
+export default function AboutPage() {
   useEffect(() => {
-    document.title = 'IzzyAutoBridge Ghana — Direct China Vehicle Supply';
+    document.title = 'About Us — IzzyAutoBridge Ghana';
   }, []);
 
   return (

@@ -12,8 +12,8 @@ import Footer from './components/Footer';
 import Marquee from './components/Marquee';
 import ScrollProgress from './components/ScrollProgress';
 import vehicles from './data/vehicles.json';
+import AboutPage from './pages/AboutPage';
 import ComparePage from './pages/ComparePage';
-import HomePage from './pages/HomePage';
 import InventoryPage from './pages/InventoryPage';
 import NotFound from './pages/NotFound';
 import PrivacyPage from './pages/PrivacyPage';
@@ -28,6 +28,13 @@ const shipItems = Array.from({ length: 6 }, (_, i) => (
     Free shipping — CIF Tema port delivery included on every vehicle
   </span>
 ));
+
+const navLinkClass = (isActive) =>
+  `text-xs sm:text-sm font-semibold uppercase tracking-wide transition-colors whitespace-nowrap px-1 -mb-1 border-b-2 ${
+    isActive
+      ? 'text-onsecondary border-onsecondary'
+      : 'text-onsecondary-muted border-transparent hover:text-onsecondary hover:border-accent-hover hover:bg-accent-hover/20'
+  }`;
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -48,6 +55,7 @@ function ScrollManager() {
 
 export default function App() {
   const { theme, toggleTheme } = useAppStore();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -94,21 +102,19 @@ export default function App() {
             <div className="flex items-center gap-2 sm:gap-5">
               <Link to="/" className="flex items-center gap-2 whitespace-nowrap">
                 <BrandMark size={38} className="text-onsecondary" />
-                <span className="font-display font-bold text-onsecondary text-[15px] sm:text-xl">
+                <span className="hidden sm:inline font-display font-bold text-onsecondary text-[15px] sm:text-xl">
                   {APP_CONFIG.siteTitle}
                 </span>
               </Link>
-              <NavLink
-                to="/inventory"
-                className={({ isActive }) =>
-                  `text-xs sm:text-sm font-semibold uppercase tracking-wide transition-colors whitespace-nowrap px-1 -mb-1 border-b-2 ${
-                    isActive
-                      ? 'text-onsecondary border-onsecondary'
-                      : 'text-onsecondary-muted border-transparent hover:text-onsecondary hover:border-accent-hover hover:bg-accent-hover/20'
-                  }`
-                }
+              <Link
+                to="/"
+                aria-current={pathname === '/' || pathname === '/inventory' ? 'page' : undefined}
+                className={navLinkClass(pathname === '/' || pathname === '/inventory')}
               >
                 Inventory
+              </Link>
+              <NavLink to="/about" className={({ isActive }) => navLinkClass(isActive)}>
+                About
               </NavLink>
             </div>
             <button
@@ -122,8 +128,9 @@ export default function App() {
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-12 sm:pb-16">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<InventoryPage />} />
             <Route path="/inventory" element={<InventoryPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/compare" element={<ComparePage />} />
             <Route path="/vehicle/:slug" element={<VehicleDetailPage />} />
             <Route path="/privacy" element={<PrivacyPage />} />

@@ -36,7 +36,7 @@ export default function VehicleDetailPage() {
     }
   }, [vehicle]);
 
-  if (!vehicle) return <Navigate to="/inventory" replace />;
+  if (!vehicle) return <Navigate to="/" replace />;
 
   const title = `${vehicle.Brand} ${vehicle.Model} ${vehicle.Year}`;
   const waText = encodeURIComponent(`Hi, I'm interested in ${title} (${vehicle.ID})`);
@@ -50,9 +50,7 @@ export default function VehicleDetailPage() {
     >
       {/* Breadcrumbs */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-muted mb-5">
-        <Link to="/" className="hover:text-main transition-colors">Home</Link>
-        <ChevronRight size={14} aria-hidden="true" />
-        <Link to="/inventory" className="hover:text-main transition-colors">Inventory</Link>
+        <Link to="/" className="hover:text-main transition-colors">Inventory</Link>
         <ChevronRight size={14} aria-hidden="true" />
         <span className="text-main font-medium truncate">{title}</span>
       </nav>
@@ -128,7 +126,7 @@ export default function VehicleDetailPage() {
           Enquire on WhatsApp
         </a>
         <Link
-          to="/inventory"
+          to="/"
           className="mt-5 ml-3 inline-flex items-center gap-1.5 text-sm font-medium hover:opacity-80 transition"
         >
           <ArrowLeft size={15} aria-hidden="true" /> Back to inventory

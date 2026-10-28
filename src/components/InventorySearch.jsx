@@ -18,7 +18,7 @@ export default function InventorySearch({ value, onChange }) {
     <form
       role="search"
       onSubmit={handleSubmit}
-      className="flex flex-col sm:flex-row gap-3"
+      className="flex flex-row gap-2 sm:gap-3"
     >
       <label htmlFor="inventory-search" className="sr-only">
         Search inventory
@@ -35,7 +35,7 @@ export default function InventorySearch({ value, onChange }) {
           type="search"
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          placeholder="Search by make, model, variant or stock ID"
+          placeholder="Search make, model or stock ID"
           autoComplete="off"
           enterKeyHint="search"
           className="w-full min-h-[48px] rounded-xl border border-subtle bg-card py-3 pl-11 pr-11 text-sm text-main placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-action [&::-webkit-search-cancel-button]:appearance-none"
@@ -53,10 +53,11 @@ export default function InventorySearch({ value, onChange }) {
       </div>
       <button
         type="submit"
-        className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-action px-6 py-3 text-sm font-semibold text-onaction transition hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action focus-visible:ring-offset-2"
+        aria-label="Search"
+        className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 rounded-xl bg-action px-3 sm:px-6 py-3 text-sm font-semibold text-onaction transition hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action focus-visible:ring-offset-2"
       >
-        <Search size={16} aria-hidden="true" />
-        Search
+        <Search size={18} aria-hidden="true" />
+        <span className="hidden sm:inline">Search</span>
       </button>
     </form>
   );

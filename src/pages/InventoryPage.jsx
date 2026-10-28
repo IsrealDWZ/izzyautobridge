@@ -1,5 +1,6 @@
 import { Car } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import BrandMarquee from '../components/BrandMarquee';
 import ExchangeRateNote from '../components/ExchangeRateNote';
@@ -13,20 +14,30 @@ import { filterVehicles } from '../utils/filterVehicles';
 
 export default function InventoryPage() {
   const { filters } = useAppStore();
+  const { pathname } = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    document.title = 'Browse Inventory — IzzyAutoBridge Ghana';
-  }, []);
+    document.title =
+      pathname === '/'
+        ? 'IzzyAutoBridge Ghana — Inspected Cars from China'
+        : 'Browse Inventory — IzzyAutoBridge Ghana';
+  }, [pathname]);
 
   const matchingVehicles = useMemo(
     () => filterVehicles(vehicles, filters, searchQuery),
     [filters, searchQuery]
   );
 
+  const isHome = pathname === '/';
+
   return (
     <>
-      <header className="rounded-2xl bg-secondary text-onsecondary p-8 sm:p-10 mb-8 overflow-hidden">
+      <header
+        className={`rounded-2xl bg-secondary text-onsecondary overflow-hidden ${
+          isHome ? 'p-6 sm:p-10 mb-6' : 'p-8 sm:p-10 mb-8'
+        }`}
+      >
         <div className="inline-flex items-center gap-2 chip-badge px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-5">
           <Car size={16} aria-hidden="true" /> Inventory
         </div>
@@ -45,9 +56,12 @@ export default function InventoryPage() {
           Free shipping to Tema included in every landed price.
         </p>
         <ExchangeRateNote className="text-onsecondary-muted mt-3" />
-        <div className="-mx-8 sm:-mx-10 mt-7">
-          <BrandMarquee />
-        </div>
+        {/* The brand marquee is decorative — on the home page the cars win the fold. */}
+        {!isHome && (
+          <div className="-mx-8 sm:-mx-10 mt-7">
+            <BrandMarquee />
+          </div>
+        )}
       </header>
 
       <div className="mb-6">

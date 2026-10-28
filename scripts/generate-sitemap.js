@@ -7,11 +7,12 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const VEHICLES_JSON_PATH = path.join(ROOT_DIR, 'src', 'data', 'vehicles.json');
 const OUTPUT_PATH = path.join(ROOT_DIR, 'public', 'sitemap.xml');
 
-// Only real routes: index + inventory + compare + one page per vehicle. Fragment URLs
-// (#process etc.) are not listable entries — Google ignores them.
+// Only real, canonical routes: inventory home + about + compare + one page per
+// vehicle. Fragment URLs (#process etc.) are not listable entries — Google
+// ignores them. /inventory is an alias of / and is deliberately excluded.
 const STATIC_ROUTES = [
   { path: '', changefreq: 'daily', priority: '1.0' },
-  { path: '/inventory', changefreq: 'daily', priority: '0.9' },
+  { path: '/about', changefreq: 'monthly', priority: '0.6' },
   { path: '/compare', changefreq: 'weekly', priority: '0.7' },
   { path: '/privacy', changefreq: 'yearly', priority: '0.2' },
   { path: '/terms', changefreq: 'yearly', priority: '0.2' },

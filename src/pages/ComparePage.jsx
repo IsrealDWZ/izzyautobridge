@@ -47,7 +47,7 @@ export default function ComparePage() {
           Select two vehicles on the inventory page to compare them side by side.
         </p>
         <Link
-          to="/inventory"
+          to="/"
           className="inline-flex items-center gap-2 bg-action text-onaction text-sm font-bold px-6 py-3 rounded-lg hover:opacity-85 transition min-h-[44px]"
         >
           <ArrowLeft size={16} /> Browse inventory
@@ -68,7 +68,7 @@ export default function ComparePage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <Link
-          to="/inventory"
+          to="/"
           className="inline-flex items-center gap-2 text-sm font-medium hover:opacity-80 transition"
         >
           <ArrowLeft size={15} aria-hidden="true" /> Back to inventory

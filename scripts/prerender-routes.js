@@ -36,14 +36,28 @@ const BASE = 'https://izzyautobridge.vercel.app';
 
 const STATIC_ROUTES = [
   {
-    // Directory index (/inventory/index.html) so the static host serves it for
-    // /inventory before the SPA rewrite kicks in (plain inventory.html is only
-    // reachable at /inventory.html without cleanUrls).
+    // Root = the inventory itself. Cars are the first thing a visitor sees.
+    out: 'index.html',
+    title: 'IzzyAutoBridge Ghana — Inspected Cars from China',
+    description:
+      'Browse 129 SGS-inspected vehicles imported from China to Ghana. Transparent landed prices in GHS, free shipping to Tema, full payment only.',
+    canonical: `${BASE}/`,
+  },
+  {
+    out: 'about/index.html',
+    title: 'About Us — IzzyAutoBridge Ghana',
+    description:
+      'How IzzyAutoBridge sources, inspects and ships vehicles from China to Tema: transparent landed costs, SGS inspection, 60-day delivery and full-payment terms.',
+    canonical: `${BASE}/about`,
+  },
+  {
+    // Legacy/alias URL. Still served so old links and bookmarks work, but the
+    // canonical points at "/" so search engines index a single inventory page.
     out: 'inventory/index.html',
     title: 'Browse Inventory — IzzyAutoBridge Ghana',
     description:
       'Browse 129 inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent landed costs and SGS inspection.',
-    canonical: `${BASE}/inventory`,
+    canonical: `${BASE}/`,
   },
   {
     out: 'privacy/index.html',

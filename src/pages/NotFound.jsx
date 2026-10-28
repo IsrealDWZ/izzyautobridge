@@ -20,7 +20,7 @@ export default function NotFound() {
           Go home
         </Link>
         <Link
-          to="/inventory"
+          to="/"
           className="rounded-full border border-line px-6 py-3 text-sm font-medium hover:opacity-85 transition-opacity"
         >
           Browse inventory
