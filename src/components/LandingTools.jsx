@@ -38,7 +38,7 @@ export default function LandingTools() {
           {TOOLS.map((tool, i) => (
             <div
               key={i}
-              className={`group relative p-8 rounded-3xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex flex-col items-center text-center`}
+              className="group relative p-8 rounded-3xl border border-slate-200 bg-white hover:border-emerald-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 flex flex-col items-center text-center"
             >
             <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-7 ${tool.color} group-hover:scale-110 transition-transform duration-500`}>
               <tool.icon size={22} className="text-white" />
@@ -49,12 +49,12 @@ export default function LandingTools() {
             <p className="text-sm text-slate-500 leading-relaxed mb-8 flex-1">
               {tool.description}
             </p>
-            <a
-              href="#"
+            <button
+              type="button"
               className="inline-flex items-center gap-2 text-sm font-bold text-emerald-600 hover:text-emerald-500 transition-colors"
             >
               Get Started <ArrowRight size={16} className="text-emerald-500" />
-            </a>
+            </button>
           </div>
         ))}
       </div>

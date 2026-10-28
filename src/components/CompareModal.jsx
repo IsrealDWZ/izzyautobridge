@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, MessageCircle } from 'lucide-react';
 
 import { useAppStore } from '../store/useAppStore';
-
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMBER }) {

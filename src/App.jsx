@@ -5,7 +5,6 @@ import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
 import BrandMark from './components/BrandMark';
 import CompareModal from './components/CompareModal';
-import ComparePage from './pages/ComparePage';
 import ConsentBanner from './components/ConsentBanner';
 import FavoritesDrawer from './components/FavoritesDrawer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
@@ -13,6 +12,7 @@ import Footer from './components/Footer';
 import Marquee from './components/Marquee';
 import ScrollProgress from './components/ScrollProgress';
 import vehicles from './data/vehicles.json';
+import ComparePage from './pages/ComparePage';
 import HomePage from './pages/HomePage';
 import InventoryPage from './pages/InventoryPage';
 import NotFound from './pages/NotFound';

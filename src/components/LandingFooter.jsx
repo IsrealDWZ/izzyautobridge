@@ -1,4 +1,4 @@
-import { Phone, MapPin, Mail, ArrowRight } from 'lucide-react';
+import { Phone, MapPin, Mail } from 'lucide-react';
 
 const FOOTER_LINKS = {
   'Shopping Tools': [

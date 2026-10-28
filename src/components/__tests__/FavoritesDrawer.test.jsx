@@ -1,8 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import FavoritesDrawer from '../FavoritesDrawer';
 import { useAppStore } from '../../store/useAppStore';
+import FavoritesDrawer from '../FavoritesDrawer';
 
 const VEHICLES = [
   { ID: 42, Brand: 'Toyota', Model: 'Corolla', Year: 2022, Price_GHS: 250000 },

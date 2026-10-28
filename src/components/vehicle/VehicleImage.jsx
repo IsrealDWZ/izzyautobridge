@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Car } from 'lucide-react';
+
 import { validateImageUrl } from '../../utils/validation';
 
 export function VehicleImage({ vehicle }) {

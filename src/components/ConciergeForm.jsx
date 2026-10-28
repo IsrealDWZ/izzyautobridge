@@ -3,7 +3,7 @@ import { Sparkles, CheckCircle, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 
 import { WHATSAPP_NUMBER } from '../utils/constants';
-import { sanitizeFormInput, sanitizeWhatsAppMessage, validateWhatsAppNumber } from '../utils/validation';
+import { sanitizeFormInput, sanitizeWhatsAppMessage } from '../utils/validation';
 
 export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NUMBER }) {
   const [formData, setFormData] = useState({
@@ -50,13 +50,6 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: null }));
     }
-  };
-
-  // Progress bar update based on step
-  const updateProgress = () => {
-    if (step === 1) setProgress(1 / 3);
-    if (step === 2) setProgress(2 / 3);
-    if (step === 3) setProgress(1);
   };
 
   const handleSubmit = (e) => {

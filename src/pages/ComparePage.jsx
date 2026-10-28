@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, Car, MessageCircle, X, Ship, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, MessageCircle, X, Ship } from 'lucide-react';
 import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { useAppStore } from '../store/useAppStore';
 import vehicles from '../data/vehicles.json';
+import { useAppStore } from '../store/useAppStore';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 export default function ComparePage() {
-  const { compareSelection, toggleCompare, clearCompare, favorites, toggleFavorite } = useAppStore();
+  const { compareSelection, toggleCompare, clearCompare } = useAppStore();
   const rows = compareSelection.map((id) => vehicles.find((v) => v.ID === id)).filter(Boolean);
 
   const fields = [
@@ -58,10 +58,6 @@ export default function ComparePage() {
 
   const diff = Math.abs(a.Price_GHS - b.Price_GHS);
   const cheaper = a.Price_GHS < b.Price_GHS ? a : b;
-
-  const waText = encodeURIComponent(
-    `Hi, I'm interested in comparing ${a.Brand} ${a.Model} ${a.Year} vs ${b.Brand} ${b.Model} ${b.Year}. Can you send me more details and landed-cost breakdown for both?`
-  );
 
   return (
     <motion.div

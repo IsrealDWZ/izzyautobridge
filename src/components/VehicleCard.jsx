@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { useAppStore } from '../store/useAppStore';
 
+import { VehicleActions } from './vehicle/VehicleActions';
 import { VehicleImage } from './vehicle/VehicleImage';
 import { VehiclePrice } from './vehicle/VehiclePrice';
-import { VehicleActions } from './vehicle/VehicleActions';
 import { VehicleSpecs } from './vehicle/VehicleSpecs';
 
 export default function VehicleCard({ vehicle, loading = false, onToggleCompare, onToggleFavorite }) {

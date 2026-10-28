@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { useState, useMemo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useMemo } from 'react';
+
 import vehicles from '../data/vehicles.json';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
