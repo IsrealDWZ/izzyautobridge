@@ -1,11 +1,12 @@
 import { Search, X } from 'lucide-react';
 import { useRef } from 'react';
 
-export default function InventorySearch({ value, onChange }) {
+export default function InventorySearch({ value, onChange, onSearch }) {
   const inputRef = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    onSearch?.(value.trim());
     inputRef.current?.blur();
   };
 

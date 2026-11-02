@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 import { useAppStore } from '../store/useAppStore';
+import { toItem, trackEvent } from '../utils/analytics';
 
 import { VehicleActions } from './vehicle/VehicleActions';
 import { VehicleImage } from './vehicle/VehicleImage';
@@ -12,6 +13,32 @@ export default function VehicleCard({ vehicle, loading = false, onToggleCompare,
   const { compareSelection, favorites } = useAppStore();
   const isComparing = compareSelection.includes(vehicle.ID);
   const isFavorite = favorites.includes(vehicle.ID);
+
+  const handleFavorite = () => {
+    trackEvent(isFavorite ? 'remove_from_wishlist' : 'add_to_wishlist', {
+      currency: 'GHS',
+      value: vehicle.Price_GHS,
+      items: [toItem(vehicle)],
+    });
+    onToggleFavorite(vehicle.ID);
+  };
+
+  const handleCompare = () => {
+    trackEvent(isComparing ? 'compare_remove' : 'compare_add', {
+      currency: 'GHS',
+      value: vehicle.Price_GHS,
+      items: [toItem(vehicle)],
+    });
+    onToggleCompare(vehicle.ID);
+  };
+
+  const handleSelect = () => {
+    trackEvent('select_item', {
+      item_list_id: 'inventory',
+      item_list_name: 'Inventory',
+      items: [toItem(vehicle)],
+    });
+  };
 
   if (loading) {
     return (
@@ -57,6 +84,7 @@ export default function VehicleCard({ vehicle, loading = false, onToggleCompare,
         <h3 className="font-display text-lg sm:text-xl font-bold mt-1">
           <Link
             to={`/vehicle/${vehicle.ID}`}
+            onClick={handleSelect}
             className="hover:text-action transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-action rounded"
           >
             {vehicle.Brand} {vehicle.Model} {vehicle.Year}
@@ -72,8 +100,8 @@ export default function VehicleCard({ vehicle, loading = false, onToggleCompare,
           vehicle={vehicle}
           isComparing={isComparing}
           isFavorite={isFavorite}
-          onToggleCompare={onToggleCompare}
-          onToggleFavorite={onToggleFavorite}
+          onToggleCompare={handleCompare}
+          onToggleFavorite={handleFavorite}
         />
       </div>
     </motion.div>

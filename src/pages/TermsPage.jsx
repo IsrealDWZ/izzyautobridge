@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import LegalArticle, { LegalSection } from '../components/LegalArticle';
+import { trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 export default function TermsPage() {
@@ -119,6 +120,7 @@ export default function TermsPage() {
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noreferrer"
+            onClick={() => trackWhatsApp('terms_page')}
             className="font-medium underline decoration-accent-hover decoration-2 underline-offset-4 hover:text-action transition-colors"
           >
             WhatsApp

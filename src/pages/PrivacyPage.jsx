@@ -55,8 +55,9 @@ export default function PrivacyPage() {
         <p>
           <strong>This website does not use cookies.</strong> Google Analytics uses
           browser storage rather than advertising cookies, and it only activates if you
-          accept the analytics consent banner. If we ever add other cookie-based tools, we
-          will update this page and ask for your consent first.
+          accept the analytics consent banner. Vercel Analytics is cookieless and does not
+          store anything on your device. If we ever add other cookie-based tools, we will
+          update this page and ask for your consent first.
         </p>
       </LegalSection>
 
@@ -68,6 +69,13 @@ export default function PrivacyPage() {
         <ul className="list-disc pl-5 space-y-1.5">
           <li>
             <strong>Script loads on page visit.</strong> The Google Analytics script (gtag.js) downloads on every page view. With Consent Mode v2 defaults set to "denied", no analytics cookies are set and no event data is transmitted to Google until you click Accept. If you decline (or ignore the banner), the script still loads but measurement remains disabled — Google does not receive analytics data.
+          </li>
+          <li>
+            <strong>What we measure.</strong> Page views, the search terms you enter on the
+            inventory, filters you apply, vehicles you open, favourites and comparisons, EV
+            calculator inputs, and taps on WhatsApp buttons. This tells us which cars people
+            want and where the site gets in the way. It is not linked to your name, phone
+            number or WhatsApp message.
           </li>
           <li>
             <strong>Anonymised IP.</strong> We enable IP anonymisation so your address is
@@ -83,6 +91,16 @@ export default function PrivacyPage() {
             can also use Google's browser opt-out tools.
           </li>
         </ul>
+      </LegalSection>
+
+      <LegalSection title="Analytics (Vercel)" id="vercel-analytics">
+        <p>
+          Separately from Google Analytics, we use <strong>Vercel Web Analytics</strong> to
+          count page views. It is cookieless and does not use persistent identifiers,
+          fingerprinting or cross-site tracking, so it runs without a consent prompt. It
+          records the page path, the referring site, and coarse device and country
+          information — never your name, IP address in full, or anything you type.
+        </p>
       </LegalSection>
 
       <LegalSection title="Third-party services the site touches" id="third-party">
@@ -102,6 +120,11 @@ export default function PrivacyPage() {
           <li>
             <strong>Google Analytics.</strong> Runs only if you accept the consent banner.
             Measures aggregate page usage; no advertising profile is built.
+          </li>
+          <li>
+            <strong>Vercel Web Analytics.</strong> Cookieless page-view counting, served
+            from the same Vercel infrastructure that hosts the site. No personal data and
+            no cross-site tracking.
           </li>
           <li>
             <strong>Google site verification.</strong> A single verification tag proves to

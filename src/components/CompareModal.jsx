@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, MessageCircle } from 'lucide-react';
 
 import { useAppStore } from '../store/useAppStore';
+import { trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMBER }) {
@@ -71,6 +72,7 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
                   `Hi, I'm interested in ${v.Brand} ${v.Model} ${v.Year}`
                 )}`}
                 target="_blank" rel="noreferrer"
+                onClick={() => trackWhatsApp('compare_modal', v)}
                 className="text-center bg-action text-onaction text-sm font-bold py-3 rounded-lg min-h-[44px] flex items-center justify-center gap-1.5 hover:opacity-85 transition"
               >
                 <MessageCircle size={15} /> {v.ID}

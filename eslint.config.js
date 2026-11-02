@@ -17,6 +17,7 @@ export default [
     settings: {
       react: { version: '18.3' },
       'import/resolver': {
+        typescript: { project: './tsconfig.json' },
         node: {
           extensions: ['.js', '.jsx'],
         },

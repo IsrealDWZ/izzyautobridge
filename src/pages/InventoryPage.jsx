@@ -1,5 +1,5 @@
 import { Car } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import BrandMarquee from '../components/BrandMarquee';
@@ -11,6 +11,7 @@ import ProcessSection from '../components/ProcessSection';
 import VehicleGrid from '../components/VehicleGrid';
 import vehicles from '../data/vehicles.json';
 import { useAppStore } from '../store/useAppStore';
+import { trackEvent } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 import { filterVehicles } from '../utils/filterVehicles';
 
@@ -30,6 +31,40 @@ export default function InventoryPage() {
     () => filterVehicles(vehicles, filters, searchQuery),
     [filters, searchQuery]
   );
+
+  // Filter changes are tracked here rather than inside each control, so the
+  // sidebar, the category chips and "Reset all" all report the same way.
+  const previousFilters = useRef(filters);
+
+  useEffect(() => {
+    const previous = previousFilters.current;
+    const changed = Object.keys(filters).filter(
+      (key) => JSON.stringify(filters[key]) !== JSON.stringify(previous[key])
+    );
+    previousFilters.current = filters;
+    if (changed.length === 0) return undefined;
+
+    // FilterSidebar syncs its computed price/year bounds into the store on
+    // mount. That is not a user action, so don't report it as one.
+    const isInitialBoundsSync =
+      changed.every((key) => key === 'priceRange' || key === 'yearRange') &&
+      previous.priceRange[0] === 0 &&
+      previous.priceRange[1] === 10000000 &&
+      previous.yearRange[0] === 1900 &&
+      previous.yearRange[1] === 2030;
+    if (isInitialBoundsSync) return undefined;
+
+    // Debounced: price/year sliders fire on every pixel of drag.
+    const timer = setTimeout(() => {
+      trackEvent('filter_apply', {
+        filter_type: changed.length === 1 ? changed[0] : 'multiple',
+        filter_value:
+          changed.length === 1 ? String(filters[changed[0]]) : changed.join(','),
+        results: matchingVehicles.length,
+      });
+    }, 700);
+    return () => clearTimeout(timer);
+  }, [filters, matchingVehicles.length]);
 
   const isHome = pathname === '/';
 
@@ -81,7 +116,13 @@ export default function InventoryPage() {
       </header>
 
       <div className="mb-6">
-        <InventorySearch value={searchQuery} onChange={setSearchQuery} />
+        <InventorySearch
+          value={searchQuery}
+          onChange={setSearchQuery}
+          onSearch={(term) =>
+            trackEvent('search', { search_term: term, results: matchingVehicles.length })
+          }
+        />
       </div>
 
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">

@@ -90,6 +90,15 @@ npm run build:sitemap  # Generate sitemap.xml
 - **Fallback**: 12.0 + 3% margin = 12.36 (only when both live fetch and cache fail)
 - **Inlined** at build via `import rateData from '../data/exchange-rate.json'`
 
+### Analytics
+
+- **GA4** `G-REGLS30J5B`, loaded in `index.html` with Consent Mode v2 defaulting to denied; `ConsentBanner` updates consent.
+- **Vercel Web Analytics** via `@vercel/analytics` (`<Analytics />` in `App.jsx`) — cookieless, so visitors who decline GA4 still count. It must be enabled in the Vercel project's Analytics tab, otherwise the script 404s silently.
+- **Helpers** live in `src/utils/analytics.js`: `trackEvent`, `trackPageView`, `trackWhatsApp`, `toItem`. Every helper no-ops when `window.gtag` is absent, so callers never guard.
+- **Events**: `page_view` (explicit on SPA navigation), `search`, `filter_apply`, `view_item`, `select_item`, `add_to_wishlist` / `remove_from_wishlist`, `compare_add` / `compare_remove`, `whatsapp_click`, `generate_lead`, `ev_calculator_use`.
+- **Key events** are configured in the GA4 admin UI (Admin → Events), not in code: mark `whatsapp_click` and `generate_lead`.
+- **Rule**: track through the helper, never call `window.gtag` directly from a component.
+
 ## Key Files
 
 | File | Purpose |

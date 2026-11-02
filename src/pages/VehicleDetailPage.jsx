@@ -6,6 +6,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { VehicleImage, VehiclePrice, VehicleActions, VehicleSpecs } from '../components/vehicle';
 import vehicles from '../data/vehicles.json';
 import { useAppStore } from '../store/useAppStore';
+import { toItem, trackEvent, trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 function specRows(v) {
@@ -36,7 +37,34 @@ export default function VehicleDetailPage() {
     }
   }, [vehicle]);
 
+  useEffect(() => {
+    if (!vehicle) return;
+    trackEvent('view_item', {
+      currency: 'GHS',
+      value: vehicle.Price_GHS,
+      items: [toItem(vehicle)],
+    });
+  }, [vehicle]);
+
   if (!vehicle) return <Navigate to="/" replace />;
+
+  const handleFavorite = () => {
+    trackEvent(isFavorite ? 'remove_from_wishlist' : 'add_to_wishlist', {
+      currency: 'GHS',
+      value: vehicle.Price_GHS,
+      items: [toItem(vehicle)],
+    });
+    toggleFavorite(vehicle.ID);
+  };
+
+  const handleCompare = () => {
+    trackEvent(isComparing ? 'compare_remove' : 'compare_add', {
+      currency: 'GHS',
+      value: vehicle.Price_GHS,
+      items: [toItem(vehicle)],
+    });
+    toggleCompare(vehicle.ID);
+  };
 
   const title = `${vehicle.Brand} ${vehicle.Model} ${vehicle.Year}`;
   const waText = encodeURIComponent(`Hi, I'm interested in ${title} (${vehicle.ID})`);
@@ -76,8 +104,8 @@ export default function VehicleDetailPage() {
             vehicle={vehicle}
             isComparing={isComparing}
             isFavorite={isFavorite}
-            onToggleCompare={toggleCompare}
-            onToggleFavorite={toggleFavorite}
+            onToggleCompare={handleCompare}
+            onToggleFavorite={handleFavorite}
           />
 
           <div className="mt-6 grid sm:grid-cols-2 gap-3">
@@ -121,6 +149,7 @@ export default function VehicleDetailPage() {
           href={`https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackWhatsApp('vehicle_detail', vehicle)}
           className="mt-5 inline-flex items-center gap-2 bg-action text-onaction text-sm font-bold px-6 py-3 rounded-lg hover:opacity-85 transition min-h-[44px]"
         >
           Enquire on WhatsApp

@@ -3,6 +3,7 @@ import { Heart, X, Trash2, MessageCircle } from 'lucide-react';
 import { useState, useRef } from 'react';
 
 import { useAppStore } from '../store/useAppStore';
+import { trackWhatsApp } from '../utils/analytics';
 
 export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
   const [open, setOpen] = useState(false);
@@ -73,6 +74,7 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
               <div className="p-5 border-t border-subtle space-y-2">
                 <a
                   href={sendAllLink} target="_blank" rel="noreferrer"
+                  onClick={() => trackWhatsApp('favorites_drawer', null, { items_count: favVehicles.length })}
                   className="block text-center bg-action text-onaction text-sm font-bold py-2.5 rounded-lg hover:opacity-85 transition flex items-center justify-center gap-1.5"
                 >
                   <MessageCircle size={15} /> Send list on WhatsApp

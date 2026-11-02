@@ -1,6 +1,7 @@
+import { Analytics } from '@vercel/analytics/react';
 import { motion } from 'framer-motion';
 import { Ship, Moon, Sun } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
 import BrandMark from './components/BrandMark';
@@ -20,6 +21,7 @@ import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import VehicleDetailPage from './pages/VehicleDetailPage';
 import { useAppStore } from './store/useAppStore';
+import { trackPageView } from './utils/analytics';
 import { APP_CONFIG, WHATSAPP_NUMBER } from './utils/constants';
 
 const shipItems = Array.from({ length: 6 }, (_, i) => (
@@ -56,6 +58,19 @@ function ScrollManager() {
 export default function App() {
   const { theme, toggleTheme } = useAppStore();
   const { pathname } = useLocation();
+  const isFirstRender = useRef(true);
+
+  // gtag's config call already records the landing page_view. Every later SPA
+  // navigation needs its own hit, otherwise GA4 only ever sees the entry page.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return undefined;
+    }
+    // Defer a tick so the destination page has set document.title.
+    const timer = setTimeout(() => trackPageView(pathname, document.title), 0);
+    return () => clearTimeout(timer);
+  }, [pathname]);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -145,6 +160,9 @@ export default function App() {
         <FavoritesDrawer vehicles={vehicles} whatsappNumber={WHATSAPP_NUMBER} />
         <FloatingWhatsApp whatsappNumber={WHATSAPP_NUMBER} />
         <ConsentBanner />
+        {/* Cookieless page views + referrers, so traffic still counts when the
+            visitor declines GA4 consent. Needs Analytics enabled in Vercel. */}
+        <Analytics />
       </div>
     </div>
   );

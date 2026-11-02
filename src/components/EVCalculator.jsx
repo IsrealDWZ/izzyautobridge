@@ -11,12 +11,15 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+import { trackEvent } from '../utils/analytics';
+
 export default function EVCalculator() {
   const [dailyKm, setDailyKm] = useState(50);
   const [petrolPrice, setPetrolPrice] = useState(14.5);
   const [petrolConsumption, setPetrolConsumption] = useState(8.5);
   const [electricityRate, setElectricityRate] = useState(1.2);
   const [evConsumption, setEvConsumption] = useState(16);
+  const [touched, setTouched] = useState(false);
 
   const petrolDaily = (dailyKm / 100) * petrolConsumption * petrolPrice;
   const evDaily = (dailyKm / 100) * evConsumption * electricityRate;
@@ -33,6 +36,31 @@ export default function EVCalculator() {
   const monthlyDisplay = useTransform(monthlySpring, (v) =>
     Math.round(v).toLocaleString()
   );
+
+  // Only report once someone actually moves a slider, and only after the drag
+  // settles — otherwise every pixel would be an event.
+  useEffect(() => {
+    if (!touched) return undefined;
+    const timer = setTimeout(() => {
+      trackEvent('ev_calculator_use', {
+        daily_km: dailyKm,
+        petrol_price: petrolPrice,
+        petrol_consumption: petrolConsumption,
+        electricity_rate: electricityRate,
+        ev_consumption: evConsumption,
+        monthly_savings: Math.round(monthlySave),
+        yearly_savings: Math.round(yearlySave),
+        save_percent: Number(savePercent),
+        currency: 'GHS',
+      });
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, [touched, dailyKm, petrolPrice, petrolConsumption, electricityRate, evConsumption, monthlySave, yearlySave, savePercent]);
+
+  const update = (setter) => (value) => {
+    setTouched(true);
+    setter(value);
+  };
 
   return (
     <section id="calculator" className="py-16 scroll-mt-32">
@@ -67,35 +95,35 @@ export default function EVCalculator() {
               <SliderInput
                 label="Daily Distance (km)"
                 value={dailyKm}
-                onChange={setDailyKm}
+                onChange={update(setDailyKm)}
                 min={10} max={200} step={5}
                 icon={Route}
               />
               <SliderInput
                 label="Petrol Price (GHS/L)"
                 value={petrolPrice}
-                onChange={setPetrolPrice}
+                onChange={update(setPetrolPrice)}
                 min={10} max={20} step={0.25}
                 icon={Fuel}
               />
               <SliderInput
                 label="Petrol Consumption (L/100km)"
                 value={petrolConsumption}
-                onChange={setPetrolConsumption}
+                onChange={update(setPetrolConsumption)}
                 min={4} max={15} step={0.5}
                 icon={Gauge}
               />
               <SliderInput
                 label="Electricity Rate (GHS/kWh)"
                 value={electricityRate}
-                onChange={setElectricityRate}
+                onChange={update(setElectricityRate)}
                 min={0.5} max={3} step={0.1}
                 icon={Zap}
               />
               <SliderInput
                 label="EV Consumption (kWh/100km)"
                 value={evConsumption}
-                onChange={setEvConsumption}
+                onChange={update(setEvConsumption)}
                 min={10} max={25} step={0.5}
                 icon={BatteryCharging}
               />

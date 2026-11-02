@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
 
+import { trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 export default function FloatingWhatsApp({ _whatsappNumber = WHATSAPP_NUMBER }) {
@@ -9,6 +10,7 @@ export default function FloatingWhatsApp({ _whatsappNumber = WHATSAPP_NUMBER }) 
       href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20IzzyAutoBridge%2C%20I%27d%20like%20to%20inquire%20about%20your%20vehicles.`}
       target="_blank"
       rel="noreferrer"
+      onClick={() => trackWhatsApp('floating_button')}
       className="fixed bottom-6 right-6 z-40 bg-action text-onaction rounded-full w-14 h-14 flex items-center justify-center shadow-xl min-h-[44px] min-w-[44px] hover:opacity-85 transition"
       animate={{ scale: [1, 1.05, 1] }}
       transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}

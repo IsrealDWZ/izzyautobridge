@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Shield, Zap, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import { trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 import BrandMark from './BrandMark';
@@ -54,6 +55,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={social.label}
+                  onClick={() => trackWhatsApp('footer', null, { placement: 'social_icon' })}
                   className="w-10 h-10 bg-primary border border-subtle rounded-full flex items-center justify-center text-onsecondary hover:bg-accent-hover hover:text-white hover:border-accent-hover transition-all"
                 >
                   <social.icon size={18} />
@@ -80,6 +82,11 @@ export default function Footer() {
                         href={link.href}
                         target={link.href.startsWith('http') ? '_blank' : undefined}
                         rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                        onClick={
+                          link.href.includes('wa.me')
+                            ? () => trackWhatsApp('footer', null, { placement: 'support_link' })
+                            : undefined
+                        }
                         className="text-onsecondary-muted hover:text-onsecondary hover:underline hover:decoration-accent-hover hover:decoration-2 underline-offset-4 transition-colors text-sm"
                       >
                         {link.label}

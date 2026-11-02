@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Sparkles, CheckCircle, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 
+import { trackEvent, trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 import { sanitizeFormInput, sanitizeWhatsAppMessage } from '../utils/validation';
 
@@ -56,6 +57,15 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
     e.preventDefault();
     if (validateStep()) {
       setSubmitted(true);
+      trackEvent('generate_lead', {
+        method: 'concierge_form',
+        currency: 'GHS',
+        value: formData.budget,
+        brand: formData.brand,
+        body_type: formData.body,
+        fuel_type: formData.fuel,
+      });
+      trackWhatsApp('concierge_form', null, { method: 'concierge_form' });
       // Zeigarnik Effect: Complete the loop by sending the request
       const msg = sanitizeWhatsAppMessage(
         `Vehicle Request: ${formData.brand} ${formData.model} ${formData.year} | Fuel: ${formData.fuel} | Body: ${formData.body} | Budget: GH₵${formData.budget.toLocaleString()} | Notes: ${formData.notes}`

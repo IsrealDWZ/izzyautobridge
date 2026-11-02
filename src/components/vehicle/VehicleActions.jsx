@@ -1,5 +1,6 @@
 import { Heart, Check, Scale, MessageCircle } from 'lucide-react';
 
+import { trackWhatsApp } from '../../utils/analytics';
 import { WHATSAPP_NUMBER } from '../../utils/constants';
 
 export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompare, onToggleFavorite }) {
@@ -32,6 +33,7 @@ export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompa
         )}`}
         target="_blank"
         rel="noreferrer"
+        onClick={() => trackWhatsApp('vehicle_card', vehicle)}
         className="flex-1 text-center bg-action text-onaction text-sm font-bold py-2.5 rounded-lg hover:opacity-85 transition min-h-[44px] flex items-center justify-center gap-1.5"
       >
         <MessageCircle size={15} /> WhatsApp
