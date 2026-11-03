@@ -63,7 +63,7 @@ const STATIC_ROUTES = [
     out: 'privacy/index.html',
     title: 'Privacy Policy — IzzyAutoBridge Ghana',
     description:
-      "How IzzyAutoBridge Ghana handles your data. We don't use cookies or tracking — see what little the site stores and your rights under Ghana's Data Protection Act, 2012.",
+      "How IzzyAutoBridge Ghana handles your data: local-only storage, analytics cookies only after you consent, and your rights under Ghana's Data Protection Act, 2012.",
     canonical: `${BASE}/privacy`,
   },
   {
