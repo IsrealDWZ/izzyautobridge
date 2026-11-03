@@ -53,11 +53,16 @@ export default function PrivacyPage() {
 
       <LegalSection title="Cookies" id="cookies">
         <p>
-          <strong>This website does not use cookies.</strong> Google Analytics uses
-          browser storage rather than advertising cookies, and it only activates if you
-          accept the analytics consent banner. Vercel Analytics is cookieless and does not
-          store anything on your device. If we ever add other cookie-based tools, we will
-          update this page and ask for your consent first.
+          <strong>
+            We use analytics cookies only after you accept the consent banner.
+          </strong>{' '}
+          Before you consent, this site sets no cookies. If you accept, Google Analytics 4
+          stores its standard first-party cookies (<code>_ga</code> and{' '}
+          <code>_ga_&lt;container-id&gt;</code>) to tell repeat visits apart; they expire
+          after up to two years. Declining the banner, or clearing this site&apos;s
+          storage, removes them. Vercel Analytics is cookieless and does not store
+          anything on your device. If we ever add other cookie-based tools, we will update
+          this page and ask for your consent first.
         </p>
       </LegalSection>
 

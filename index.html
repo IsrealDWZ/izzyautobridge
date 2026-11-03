@@ -37,7 +37,9 @@
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="preconnect" href="https://www.googletagmanager.com" />
 
-  <!-- Google Analytics (GA4) — loads only after consent. Consent Mode v2 defaults everything to denied. -->
+  <!-- Google Analytics (GA4) — the script loads on every page view, but Consent Mode v2
+       defaults all storage to denied, so no cookies are set and no data is sent until
+       the visitor accepts the banner. -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-REGLS30J5B"></script>
   <script type="module" src="/src/gtag-init.js"></script>
 
