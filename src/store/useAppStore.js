@@ -1,6 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+export function mergePersistedState(persisted, current) {
+  return {
+    ...current,
+    ...(persisted || {}),
+    filters: { ...current.filters, ...(persisted?.filters || {}) },
+  };
+}
+
 export const useAppStore = create(
   persist(
     (set) => ({
@@ -60,6 +68,10 @@ export const useAppStore = create(
         compareSelection: state.compareSelection,
         theme: state.theme,
       }),
+      // Older builds persisted `filters`. A shallow merge would replace the
+      // whole object with a partial one and crash filterVehicles on
+      // `filters.brands.length`, so merge key-by-key over the defaults.
+      merge: mergePersistedState,
     }
   )
 );

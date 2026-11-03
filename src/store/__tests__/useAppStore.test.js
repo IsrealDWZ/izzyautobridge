@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-import { useAppStore } from '../useAppStore';
+import { mergePersistedState, useAppStore } from '../useAppStore';
 
 describe('useAppStore', () => {
   beforeEach(() => {
@@ -139,5 +139,30 @@ describe('useAppStore', () => {
       useAppStore.getState().clearFavorites();
       expect(useAppStore.getState().favorites).toEqual([]);
     });
+  });
+});
+
+describe('mergePersistedState', () => {
+  it('keeps missing filter keys from the defaults (stale persisted schema)', () => {
+    const current = {
+      filters: {
+        brands: [],
+        fuel: [],
+        body: [],
+        status: [],
+        category: [],
+        priceRange: [0, 10000000],
+        yearRange: [1900, 2030],
+      },
+      theme: 'light',
+      favorites: [],
+      compareSelection: [],
+    };
+
+    const merged = mergePersistedState({ filters: { brands: ['Toyota'] } }, current);
+
+    expect(merged.filters.brands).toEqual(['Toyota']);
+    expect(merged.filters.category).toEqual([]);
+    expect(merged.filters.priceRange).toEqual([0, 10000000]);
   });
 });
