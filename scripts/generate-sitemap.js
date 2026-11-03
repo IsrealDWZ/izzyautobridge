@@ -18,6 +18,15 @@ const STATIC_ROUTES = [
   { path: '/terms', changefreq: 'yearly', priority: '0.2' },
 ];
 
+function escapeXml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 function generateSitemap() {
   const baseUrl = 'https://izzyautobridge.vercel.app';
   const today = new Date().toISOString().split('T')[0];
@@ -44,7 +53,7 @@ function generateSitemap() {
 ${entries
   .map(
     (u) => `  <url>
-    <loc>${u.url}</loc>
+    <loc>${escapeXml(u.url)}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>

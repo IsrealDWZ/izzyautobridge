@@ -12,8 +12,9 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
 
   const fields = [
     ['Brand', 'Brand'], ['Model', 'Model'], ['Year', 'Year'], ['Variant', 'Variant'],
-    ['Fuel', 'Fuel_Type'], ['Body', 'Body_Type'], ['Mileage', (v) => `${v.Mileage_km.toLocaleString()} km`],
-    ['Price', (v) => `GH₵${v.Price_GHS.toLocaleString()}`],
+    ['Fuel', 'Fuel_Type'], ['Body', 'Body_Type'],
+    ['Mileage', (v) => (v.Mileage_km == null ? '—' : `${v.Mileage_km.toLocaleString()} km`)],
+    ['Price', (v) => `GH₵${Number(v.Price_GHS || 0).toLocaleString()}`],
   ];
 
   if (!isOpen || rows.length < 2) return null;
@@ -27,9 +28,6 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         className="fixed inset-0 bg-black/55 z-50 flex items-center justify-center p-4"
         onClick={clearCompare}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Compare vehicles"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}

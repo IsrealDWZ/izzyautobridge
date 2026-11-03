@@ -13,9 +13,9 @@ Cars are the priority on entry: the site root **is** the inventory.
 
 | Path | Page | Notes |
 |------|------|-------|
-| `/` | `InventoryPage` | Home. Search, filters and the car grid come first. |
+| `/` | `InventoryPage` | Home. Search, filters and the car grid come first; process + EV calculator sit below the grid. |
 | `/inventory` | `InventoryPage` | Legacy alias of `/`; canonical points at `/`. Keep it working. |
-| `/about` | `AboutPage` | Marketing page: hero, stats, trust, process, EV calculator, request form. |
+| `/about` | `AboutPage` | Marketing page: hero, stats, trust, process, request form. |
 | `/vehicle/:slug` | `VehicleDetailPage` | |
 | `/compare` | `ComparePage` | |
 | `/privacy`, `/terms` | | |
@@ -107,8 +107,8 @@ npm run build:sitemap  # Generate sitemap.xml
 | `src/main.jsx` | Entry point, ErrorBoundary |
 | `src/store/useAppStore.js` | Zustand store (theme, filters, compare, favorites) |
 | `src/components/VehicleCard.jsx` | Main vehicle display (composed) |
-| `src/components/VehicleGrid.jsx` | Virtualized grid (react-window) |
-| `src/components/FilterSidebar.jsx` | Filters with AutoSizer |
+| `src/components/VehicleGrid.jsx` | Vehicle grid with category chips and filtered cards |
+| `src/components/FilterSidebar.jsx` | Filters: brand/fuel/body/status + price/year ranges |
 | `src/components/VehicleCard.jsx` | Main card (composed) |
 | `src/components/vehicle/*.jsx` | Sub-components |
 | `src/utils/validation.js` | All validators |
@@ -128,7 +128,7 @@ npm run build:sitemap  # Generate sitemap.xml
 | `npm run dev` | Dev server (port 5173) |
 | `npm run build` | Production build |
 | `npm run preview` | Preview dist/ |
-| `npm test` | Run tests (47 passing) |
+| `npm test` | Run tests (81 passing) |
 | `npm run lint` | ESLint (0 errors, 0 warnings) |
 | `npm run lint:fix` | Auto-fix |
 | `npm run format` | Prettier format |
@@ -152,7 +152,7 @@ Types: `fix`, `feat`, `chore`, `refactor`, `docs`, `test`, `style`, `perf`
 
 ### Pre-push Checklist
 - [ ] `npm run lint` passes (0 errors, 0 warnings)
-- [ ] `npm test` passes (47/47)
+- [ ] `npm test` passes (81/81)
 - [ ] `npm run build` succeeds
 - [ ] No console.log in production code
 

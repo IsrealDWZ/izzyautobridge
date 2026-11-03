@@ -38,8 +38,18 @@ export default function FilterSidebar({ vehicles = [] }) {
   const yearMax = useMemo(() => Math.max(...vehicles.map(v => v.Year)), [vehicles]);
 
   useEffect(() => {
-    setFilters({ priceRange: [priceMin, priceMax], yearRange: [yearMin, yearMax] });
-  }, [priceMin, priceMax, yearMin, yearMax, setFilters]);
+    // Only clamp ranges that fall outside the available stock. Replacing them
+    // unconditionally on every mount silently discarded a price/year filter
+    // whenever the visitor navigated back from a vehicle page.
+    const patch = {};
+    if (filters.priceRange[0] < priceMin || filters.priceRange[1] > priceMax) {
+      patch.priceRange = [priceMin, priceMax];
+    }
+    if (filters.yearRange[0] < yearMin || filters.yearRange[1] > yearMax) {
+      patch.yearRange = [yearMin, yearMax];
+    }
+    if (Object.keys(patch).length > 0) setFilters(patch);
+  }, [priceMin, priceMax, yearMin, yearMax, filters.priceRange, filters.yearRange, setFilters]);
 
   const activeCount = [
     filters.brands.length,
@@ -99,6 +109,7 @@ export default function FilterSidebar({ vehicles = [] }) {
               value={filters.yearRange}
               onChange={handleYearChange}
               label="Year"
+              format={(v) => String(v)}
             />
           </div>
         </div>
@@ -165,7 +176,8 @@ export default function FilterSidebar({ vehicles = [] }) {
                     min={yearMin} max={yearMax}
                     value={filters.yearRange}
                     onChange={handleYearChange}
-              label="Year"
+                    label="Year"
+                    format={(v) => String(v)}
                   />
                 </div>
 
@@ -206,13 +218,13 @@ function FilterGroup({ label, items, selected, onChange }) {
   );
 }
 
-function PriceRangeSlider({ min, max, value, onChange, label }) {
+function PriceRangeSlider({ min, max, value, onChange, label, format = (v) => `GH₵${v.toLocaleString()}` }) {
   const [low, high] = value;
   return (
     <div className="space-y-2">
       <div className="flex justify-between text-xs text-muted">
-        <span>GH₵{low.toLocaleString()}</span>
-        <span>GH₵{high.toLocaleString()}</span>
+        <span>{format(low)}</span>
+        <span>{format(high)}</span>
       </div>
       <input
         type="range"

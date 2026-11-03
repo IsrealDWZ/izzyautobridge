@@ -53,36 +53,39 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
     }
   };
 
+  // Built at render so the confirmation modal reuses the exact link that was
+  // opened. Previously this lived inside handleSubmit, which made the modal
+  // throw `ReferenceError: waLink is not defined` on submit.
+  const waLink = (() => {
+    const msg = sanitizeWhatsAppMessage(
+      `Vehicle Request: ${formData.brand} ${formData.model} ${formData.year} | Fuel: ${formData.fuel} | Body: ${formData.body} | Budget: GH₵${Number(formData.budget || 0).toLocaleString()} | Notes: ${formData.notes}`
+    );
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  })();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateStep()) {
-      setSubmitted(true);
-      trackEvent('generate_lead', {
-        method: 'concierge_form',
-        currency: 'GHS',
-        value: formData.budget,
-        brand: formData.brand,
-        body_type: formData.body,
-        fuel_type: formData.fuel,
-      });
-      trackWhatsApp('concierge_form', null, { method: 'concierge_form' });
-      // Zeigarnik Effect: Complete the loop by sending the request
-      const msg = sanitizeWhatsAppMessage(
-        `Vehicle Request: ${formData.brand} ${formData.model} ${formData.year} | Fuel: ${formData.fuel} | Body: ${formData.body} | Budget: GH₵${formData.budget.toLocaleString()} | Notes: ${formData.notes}`
-      );
-      const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-      window.open(waLink, '_blank');
-      setStep(3);
-      setProgress(1);
-    }
-  };
+    if (!validateStep()) return;
 
-  // Auto-advance steps when essentials are filled (Fogg Behavior: reduce ability friction)
-  const autoAdvance = () => {
-    if (step === 1 && formData.brand.trim() && formData.budget >= 50000 && formData.budget <= 2000000) {
-      setStep(2);
-      setProgress(2 / 3);
+    // Steps 1 and 2 only advance. The WhatsApp handoff happens on step 3.
+    if (step < 3) {
+      const next = step + 1;
+      setStep(next);
+      setProgress(next / 3);
+      return;
     }
+
+    setSubmitted(true);
+    trackEvent('generate_lead', {
+      method: 'concierge_form',
+      currency: 'GHS',
+      value: formData.budget,
+      brand: formData.brand,
+      body_type: formData.body,
+      fuel_type: formData.fuel,
+    });
+    trackWhatsApp('concierge_form', null, { method: 'concierge_form' });
+    window.open(waLink, '_blank', 'noopener,noreferrer');
   };
 
   if (submitted) {
@@ -189,7 +192,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                       type="text"
                       placeholder="e.g., BYD, Toyota, Mercedes"
                       value={formData.brand}
-                      onChange={(e) => { handleChange('brand', e.target.value); autoAdvance(); }}
+                      onChange={(e) => handleChange('brand', e.target.value)}
                       className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.brand ? 'border-alert' : ''}`}
                       aria-invalid={errors.brand ? 'true' : 'false'}
                       aria-describedby={errors.brand ? 'brand-error' : undefined}
@@ -205,10 +208,9 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                       max={2000000}
                       step={50000}
                       value={formData.budget}
-                      onChange={(e) => { 
-                        const value = parseInt(e.target.value); 
-                        handleChange('budget', isNaN(value) ? 0 : value); 
-                        autoAdvance(); 
+                      onChange={(e) => {
+                        const value = parseInt(e.target.value);
+                        handleChange('budget', isNaN(value) ? 0 : value);
                       }}
                       className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.budget ? 'border-alert' : ''}`}
                       aria-invalid={errors.budget ? 'true' : 'false'}

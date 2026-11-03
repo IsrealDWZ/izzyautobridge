@@ -217,6 +217,15 @@ export default function EVCalculator() {
 
 function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
   const inputId = `ev-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+  // Keep the raw text locally so an empty field doesn't push NaN into the
+  // shared state (which rendered "GH₵NaN/day"). Only finite parses are
+  // committed upward; blurring an empty field restores the last valid value.
+  const [draft, setDraft] = useState(String(value));
+
+  useEffect(() => {
+    if (Number.parseFloat(draft) !== value) setDraft(String(value));
+  }, [value, draft]);
+
   return (
     <div>
       <div className="flex items-center justify-between gap-3 mb-2">
@@ -230,8 +239,16 @@ function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
           min={min}
           max={max}
           step={step}
-          value={value}
-          onChange={(e) => onChange(parseFloat(e.target.value))}
+          value={draft}
+          onChange={(e) => {
+            const raw = e.target.value;
+            setDraft(raw);
+            const parsed = Number.parseFloat(raw);
+            if (Number.isFinite(parsed)) onChange(parsed);
+          }}
+          onBlur={() => {
+            if (!Number.isFinite(Number.parseFloat(draft))) setDraft(String(value));
+          }}
           className="w-24 px-2 py-1.5 text-right text-sm font-semibold bg-primary border border-subtle rounded-lg focus:outline-none focus:ring-2 focus:ring-action/60 text-main"
         />
       </div>

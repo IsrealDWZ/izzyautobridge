@@ -6,32 +6,35 @@ export default async function handler(req, res) {
     return res.status(500).send('GitHub OAuth not configured. Set GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET in Vercel Environment Variables.');
   }
 
-  const { code, state } = req.query;
+  const { code } = req.query;
+  const callbackState = typeof req.query.state === 'string' ? req.query.state : '';
 
-  // Generate cryptographically secure state if not provided
-  const generatedState = state || generateSecureState();
-  
+  // The state is always generated server-side. Previously a caller-supplied
+  // `?state=` was written into the cookie, which let an attacker pin the value
+  // and replay a callback they had initiated (login CSRF).
+  const state = generateSecureState();
+
   // Store state in secure, httpOnly cookie for validation on callback
-  const stateCookie = `oauth_state=${generatedState}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`;
+  const stateCookie = `oauth_state=${state}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=600`;
   res.setHeader('Set-Cookie', stateCookie);
 
   // Step 1: If no code, redirect to GitHub OAuth
   if (!code) {
     const githubAuthUrl = new URL('https://github.com/login/oauth/authorize');
     const redirectUri = getRedirectUri(req);
-    
+
     githubAuthUrl.searchParams.set('client_id', client_id);
     githubAuthUrl.searchParams.set('redirect_uri', redirectUri);
     githubAuthUrl.searchParams.set('scope', 'read:user user:email'); // Reduced scope - no repo access
-    githubAuthUrl.searchParams.set('state', generatedState);
+    githubAuthUrl.searchParams.set('state', state);
     githubAuthUrl.searchParams.set('allow_signup', 'true');
-    
+
     return res.redirect(302, githubAuthUrl.toString());
   }
 
   // Step 2: Validate state parameter against cookie (CSRF protection)
   const cookieState = parseCookies(req.headers.cookie || '').oauth_state;
-  if (!cookieState || cookieState !== state) {
+  if (!cookieState || !callbackState || cookieState !== callbackState) {
     return res.status(400).send('Invalid OAuth state. Possible CSRF attack.');
   }
 
@@ -50,7 +53,7 @@ export default async function handler(req, res) {
         client_id,
         client_secret,
         code,
-        state,
+        state: callbackState,
       }),
     });
 
@@ -60,7 +63,9 @@ export default async function handler(req, res) {
       return res.status(400).send(tokenData.error_description || 'OAuth failed');
     }
 
-    // Return token to Decap CMS via postMessage with origin verification
+    // Return token to Decap CMS via postMessage with origin verification.
+    // Both values are JSON-encoded so a quote or </script> in either one
+    // cannot break out of the inline script.
     const origin = getOrigin(req);
     const html = `
       <!DOCTYPE html>
@@ -68,7 +73,7 @@ export default async function handler(req, res) {
         <body>
           <script>
             (function() {
-              const allowedOrigin = '${origin}';
+              const allowedOrigin = ${JSON.stringify(origin)};
               function receiveMessage(event) {
                 // Verify origin to prevent token theft via malicious iframe
                 if (event.origin !== allowedOrigin) {
@@ -78,7 +83,7 @@ export default async function handler(req, res) {
                 if (event.data === 'authorize') {
                   event.source.postMessage({
                     type: 'authorization:github:success',
-                    token: '${tokenData.access_token}',
+                    token: ${JSON.stringify(tokenData.access_token)},
                     provider: 'github'
                   }, allowedOrigin);
                   window.close();
@@ -95,6 +100,9 @@ export default async function handler(req, res) {
     // Set CSP header for this response
     res.setHeader('Content-Security-Policy', "default-src 'none'; script-src 'self' 'unsafe-inline'; frame-ancestors 'self';");
     res.setHeader('Content-Type', 'text/html');
+    // The response body contains a live access token: never store or cache it.
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
+    res.setHeader('Referrer-Policy', 'no-referrer');
     res.send(html);
   } catch (error) {
     console.error('GitHub OAuth error:', error);

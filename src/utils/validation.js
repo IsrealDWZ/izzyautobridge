@@ -10,12 +10,16 @@ export function sanitizeForUrl(input) {
     .replace(/on\w+\s*=/gi, ''); // Remove event handlers
 }
 
-// Sanitize string for safe display (prevent XSS in text content)
+// Sanitize string for safe display (escape for HTML text/attribute context)
 export function sanitizeForDisplay(input) {
   if (typeof input !== 'string') return '';
   return input
     .trim()
-    .replace(/[<>]/g, char => ({ '<': '<', '>': '>' }[char]));
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 // Validate and sanitize WhatsApp message text
@@ -79,11 +83,11 @@ export function sanitizeFormInput(input, options = {}) {
     // Remove HTML tags and potential XSS vectors
     sanitized = sanitized
       .replace(/<[^>]*>/g, '')
-      .replace(/[<>]/g, char => ({ '<': '<', '>': '>' }[char]))
-      .replace(/javascript:/gi, '')
-      .replace(/on\w+\s*=/gi, '')
-      .replace(/data:/gi, '')
-      .replace(/vbscript:/gi, '');
+      .replace(/[<>]/g, '')
+      // Only strip a scheme at the start of the string or after whitespace, so
+      // ordinary words like "metadata:" survive.
+      .replace(/(^|\s)(?:javascript|vbscript|data):/gi, '$1')
+      .replace(/on\w+\s*=/gi, '');
   }
   
   return sanitized;

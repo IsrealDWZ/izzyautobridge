@@ -30,8 +30,12 @@ describe('sanitizeForUrl', () => {
 
 describe('sanitizeForDisplay', () => {
   it('escapes HTML brackets', () => {
-    expect(sanitizeForDisplay('<div>')).toBe('<div>');
-    expect(sanitizeForDisplay('>alert<')).toBe('>alert<');
+    expect(sanitizeForDisplay('<div>')).toBe('&lt;div&gt;');
+    expect(sanitizeForDisplay('>alert<')).toBe('&gt;alert&lt;');
+  });
+
+  it('escapes ampersands and quotes', () => {
+    expect(sanitizeForDisplay('Tom & "Jerry"')).toBe('Tom &amp; &quot;Jerry&quot;');
   });
 });
 
@@ -108,6 +112,10 @@ describe('sanitizeFormInput', () => {
 
   it('removes javascript: protocol', () => {
     expect(sanitizeFormInput('javascript:alert(1)')).toBe('alert(1)');
+  });
+
+  it('keeps ordinary words that contain a scheme-like prefix', () => {
+    expect(sanitizeFormInput('metadata: silver, 2021')).toBe('metadata: silver, 2021');
   });
 
   it('truncates to maxLength', () => {

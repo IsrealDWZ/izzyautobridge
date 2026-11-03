@@ -6,10 +6,10 @@ import { fileURLToPath } from 'url';
 function escapeAttr(input) {
   if (typeof input !== 'string') return '';
   return input
-    .replace(/&/g, '&')
-    .replace(/</g, '<')
-    .replace(/>/g, '>')
-    .replace(/"/g, '"')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
 
@@ -17,10 +17,10 @@ function escapeAttr(input) {
 function escapeHtml(input) {
   if (typeof input !== 'string') return '';
   return input
-    .replace(/&/g, '&')
-    .replace(/</g, '<')
-    .replace(/>/g, '>')
-    .replace(/"/g, '"');
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 // Build-time prerender of route-specific <head> (option A).
@@ -106,7 +106,9 @@ function replaceOnce(html, pattern, replacement, label, file) {
     console.warn(`  ! ${file}: pattern not found for ${label} (skipped)`);
     return html;
   }
-  return html.replace(pattern, replacement);
+  // Function replacer: a `$` in the replacement must stay literal instead of
+  // being interpreted as a capture-group reference.
+  return html.replace(pattern, () => replacement);
 }
 
 function prerender() {
