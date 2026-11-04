@@ -128,7 +128,7 @@ npm run build:sitemap  # Generate sitemap.xml
 | `npm run dev` | Dev server (port 5173) |
 | `npm run build` | Production build |
 | `npm run preview` | Preview dist/ |
-| `npm test` | Run tests (81 passing) |
+| `npm test` | Run tests (82 passing) |
 | `npm run lint` | ESLint (0 errors, 0 warnings) |
 | `npm run lint:fix` | Auto-fix |
 | `npm run format` | Prettier format |
@@ -152,7 +152,7 @@ Types: `fix`, `feat`, `chore`, `refactor`, `docs`, `test`, `style`, `perf`
 
 ### Pre-push Checklist
 - [ ] `npm run lint` passes (0 errors, 0 warnings)
-- [ ] `npm test` passes (81/81)
+- [ ] `npm test` passes (82/82)
 - [ ] `npm run build` succeeds
 - [ ] No console.log in production code
 
