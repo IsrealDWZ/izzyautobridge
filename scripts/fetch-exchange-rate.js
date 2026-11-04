@@ -76,7 +76,7 @@ function saveRate(rate, marketRate) {
     source: 'exchangerate-api.com (open.er-api.com)',
     safetyMargin: SAFETY_MARGIN,
   };
-  fs.writeFileSync(CACHE_PATH, JSON.stringify(payload, null, 2));
+  fs.writeFileSync(CACHE_PATH, `${JSON.stringify(payload, null, 2)}\n`);
   console.log(`Saved rate to ${CACHE_PATH}`);
 }
 
