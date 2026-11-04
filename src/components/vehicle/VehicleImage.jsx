@@ -35,7 +35,7 @@ export function VehicleImage({ vehicle }) {
           width={400}
           height={300}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          onError={(e) => {
+          onError={e => {
             console.warn(`Image load failed: ${firstImage}`);
             e.target.style.display = 'none';
           }}

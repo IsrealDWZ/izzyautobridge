@@ -9,7 +9,12 @@ import { VehicleImage } from './vehicle/VehicleImage';
 import { VehiclePrice } from './vehicle/VehiclePrice';
 import { VehicleSpecs } from './vehicle/VehicleSpecs';
 
-export default function VehicleCard({ vehicle, loading = false, onToggleCompare, onToggleFavorite }) {
+export default function VehicleCard({
+  vehicle,
+  loading = false,
+  onToggleCompare,
+  onToggleFavorite,
+}) {
   const { compareSelection, favorites } = useAppStore();
   const isComparing = compareSelection.includes(vehicle.ID);
   const isFavorite = favorites.includes(vehicle.ID);

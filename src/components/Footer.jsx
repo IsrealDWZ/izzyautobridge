@@ -16,9 +16,7 @@ const footerLinks = {
     { label: 'Why Us', to: '/about#trust' },
     { label: 'Request a Vehicle', to: '/about#concierge' },
   ],
-  support: [
-    { label: 'Contact Us', href: `https://wa.me/${WHATSAPP_NUMBER}` },
-  ],
+  support: [{ label: 'Contact Us', href: `https://wa.me/${WHATSAPP_NUMBER}` }],
   legal: [
     { label: 'Privacy Policy', to: '/privacy' },
     { label: 'Terms of Service', to: '/terms' },
@@ -48,7 +46,7 @@ export default function Footer() {
               Direct China vehicle supply to Ghana. Transparent landed costs. 60-day delivery.
             </p>
             <div className="flex gap-4">
-              {socialLinks.map((social) => (
+              {socialLinks.map(social => (
                 <a
                   key={social.label}
                   href={social.href}
@@ -66,9 +64,11 @@ export default function Footer() {
 
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h3 className="font-semibold mb-4">{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
+              <h3 className="font-semibold mb-4">
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </h3>
               <ul className="space-y-2">
-                {links.map((link) => (
+                {links.map(link => (
                   <li key={link.label}>
                     {link.to ? (
                       <Link

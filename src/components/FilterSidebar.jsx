@@ -20,7 +20,7 @@ export default function FilterSidebar({ vehicles = [] }) {
   }, [mobileOpen, focused]);
 
   useEffect(() => {
-    const handler = (e) => {
+    const handler = e => {
       if (e.key === 'Escape') setMobileOpen(false);
     };
     document.addEventListener('keydown', handler);
@@ -61,16 +61,17 @@ export default function FilterSidebar({ vehicles = [] }) {
     filters.yearRange[0] !== yearMin || filters.yearRange[1] !== yearMax,
   ].filter(Boolean).length;
 
-  const handleReset = () => resetFilters({ priceRange: [priceMin, priceMax], yearRange: [yearMin, yearMax] });
+  const handleReset = () =>
+    resetFilters({ priceRange: [priceMin, priceMax], yearRange: [yearMin, yearMax] });
 
-  const handlePriceChange = (newRange) => {
+  const handlePriceChange = newRange => {
     const validated = validatePriceRange(newRange[0], newRange[1], priceMin, priceMax);
     if (validated) {
       setFilter('priceRange', [validated.low, validated.high]);
     }
   };
 
-  const handleYearChange = (newRange) => {
+  const handleYearChange = newRange => {
     const validated = validateYearRange(newRange[0], newRange[1], yearMin, yearMax);
     if (validated) {
       setFilter('yearRange', [validated.low, validated.high]);
@@ -84,18 +85,44 @@ export default function FilterSidebar({ vehicles = [] }) {
         <div className="sticky top-24 space-y-6">
           <div className="flex items-center justify-between">
             <h3 className="font-display font-bold">Filters</h3>
-            <button onClick={handleReset} className="text-xs text-muted hover:text-main hover:underline decoration-accent-hover decoration-2 underline-offset-4 min-h-[44px]">Reset all</button>
+            <button
+              onClick={handleReset}
+              className="text-xs text-muted hover:text-main hover:underline decoration-accent-hover decoration-2 underline-offset-4 min-h-[44px]"
+            >
+              Reset all
+            </button>
           </div>
 
-          <FilterGroup label="Brand" items={brands} selected={filters.brands} onChange={(v) => setFilter('brands', v)} />
-          <FilterGroup label="Fuel Type" items={fuelTypes} selected={filters.fuel} onChange={(v) => setFilter('fuel', v)} />
-          <FilterGroup label="Body Type" items={bodyTypes} selected={filters.body} onChange={(v) => setFilter('body', v)} />
-          <FilterGroup label="Status" items={statuses} selected={filters.status} onChange={(v) => setFilter('status', v)} />
+          <FilterGroup
+            label="Brand"
+            items={brands}
+            selected={filters.brands}
+            onChange={v => setFilter('brands', v)}
+          />
+          <FilterGroup
+            label="Fuel Type"
+            items={fuelTypes}
+            selected={filters.fuel}
+            onChange={v => setFilter('fuel', v)}
+          />
+          <FilterGroup
+            label="Body Type"
+            items={bodyTypes}
+            selected={filters.body}
+            onChange={v => setFilter('body', v)}
+          />
+          <FilterGroup
+            label="Status"
+            items={statuses}
+            selected={filters.status}
+            onChange={v => setFilter('status', v)}
+          />
 
           <div className="space-y-3">
             <label className="block text-sm font-medium text-main">Price Range (GHS)</label>
             <PriceRangeSlider
-              min={priceMin} max={priceMax}
+              min={priceMin}
+              max={priceMax}
               value={filters.priceRange}
               onChange={handlePriceChange}
               label="Price range"
@@ -105,11 +132,12 @@ export default function FilterSidebar({ vehicles = [] }) {
           <div className="space-y-3">
             <label className="block text-sm font-medium text-main">Year</label>
             <PriceRangeSlider
-              min={yearMin} max={yearMax}
+              min={yearMin}
+              max={yearMax}
               value={filters.yearRange}
               onChange={handleYearChange}
               label="Year"
-              format={(v) => String(v)}
+              format={v => String(v)}
             />
           </div>
         </div>
@@ -120,8 +148,11 @@ export default function FilterSidebar({ vehicles = [] }) {
         onClick={() => setMobileOpen(true)}
         className="lg:hidden fixed bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-40 bg-secondary text-onsecondary rounded-full px-5 py-3 text-sm font-semibold shadow-lg flex items-center gap-2 min-h-[44px]"
       >
-        <Filter size={16} /> Filters {activeCount > 0 && (
-          <span className="chip-badge text-xs font-bold px-1.5 py-0.5 rounded-full">{activeCount}</span>
+        <Filter size={16} /> Filters{' '}
+        {activeCount > 0 && (
+          <span className="chip-badge text-xs font-bold px-1.5 py-0.5 rounded-full">
+            {activeCount}
+          </span>
         )}
       </button>
 
@@ -130,12 +161,16 @@ export default function FilterSidebar({ vehicles = [] }) {
         {mobileOpen && (
           <>
             <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/50 z-40"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
-              initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }}
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
               transition={{ type: 'tween', duration: 0.3 }}
               role="dialog"
               aria-modal="true"
@@ -155,37 +190,67 @@ export default function FilterSidebar({ vehicles = [] }) {
               </div>
 
               <div className="flex-1 overflow-auto p-4 sm:p-5 space-y-6">
-                <FilterGroup label="Brand" items={brands} selected={filters.brands} onChange={(v) => setFilter('brands', v)} />
-                <FilterGroup label="Fuel Type" items={fuelTypes} selected={filters.fuel} onChange={(v) => setFilter('fuel', v)} />
-                <FilterGroup label="Body Type" items={bodyTypes} selected={filters.body} onChange={(v) => setFilter('body', v)} />
-                <FilterGroup label="Status" items={statuses} selected={filters.status} onChange={(v) => setFilter('status', v)} />
+                <FilterGroup
+                  label="Brand"
+                  items={brands}
+                  selected={filters.brands}
+                  onChange={v => setFilter('brands', v)}
+                />
+                <FilterGroup
+                  label="Fuel Type"
+                  items={fuelTypes}
+                  selected={filters.fuel}
+                  onChange={v => setFilter('fuel', v)}
+                />
+                <FilterGroup
+                  label="Body Type"
+                  items={bodyTypes}
+                  selected={filters.body}
+                  onChange={v => setFilter('body', v)}
+                />
+                <FilterGroup
+                  label="Status"
+                  items={statuses}
+                  selected={filters.status}
+                  onChange={v => setFilter('status', v)}
+                />
 
                 <div className="space-y-3">
                   <label className="block text-sm font-medium text-main">Price Range (GHS)</label>
                   <PriceRangeSlider
-                    min={priceMin} max={priceMax}
+                    min={priceMin}
+                    max={priceMax}
                     value={filters.priceRange}
                     onChange={handlePriceChange}
-              label="Price range"
+                    label="Price range"
                   />
                 </div>
 
                 <div className="space-y-3">
                   <label className="block text-sm font-medium text-main">Year</label>
                   <PriceRangeSlider
-                    min={yearMin} max={yearMax}
+                    min={yearMin}
+                    max={yearMax}
                     value={filters.yearRange}
                     onChange={handleYearChange}
                     label="Year"
-                    format={(v) => String(v)}
+                    format={v => String(v)}
                   />
                 </div>
 
-                <button onClick={handleReset} className="w-full text-center text-xs text-muted py-3 min-h-[44px] hover:text-main min-h-[44px]">Reset all filters</button>
+                <button
+                  onClick={handleReset}
+                  className="w-full text-center text-xs text-muted py-3 min-h-[44px] hover:text-main min-h-[44px]"
+                >
+                  Reset all filters
+                </button>
               </div>
 
               <div className="p-4 sm:p-5 border-t border-subtle">
-                <button onClick={() => setMobileOpen(false)} className="w-full bg-secondary text-onsecondary py-3 rounded-lg font-semibold min-h-[44px]">
+                <button
+                  onClick={() => setMobileOpen(false)}
+                  className="w-full bg-secondary text-onsecondary py-3 rounded-lg font-semibold min-h-[44px]"
+                >
                   Done
                 </button>
               </div>
@@ -202,12 +267,14 @@ function FilterGroup({ label, items, selected, onChange }) {
     <div className="space-y-2">
       <label className="block text-sm font-medium text-main">{label}</label>
       <div className="flex flex-wrap gap-2">
-        {items.map((item) => (
+        {items.map(item => (
           <label key={item} className="flex items-center gap-2 cursor-pointer min-h-[44px]">
             <input
               type="checkbox"
               checked={selected.includes(item)}
-              onChange={(e) => onChange(e.target.checked ? [...selected, item] : selected.filter(x => x !== item))}
+              onChange={e =>
+                onChange(e.target.checked ? [...selected, item] : selected.filter(x => x !== item))
+              }
               className="w-5 h-5 text-action border-subtle rounded accent-action focus:ring-action"
             />
             <span className="text-sm text-main">{item}</span>
@@ -218,7 +285,14 @@ function FilterGroup({ label, items, selected, onChange }) {
   );
 }
 
-function PriceRangeSlider({ min, max, value, onChange, label, format = (v) => `GH₵${v.toLocaleString()}` }) {
+function PriceRangeSlider({
+  min,
+  max,
+  value,
+  onChange,
+  label,
+  format = v => `GH₵${v.toLocaleString()}`,
+}) {
   const [low, high] = value;
   return (
     <div className="space-y-2">
@@ -232,7 +306,7 @@ function PriceRangeSlider({ min, max, value, onChange, label, format = (v) => `G
         min={min}
         max={max}
         value={low}
-        onChange={(e) => {
+        onChange={e => {
           const newLow = parseInt(e.target.value);
           if (newLow <= high) onChange([newLow, high]);
         }}
@@ -244,7 +318,7 @@ function PriceRangeSlider({ min, max, value, onChange, label, format = (v) => `G
         min={min}
         max={max}
         value={high}
-        onChange={(e) => {
+        onChange={e => {
           const newHigh = parseInt(e.target.value);
           if (newHigh >= low) onChange([low, newHigh]);
         }}

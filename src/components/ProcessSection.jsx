@@ -39,9 +39,7 @@ export default function ProcessSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="chip-soft mb-4">
-            How It Works
-          </div>
+          <div className="chip-soft mb-4">How It Works</div>
           <h2 className="font-display text-3xl md:text-4xl font-bold">
             Four steps from selection to your driveway — transparent, tracked, supported
           </h2>

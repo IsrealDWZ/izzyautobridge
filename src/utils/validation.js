@@ -40,25 +40,25 @@ export function validateImageUrl(url) {
     if (url.includes('..')) return null; // reject path traversal
     return /\.(webp|jpg|jpeg|png|svg|avif)$/i.test(url) ? url : null;
   }
-  
+
   try {
     const parsed = new URL(url);
-    
+
     // Only allow HTTPS
     if (parsed.protocol !== 'https:') return null;
-    
+
     // Allow only specific domains for security
     const allowedDomains = [
       'izzyautobridge.vercel.app',
       'images.unsplash.com',
       // Add your CDN domains here
     ];
-    
+
     if (!allowedDomains.includes(parsed.hostname)) return null;
-    
+
     // Only allow image paths
     if (!/\.(webp|jpg|jpeg|png|svg|avif)$/i.test(parsed.pathname)) return null;
-    
+
     return url;
   } catch {
     return null;
@@ -74,11 +74,11 @@ export function validateWhatsAppNumber(number) {
 // Sanitize form input - remove dangerous characters
 export function sanitizeFormInput(input, options = {}) {
   if (typeof input !== 'string') return '';
-  
+
   const { maxLength = 1000, allowHtml = false } = options;
-  
+
   let sanitized = input.trim().slice(0, maxLength);
-  
+
   if (!allowHtml) {
     // Remove HTML tags and potential XSS vectors
     sanitized = sanitized
@@ -89,7 +89,7 @@ export function sanitizeFormInput(input, options = {}) {
       .replace(/(^|\s)(?:javascript|vbscript|data):/gi, '$1')
       .replace(/on\w+\s*=/gi, '');
   }
-  
+
   return sanitized;
 }
 
@@ -97,12 +97,12 @@ export function sanitizeFormInput(input, options = {}) {
 export function validatePriceRange(low, high, min = 0, max = 10000000) {
   const lowNum = parseInt(low, 10);
   const highNum = parseInt(high, 10);
-  
+
   if (isNaN(lowNum) || isNaN(highNum)) return null;
   if (lowNum < min) return null;
   if (highNum > max) return null;
   if (lowNum > highNum) return null;
-  
+
   return { low: lowNum, high: highNum };
 }
 
@@ -110,32 +110,36 @@ export function validatePriceRange(low, high, min = 0, max = 10000000) {
 export function validateYearRange(low, high, min = 1990, max = new Date().getFullYear() + 2) {
   const lowNum = parseInt(low, 10);
   const highNum = parseInt(high, 10);
-  
+
   if (isNaN(lowNum) || isNaN(highNum)) return null;
   if (lowNum < min || lowNum > max) return null;
   if (highNum < min || highNum > max) return null;
   if (lowNum > highNum) return null;
-  
+
   return { low: lowNum, high: highNum };
 }
 
 // Validate vehicle data integrity
 export function validateVehicle(vehicle) {
   const required = ['ID', 'Brand', 'Model', 'Year', 'Price_GHS', 'Price_USD'];
-  
+
   for (const field of required) {
     if (!vehicle[field]) {
       return { valid: false, error: `Missing required field: ${field}` };
     }
   }
-  
+
   if (typeof vehicle.Price_GHS !== 'number' || vehicle.Price_GHS < 0) {
     return { valid: false, error: 'Invalid Price_GHS' };
   }
-  
-  if (typeof vehicle.Year !== 'number' || vehicle.Year < 1990 || vehicle.Year > new Date().getFullYear() + 2) {
+
+  if (
+    typeof vehicle.Year !== 'number' ||
+    vehicle.Year < 1990 ||
+    vehicle.Year > new Date().getFullYear() + 2
+  ) {
     return { valid: false, error: 'Invalid Year' };
   }
-  
+
   return { valid: true };
 }

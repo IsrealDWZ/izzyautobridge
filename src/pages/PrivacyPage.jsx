@@ -16,22 +16,21 @@ export default function PrivacyPage() {
     >
       <LegalSection title="Who we are" id="who">
         <p>
-          IzzyAutoBridge Ghana Ltd is a licensed vehicle importer based in Accra, Ghana
-          (DVLA Class C). We import vehicles from China to Tema Port with transparent
-          landed costs. This policy covers our website only.
+          IzzyAutoBridge Ghana Ltd is a licensed vehicle importer based in Accra, Ghana (DVLA Class
+          C). We import vehicles from China to Tema Port with transparent landed costs. This policy
+          covers our website only.
         </p>
       </LegalSection>
 
       <LegalSection title="What this website collects" id="collect">
         <p>
-          <strong>Nothing about you is sent to us by the website itself.</strong> There are
-          no accounts, no payment forms, no email signups, and no server-side logs of your
-          personal details that we access. Prices, inventory and pages are served statically.
+          <strong>Nothing about you is sent to us by the website itself.</strong> There are no
+          accounts, no payment forms, no email signups, and no server-side logs of your personal
+          details that we access. Prices, inventory and pages are served statically.
         </p>
         <p>
-          If you contact us through WhatsApp, your name, number and messages are handled by
-          WhatsApp (Meta) under their own privacy policy. We only see what you choose to
-          send in that chat.
+          If you contact us through WhatsApp, your name, number and messages are handled by WhatsApp
+          (Meta) under their own privacy policy. We only see what you choose to send in that chat.
         </p>
       </LegalSection>
 
@@ -41,122 +40,121 @@ export default function PrivacyPage() {
           <li>Your saved/favorite vehicles</li>
           <li>Your vehicle comparison selections</li>
           <li>Your light/dark theme choice</li>
-          <li>
-            Your analytics consent choice (accepted or declined), so we can remember it
-          </li>
+          <li>Your analytics consent choice (accepted or declined), so we can remember it</li>
         </ul>
         <p>
-          This data stays on your device. It is never transmitted to us or to any third
-          party by the site. Clearing your browser storage removes it permanently.
+          This data stays on your device. It is never transmitted to us or to any third party by the
+          site. Clearing your browser storage removes it permanently.
         </p>
       </LegalSection>
 
       <LegalSection title="Cookies" id="cookies">
         <p>
-          <strong>
-            We use analytics cookies only after you accept the consent banner.
-          </strong>{' '}
-          Before you consent, this site sets no cookies. If you accept, Google Analytics 4
-          stores its standard first-party cookies (<code>_ga</code> and{' '}
-          <code>_ga_&lt;container-id&gt;</code>) to tell repeat visits apart; they expire
-          after up to two years. Declining the banner, or clearing this site&apos;s
-          storage, removes them. Vercel Analytics is cookieless and does not store
-          anything on your device. If we ever add other cookie-based tools, we will update
+          <strong>We use analytics cookies only after you accept the consent banner.</strong> Before
+          you consent, this site sets no cookies. If you accept, Google Analytics 4 stores its
+          standard first-party cookies (<code>_ga</code> and <code>_ga_&lt;container-id&gt;</code>)
+          to tell repeat visits apart; they expire after up to two years. Declining the banner, or
+          clearing this site&apos;s storage, removes them. Vercel Analytics is cookieless and does
+          not store anything on your device. If we ever add other cookie-based tools, we will update
           this page and ask for your consent first.
         </p>
       </LegalSection>
 
       <LegalSection title="Analytics (Google Analytics)" id="analytics">
         <p>
-          We use <strong>Google Analytics 4</strong> to understand aggregate usage — which
-          pages are viewed and how people reach the site. It is not used for advertising.
+          We use <strong>Google Analytics 4</strong> to understand aggregate usage — which pages are
+          viewed and how people reach the site. It is not used for advertising.
         </p>
         <ul className="list-disc pl-5 space-y-1.5">
           <li>
-            <strong>Script loads on page visit.</strong> The Google Analytics script (gtag.js) downloads on every page view. With Consent Mode v2 defaults set to "denied", no analytics cookies are set and no event data is transmitted to Google until you click Accept. If you decline (or ignore the banner), the script still loads but measurement remains disabled — Google does not receive analytics data.
+            <strong>Script loads on page visit.</strong> The Google Analytics script (gtag.js)
+            downloads on every page view. With Consent Mode v2 defaults set to "denied", no
+            analytics cookies are set and no event data is transmitted to Google until you click
+            Accept. If you decline (or ignore the banner), the script still loads but measurement
+            remains disabled — Google does not receive analytics data.
           </li>
           <li>
             <strong>What we measure.</strong> Page views, the search terms you enter on the
             inventory, filters you apply, vehicles you open, favourites and comparisons, EV
-            calculator inputs, and taps on WhatsApp buttons. This tells us which cars people
-            want and where the site gets in the way. It is not linked to your name, phone
-            number or WhatsApp message.
+            calculator inputs, and taps on WhatsApp buttons. This tells us which cars people want
+            and where the site gets in the way. It is not linked to your name, phone number or
+            WhatsApp message.
           </li>
           <li>
-            <strong>Anonymised IP.</strong> We enable IP anonymisation so your address is
-            not stored in full.
+            <strong>Anonymised IP.</strong> We enable IP anonymisation so your address is not stored
+            in full.
           </li>
           <li>
             <strong>No ad profile.</strong> We do not use Google's advertising features,
             remarketing, or audience personalisation.
           </li>
           <li>
-            <strong>Opt out any time.</strong> Clear this site's storage (or use your
-            browser's "clear data") to reset your choice; the banner will ask again. You
-            can also use Google's browser opt-out tools.
+            <strong>Opt out any time.</strong> Clear this site's storage (or use your browser's
+            "clear data") to reset your choice; the banner will ask again. You can also use Google's
+            browser opt-out tools.
           </li>
         </ul>
       </LegalSection>
 
       <LegalSection title="Analytics (Vercel)" id="vercel-analytics">
         <p>
-          Separately from Google Analytics, we use <strong>Vercel Web Analytics</strong> to
-          count page views. It is cookieless and does not use persistent identifiers,
-          fingerprinting or cross-site tracking, so it runs without a consent prompt. It
-          records the page path, the referring site, and coarse device and country
-          information — never your name, IP address in full, or anything you type.
+          Separately from Google Analytics, we use <strong>Vercel Web Analytics</strong> to count
+          page views. It is cookieless and does not use persistent identifiers, fingerprinting or
+          cross-site tracking, so it runs without a consent prompt. It records the page path, the
+          referring site, and coarse device and country information — never your name, IP address in
+          full, or anything you type.
         </p>
       </LegalSection>
 
       <LegalSection title="Third-party services the site touches" id="third-party">
         <ul className="list-disc pl-5 space-y-1.5">
           <li>
-            <strong>Hosting (Vercel).</strong> Our site is served by Vercel, which
-            processes standard web-server data (IP address, user agent) to deliver pages.
+            <strong>Hosting (Vercel).</strong> Our site is served by Vercel, which processes
+            standard web-server data (IP address, user agent) to deliver pages.
           </li>
           <li>
-            <strong>WhatsApp (Meta).</strong> Only when you tap a WhatsApp link or widget;
-            the chat is governed by Meta's terms.
+            <strong>WhatsApp (Meta).</strong> Only when you tap a WhatsApp link or widget; the chat
+            is governed by Meta's terms.
           </li>
           <li>
-            <strong>Exchange-rate API.</strong> We fetch a public USD/GHS rate at build time
-            to calculate displayed prices. No personal data is sent.
+            <strong>Exchange-rate API.</strong> We fetch a public USD/GHS rate at build time to
+            calculate displayed prices. No personal data is sent.
           </li>
           <li>
-            <strong>Google Analytics.</strong> Runs only if you accept the consent banner.
-            Measures aggregate page usage; no advertising profile is built.
+            <strong>Google Analytics.</strong> Runs only if you accept the consent banner. Measures
+            aggregate page usage; no advertising profile is built.
           </li>
           <li>
-            <strong>Vercel Web Analytics.</strong> Cookieless page-view counting, served
-            from the same Vercel infrastructure that hosts the site. No personal data and
-            no cross-site tracking.
+            <strong>Vercel Web Analytics.</strong> Cookieless page-view counting, served from the
+            same Vercel infrastructure that hosts the site. No personal data and no cross-site
+            tracking.
           </li>
           <li>
-            <strong>Google site verification.</strong> A single verification tag proves to
-            Google that we own this site for Search Console. It is not tracking.
+            <strong>Google site verification.</strong> A single verification tag proves to Google
+            that we own this site for Search Console. It is not tracking.
           </li>
         </ul>
       </LegalSection>
 
       <LegalSection title="Your rights under Ghana's Data Protection Act, 2012" id="rights">
         <p>
-          Ghana's Data Protection Act gives you the right to ask what personal data we hold
-          about you and to have it corrected or deleted. The website itself does not collect
-          personal details for accounts or orders — and analytics, if you allow it, is
-          aggregate and anonymised. You are welcome to ask, and we will confirm.
+          Ghana's Data Protection Act gives you the right to ask what personal data we hold about
+          you and to have it corrected or deleted. The website itself does not collect personal
+          details for accounts or orders — and analytics, if you allow it, is aggregate and
+          anonymised. You are welcome to ask, and we will confirm.
         </p>
       </LegalSection>
 
       <LegalSection title="Children's privacy" id="children">
         <p>
-          This website is intended for adults making vehicle purchases. We do not knowingly
-          collect data from anyone.
+          This website is intended for adults making vehicle purchases. We do not knowingly collect
+          data from anyone.
         </p>
       </LegalSection>
       <LegalSection title="Changes to this policy" id="changes">
         <p>
-          If we change how the site handles data, this page will be updated and the "last
-          updated" date revised before those changes take effect.
+          If we change how the site handles data, this page will be updated and the "last updated"
+          date revised before those changes take effect.
         </p>
       </LegalSection>
 

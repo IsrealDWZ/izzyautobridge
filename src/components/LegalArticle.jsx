@@ -11,7 +11,9 @@ export default function LegalArticle({ title, updated, intro, children }) {
       className="max-w-3xl mx-auto"
     >
       <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-muted mb-5">
-        <Link to="/" className="hover:text-main transition-colors">Home</Link>
+        <Link to="/" className="hover:text-main transition-colors">
+          Home
+        </Link>
         <ChevronRight size={14} aria-hidden="true" />
         <span className="text-main font-medium">{title}</span>
       </nav>

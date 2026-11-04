@@ -18,7 +18,7 @@ export default function ShowcaseVideo() {
     return undefined;
   }, []);
 
-  const blockMenu = (event) => event.preventDefault();
+  const blockMenu = event => event.preventDefault();
 
   return (
     <section id="showcase" className="py-16">

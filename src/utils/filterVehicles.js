@@ -4,7 +4,9 @@
  * @returns {string}
  */
 export function normalizeSearch(value) {
-  return String(value ?? '').trim().toLowerCase();
+  return String(value ?? '')
+    .trim()
+    .toLowerCase();
 }
 
 /**
@@ -30,11 +32,11 @@ export function matchesSearch(vehicle, query = '') {
     vehicle.Status,
     vehicle.Category,
   ]
-    .filter((value) => value !== null && value !== undefined)
+    .filter(value => value !== null && value !== undefined)
     .join(' ')
     .toLowerCase();
 
-  return tokens.every((token) => haystack.includes(token));
+  return tokens.every(token => haystack.includes(token));
 }
 
 /**
@@ -45,13 +47,14 @@ export function matchesSearch(vehicle, query = '') {
  * @returns {object[]}
  */
 export function filterVehicles(vehicles, filters, query = '') {
-  return vehicles.filter((vehicle) => {
+  return vehicles.filter(vehicle => {
     if (filters.brands.length && !filters.brands.includes(vehicle.Brand)) return false;
     if (filters.fuel.length && !filters.fuel.includes(vehicle.Fuel_Type)) return false;
     if (filters.body.length && !filters.body.includes(vehicle.Body_Type)) return false;
     if (filters.status.length && !filters.status.includes(vehicle.Status)) return false;
     if (filters.category.length && !filters.category.includes(vehicle.Category)) return false;
-    if (vehicle.Price_GHS < filters.priceRange[0] || vehicle.Price_GHS > filters.priceRange[1]) return false;
+    if (vehicle.Price_GHS < filters.priceRange[0] || vehicle.Price_GHS > filters.priceRange[1])
+      return false;
     if (vehicle.Year < filters.yearRange[0] || vehicle.Year > filters.yearRange[1]) return false;
     return matchesSearch(vehicle, query);
   });

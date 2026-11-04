@@ -9,10 +9,10 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
   const [open, setOpen] = useState(false);
   const closeRef = useRef(null);
   const { favorites, toggleFavorite, clearFavorites } = useAppStore();
-  const favVehicles = favorites.map((id) => vehicles.find((v) => v.ID === id)).filter(Boolean);
+  const favVehicles = favorites.map(id => vehicles.find(v => v.ID === id)).filter(Boolean);
 
   const sendAllLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    `Hi, I'm interested in: ${favVehicles.map((v) => `${v.Brand} ${v.Model} ${v.Year}`).join(', ')}`
+    `Hi, I'm interested in: ${favVehicles.map(v => `${v.Brand} ${v.Model} ${v.Year}`).join(', ')}`
   )}`;
 
   return (
@@ -28,12 +28,16 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
         {open && (
           <>
             <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/50 z-40"
               onClick={() => setOpen(false)}
             />
             <motion.div
-              initial={{ x: 360 }} animate={{ x: 0 }} exit={{ x: 360 }}
+              initial={{ x: 360 }}
+              animate={{ x: 0 }}
+              exit={{ x: 360 }}
               transition={{ type: 'tween', duration: 0.25 }}
               role="dialog"
               aria-modal="true"
@@ -58,10 +62,15 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
                     Nothing saved yet — tap the heart on a car to add it here.
                   </p>
                 )}
-                {favVehicles.map((v) => (
-                  <div key={v.ID} className="flex items-center justify-between bg-primary border border-subtle rounded-lg p-3">
+                {favVehicles.map(v => (
+                  <div
+                    key={v.ID}
+                    className="flex items-center justify-between bg-primary border border-subtle rounded-lg p-3"
+                  >
                     <div>
-                      <p className="text-sm font-semibold">{v.Brand} {v.Model} {v.Year}</p>
+                      <p className="text-sm font-semibold">
+                        {v.Brand} {v.Model} {v.Year}
+                      </p>
                       <p className="text-xs text-muted">GH₵{v.Price_GHS.toLocaleString()}</p>
                     </div>
                     <button onClick={() => toggleFavorite(v.ID)} aria-label="Remove">
@@ -73,8 +82,12 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
 
               <div className="p-5 border-t border-subtle space-y-2">
                 <a
-                  href={sendAllLink} target="_blank" rel="noreferrer"
-                  onClick={() => trackWhatsApp('favorites_drawer', null, { items_count: favVehicles.length })}
+                  href={sendAllLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() =>
+                    trackWhatsApp('favorites_drawer', null, { items_count: favVehicles.length })
+                  }
                   className="block text-center bg-action text-onaction text-sm font-bold py-2.5 rounded-lg hover:opacity-85 transition flex items-center justify-center gap-1.5"
                 >
                   <MessageCircle size={15} /> Send list on WhatsApp

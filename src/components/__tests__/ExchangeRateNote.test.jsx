@@ -19,9 +19,7 @@ describe('ExchangeRateNote', () => {
   it('shows the applied rate and update date', () => {
     render(<ExchangeRateNote />);
 
-    expect(
-      screen.getByText(`USD/GHS ${Number(rateData.rate).toFixed(2)}`)
-    ).toBeInTheDocument();
+    expect(screen.getByText(`USD/GHS ${Number(rateData.rate).toFixed(2)}`)).toBeInTheDocument();
     expect(screen.getByText(/Rate updated/)).toBeInTheDocument();
   });
 });

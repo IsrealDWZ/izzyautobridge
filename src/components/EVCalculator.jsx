@@ -33,9 +33,7 @@ export default function EVCalculator() {
   useEffect(() => {
     monthlySpring.set(monthlySave);
   }, [monthlySave, monthlySpring]);
-  const monthlyDisplay = useTransform(monthlySpring, (v) =>
-    Math.round(v).toLocaleString()
-  );
+  const monthlyDisplay = useTransform(monthlySpring, v => Math.round(v).toLocaleString());
 
   // Only report once someone actually moves a slider, and only after the drag
   // settles — otherwise every pixel would be an event.
@@ -55,9 +53,19 @@ export default function EVCalculator() {
       });
     }, 1200);
     return () => clearTimeout(timer);
-  }, [touched, dailyKm, petrolPrice, petrolConsumption, electricityRate, evConsumption, monthlySave, yearlySave, savePercent]);
+  }, [
+    touched,
+    dailyKm,
+    petrolPrice,
+    petrolConsumption,
+    electricityRate,
+    evConsumption,
+    monthlySave,
+    yearlySave,
+    savePercent,
+  ]);
 
-  const update = (setter) => (value) => {
+  const update = setter => value => {
     setTouched(true);
     setter(value);
   };
@@ -73,8 +81,8 @@ export default function EVCalculator() {
             Electric vs. Petrol — Daily Cost Comparison
           </h2>
           <p className="mt-3 text-muted max-w-2xl mx-auto">
-            See exactly how much you save on fuel vs. petrol in Ghana today.
-            Adjust the sliders to match your driving habits.
+            See exactly how much you save on fuel vs. petrol in Ghana today. Adjust the sliders to
+            match your driving habits.
           </p>
         </div>
 
@@ -86,9 +94,7 @@ export default function EVCalculator() {
                 <SlidersHorizontal size={18} className="text-action" />
                 Your driving
               </h3>
-              <span className="text-xs text-muted">
-                Adjust to match your commute
-              </span>
+              <span className="text-xs text-muted">Adjust to match your commute</span>
             </div>
 
             <div className="space-y-5">
@@ -96,35 +102,45 @@ export default function EVCalculator() {
                 label="Daily Distance (km)"
                 value={dailyKm}
                 onChange={update(setDailyKm)}
-                min={10} max={200} step={5}
+                min={10}
+                max={200}
+                step={5}
                 icon={Route}
               />
               <SliderInput
                 label="Petrol Price (GHS/L)"
                 value={petrolPrice}
                 onChange={update(setPetrolPrice)}
-                min={10} max={20} step={0.25}
+                min={10}
+                max={20}
+                step={0.25}
                 icon={Fuel}
               />
               <SliderInput
                 label="Petrol Consumption (L/100km)"
                 value={petrolConsumption}
                 onChange={update(setPetrolConsumption)}
-                min={4} max={15} step={0.5}
+                min={4}
+                max={15}
+                step={0.5}
                 icon={Gauge}
               />
               <SliderInput
                 label="Electricity Rate (GHS/kWh)"
                 value={electricityRate}
                 onChange={update(setElectricityRate)}
-                min={0.5} max={3} step={0.1}
+                min={0.5}
+                max={3}
+                step={0.1}
                 icon={Zap}
               />
               <SliderInput
                 label="EV Consumption (kWh/100km)"
                 value={evConsumption}
                 onChange={update(setEvConsumption)}
-                min={10} max={25} step={0.5}
+                min={10}
+                max={25}
+                step={0.5}
                 icon={BatteryCharging}
               />
             </div>
@@ -159,9 +175,7 @@ export default function EVCalculator() {
                   <motion.span>{monthlyDisplay}</motion.span>
                 </span>
               </div>
-              <div className="text-sm text-white/60 mt-1">
-                saved per month vs petrol
-              </div>
+              <div className="text-sm text-white/60 mt-1">saved per month vs petrol</div>
 
               <div className="mt-7 space-y-4">
                 <CostBar
@@ -182,9 +196,7 @@ export default function EVCalculator() {
 
               <div className="mt-7 pt-6 border-t border-white/15 grid grid-cols-2 gap-4">
                 <div>
-                  <div className="text-xl font-bold">
-                    GH₵{dailySave.toFixed(2)}
-                  </div>
+                  <div className="text-xl font-bold">GH₵{dailySave.toFixed(2)}</div>
                   <div className="text-xs text-white/60 mt-0.5">per day</div>
                 </div>
                 <div>
@@ -204,10 +216,9 @@ export default function EVCalculator() {
             Real-world example
           </h3>
           <p className="text-muted">
-            A BYD Atto 3 (16 kWh/100km) vs. a 2.0L petrol SUV (8.5L/100km) driven
-            50km/day in Accra:
-            <strong className="text-main font-bold"> ~GH₵38,000/year saved</strong>.
-            That&apos;s a new phone every year, or school fees covered.
+            A BYD Atto 3 (16 kWh/100km) vs. a 2.0L petrol SUV (8.5L/100km) driven 50km/day in Accra:
+            <strong className="text-main font-bold"> ~GH₵38,000/year saved</strong>. That&apos;s a
+            new phone every year, or school fees covered.
           </p>
         </div>
       </div>
@@ -240,7 +251,7 @@ function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
           max={max}
           step={step}
           value={draft}
-          onChange={(e) => {
+          onChange={e => {
             const raw = e.target.value;
             setDraft(raw);
             const parsed = Number.parseFloat(raw);
@@ -259,7 +270,7 @@ function SliderInput({ label, value, onChange, min, max, step, icon: Icon }) {
         max={max}
         step={step}
         value={value}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
+        onChange={e => onChange(parseFloat(e.target.value))}
         className="w-full h-2 bg-primary border border-subtle rounded-lg appearance-none accent-action cursor-pointer"
       />
     </div>

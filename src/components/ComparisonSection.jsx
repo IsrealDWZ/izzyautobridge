@@ -11,9 +11,7 @@ export default function ComparisonSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <div className="chip-soft mb-4">
-            Transparent Pricing
-          </div>
+          <div className="chip-soft mb-4">Transparent Pricing</div>
           <h2 className="font-display text-3xl md:text-4xl font-bold">
             Local Dealer vs. IzzyAutoBridge Direct
           </h2>
@@ -63,7 +61,9 @@ export default function ComparisonSection() {
                   IzzyAutoBridge Direct
                 </span>
               </div>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">GH₵440,000</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">
+                GH₵440,000
+              </div>
               <div className="text-white/80 mb-6 space-y-2 text-sm">
                 <p>• Wholesale + fixed fee only</p>
                 <p>• Full landed cost breakdown</p>

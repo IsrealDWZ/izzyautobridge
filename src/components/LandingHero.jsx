@@ -68,7 +68,7 @@ export default function LandingHero() {
 
       {/* Navigation dots */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2.5 z-30">
-        {[0, 1, 2].map((i) => (
+        {[0, 1, 2].map(i => (
           <button
             key={i}
             className="w-2.5 h-2.5 rounded-full bg-slate-600 hover:bg-emerald-500 transition-all duration-300 focus:outline-none"

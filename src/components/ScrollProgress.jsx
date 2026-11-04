@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 // Thin page-scroll progress bar fixed to the top. Mount once (e.g. in App.jsx or Hero.jsx).
 export default function ScrollProgress() {

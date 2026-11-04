@@ -39,7 +39,7 @@ export default function InventoryPage() {
   useEffect(() => {
     const previous = previousFilters.current;
     const changed = Object.keys(filters).filter(
-      (key) => JSON.stringify(filters[key]) !== JSON.stringify(previous[key])
+      key => JSON.stringify(filters[key]) !== JSON.stringify(previous[key])
     );
     previousFilters.current = filters;
     if (changed.length === 0) return undefined;
@@ -47,7 +47,7 @@ export default function InventoryPage() {
     // FilterSidebar syncs its computed price/year bounds into the store on
     // mount. That is not a user action, so don't report it as one.
     const isInitialBoundsSync =
-      changed.every((key) => key === 'priceRange' || key === 'yearRange') &&
+      changed.every(key => key === 'priceRange' || key === 'yearRange') &&
       previous.priceRange[0] === 0 &&
       previous.priceRange[1] === 10000000 &&
       previous.yearRange[0] === 1900 &&
@@ -58,8 +58,7 @@ export default function InventoryPage() {
     const timer = setTimeout(() => {
       trackEvent('filter_apply', {
         filter_type: changed.length === 1 ? changed[0] : 'multiple',
-        filter_value:
-          changed.length === 1 ? String(filters[changed[0]]) : changed.join(','),
+        filter_value: changed.length === 1 ? String(filters[changed[0]]) : changed.join(','),
         results: matchingVehicles.length,
       });
     }, 700);
@@ -97,13 +96,14 @@ export default function InventoryPage() {
             </h1>
             {matchingVehicles.length !== vehicles.length && (
               <p className="text-sm text-white/80 mt-1">
-                {matchingVehicles.length} of {vehicles.length} vehicles match your search and filters
+                {matchingVehicles.length} of {vehicles.length} vehicles match your search and
+                filters
               </p>
             )}
           </div>
           <p className="text-white/80 max-w-2xl">
-            Live stock from our China partners — filter by brand, price and year.
-            Free shipping to Tema included in every landed price.
+            Live stock from our China partners — filter by brand, price and year. Free shipping to
+            Tema included in every landed price.
           </p>
           <ExchangeRateNote className="text-white/80 mt-3" />
           {/* The brand marquee is decorative — on the home page the cars win the fold. */}
@@ -119,7 +119,7 @@ export default function InventoryPage() {
         <InventorySearch
           value={searchQuery}
           onChange={setSearchQuery}
-          onSearch={(term) =>
+          onSearch={term =>
             trackEvent('search', { search_term: term, results: matchingVehicles.length })
           }
         />

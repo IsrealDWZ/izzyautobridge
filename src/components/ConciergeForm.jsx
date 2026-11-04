@@ -24,7 +24,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
   // Hick's Law: Only validate visible step fields
   const validateStep = () => {
     const newErrors = {};
-    
+
     if (step === 1) {
       // Essentials only: brand + budget
       if (!formData.brand.trim()) newErrors.brand = 'Brand is required';
@@ -39,14 +39,17 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
         newErrors.year = 'Valid year required';
       }
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleChange = (field, value) => {
     // Only sanitize strings; pass numbers through unchanged (year/budget are numbers from <select>/<input>)
-    const sanitized = typeof value === 'string' ? sanitizeFormInput(value, { maxLength: field === 'notes' ? 2000 : 200 }) : value;
+    const sanitized =
+      typeof value === 'string'
+        ? sanitizeFormInput(value, { maxLength: field === 'notes' ? 2000 : 200 })
+        : value;
     setFormData(prev => ({ ...prev, [field]: sanitized }));
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: null }));
@@ -63,7 +66,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   })();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     if (!validateStep()) return;
 
@@ -108,9 +111,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
             <CheckCircle size={32} />
           </div>
           <h3 className="font-display text-2xl font-bold mb-2">Request Submitted</h3>
-          <p className="text-muted mb-6">
-            Opening WhatsApp to send your vehicle request.
-          </p>
+          <p className="text-muted mb-6">Opening WhatsApp to send your vehicle request.</p>
           <a
             href={waLink}
             target="_blank"
@@ -120,10 +121,18 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
             <MessageCircle size={17} /> Continue on WhatsApp
           </a>
           <button
-            onClick={() => { 
-              setFormData({ brand: '', model: '', year: 2024, fuel: 'Any', body: 'Any', budget: 300000, notes: '' }); 
+            onClick={() => {
+              setFormData({
+                brand: '',
+                model: '',
+                year: 2024,
+                fuel: 'Any',
+                body: 'Any',
+                budget: 300000,
+                notes: '',
+              });
               setErrors({});
-              setSubmitted(false); 
+              setSubmitted(false);
               setStep(1);
               setProgress(1 / 3);
             }}
@@ -153,7 +162,8 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
             Request a specific vehicle — we'll source it from our China network
           </h2>
           <p className="mt-3 text-muted max-w-2xl mx-auto">
-            Tell us exactly what you're looking for. We'll search our network and send matches within 24 hours.
+            Tell us exactly what you're looking for. We'll search our network and send matches
+            within 24 hours.
           </p>
         </motion.div>
 
@@ -186,21 +196,29 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
               {step === 1 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="cq-brand" className="block text-sm font-medium text-main mb-1">Brand</label>
+                    <label htmlFor="cq-brand" className="block text-sm font-medium text-main mb-1">
+                      Brand
+                    </label>
                     <input
                       id="cq-brand"
                       type="text"
                       placeholder="e.g., BYD, Toyota, Mercedes"
                       value={formData.brand}
-                      onChange={(e) => handleChange('brand', e.target.value)}
+                      onChange={e => handleChange('brand', e.target.value)}
                       className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.brand ? 'border-alert' : ''}`}
                       aria-invalid={errors.brand ? 'true' : 'false'}
                       aria-describedby={errors.brand ? 'brand-error' : undefined}
                     />
-                    {errors.brand && <p id="brand-error" className="mt-1 text-sm text-alert font-medium">{errors.brand}</p>}
+                    {errors.brand && (
+                      <p id="brand-error" className="mt-1 text-sm text-alert font-medium">
+                        {errors.brand}
+                      </p>
+                    )}
                   </div>
                   <div>
-                    <label htmlFor="cq-budget" className="block text-sm font-medium text-main mb-1">Budget (GHS)</label>
+                    <label htmlFor="cq-budget" className="block text-sm font-medium text-main mb-1">
+                      Budget (GHS)
+                    </label>
                     <input
                       id="cq-budget"
                       type="number"
@@ -208,7 +226,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                       max={2000000}
                       step={50000}
                       value={formData.budget}
-                      onChange={(e) => {
+                      onChange={e => {
                         const value = parseInt(e.target.value);
                         handleChange('budget', isNaN(value) ? 0 : value);
                       }}
@@ -216,7 +234,11 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                       aria-invalid={errors.budget ? 'true' : 'false'}
                       aria-describedby={errors.budget ? 'budget-error' : undefined}
                     />
-                    {errors.budget && <p id="budget-error" className="mt-1 text-sm text-alert font-medium">{errors.budget}</p>}
+                    {errors.budget && (
+                      <p id="budget-error" className="mt-1 text-sm text-alert font-medium">
+                        {errors.budget}
+                      </p>
+                    )}
                   </div>
                 </div>
               )}
@@ -225,34 +247,48 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
               {step === 2 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="cq-model" className="block text-sm font-medium text-main mb-1">Model</label>
+                    <label htmlFor="cq-model" className="block text-sm font-medium text-main mb-1">
+                      Model
+                    </label>
                     <input
                       id="cq-model"
                       type="text"
                       placeholder="e.g., Atto 3, Camry, G-Wagon"
                       value={formData.model}
-                      onChange={(e) => handleChange('model', e.target.value)}
+                      onChange={e => handleChange('model', e.target.value)}
                       className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.model ? 'border-alert' : ''}`}
                       aria-invalid={errors.model ? 'true' : 'false'}
                       aria-describedby={errors.model ? 'model-error' : undefined}
                     />
-                    {errors.model && <p id="model-error" className="mt-1 text-sm text-alert font-medium">{errors.model}</p>}
+                    {errors.model && (
+                      <p id="model-error" className="mt-1 text-sm text-alert font-medium">
+                        {errors.model}
+                      </p>
+                    )}
                   </div>
                   <div>
-                    <label htmlFor="cq-year" className="block text-sm font-medium text-main mb-1">Year</label>
+                    <label htmlFor="cq-year" className="block text-sm font-medium text-main mb-1">
+                      Year
+                    </label>
                     <select
                       id="cq-year"
                       value={formData.year}
-                      onChange={(e) => handleChange('year', parseInt(e.target.value) || 2024)}
+                      onChange={e => handleChange('year', parseInt(e.target.value) || 2024)}
                       className={`w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px] ${errors.year ? 'border-alert' : ''}`}
                       aria-invalid={errors.year ? 'true' : 'false'}
                       aria-describedby={errors.year ? 'year-error' : undefined}
                     >
-                      {Array.from({ length: 11 }, (_, i) => 2026 - i).map((y) => (
-                        <option key={y} value={y}>{y}</option>
+                      {Array.from({ length: 11 }, (_, i) => 2026 - i).map(y => (
+                        <option key={y} value={y}>
+                          {y}
+                        </option>
                       ))}
                     </select>
-                    {errors.year && <p id="year-error" className="mt-1 text-sm text-alert font-medium">{errors.year}</p>}
+                    {errors.year && (
+                      <p id="year-error" className="mt-1 text-sm text-alert font-medium">
+                        {errors.year}
+                      </p>
+                    )}
                   </div>
                 </div>
               )}
@@ -261,11 +297,13 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
               {step === 3 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="cq-fuel" className="block text-sm font-medium text-main mb-1">Fuel Type</label>
+                    <label htmlFor="cq-fuel" className="block text-sm font-medium text-main mb-1">
+                      Fuel Type
+                    </label>
                     <select
                       id="cq-fuel"
                       value={formData.fuel}
-                      onChange={(e) => handleChange('fuel', e.target.value)}
+                      onChange={e => handleChange('fuel', e.target.value)}
                       className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
                     >
                       <option value="Any">Any</option>
@@ -277,11 +315,13 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="cq-body" className="block text-sm font-medium text-main mb-1">Body Type</label>
+                    <label htmlFor="cq-body" className="block text-sm font-medium text-main mb-1">
+                      Body Type
+                    </label>
                     <select
                       id="cq-body"
                       value={formData.body}
-                      onChange={(e) => handleChange('body', e.target.value)}
+                      onChange={e => handleChange('body', e.target.value)}
                       className="w-full px-4 py-3 bg-primary text-main border border-subtle rounded-lg focus:ring-2 focus:ring-action focus:border-transparent min-h-[44px]"
                     >
                       <option value="Any">Any</option>
@@ -299,7 +339,8 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
               {/* Risk Reversal microcopy near CTA */}
               {step !== 3 && (
                 <p className="text-xs text-muted/80 mb-4">
-                  No deposit required. We source from verified suppliers. First match is free to review.
+                  No deposit required. We source from verified suppliers. First match is free to
+                  review.
                 </p>
               )}
 

@@ -25,15 +25,24 @@ export default function VehicleGrid({ vehicles, searchQuery = '', _whatsappNumbe
     [vehicles, filters, searchQuery]
   );
 
-  const handleCategoryToggle = useCallback((cat) => {
-    setFilter('category', filters.category.includes(cat)
-      ? filters.category.filter(c => c !== cat)
-      : [...filters.category, cat]);
-  }, [filters.category, setFilter]);
+  const handleCategoryToggle = useCallback(
+    cat => {
+      setFilter(
+        'category',
+        filters.category.includes(cat)
+          ? filters.category.filter(c => c !== cat)
+          : [...filters.category, cat]
+      );
+    },
+    [filters.category, setFilter]
+  );
 
-  const handleCategoryToggleWrapper = useCallback((cat) => {
-    handleCategoryToggle(cat);
-  }, [handleCategoryToggle]);
+  const handleCategoryToggleWrapper = useCallback(
+    cat => {
+      handleCategoryToggle(cat);
+    },
+    [handleCategoryToggle]
+  );
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
@@ -42,10 +51,10 @@ export default function VehicleGrid({ vehicles, searchQuery = '', _whatsappNumbe
           Showing {filtered.length} of {vehicles.length} vehicles
         </p>
       </div>
-      
+
       {/* Category filter chips */}
       <div className="mb-6 flex flex-wrap gap-2">
-        {CATEGORIES.map((cat) => (
+        {CATEGORIES.map(cat => (
           <button
             key={cat}
             onClick={() => handleCategoryToggleWrapper(cat)}
@@ -62,7 +71,7 @@ export default function VehicleGrid({ vehicles, searchQuery = '', _whatsappNumbe
 
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filtered.map((vehicle) => (
+          {filtered.map(vehicle => (
             <VehicleCardWrapper
               key={vehicle.ID}
               vehicle={vehicle}

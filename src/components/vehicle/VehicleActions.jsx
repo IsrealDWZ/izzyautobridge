@@ -3,8 +3,13 @@ import { Heart, Check, Scale, MessageCircle } from 'lucide-react';
 import { trackWhatsApp } from '../../utils/analytics';
 import { WHATSAPP_NUMBER } from '../../utils/constants';
 
-export function VehicleActions({ vehicle, isComparing, isFavorite, onToggleCompare, onToggleFavorite }) {
-
+export function VehicleActions({
+  vehicle,
+  isComparing,
+  isFavorite,
+  onToggleCompare,
+  onToggleFavorite,
+}) {
   return (
     <div className="flex items-center gap-2 mt-4">
       <button

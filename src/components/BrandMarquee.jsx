@@ -1,8 +1,16 @@
 import Marquee from './Marquee';
 
 const DEFAULT_BADGES = [
-  'Toyota', 'Honda', 'Hyundai', 'Kia', 'Nissan',
-  'Mercedes', 'BMW', 'Ford', 'Mazda', 'Lexus',
+  'Toyota',
+  'Honda',
+  'Hyundai',
+  'Kia',
+  'Nissan',
+  'Mercedes',
+  'BMW',
+  'Ford',
+  'Mazda',
+  'Lexus',
 ];
 
 export default function BrandMarquee({ badges = DEFAULT_BADGES, duration = 30 }) {

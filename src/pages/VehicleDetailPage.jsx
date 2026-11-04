@@ -21,12 +21,12 @@ function specRows(v) {
     { label: 'Color', value: v.Color },
     { label: 'Mileage', value: v.Mileage_km ? `${v.Mileage_km.toLocaleString()} km` : null },
     { label: 'Status', value: v.Status },
-  ].filter((r) => r.value);
+  ].filter(r => r.value);
 }
 
 export default function VehicleDetailPage() {
   const { slug } = useParams();
-  const vehicle = vehicles.find((v) => v.ID === slug);
+  const vehicle = vehicles.find(v => v.ID === slug);
   const { compareSelection, toggleCompare, favorites, toggleFavorite } = useAppStore();
   const isComparing = vehicle ? compareSelection.includes(vehicle.ID) : false;
   const isFavorite = vehicle ? favorites.includes(vehicle.ID) : false;
@@ -78,7 +78,9 @@ export default function VehicleDetailPage() {
     >
       {/* Breadcrumbs */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-muted mb-5">
-        <Link to="/" className="hover:text-main transition-colors">Inventory</Link>
+        <Link to="/" className="hover:text-main transition-colors">
+          Inventory
+        </Link>
         <ChevronRight size={14} aria-hidden="true" />
         <span className="text-main font-medium truncate">{title}</span>
       </nav>
@@ -92,7 +94,9 @@ export default function VehicleDetailPage() {
         {/* Summary */}
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs font-semibold text-muted uppercase tracking-widest">{vehicle.ID}</span>
+            <span className="text-xs font-semibold text-muted uppercase tracking-widest">
+              {vehicle.ID}
+            </span>
           </div>
           <h1 className="font-display text-3xl md:text-4xl font-bold leading-tight">{title}</h1>
           <p className="text-muted mt-1">{vehicle.Variant}</p>
@@ -127,8 +131,11 @@ export default function VehicleDetailPage() {
           <Car size={18} aria-hidden="true" /> Full specifications
         </h2>
         <dl className="grid sm:grid-cols-2 gap-x-8 gap-y-0">
-          {specRows(vehicle).map((row) => (
-            <div key={row.label} className="flex justify-between gap-4 py-3 border-b border-subtle last:border-b-0 sm:[&:nth-last-child(2)]:border-b-0">
+          {specRows(vehicle).map(row => (
+            <div
+              key={row.label}
+              className="flex justify-between gap-4 py-3 border-b border-subtle last:border-b-0 sm:[&:nth-last-child(2)]:border-b-0"
+            >
               <dt className="text-sm text-muted">{row.label}</dt>
               <dd className="text-sm font-medium text-right">{row.value}</dd>
             </div>
@@ -143,7 +150,8 @@ export default function VehicleDetailPage() {
       <section className="rounded-2xl bg-secondary text-onsecondary p-8 sm:p-10 mt-8 overflow-hidden">
         <h2 className="font-display text-2xl font-bold">Interested in this vehicle?</h2>
         <p className="mt-2 max-w-xl">
-          Message us on WhatsApp for landed-cost breakdown, inspection reports and delivery timelines.
+          Message us on WhatsApp for landed-cost breakdown, inspection reports and delivery
+          timelines.
         </p>
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`}

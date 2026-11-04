@@ -5,37 +5,43 @@ const trustItems = [
   {
     num: '01',
     question: 'How do you know the vehicle is real?',
-    answer: 'We drive each vehicle ourselves before container loading — actual road test, not a workshop walkaround. SGS inspection at port of loading. Video documentation of every container sent before ship sails.',
+    answer:
+      'We drive each vehicle ourselves before container loading — actual road test, not a workshop walkaround. SGS inspection at port of loading. Video documentation of every container sent before ship sails.',
     icon: CheckCircle,
   },
   {
     num: '02',
     question: 'Who handles clearance at Tema?',
-    answer: 'Your agent (we supply all docs: BL, Commercial Invoice, Packing List, SGS Cert, G-CAP) OR we clear for GH₵4,000 service fee. You choose per order.',
+    answer:
+      'Your agent (we supply all docs: BL, Commercial Invoice, Packing List, SGS Cert, G-CAP) OR we clear for GH₵4,000 service fee. You choose per order.',
     icon: Truck,
   },
   {
     num: '03',
     question: 'What about parts and repairs?',
-    answer: 'WhatsApp us — we source parts and coordinate with partner workshops in Accra and Kumasi. We stay reachable after delivery.',
+    answer:
+      'WhatsApp us — we source parts and coordinate with partner workshops in Accra and Kumasi. We stay reachable after delivery.',
     icon: Wrench,
   },
   {
     num: '04',
     question: 'Who is the importer of record?',
-    answer: 'Ours. IzzyAutoBridge Ghana Ltd is the importer of record. We don\'t disappear at port — we\'re based in Accra, licensed by DVLA (Class C).',
+    answer:
+      "Ours. IzzyAutoBridge Ghana Ltd is the importer of record. We don't disappear at port — we're based in Accra, licensed by DVLA (Class C).",
     icon: Shield,
   },
   {
     num: '05',
     question: 'Have you been to Ghana?',
-    answer: 'Accra-based. We know the roads that break suspensions and the ones that don\'t. The vehicles we ship are picked for Ghana conditions — ground clearance, AC capacity, parts availability.',
+    answer:
+      "Accra-based. We know the roads that break suspensions and the ones that don't. The vehicles we ship are picked for Ghana conditions — ground clearance, AC capacity, parts availability.",
     icon: Award,
   },
   {
     num: '06',
     question: 'Is shipping really free?',
-    answer: 'Yes — every quoted price is CIF Tema. Ocean freight and marine insurance to Tema port are built into the price you see. You never get a surprise freight bill after paying.',
+    answer:
+      'Yes — every quoted price is CIF Tema. Ocean freight and marine insurance to Tema port are built into the price you see. You never get a surprise freight bill after paying.',
     icon: Ship,
   },
 ];
@@ -51,14 +57,13 @@ export default function TrustSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="chip-soft mb-4">
-            Why Buyers Trust IzzyAutoBridge
-          </div>
+          <div className="chip-soft mb-4">Why Buyers Trust IzzyAutoBridge</div>
           <h2 className="font-display text-3xl md:text-4xl font-bold">
             Six questions every Ghana importer should ask — we answer them upfront
           </h2>
           <p className="mt-3 text-muted max-w-2xl mx-auto">
-            We don't disappear at port. Every vehicle is inspected, documented, and backed by our Accra team.
+            We don't disappear at port. Every vehicle is inspected, documented, and backed by our
+            Accra team.
           </p>
         </motion.div>
 

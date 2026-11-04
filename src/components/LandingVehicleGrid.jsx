@@ -23,7 +23,7 @@ export default function LandingVehicleGrid() {
   const [activeTab, setActiveTab] = useState('suvs');
 
   const filteredVehicles = useMemo(() => {
-    return vehicles.filter((v) => {
+    return vehicles.filter(v => {
       switch (activeTab) {
         case 'suvs':
           return v.Body_Type?.includes('SUV') || v.Category === 'Heavy';
@@ -53,18 +53,14 @@ export default function LandingVehicleGrid() {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-1">
-              Explore All Vehicles
-            </h2>
-            <p className="text-slate-600 text-sm">
-              Direct China vehicle supply to Ghana
-            </p>
+            <h2 className="text-3xl font-bold text-slate-900 mb-1">Explore All Vehicles</h2>
+            <p className="text-slate-600 text-sm">Direct China vehicle supply to Ghana</p>
           </div>
         </div>
 
         {/* Tab Navigation */}
         <div className="flex flex-wrap gap-2 mb-10 border-b border-slate-200 pb-4">
-          {TABS.map((tab) => (
+          {TABS.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
@@ -88,7 +84,7 @@ export default function LandingVehicleGrid() {
                 : ''
             }`}
           >
-            {filteredVehicles.map((v) => (
+            {filteredVehicles.map(v => (
               <VehicleCard key={v.ID} vehicle={v} />
             ))}
             {activeTab === 'upcoming' && <div className="w-8 shrink-0" />}
@@ -170,9 +166,7 @@ function VehicleCard({ vehicle }) {
         <h3 className="text-lg font-bold text-slate-900 mb-1 leading-tight group-hover:text-emerald-600 transition-colors">
           {vehicle.Brand} {vehicle.Model} {vehicle.Year}
         </h3>
-        <p className="text-sm text-emerald-600 font-semibold mb-4">
-          {priceText}
-        </p>
+        <p className="text-sm text-emerald-600 font-semibold mb-4">{priceText}</p>
 
         <div className="space-y-1.5 mb-6 flex-1">
           <div className="flex items-center justify-between text-[10px] text-slate-500 uppercase tracking-tighter">

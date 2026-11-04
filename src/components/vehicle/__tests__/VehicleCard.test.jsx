@@ -87,12 +87,7 @@ describe('VehicleCard', () => {
   });
 
   it('renders loading skeleton when loading prop is true', () => {
-    render(
-      <VehicleCard
-        vehicle={VEHICLE}
-        loading
-      />
-    );
+    render(<VehicleCard vehicle={VEHICLE} loading />);
 
     expect(screen.queryByText('IZZY-TOYOTA-COROLLA-2022')).not.toBeInTheDocument();
     expect(document.querySelectorAll('.animate-pulse').length).toBeGreaterThan(0);

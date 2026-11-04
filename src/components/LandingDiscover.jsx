@@ -33,12 +33,8 @@ export default function LandingDiscover() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-1">
-              Discover IzzyAutoBridge
-            </h2>
-            <p className="text-slate-600 text-sm">
-              Why thousands of Ghanaian buyers trust us.
-            </p>
+            <h2 className="text-3xl font-bold text-slate-900 mb-1">Discover IzzyAutoBridge</h2>
+            <p className="text-slate-600 text-sm">Why thousands of Ghanaian buyers trust us.</p>
           </div>
         </div>
 
@@ -60,12 +56,8 @@ export default function LandingDiscover() {
                     {card.title.split(' ')[0]}
                   </span>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3 leading-tight">
-                  {card.title}
-                </h3>
-                <p className="text-slate-300 text-sm leading-relaxed mb-8">
-                  {card.description}
-                </p>
+                <h3 className="text-2xl font-bold text-white mb-3 leading-tight">{card.title}</h3>
+                <p className="text-slate-300 text-sm leading-relaxed mb-8">{card.description}</p>
                 <a
                   href="/inventory"
                   className="inline-flex items-center gap-2 text-sm font-bold text-white underline underline-offset-4 hover:text-emerald-300 transition-colors"

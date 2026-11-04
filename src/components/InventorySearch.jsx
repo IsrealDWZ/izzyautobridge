@@ -4,7 +4,7 @@ import { useRef } from 'react';
 export default function InventorySearch({ value, onChange, onSearch }) {
   const inputRef = useRef(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     onSearch?.(value.trim());
     inputRef.current?.blur();
@@ -16,11 +16,7 @@ export default function InventorySearch({ value, onChange, onSearch }) {
   };
 
   return (
-    <form
-      role="search"
-      onSubmit={handleSubmit}
-      className="flex flex-row gap-2 sm:gap-3"
-    >
+    <form role="search" onSubmit={handleSubmit} className="flex flex-row gap-2 sm:gap-3">
       <label htmlFor="inventory-search" className="sr-only">
         Search inventory
       </label>
@@ -35,7 +31,7 @@ export default function InventorySearch({ value, onChange, onSearch }) {
           id="inventory-search"
           type="search"
           value={value}
-          onChange={(event) => onChange(event.target.value)}
+          onChange={event => onChange(event.target.value)}
           placeholder="Search make, model or stock ID"
           autoComplete="off"
           enterKeyHint="search"

@@ -43,7 +43,7 @@ export default function ConsentBanner() {
     setVisible(true);
   }, []);
 
-  const decide = (value) => {
+  const decide = value => {
     writeStored(value);
     applyConsent(value);
     setVisible(false);
@@ -63,8 +63,8 @@ export default function ConsentBanner() {
           className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-6 sm:bottom-6 sm:max-w-md z-50 bg-card border border-line rounded-2xl p-5 shadow-xl"
         >
           <p className="text-sm text-main leading-relaxed">
-            We use Google Analytics to understand how the site is used. Nothing is shared
-            for ads, and you can decline.
+            We use Google Analytics to understand how the site is used. Nothing is shared for ads,
+            and you can decline.
           </p>
           <div className="mt-4 flex gap-3">
             <button

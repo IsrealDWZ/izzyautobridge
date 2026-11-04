@@ -16,8 +16,7 @@ export default function Marquee({
       style={
         mask
           ? {
-              maskImage:
-                'linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent)',
+              maskImage: 'linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent)',
               WebkitMaskImage:
                 'linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent)',
             }

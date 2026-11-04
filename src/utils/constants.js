@@ -11,6 +11,7 @@ export const APP_CONFIG = {
   siteTitle: 'IzzyAutoBridge Ghana',
   tagline: 'Direct China Vehicle Supply',
   heroTitle: 'Your car, bridged to Ghana.',
-  heroSubtitle: 'Direct China vehicle imports to Ghana with transparent landed costs and a route you can actually track from port to your driveway.',
+  heroSubtitle:
+    'Direct China vehicle imports to Ghana with transparent landed costs and a route you can actually track from port to your driveway.',
   whatsappNumber: '233536225804',
 };

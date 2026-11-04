@@ -8,13 +8,17 @@ import { WHATSAPP_NUMBER } from '../utils/constants';
 export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMBER }) {
   const { compareSelection, clearCompare } = useAppStore();
   const isOpen = compareSelection.length === 2;
-  const rows = compareSelection.map((id) => vehicles.find((v) => v.ID === id)).filter(Boolean);
+  const rows = compareSelection.map(id => vehicles.find(v => v.ID === id)).filter(Boolean);
 
   const fields = [
-    ['Brand', 'Brand'], ['Model', 'Model'], ['Year', 'Year'], ['Variant', 'Variant'],
-    ['Fuel', 'Fuel_Type'], ['Body', 'Body_Type'],
-    ['Mileage', (v) => (v.Mileage_km == null ? '—' : `${v.Mileage_km.toLocaleString()} km`)],
-    ['Price', (v) => `GH₵${Number(v.Price_GHS || 0).toLocaleString()}`],
+    ['Brand', 'Brand'],
+    ['Model', 'Model'],
+    ['Year', 'Year'],
+    ['Variant', 'Variant'],
+    ['Fuel', 'Fuel_Type'],
+    ['Body', 'Body_Type'],
+    ['Mileage', v => (v.Mileage_km == null ? '—' : `${v.Mileage_km.toLocaleString()} km`)],
+    ['Price', v => `GH₵${Number(v.Price_GHS || 0).toLocaleString()}`],
   ];
 
   if (!isOpen || rows.length < 2) return null;
@@ -25,13 +29,16 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         className="fixed inset-0 bg-black/55 z-50 flex items-center justify-center p-4"
         onClick={clearCompare}
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
-          onClick={(e) => e.stopPropagation()}
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          onClick={e => e.stopPropagation()}
           role="dialog"
           aria-modal="true"
           aria-label="Comparison details"
@@ -39,13 +46,18 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
         >
           <div className="flex items-center justify-between p-4 sm:p-5 border-b border-subtle sticky top-0 bg-card">
             <h3 className="font-display text-lg font-bold">Compare vehicles</h3>
-            <button onClick={clearCompare} className="p-2 min-h-[44px] min-w-[44px]" aria-label="Close comparison">
+            <button
+              onClick={clearCompare}
+              className="p-2 min-h-[44px] min-w-[44px]"
+              aria-label="Close comparison"
+            >
               <X size={24} />
             </button>
           </div>
 
           <div className="m-4 sm:m-5 bg-action/10 border border-action/30 text-main rounded-lg px-4 py-3 text-sm font-semibold">
-            Price difference: GH₵{diff.toLocaleString()} — {cheaper.Brand} {cheaper.Model} is cheaper
+            Price difference: GH₵{diff.toLocaleString()} — {cheaper.Brand} {cheaper.Model} is
+            cheaper
           </div>
 
           <div className="px-4 sm:px-5 overflow-x-auto">
@@ -53,9 +65,15 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
               <tbody>
                 {fields.map(([label, accessor]) => (
                   <tr key={label} className="border-b border-subtle">
-                    <th className="text-left p-3 text-muted font-medium w-24 whitespace-nowrap">{label}</th>
-                    <td className="p-3">{typeof accessor === 'function' ? accessor(a) : a[accessor]}</td>
-                    <td className="p-3">{typeof accessor === 'function' ? accessor(b) : b[accessor]}</td>
+                    <th className="text-left p-3 text-muted font-medium w-24 whitespace-nowrap">
+                      {label}
+                    </th>
+                    <td className="p-3">
+                      {typeof accessor === 'function' ? accessor(a) : a[accessor]}
+                    </td>
+                    <td className="p-3">
+                      {typeof accessor === 'function' ? accessor(b) : b[accessor]}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -63,13 +81,14 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
           </div>
 
           <div className="grid grid-cols-2 gap-3 p-4 sm:p-5">
-            {[a, b].map((v) => (
+            {[a, b].map(v => (
               <a
                 key={v.ID}
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                   `Hi, I'm interested in ${v.Brand} ${v.Model} ${v.Year}`
                 )}`}
-                target="_blank" rel="noreferrer"
+                target="_blank"
+                rel="noreferrer"
                 onClick={() => trackWhatsApp('compare_modal', v)}
                 className="text-center bg-action text-onaction text-sm font-bold py-3 rounded-lg min-h-[44px] flex items-center justify-center gap-1.5 hover:opacity-85 transition"
               >

@@ -11,10 +11,10 @@ export function mergePersistedState(persisted, current) {
 
 export const useAppStore = create(
   persist(
-    (set) => ({
+    set => ({
       theme: 'light',
       toggleTheme: () =>
-        set((s) => {
+        set(s => {
           const next = s.theme === 'light' ? 'dark' : 'light';
           return { theme: next };
         }),
@@ -28,24 +28,26 @@ export const useAppStore = create(
         priceRange: [0, 10000000],
         yearRange: [1900, 2030],
       },
-      setFilter: (key, value) =>
-        set((s) => ({ filters: { ...s.filters, [key]: value } })),
-      setFilters: (newFilters) =>
-        set((s) => ({ filters: { ...s.filters, ...newFilters } })),
-      resetFilters: (dynamicDefaults) =>
+      setFilter: (key, value) => set(s => ({ filters: { ...s.filters, [key]: value } })),
+      setFilters: newFilters => set(s => ({ filters: { ...s.filters, ...newFilters } })),
+      resetFilters: dynamicDefaults =>
         set({
           filters: {
-            brands: [], fuel: [], body: [], status: [], category: [],
+            brands: [],
+            fuel: [],
+            body: [],
+            status: [],
+            category: [],
             priceRange: dynamicDefaults?.priceRange || [0, 10000000],
             yearRange: dynamicDefaults?.yearRange || [1900, 2030],
           },
         }),
 
       compareSelection: [],
-      toggleCompare: (id) =>
-        set((s) => {
+      toggleCompare: id =>
+        set(s => {
           if (s.compareSelection.includes(id)) {
-            return { compareSelection: s.compareSelection.filter((x) => x !== id) };
+            return { compareSelection: s.compareSelection.filter(x => x !== id) };
           }
           if (s.compareSelection.length >= 2) return s;
           return { compareSelection: [...s.compareSelection, id] };
@@ -53,17 +55,17 @@ export const useAppStore = create(
       clearCompare: () => set({ compareSelection: [] }),
 
       favorites: [],
-      toggleFavorite: (id) =>
-        set((s) => ({
+      toggleFavorite: id =>
+        set(s => ({
           favorites: s.favorites.includes(id)
-            ? s.favorites.filter((x) => x !== id)
+            ? s.favorites.filter(x => x !== id)
             : [...s.favorites, id],
         })),
       clearFavorites: () => set({ favorites: [] }),
     }),
     {
       name: 'izzyauto-storage',
-      partialize: (state) => ({
+      partialize: state => ({
         favorites: state.favorites,
         compareSelection: state.compareSelection,
         theme: state.theme,

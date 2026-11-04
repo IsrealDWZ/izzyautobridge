@@ -10,7 +10,7 @@ import { WHATSAPP_NUMBER } from '../utils/constants';
 
 export default function ComparePage() {
   const { compareSelection, toggleCompare, clearCompare } = useAppStore();
-  const rows = compareSelection.map((id) => vehicles.find((v) => v.ID === id)).filter(Boolean);
+  const rows = compareSelection.map(id => vehicles.find(v => v.ID === id)).filter(Boolean);
 
   const fields = [
     ['Brand', 'Brand'],
@@ -21,9 +21,9 @@ export default function ComparePage() {
     ['Body type', 'Body_Type'],
     ['Drive', 'Drive'],
     ['Color', 'Color'],
-    ['Mileage', (v) => `${v.Mileage_km ? v.Mileage_km.toLocaleString() : '—'} km`],
+    ['Mileage', v => `${v.Mileage_km ? v.Mileage_km.toLocaleString() : '—'} km`],
     ['Status', 'Status'],
-    ['Price', (v) => `GH₵${v.Price_GHS.toLocaleString()}`],
+    ['Price', v => `GH₵${v.Price_GHS.toLocaleString()}`],
   ];
 
   const [a, b] = rows;
@@ -93,8 +93,11 @@ export default function ComparePage() {
       <div className="mb-8 p-4 sm:p-6 bg-action/10 border border-action/20 rounded-lg text-center sm:text-left">
         <div className="flex items-center justify-center sm:justify-start gap-3 sm:gap-4 text-sm font-semibold text-main">
           <Ship size={14} className="text-action shrink-0" aria-hidden="true" />
-          Price difference: <span className="font-bold">GH₵{diff.toLocaleString()}</span>
-          — <span className="font-bold">{cheaper.Brand} {cheaper.Model}</span> is cheaper
+          Price difference: <span className="font-bold">GH₵{diff.toLocaleString()}</span>—{' '}
+          <span className="font-bold">
+            {cheaper.Brand} {cheaper.Model}
+          </span>{' '}
+          is cheaper
         </div>
       </div>
 
@@ -134,7 +137,7 @@ export default function ComparePage() {
 
       {/* WhatsApp CTAs */}
       <div className="grid sm:grid-cols-2 gap-4 mb-8">
-        {[a, b].map((v) => (
+        {[a, b].map(v => (
           <a
             key={v.ID}
             href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -153,7 +156,7 @@ export default function ComparePage() {
 
       {/* Remove from comparison */}
       <div className="flex gap-3">
-        {[a, b].map((v) => (
+        {[a, b].map(v => (
           <button
             key={v.ID}
             onClick={() => toggleCompare(v.ID)}

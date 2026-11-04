@@ -32,9 +32,7 @@ export default function Hero({ title, subtitle }) {
           {title}
         </h1>
 
-        <p className="mt-6 text-lg text-white/80 max-w-xl leading-relaxed">
-          {subtitle}
-        </p>
+        <p className="mt-6 text-lg text-white/80 max-w-xl leading-relaxed">{subtitle}</p>
 
         <div className="mt-10 flex flex-wrap gap-4">
           <Link

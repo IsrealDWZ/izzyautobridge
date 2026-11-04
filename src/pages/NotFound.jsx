@@ -9,8 +9,8 @@ export default function NotFound() {
       <h1 className="text-7xl sm:text-8xl font-bold tracking-tight leading-none">404</h1>
       <h2 className="mt-5 text-2xl font-semibold">Page not found</h2>
       <p className="mt-3 max-w-md text-alert leading-relaxed">
-        The page you are looking for does not exist or may have moved. Check the URL, or
-        browse our current inventory of vehicles imported from China to Ghana.
+        The page you are looking for does not exist or may have moved. Check the URL, or browse our
+        current inventory of vehicles imported from China to Ghana.
       </p>
       <nav className="mt-10 flex flex-wrap gap-3 justify-center">
         <Link

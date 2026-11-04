@@ -28,9 +28,8 @@ export default function LandingFooter() {
               <span className="font-bold text-white text-xl">IzzyAutoBridge</span>
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-[320px]">
-              Direct China vehicle supply to Ghana. Transparent landed costs,
-              port-to-door delivery, and a route you can actually track from
-              factory to driveway.
+              Direct China vehicle supply to Ghana. Transparent landed costs, port-to-door delivery,
+              and a route you can actually track from factory to driveway.
             </p>
           </div>
           {Object.entries(FOOTER_LINKS).map(([category, links]) => (
@@ -39,7 +38,7 @@ export default function LandingFooter() {
                 {category}
               </h3>
               <ul className="space-y-3">
-                {links.map((link) => (
+                {links.map(link => (
                   <li key={link.label}>
                     <a
                       href={link.href}
@@ -86,8 +85,7 @@ export default function LandingFooter() {
           </div>
           <div className="mt-14 pt-8 border-t border-slate-800 text-center">
             <p className="text-xs text-slate-500">
-              © {new Date().getFullYear()} IzzyAutoBridge Ghana. All rights
-              reserved.
+              © {new Date().getFullYear()} IzzyAutoBridge Ghana. All rights reserved.
             </p>
           </div>
         </div>
