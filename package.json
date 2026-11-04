@@ -11,6 +11,7 @@
     "fetch:rate": "node scripts/fetch-exchange-rate.js",
     "build:data": "npm run fetch:rate && node scripts/build-image-index.js && node scripts/generate-vehicles.js",
     "build:sitemap": "node scripts/generate-sitemap.js",
+    "build:master": "node scripts/build-master-catalog.js",
     "match:images": "node scripts/bulk-match-images.js",
     "build": "npm run build:data && npm run build:sitemap && vite build && node scripts/prerender-routes.js",
     "preview": "vite preview",
