@@ -16,19 +16,19 @@ const CUSTOM_IMAGES_DIR = path.join(ROOT_DIR, 'images_custom');
 const EXCHANGE_RATE_PATH = path.join(ROOT_DIR, 'src', 'data', 'exchange-rate.json');
 
 function loadExchangeRate() {
-  try {
-    if (fs.existsSync(EXCHANGE_RATE_PATH)) {
-      const data = JSON.parse(fs.readFileSync(EXCHANGE_RATE_PATH, 'utf-8'));
-      if (data.rate && typeof data.rate === 'number') {
-        console.log(`Using exchange rate: 1 USD = ${data.rate} GHS (source: ${data.source}, fetched ${data.fetchedAt})`);
-        return data.rate;
-      }
-    }
-  } catch (err) {
-    console.warn(`Failed to load exchange rate: ${err.message}`);
+  if (!fs.existsSync(EXCHANGE_RATE_PATH)) {
+    throw new Error(
+      `Exchange rate cache missing: ${EXCHANGE_RATE_PATH}. Run "npm run fetch:rate" first.`
+    );
   }
-  console.warn('Using fallback exchange rate: 15.5');
-  return 15.5;
+  const data = JSON.parse(fs.readFileSync(EXCHANGE_RATE_PATH, 'utf-8'));
+  if (!data.rate || typeof data.rate !== 'number') {
+    throw new Error(`Invalid exchange rate in ${EXCHANGE_RATE_PATH}`);
+  }
+  console.log(
+    `Using exchange rate: 1 USD = ${data.rate} GHS (source: ${data.source}, fetched ${data.fetchedAt})`
+  );
+  return data.rate;
 }
 
 const USD_GHS_RATE = loadExchangeRate();
@@ -62,7 +62,8 @@ function getCustomImages(vehicleId) {
   const customDir = path.join(CUSTOM_IMAGES_DIR, vehicleId);
   if (!fs.existsSync(customDir)) return [];
 
-  const files = fs.readdirSync(customDir)
+  const files = fs
+    .readdirSync(customDir)
     .filter(f => /\.(webp|jpg|jpeg|png)$/i.test(f))
     .sort();
 
@@ -105,7 +106,9 @@ function matchImagesForVehicle(vehicle, imageIndex, existingImageUrls) {
     if (matched.size >= 4) break;
   }
 
-  const imageUrls = Array.from(matched).map(key => `/vehicles/${key}${path.extname(imageIndex[key][0].path)}`);
+  const imageUrls = Array.from(matched).map(
+    key => `/vehicles/${key}${path.extname(imageIndex[key][0].path)}`
+  );
   return imageUrls;
 }
 
@@ -130,7 +133,9 @@ function parseIntSafe(val, fallback = 0) {
 
 function extractBodyType(bodies) {
   if (!bodies) return 'Unknown';
-  const match = bodies.match(/^(Sedan|SUV|Hatchback|MPV|Pickup|Truck|Bus|Motorcycle|Scooter|Tricycle|Mini|Van|Coupe|Convertible|Wagon)/i);
+  const match = bodies.match(
+    /^(Sedan|SUV|Hatchback|MPV|Pickup|Truck|Bus|Motorcycle|Scooter|Tricycle|Mini|Van|Coupe|Convertible|Wagon)/i
+  );
   return match ? match[1] : bodies.split('(')[0].trim();
 }
 
@@ -207,7 +212,11 @@ async function main() {
   let withoutImages = 0;
 
   for (const row of masterRows) {
-    const generatedId = generateId(row.Makes?.trim() || 'Unknown', row.Models?.trim() || 'Unknown', parseIntSafe(row.Years));
+    const generatedId = generateId(
+      row.Makes?.trim() || 'Unknown',
+      row.Models?.trim() || 'Unknown',
+      parseIntSafe(row.Years)
+    );
     const existingUrls = existingImagesById.get(generatedId) || [];
     const imageMatches = matchImagesForVehicle(row, imageIndex, existingUrls);
 
@@ -222,20 +231,22 @@ async function main() {
     }
   }
 
-  console.log(`\nTotal vehicles: ${allVehicles.length} (with images: ${withImages}, without: ${withoutImages})`);
+  console.log(
+    `\nTotal vehicles: ${allVehicles.length} (with images: ${withImages}, without: ${withoutImages})`
+  );
 
   // Detect duplicate vehicle IDs
   const idCounts = new Map();
-  allVehicles.forEach((v) => {
+  allVehicles.forEach(v => {
     idCounts.set(v.ID, (idCounts.get(v.ID) || 0) + 1);
   });
   const duplicates = [...idCounts.entries()].filter(([_, count]) => count > 1);
   if (duplicates.length > 0) {
-    console.warn('\n⚠️  Duplicate vehicle IDs detected:');
-    duplicates.forEach(([id, count]) => {
-      console.warn(`  ${id}: ${count} occurrences`);
-    });
-    console.warn('  This will cause React key warnings and broken compare/favorites.');
+    const detail = duplicates.map(([id, count]) => `  ${id}: ${count} occurrences`).join('\n');
+    throw new Error(
+      `Duplicate vehicle IDs detected:\n${detail}\n` +
+        'Duplicate IDs break React keys, compare and favorites. Fix the master catalog before publishing.'
+    );
   }
 
   if (!fs.existsSync(PUBLIC_VEHICLES_DIR)) {
@@ -286,7 +297,9 @@ async function main() {
   const DROP_THRESHOLD = masterRowCount * 0.9;
 
   if (publishedCount < DROP_THRESHOLD) {
-    console.warn(`⚠️  ${masterRowCount - publishedCount} of ${masterRowCount} vehicles dropped (${publishedCount}/${masterRowCount} < 90% threshold)`);
+    console.warn(
+      `⚠️  ${masterRowCount - publishedCount} of ${masterRowCount} vehicles dropped (${publishedCount}/${masterRowCount} < 90% threshold)`
+    );
     const droppedIds = allVehicles
       .filter(v => !v.Image_URLs || v.Image_URLs.length === 0)
       .map(v => v.ID);
@@ -298,7 +311,9 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`\nPublishing ${publishedCount} vehicles with images (${allVehicles.length - publishedCount} dormant)`);
+  console.log(
+    `\nPublishing ${publishedCount} vehicles with images (${allVehicles.length - publishedCount} dormant)`
+  );
 
   fs.writeFileSync(OUTPUT_PATH, JSON.stringify(vehiclesWithImages, null, 2));
   console.log(`\n✓ Generated ${OUTPUT_PATH} with ${vehiclesWithImages.length} vehicles`);
@@ -308,18 +323,22 @@ async function main() {
     byCategory[v.Category] = (byCategory[v.Category] || 0) + 1;
   }
   console.log('\nBy category:');
-  Object.entries(byCategory).sort((a, b) => b[1] - a[1]).forEach(([cat, count]) => {
-    console.log(`  ${cat}: ${count}`);
-  });
+  Object.entries(byCategory)
+    .sort((a, b) => b[1] - a[1])
+    .forEach(([cat, count]) => {
+      console.log(`  ${cat}: ${count}`);
+    });
 
   const byBrand = {};
   for (const v of vehiclesWithImages) {
     byBrand[v.Brand] = (byBrand[v.Brand] || 0) + 1;
   }
   console.log('\nBy brand:');
-  Object.entries(byBrand).sort((a, b) => b[1] - a[1]).forEach(([brand, count]) => {
-    console.log(`  ${brand}: ${count}`);
-  });
+  Object.entries(byBrand)
+    .sort((a, b) => b[1] - a[1])
+    .forEach(([brand, count]) => {
+      console.log(`  ${brand}: ${count}`);
+    });
 }
 
 main().catch(err => {
