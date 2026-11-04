@@ -7,13 +7,32 @@ import { normalizeRow, hasRequiredDetails } from './utils/normalize-row.js';
 import { dedupeRows } from './utils/dedupe.js';
 import { classifyCategory } from './utils/classify-category.js';
 import { generateAuditReport, writeAuditReport } from './utils/audit-report.js';
+import { escapeCsvCell } from './utils/csv.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const USD_GHS_RATE = 15.5;
+const EXCHANGE_RATE_PATH = path.join(__dirname, '..', 'src', 'data', 'exchange-rate.json');
 const MASTER_CSV_PATH = path.join(__dirname, '..', 'src', 'data', 'master-inventory.csv');
 const AUDIT_REPORT_PATH = path.join(__dirname, '..', 'logs', 'master-catalog-audit.txt');
+
+function loadExchangeRate() {
+  if (!fs.existsSync(EXCHANGE_RATE_PATH)) {
+    throw new Error(
+      `Exchange rate cache missing: ${EXCHANGE_RATE_PATH}. Run "npm run fetch:rate" first.`
+    );
+  }
+  const data = JSON.parse(fs.readFileSync(EXCHANGE_RATE_PATH, 'utf-8'));
+  if (!data.rate || typeof data.rate !== 'number') {
+    throw new Error(`Invalid exchange rate in ${EXCHANGE_RATE_PATH}`);
+  }
+  console.log(
+    `Using exchange rate: 1 USD = ${data.rate} GHS (source: ${data.source}, fetched ${data.fetchedAt})`
+  );
+  return data.rate;
+}
+
+const USD_GHS_RATE = loadExchangeRate();
 
 function parsePrice(priceStr) {
   if (!priceStr) return 0;
@@ -29,7 +48,9 @@ function generateId(brand, model, year) {
 
 function extractBodyType(bodies) {
   if (!bodies) return 'Unknown';
-  const match = bodies.match(/^(Sedan|SUV|Hatchback|MPV|Pickup|Truck|Bus|Motorcycle|Scooter|Tricycle|Mini|Van|Coupe|Convertible|Wagon)/i);
+  const match = bodies.match(
+    /^(Sedan|SUV|Hatchback|MPV|Pickup|Truck|Bus|Motorcycle|Scooter|Tricycle|Mini|Van|Coupe|Convertible|Wagon)/i
+  );
   return match ? match[1] : bodies.split('(')[0].trim();
 }
 
@@ -130,22 +151,39 @@ async function main() {
 
   console.log('\nWriting master CSV...');
   const csvHeaders = [
-    'ID', 'Category', 'Conditions', 'Bodies', 'Makes', 'Models', 'Mileage', 'Fuel_Types',
-    'Engine', 'Years', 'Fuel_Consumption', 'Transmission', 'Drives', 'Fuel_Economy',
-    'Exterior_Colors', 'Interior_Color', 'CIF_USD', 'Price_USD', 'Price_GHS',
-    'Seats', 'Dimensions_mm', 'Trim_Edition', 'Range_km', 'Power', 'Source',
-    'specs_json', '_sourceFile', '_sourceType'
+    'ID',
+    'Category',
+    'Conditions',
+    'Bodies',
+    'Makes',
+    'Models',
+    'Mileage',
+    'Fuel_Types',
+    'Engine',
+    'Years',
+    'Fuel_Consumption',
+    'Transmission',
+    'Drives',
+    'Fuel_Economy',
+    'Exterior_Colors',
+    'Interior_Color',
+    'CIF_USD',
+    'Price_USD',
+    'Price_GHS',
+    'Seats',
+    'Dimensions_mm',
+    'Trim_Edition',
+    'Range_km',
+    'Power',
+    'Source',
+    'specs_json',
+    '_sourceFile',
+    '_sourceType',
   ];
 
   const csvLines = [
     csvHeaders.join(','),
-    ...outputRows.map(r =>
-      csvHeaders.map(h => {
-        const val = r[h] ?? '';
-        const str = String(val).replace(/"/g, '""');
-        return str.includes(',') || str.includes('"') || str.includes('\n') ? `"${str}"` : str;
-      }).join(',')
-    )
+    ...outputRows.map(r => csvHeaders.map(h => escapeCsvCell(r[h])).join(',')),
   ];
 
   if (!fs.existsSync(path.dirname(MASTER_CSV_PATH))) {
@@ -157,7 +195,12 @@ async function main() {
   if (!fs.existsSync(path.dirname(AUDIT_REPORT_PATH))) {
     fs.mkdirSync(path.dirname(AUDIT_REPORT_PATH), { recursive: true });
   }
-  const report = generateAuditReport(harvestResults, dedupeResult, categorizedCounts, filteredBySource);
+  const report = generateAuditReport(
+    harvestResults,
+    dedupeResult,
+    categorizedCounts,
+    filteredBySource
+  );
   writeAuditReport(report, AUDIT_REPORT_PATH);
 
   console.log('\n=== BUILD COMPLETE ===');
