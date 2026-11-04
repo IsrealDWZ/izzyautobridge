@@ -1,6 +1,15 @@
 {
-  "rate": 12.03,
-  "fetchedAt": "2026-11-03T13:11:05.581Z",
+  "rate": 12.11,
+  "marketRate": 11.67886,
+  "fidelityAnchor": {
+    "side": "selling",
+    "sampleRate": 11.76,
+    "sampleMarketRate": 11.67886,
+    "sampledAt": "2026-11-04",
+    "source": "fidelitybank.com.gh/rates",
+    "ratio": 1.006948
+  },
+  "fetchedAt": "2026-11-04T21:14:15.426Z",
   "source": "exchangerate-api.com (open.er-api.com)",
   "safetyMargin": 0.03
 }

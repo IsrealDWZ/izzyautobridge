@@ -84,10 +84,11 @@ npm run build:sitemap  # Generate sitemap.xml
 
 ### Exchange Rate
 - **Source**: exchangerate-api.com (open.er-api.com)
-- **Cache**: `src/data/exchange-rate.json` (fetched at build; rewritten only when the rounded rate changes)
+- **Anchor**: Fidelity Bank Ghana's published USD **selling** rate. `scripts/fetch-exchange-rate.js` stores the ratio `fidelity_sell / market` measured on a sample day (`FIDELITY_ANCHOR`, currently 2026-11-04: 11.76 / 11.67886) and applies it to the live market rate, then adds the safety margin. Re-measure the sample monthly; no live Fidelity feed is needed.
+- **Cache**: `src/data/exchange-rate.json` (fetched at build; rewritten only when the rounded rate or anchor changes). It records `marketRate`, the anchor sample and the ratio for auditability.
 - **Refresh**: `.github/workflows/refresh-exchange-rate.yml` checks daily at 06:00 UTC, commits the new rate when it changes, and lets Vercel redeploy. If a `VERCEL_DEPLOY_HOOK_URL` repo secret exists, it triggers a rebuild even when the rate is unchanged.
-- **Margin**: 3% safety buffer
-- **Fallback**: 12.0 + 3% margin = 12.36 (only when both live fetch and cache fail)
+- **Margin**: 3% safety buffer on top of the Fidelity-anchored rate
+- **Fallback**: 12.0 market rate → anchored + 3% (only when both live fetch and cache fail)
 - **Inlined** at build via `import rateData from '../data/exchange-rate.json'`
 
 ### Analytics
