@@ -7,10 +7,11 @@ import VehicleCard from './VehicleCard';
 
 const CATEGORIES = ['EV', 'Hybrid', 'Fuel', 'Bus', 'Heavy', 'Other'];
 
-function VehicleCardWrapper({ vehicle, onToggleCompare, onToggleFavorite }) {
+function VehicleCardWrapper({ vehicle, index, onToggleCompare, onToggleFavorite }) {
   return (
     <VehicleCard
       vehicle={vehicle}
+      index={index}
       onToggleCompare={onToggleCompare}
       onToggleFavorite={onToggleFavorite}
     />
@@ -58,6 +59,7 @@ export default function VehicleGrid({ vehicles, searchQuery = '', _whatsappNumbe
           <button
             key={cat}
             onClick={() => handleCategoryToggleWrapper(cat)}
+            aria-pressed={filters.category.includes(cat)}
             className={`text-xs font-medium px-3 py-1.5 rounded-full border transition ${
               filters.category.includes(cat)
                 ? 'pill-active font-semibold'
@@ -71,10 +73,11 @@ export default function VehicleGrid({ vehicles, searchQuery = '', _whatsappNumbe
 
       {filtered.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filtered.map(vehicle => (
+          {filtered.map((vehicle, index) => (
             <VehicleCardWrapper
               key={vehicle.ID}
               vehicle={vehicle}
+              index={index}
               onToggleCompare={toggleCompare}
               onToggleFavorite={toggleFavorite}
             />

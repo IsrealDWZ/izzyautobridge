@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 import { useAppStore } from '../store/useAppStore';
@@ -12,12 +11,15 @@ import { VehicleSpecs } from './vehicle/VehicleSpecs';
 export default function VehicleCard({
   vehicle,
   loading = false,
+  index = 0,
   onToggleCompare,
   onToggleFavorite,
 }) {
   const { compareSelection, favorites } = useAppStore();
   const isComparing = compareSelection.includes(vehicle.ID);
   const isFavorite = favorites.includes(vehicle.ID);
+  // Cap the stagger so cards far down the grid are not waiting on a long delay.
+  const enterStyle = { animationDelay: `${Math.min(index, 8) * 40}ms` };
 
   const handleFavorite = () => {
     trackEvent(isFavorite ? 'remove_from_wishlist' : 'add_to_wishlist', {
@@ -47,12 +49,7 @@ export default function VehicleCard({
 
   if (loading) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="card-surface overflow-hidden flex flex-col hover:shadow-xl hover:border-action/50 transition-all"
-      >
+      <div className="card-enter card-surface overflow-hidden flex flex-col hover:shadow-xl hover:border-action/50 transition-all">
         <div className="aspect-video bg-accent-surface rounded-3xl mb-5 animate-pulse" />
         <div className="p-4 sm:p-5 flex flex-col flex-1">
           <div className="h-4 bg-accent-surface w-1/4 rounded mb-4 animate-pulse" />
@@ -69,17 +66,14 @@ export default function VehicleCard({
             <div className="flex-1 h-10 bg-accent-surface rounded animate-pulse" />
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5 }}
-      className="card-surface overflow-hidden flex flex-col hover:shadow-xl hover:border-action/50 transition-all group"
+    <div
+      style={enterStyle}
+      className="card-enter card-surface overflow-hidden flex flex-col hover:shadow-xl hover:border-action/50 transition-all group"
     >
       <VehicleImage vehicle={vehicle} />
       <div className="p-4 sm:p-5 flex flex-col flex-1">
@@ -109,6 +103,6 @@ export default function VehicleCard({
           onToggleFavorite={handleFavorite}
         />
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, MessageCircle } from 'lucide-react';
+import { useRef } from 'react';
 
+import { useFocusTrap } from '../hooks/useFocusTrap';
 import { useAppStore } from '../store/useAppStore';
 import { trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
@@ -9,6 +11,10 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
   const { compareSelection, clearCompare } = useAppStore();
   const isOpen = compareSelection.length === 2;
   const rows = compareSelection.map(id => vehicles.find(v => v.ID === id)).filter(Boolean);
+  const panelRef = useRef(null);
+  const isVisible = isOpen && rows.length === 2;
+
+  useFocusTrap(panelRef, isVisible, { onClose: clearCompare });
 
   const fields = [
     ['Brand', 'Brand'],
@@ -21,7 +27,7 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
     ['Price', v => `GH₵${Number(v.Price_GHS || 0).toLocaleString()}`],
   ];
 
-  if (!isOpen || rows.length < 2) return null;
+  if (!isVisible) return null;
   const [a, b] = rows;
   const diff = Math.abs(a.Price_GHS - b.Price_GHS);
   const cheaper = a.Price_GHS < b.Price_GHS ? a : b;
@@ -36,13 +42,15 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
         onClick={clearCompare}
       >
         <motion.div
+          ref={panelRef}
+          tabIndex={-1}
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           onClick={e => e.stopPropagation()}
           role="dialog"
           aria-modal="true"
           aria-label="Comparison details"
-          className="bg-card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-auto"
+          className="bg-card rounded-2xl max-w-lg w-full max-h-[90vh] overflow-auto focus:outline-none"
         >
           <div className="flex items-center justify-between p-4 sm:p-5 border-b border-subtle sticky top-0 bg-card">
             <h3 className="font-display text-lg font-bold">Compare vehicles</h3>

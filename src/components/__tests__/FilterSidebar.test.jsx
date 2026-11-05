@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { useAppStore } from '../../store/useAppStore';
@@ -39,5 +39,21 @@ describe('FilterSidebar', () => {
     expect(dialog).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Close filters' })).toBeInTheDocument();
     expect(screen.getAllByText('Brand').length).toBeGreaterThan(0);
+  });
+
+  it('moves focus into the drawer, closes on Escape and restores focus', async () => {
+    render(<FilterSidebar vehicles={VEHICLES} />);
+
+    const trigger = screen.getByRole('button', { name: /Filters/ });
+    fireEvent.click(trigger);
+
+    expect(screen.getByRole('button', { name: 'Close filters' })).toHaveFocus();
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog', { name: 'Filters' })).not.toBeInTheDocument();
+    });
+    expect(trigger).toHaveFocus();
   });
 });

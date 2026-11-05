@@ -1,31 +1,19 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Filter } from 'lucide-react';
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 
+import { useFocusTrap } from '../hooks/useFocusTrap';
 import { useAppStore } from '../store/useAppStore';
 import { validatePriceRange, validateYearRange } from '../utils/validation';
 
 export default function FilterSidebar({ vehicles = [] }) {
   const { filters, setFilter, setFilters, resetFilters } = useAppStore();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const closeRef = useRef(null);
+  const triggerRef = useRef(null);
+  const sheetRef = useRef(null);
 
-  useEffect(() => {
-    if (mobileOpen && !focused) {
-      const firstFocusable = closeRef.current;
-      if (firstFocusable) firstFocusable.focus();
-      setFocused(true);
-    }
-  }, [mobileOpen, focused]);
-
-  useEffect(() => {
-    const handler = e => {
-      if (e.key === 'Escape') setMobileOpen(false);
-    };
-    document.addEventListener('keydown', handler);
-    return () => document.removeEventListener('keydown', handler);
-  }, [mobileOpen]);
+  const closeSheet = useCallback(() => setMobileOpen(false), []);
+  useFocusTrap(sheetRef, mobileOpen, { onClose: closeSheet, returnFocusRef: triggerRef });
 
   const brands = useMemo(() => [...new Set(vehicles.map(v => v.Brand))].sort(), [vehicles]);
   const fuelTypes = useMemo(() => [...new Set(vehicles.map(v => v.Fuel_Type))].sort(), [vehicles]);
@@ -145,6 +133,7 @@ export default function FilterSidebar({ vehicles = [] }) {
 
       {/* Mobile Toggle Button - positioned to avoid WhatsApp button */}
       <button
+        ref={triggerRef}
         onClick={() => setMobileOpen(true)}
         className="lg:hidden fixed bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-40 bg-secondary text-onsecondary rounded-full px-5 py-3 text-sm font-semibold shadow-lg flex items-center gap-2 min-h-[44px]"
       >
@@ -168,6 +157,8 @@ export default function FilterSidebar({ vehicles = [] }) {
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
+              ref={sheetRef}
+              tabIndex={-1}
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
@@ -175,12 +166,11 @@ export default function FilterSidebar({ vehicles = [] }) {
               role="dialog"
               aria-modal="true"
               aria-label="Filters"
-              className="fixed bottom-0 left-0 right-0 h-[90vh] max-h-[90vh] bg-card z-50 shadow-2xl flex flex-col"
+              className="fixed bottom-0 left-0 right-0 h-[90vh] max-h-[90vh] bg-card z-50 shadow-2xl flex flex-col focus:outline-none"
             >
               <div className="flex items-center justify-between p-4 sm:p-5 border-b border-subtle">
                 <h3 className="font-display font-bold">Filters</h3>
                 <button
-                  ref={closeRef}
                   onClick={() => setMobileOpen(false)}
                   aria-label="Close filters"
                   className="p-2 min-h-[44px] min-w-[44px]"

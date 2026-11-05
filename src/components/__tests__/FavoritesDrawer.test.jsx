@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { useAppStore } from '../../store/useAppStore';
@@ -36,5 +36,22 @@ describe('FavoritesDrawer', () => {
 
     fireEvent.click(screen.getAllByLabelText('Remove')[0]);
     expect(useAppStore.getState().favorites).toEqual([7]);
+  });
+
+  it('closes on Escape and restores focus to the trigger', async () => {
+    useAppStore.setState({ favorites: [42] });
+    render(<FavoritesDrawer vehicles={VEHICLES} whatsappNumber="233536225804" />);
+
+    const trigger = screen.getByRole('button', { name: /1 Saved/ });
+    fireEvent.click(trigger);
+
+    expect(screen.getByRole('button', { name: 'Close favorites' })).toHaveFocus();
+
+    fireEvent.keyDown(document, { key: 'Escape' });
+
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog', { name: 'Saved vehicles' })).not.toBeInTheDocument();
+    });
+    expect(trigger).toHaveFocus();
   });
 });

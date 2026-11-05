@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const STORAGE_KEY = 'iza_consent';
 const GRANTED = 'granted';
@@ -33,6 +33,7 @@ function applyConsent(value) {
 
 export default function ConsentBanner() {
   const [visible, setVisible] = useState(false);
+  const dialogRef = useRef(null);
 
   useEffect(() => {
     const stored = readStored();
@@ -42,6 +43,14 @@ export default function ConsentBanner() {
     }
     setVisible(true);
   }, []);
+
+  // Move focus into the banner when it appears so keyboard and screen-reader
+  // users hear the choice without hunting for it at the end of the document.
+  useEffect(() => {
+    if (!visible) return undefined;
+    const id = window.setTimeout(() => dialogRef.current?.focus({ preventScroll: true }), 0);
+    return () => window.clearTimeout(id);
+  }, [visible]);
 
   const decide = value => {
     writeStored(value);
@@ -53,16 +62,18 @@ export default function ConsentBanner() {
     <AnimatePresence>
       {visible && (
         <motion.div
+          ref={dialogRef}
+          tabIndex={-1}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 40 }}
           transition={{ duration: 0.35, ease: 'easeOut' }}
           role="dialog"
-          aria-live="polite"
           aria-label="Analytics consent"
-          className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-6 sm:bottom-6 sm:max-w-md z-50 bg-card border border-line rounded-2xl p-5 shadow-xl"
+          aria-describedby="consent-description"
+          className="fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-6 sm:bottom-6 sm:max-w-md z-50 bg-card border border-line rounded-2xl p-5 shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-action/40"
         >
-          <p className="text-sm text-main leading-relaxed">
+          <p id="consent-description" className="text-sm text-main leading-relaxed">
             We use Google Analytics to understand how the site is used. Nothing is shared for ads,
             and you can decline.
           </p>

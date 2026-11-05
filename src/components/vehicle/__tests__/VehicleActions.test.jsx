@@ -36,4 +36,32 @@ describe('VehicleActions', () => {
     fireEvent.click(screen.getByRole('button', { name: /Compare/ }));
     expect(onToggleCompare).toHaveBeenCalledWith(42);
   });
+
+  it('exposes the compare and favourite state with aria-pressed', () => {
+    const props = {
+      vehicle: VEHICLE,
+      onToggleCompare: vi.fn(),
+      onToggleFavorite: vi.fn(),
+    };
+    const { rerender } = render(
+      <VehicleActions {...props} isComparing={false} isFavorite={false} />
+    );
+
+    expect(screen.getByRole('button', { name: 'Compare' })).toHaveAttribute(
+      'aria-pressed',
+      'false'
+    );
+    expect(screen.getByRole('button', { name: 'Save to favorites' })).toHaveAttribute(
+      'aria-pressed',
+      'false'
+    );
+
+    rerender(<VehicleActions {...props} isComparing isFavorite />);
+
+    expect(screen.getByRole('button', { name: 'Compare' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'Save to favorites' })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    );
+  });
 });

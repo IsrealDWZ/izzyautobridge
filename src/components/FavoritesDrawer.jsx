@@ -1,15 +1,20 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Heart, X, Trash2, MessageCircle } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 
+import { useFocusTrap } from '../hooks/useFocusTrap';
 import { useAppStore } from '../store/useAppStore';
 import { trackWhatsApp } from '../utils/analytics';
 
 export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
   const [open, setOpen] = useState(false);
-  const closeRef = useRef(null);
+  const triggerRef = useRef(null);
+  const panelRef = useRef(null);
   const { favorites, toggleFavorite, clearFavorites } = useAppStore();
   const favVehicles = favorites.map(id => vehicles.find(v => v.ID === id)).filter(Boolean);
+
+  const close = useCallback(() => setOpen(false), []);
+  useFocusTrap(panelRef, open, { onClose: close, returnFocusRef: triggerRef });
 
   const sendAllLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
     `Hi, I'm interested in: ${favVehicles.map(v => `${v.Brand} ${v.Model} ${v.Year}`).join(', ')}`
@@ -18,6 +23,7 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
   return (
     <>
       <button
+        ref={triggerRef}
         onClick={() => setOpen(true)}
         className="fixed bottom-6 left-6 z-40 bg-secondary text-onsecondary rounded-full px-5 py-3 text-sm font-semibold shadow-lg flex items-center gap-2"
       >
@@ -35,6 +41,8 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
               onClick={() => setOpen(false)}
             />
             <motion.div
+              ref={panelRef}
+              tabIndex={-1}
               initial={{ x: 360 }}
               animate={{ x: 0 }}
               exit={{ x: 360 }}
@@ -42,13 +50,12 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
               role="dialog"
               aria-modal="true"
               aria-label="Saved vehicles"
-              className="fixed top-0 right-0 h-full w-[340px] bg-card z-50 shadow-2xl flex flex-col"
+              className="fixed top-0 right-0 h-full w-[340px] bg-card z-50 shadow-2xl flex flex-col focus:outline-none"
             >
               <div className="flex items-center justify-between p-5 border-b border-subtle">
                 <h3 className="font-display font-bold">Saved vehicles</h3>
                 <button
-                  ref={closeRef}
-                  onClick={() => setOpen(false)}
+                  onClick={close}
                   aria-label="Close favorites"
                   className="p-2 min-h-[44px] min-w-[44px]"
                 >

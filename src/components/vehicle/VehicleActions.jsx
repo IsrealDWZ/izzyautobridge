@@ -15,6 +15,7 @@ export function VehicleActions({
       <button
         onClick={() => onToggleCompare(vehicle.ID)}
         aria-label="Compare"
+        aria-pressed={isComparing}
         className={`flex items-center gap-1.5 text-xs font-medium px-3 py-2.5 rounded-lg border transition min-h-[44px] ${
           isComparing
             ? 'pill-active font-semibold'
@@ -29,6 +30,7 @@ export function VehicleActions({
         onClick={() => onToggleFavorite(vehicle.ID)}
         className="p-2.5 rounded-lg border border-subtle min-h-[44px] min-w-[44px] hover:bg-accent-hover/15 transition-colors"
         aria-label="Save to favorites"
+        aria-pressed={isFavorite}
       >
         <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} stroke="currentColor" />
       </button>
