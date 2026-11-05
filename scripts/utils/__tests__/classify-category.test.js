@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+
 import { classifyCategory } from '../classify-category.js';
 
 describe('classifyCategory', () => {

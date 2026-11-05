@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { parse } from 'csv-parse/sync';
+
 import { runHarvest } from './harvest.js';
-import { normalizeRow, hasRequiredDetails } from './utils/normalize-row.js';
-import { dedupeRows } from './utils/dedupe.js';
-import { classifyCategory } from './utils/classify-category.js';
 import { generateAuditReport, writeAuditReport } from './utils/audit-report.js';
+import { classifyCategory } from './utils/classify-category.js';
 import { escapeCsvCell } from './utils/csv.js';
+import { dedupeRows } from './utils/dedupe.js';
+import { normalizeRow, hasRequiredDetails } from './utils/normalize-row.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,26 +44,6 @@ function parsePrice(priceStr) {
 function generateId(brand, model, year) {
   const base = `${brand}-${model}-${year}`.replace(/[^a-zA-Z0-9]/g, '-');
   return `IZZY-${base.toUpperCase()}`;
-}
-
-function extractBodyType(bodies) {
-  if (!bodies) return 'Unknown';
-  const match = bodies.match(
-    /^(Sedan|SUV|Hatchback|MPV|Pickup|Truck|Bus|Motorcycle|Scooter|Tricycle|Mini|Van|Coupe|Convertible|Wagon)/i
-  );
-  return match ? match[1] : bodies.split('(')[0].trim();
-}
-
-function buildKeySpecs(row) {
-  const parts = [];
-  if (row.Engine) parts.push(row.Engine);
-  if (row.Seats) parts.push(`${row.Seats}-seater`);
-  if (row.Drives) parts.push(row.Drives);
-  if (row.Transmission) parts.push(row.Transmission);
-  if (row['Fuel Economy']) parts.push(row['Fuel Economy']);
-  if (row.Power) parts.push(row.Power);
-  if (row['Range (km)']) parts.push(`${row['Range (km)']}km range`);
-  return parts.join(' • ');
 }
 
 async function main() {

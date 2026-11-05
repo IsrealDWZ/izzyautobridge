@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
 import { findAllMatches } from './utils/fuzzy-match.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

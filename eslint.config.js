@@ -1,5 +1,5 @@
 export default [
-  { ignores: ['dist/', 'node_modules/', 'scripts/', 'public/', '*.config.js', '*.config.mjs'] },
+  { ignores: ['dist/', 'node_modules/', 'public/', '*.config.js', '*.config.mjs'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -74,6 +74,28 @@ export default [
       // React specific
       'react/jsx-boolean-value': 'warn',
       'react/jsx-curly-brace-presence': ['warn', 'never'],
+    },
+  },
+  {
+    // Node CLI tooling. These scripts run outside the browser, print progress
+    // to the terminal, and pull in build-only packages (csv-parse, fast-glob).
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        Buffer: 'readonly',
+        URL: 'readonly',
+        URLSearchParams: 'readonly',
+        clearInterval: 'readonly',
+        clearTimeout: 'readonly',
+        fetch: 'readonly',
+        process: 'readonly',
+        setInterval: 'readonly',
+        setTimeout: 'readonly',
+      },
+    },
+    rules: {
+      'no-console': 'off',
+      'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     },
   },
 ];

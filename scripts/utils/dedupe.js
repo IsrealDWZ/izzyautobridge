@@ -4,9 +4,6 @@ const SOURCE_PRIORITY = {
   'main-features-csv': 1,
   'category-csv': 2,
   'misc-csv': 3,
-  'changan-xlsx': 4,
-  'changan-quote-xlsx': 5,
-  'new-cars-export-xlsx': 6,
 };
 
 function makeDedupeKey(row) {
