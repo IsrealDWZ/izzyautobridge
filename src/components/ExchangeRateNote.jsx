@@ -10,7 +10,7 @@ export default function ExchangeRateNote({ className = '' }) {
   return (
     <p
       className={`inline-flex flex-wrap items-center gap-1.5 text-xs ${className}`}
-      title="Includes a 3% safety margin. Checked daily; prices update automatically when the rate changes."
+      title="Includes a 3% safety margin. Checked every 6 hours; prices update automatically when the rate changes."
     >
       <RefreshCw size={12} aria-hidden="true" />
       <span>USD/GHS {rate}</span>

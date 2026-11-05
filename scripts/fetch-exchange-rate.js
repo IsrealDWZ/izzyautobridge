@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import { fetchFidelityRates } from './fidelity-rate.js';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 
@@ -10,11 +12,10 @@ const SAFETY_MARGIN = 0.03; // 3% buffer to avoid losses
 const API_URL = 'https://open.er-api.com/v6/latest/USD';
 const FALLBACK_RATE = 12.0;
 
-// Fidelity Bank Ghana publishes a USD buying/selling table. We anchor to the
-// selling rate (what a customer pays for USD) rather than guessing a spread:
-// sample both quotes on the same day, store the ratio, and let the daily build
-// apply it to whatever the general market rate is. Re-measure periodically
-// (monthly is realistic) and update the sample below.
+// Fidelity's published quote is the primary source. The anchor below is the
+// last-resort fallback for when neither the live page nor a cached quote is
+// available: sample both quotes on the same day, store the ratio, and apply it
+// to the general market rate. Keep the sample for auditability.
 const FIDELITY_ANCHOR = {
   side: 'selling',
   sampleRate: 11.76,
@@ -26,9 +27,26 @@ const FIDELITY_RATIO = Number(
   (FIDELITY_ANCHOR.sampleRate / FIDELITY_ANCHOR.sampleMarketRate).toFixed(6)
 );
 
-async function fetchRate() {
+// A quote older than this is refreshed on the next build. Weekends can leave
+// Fidelity's last published quote in place for a couple of days, so the cached
+// quote is still used when a refresh fails.
+const FIDELITY_MAX_AGE_HOURS = 24;
+
+export function roundRate(value) {
+  return Math.round(value * 100) / 100;
+}
+
+export function computeLiveRate(sellingRate, margin = SAFETY_MARGIN) {
+  return roundRate(sellingRate * (1 + margin));
+}
+
+export function computeAnchoredRate(marketRate, ratio = FIDELITY_RATIO, margin = SAFETY_MARGIN) {
+  return roundRate(marketRate * ratio * (1 + margin));
+}
+
+async function fetchMarketRate() {
   try {
-    console.log('Fetching USD/GHS rate from exchangerate-api.com...');
+    console.log('Fetching USD/GHS market rate from exchangerate-api.com...');
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
 
@@ -45,10 +63,10 @@ async function fetchRate() {
 
     if (!rate || typeof rate !== 'number') throw new Error('Invalid rate format');
 
-    console.log(`Fetched rate: 1 USD = ${rate} GHS`);
+    console.log(`Fetched market rate: 1 USD = ${rate} GHS`);
     return rate;
   } catch (err) {
-    console.warn(`Failed to fetch live rate: ${err.message}`);
+    console.warn(`Failed to fetch live market rate: ${err.message}`);
     return null;
   }
 }
@@ -64,66 +82,137 @@ function loadCache() {
   return null;
 }
 
-function saveRate(rate, marketRate) {
+function quoteAgeHours(quote) {
+  const fetchedAt = Date.parse(quote?.fetchedAt || '');
+  if (!Number.isFinite(fetchedAt)) return Infinity;
+  return (Date.now() - fetchedAt) / (60 * 60 * 1000);
+}
+
+function isQuoteFresh(quote) {
+  return quoteAgeHours(quote) < FIDELITY_MAX_AGE_HOURS;
+}
+
+function warn(message) {
+  console.warn(message);
+  if (process.env.GITHUB_ACTIONS === 'true') console.log(`::warning::${message}`);
+}
+
+function sameQuote(a, b) {
+  if (!a && !b) return true;
+  if (!a || !b) return false;
+  return a.selling === b.selling && a.asAt === b.asAt;
+}
+
+async function resolveFidelityQuote(cache) {
+  const force = process.env.FIDELITY_FORCE === '1';
+
+  if (force || !isQuoteFresh(cache?.fidelityLive)) {
+    console.log('Fetching live Fidelity Bank USD/GHS rate...');
+    const live = await fetchFidelityRates();
+    if (live) {
+      console.log(
+        `Fidelity USD: buying ${live.buying}, selling ${live.selling} (as at ${live.asAt ?? 'unknown'}) via ${live.via}`
+      );
+      return live;
+    }
+    warn('Live Fidelity rate unavailable; falling back to the cached quote if one exists.');
+  }
+
+  if (cache?.fidelityLive?.selling) {
+    const age = quoteAgeHours(cache.fidelityLive);
+    console.log(
+      `Using cached Fidelity selling rate ${cache.fidelityLive.selling} (as at ${
+        cache.fidelityLive.asAt ?? 'unknown'
+      }, fetched ${cache.fidelityLive.fetchedAt}, ${age.toFixed(1)}h ago)`
+    );
+    if (age > 72) {
+      warn(
+        `Cached Fidelity quote is ${age.toFixed(0)} hours old; check the rate refresh workflow.`
+      );
+    }
+    return cache.fidelityLive;
+  }
+
+  return null;
+}
+
+function saveRate(payload) {
+  fs.writeFileSync(CACHE_PATH, `${JSON.stringify(payload, null, 2)}\n`);
+  console.log(`Saved rate to ${CACHE_PATH}`);
+}
+
+async function main() {
+  console.log('=== FETCHING EXCHANGE RATE ===');
+
+  const cache = loadCache();
+  const marketRate = (await fetchMarketRate()) ?? cache?.marketRate ?? FALLBACK_RATE;
+  const fidelity = await resolveFidelityQuote(cache);
+
+  let finalRate;
+  let source;
+
+  if (fidelity?.selling) {
+    finalRate = computeLiveRate(fidelity.selling);
+    source = 'fidelitybank.com.gh/rates (live selling) + 3% margin';
+    console.log(
+      `Applied ${(SAFETY_MARGIN * 100).toFixed(0)}% safety margin to Fidelity selling: ${
+        fidelity.selling
+      } -> ${finalRate}`
+    );
+  } else {
+    finalRate = computeAnchoredRate(marketRate);
+    source = 'exchangerate-api.com market rate x Fidelity anchor + 3% margin';
+    console.log(
+      `Applied Fidelity anchor (x${FIDELITY_RATIO}) to market rate: ${marketRate} -> ${finalRate}`
+    );
+  }
+
   const payload = {
-    rate,
+    rate: finalRate,
     marketRate,
     fidelityAnchor: {
       ...FIDELITY_ANCHOR,
       ratio: FIDELITY_RATIO,
     },
     fetchedAt: new Date().toISOString(),
-    source: 'exchangerate-api.com (open.er-api.com)',
+    source,
     safetyMargin: SAFETY_MARGIN,
   };
-  fs.writeFileSync(CACHE_PATH, `${JSON.stringify(payload, null, 2)}\n`);
-  console.log(`Saved rate to ${CACHE_PATH}`);
-}
 
-function applyPricing(rate) {
-  const anchored = rate * FIDELITY_RATIO;
-  const adjusted = Math.round(anchored * (1 + SAFETY_MARGIN) * 100) / 100;
-  console.log(
-    `Applied Fidelity ${FIDELITY_ANCHOR.side} anchor (x${FIDELITY_RATIO}): ${rate} -> ${anchored.toFixed(2)}`
-  );
-  console.log(
-    `Applied ${(SAFETY_MARGIN * 100).toFixed(0)}% safety margin: ${anchored.toFixed(2)} -> ${adjusted}`
-  );
-  return adjusted;
-}
+  if (fidelity) {
+    payload.fidelityLive = {
+      buying: fidelity.buying,
+      selling: fidelity.selling,
+      asAt: fidelity.asAt,
+      fetchedAt: fidelity.fetchedAt,
+      via: fidelity.via,
+      source: fidelity.source,
+    };
+  }
 
-async function main() {
-  console.log('=== FETCHING EXCHANGE RATE ===');
+  const unchanged =
+    cache?.rate === payload.rate &&
+    cache?.fidelityAnchor?.ratio === payload.fidelityAnchor.ratio &&
+    sameQuote(cache?.fidelityLive, payload.fidelityLive);
 
-  const liveRate = await fetchRate();
-  const cache = loadCache();
-  let finalRate;
-
-  if (liveRate) {
-    finalRate = applyPricing(liveRate);
-    const unchanged = cache?.rate === finalRate && cache?.fidelityAnchor?.ratio === FIDELITY_RATIO;
-    if (unchanged) {
-      console.log(`Rate unchanged at ${finalRate} GHS/USD; keeping cache timestamp.`);
-    } else {
-      saveRate(finalRate, liveRate);
-    }
-  } else if (cache?.rate) {
-    finalRate = cache.rate;
-    console.log(`Using cached rate: 1 USD = ${finalRate} GHS (fetched ${cache.fetchedAt})`);
+  if (unchanged) {
+    console.log(`Rate unchanged at ${finalRate} GHS/USD; keeping cache timestamp.`);
   } else {
-    finalRate = applyPricing(FALLBACK_RATE);
-    console.log(`Using fallback market rate with margin: ${finalRate}`);
+    saveRate(payload);
   }
 
   console.log(`\nFinal USD/GHS rate for this build: ${finalRate}`);
-  console.log(
-    `This tracks Fidelity's ${FIDELITY_ANCHOR.side} rate (sampled ${FIDELITY_ANCHOR.sampledAt}) plus a ${(SAFETY_MARGIN * 100).toFixed(0)}% buffer.\n`
-  );
+  console.log(`Source: ${source}\n`);
 
   return finalRate;
 }
 
-main().catch(err => {
-  console.error('Exchange rate fetch failed:', err);
-  process.exit(1);
-});
+const isDirectRun =
+  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isDirectRun) {
+  main().catch(err => {
+    console.error('Exchange rate fetch failed:', err);
+    process.exit(1);
+  });
+}

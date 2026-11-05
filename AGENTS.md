@@ -82,13 +82,14 @@ npm run build:sitemap  # Generate sitemap.xml
 8. generate-vehicles.js → vehicles.json (only with images)
 ```
 
+Mileage ranges such as `19,000-22,000 km` are parsed by `scripts/utils/parse-mileage.js`, which uses the upper bound so a listing never overstates condition.
+
 ### Exchange Rate
-- **Source**: exchangerate-api.com (open.er-api.com)
-- **Anchor**: Fidelity Bank Ghana's published USD **selling** rate. `scripts/fetch-exchange-rate.js` stores the ratio `fidelity_sell / market` measured on a sample day (`FIDELITY_ANCHOR`, currently 2026-11-04: 11.76 / 11.67886) and applies it to the live market rate, then adds the safety margin. Re-measure the sample monthly; no live Fidelity feed is needed.
-- **Cache**: `src/data/exchange-rate.json` (fetched at build; rewritten only when the rounded rate or anchor changes). It records `marketRate`, the anchor sample and the ratio for auditability.
-- **Refresh**: `.github/workflows/refresh-exchange-rate.yml` checks daily at 06:00 UTC, commits the new rate when it changes, and lets Vercel redeploy. If a `VERCEL_DEPLOY_HOOK_URL` repo secret exists, it triggers a rebuild even when the rate is unchanged.
-- **Margin**: 3% safety buffer on top of the Fidelity-anchored rate
-- **Fallback**: 12.0 market rate → anchored + 3% (only when both live fetch and cache fail)
+- **Primary source**: Fidelity Bank Ghana's published USD **selling** rate, fetched automatically by `scripts/fidelity-rate.js`. It tries a plain HTTP request first, then renders `fidelitybank.com.gh/rates` in headless Chrome when the Sucuri anti-bot challenge hides the table.
+- **Fallback chain**: cached `fidelityLive` quote → market rate × anchor ratio → 12.0 fallback. The anchor (`FIDELITY_ANCHOR`, 2026-11-04: 11.76 / 11.67886) is kept for auditability and for the ratio fallback.
+- **Cache**: `src/data/exchange-rate.json` records `marketRate`, `fidelityLive` (buying/selling/asAt/via/fetchedAt), the anchor sample and the ratio. It is rewritten only when the rounded rate or the Fidelity quote changes.
+- **Refresh**: `.github/workflows/refresh-exchange-rate.yml` runs every 6 hours with `FIDELITY_FORCE=1`, commits the new rate when it changes, and lets Vercel redeploy. If a `VERCEL_DEPLOY_HOOK_URL` repo secret exists, it triggers a rebuild even when the rate is unchanged. Builds outside CI reuse a quote younger than 24 hours instead of re-rendering the bank page.
+- **Margin**: 3% safety buffer on top of the Fidelity selling rate
 - **Inlined** at build via `import rateData from '../data/exchange-rate.json'`
 
 ### Analytics
@@ -114,8 +115,9 @@ npm run build:sitemap  # Generate sitemap.xml
 | `src/components/vehicle/*.jsx` | Sub-components |
 | `src/utils/validation.js` | All validators |
 | `src/utils/constants.js` | USD_GHS_RATE, WHATSAPP_NUMBER, APP_CONFIG |
-| `scripts/fetch-exchange-rate.js` | Live rate fetcher |
-| `.github/workflows/refresh-exchange-rate.yml` | Daily rate refresh + Vercel rebuild |
+| `scripts/fetch-exchange-rate.js` | Rate orchestrator (Fidelity live → cache → anchor) |
+| `scripts/fidelity-rate.js` | Fidelity published-rate fetcher/parser (HTTP + headless Chrome) |
+| `.github/workflows/refresh-exchange-rate.yml` | 6-hourly rate refresh + Vercel rebuild |
 | `scripts/build-master-catalog.js` | Master CSV generator |
 | `scripts/generate-vehicles.js` | vehicles.json generator |
 | `src/data/master-inventory.csv` | Dormant master catalog (219 vehicles) |
@@ -129,7 +131,7 @@ npm run build:sitemap  # Generate sitemap.xml
 | `npm run dev` | Dev server (port 5173) |
 | `npm run build` | Production build |
 | `npm run preview` | Preview dist/ |
-| `npm test` | Run tests (89 passing) |
+| `npm test` | Run tests (113 passing) |
 | `npm run lint` | ESLint over src + scripts (0 errors, 0 warnings) |
 | `npm run lint:fix` | Auto-fix |
 | `npm run format` | Prettier format |
@@ -153,7 +155,7 @@ Types: `fix`, `feat`, `chore`, `refactor`, `docs`, `test`, `style`, `perf`
 
 ### Pre-push Checklist
 - [ ] `npm run lint` passes (0 errors, 0 warnings)
-- [ ] `npm test` passes (89/89)
+- [ ] `npm test` passes (113/113)
 - [ ] `npm run build` succeeds
 - [ ] No console.log in production code
 

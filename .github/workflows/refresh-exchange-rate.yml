@@ -2,8 +2,9 @@ name: Refresh exchange rate
 
 on:
   schedule:
-    # 06:00 UTC daily (Ghana is UTC+0)
-    - cron: '0 6 * * *'
+    # Every 6 hours; Fidelity publishes once a day, so this catches the new
+    # quote within a few hours. Ghana is UTC+0.
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -30,7 +31,14 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Check headless Chrome
+        run: |
+          google-chrome --version || chromium --version || \
+            echo "::warning::No headless Chrome found; Fidelity fetch will fall back to the cached quote."
+
       - name: Fetch latest USD/GHS rate
+        env:
+          FIDELITY_FORCE: '1'
         run: node scripts/fetch-exchange-rate.js
 
       - name: Commit rate change
