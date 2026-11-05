@@ -1,4 +1,7 @@
 import { execFile } from 'child_process';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
 import { promisify } from 'util';
 
 const execFileAsync = promisify(execFile);
@@ -89,8 +92,9 @@ async function fetchViaHttp(url, timeoutMs = 15000) {
   }
 }
 
-async function fetchViaChrome(url, timeoutMs = 45000) {
+async function fetchViaChrome(url, timeoutMs = 60000) {
   for (const binary of CHROME_CANDIDATES) {
+    const profileDir = fs.mkdtempSync(path.join(os.tmpdir(), 'fidelity-chrome-'));
     try {
       const { stdout } = await execFileAsync(
         binary,
@@ -100,6 +104,7 @@ async function fetchViaChrome(url, timeoutMs = 45000) {
           '--no-sandbox',
           '--disable-dev-shm-usage',
           '--hide-scrollbars',
+          `--user-data-dir=${profileDir}`,
           '--virtual-time-budget=20000',
           '--dump-dom',
           url,
@@ -109,6 +114,12 @@ async function fetchViaChrome(url, timeoutMs = 45000) {
       if (stdout && stdout.length > 0) return stdout;
     } catch {
       // Try the next Chrome/Chromium binary.
+    } finally {
+      try {
+        fs.rmSync(profileDir, { recursive: true, force: true });
+      } catch {
+        // Best-effort cleanup; a locked profile should not fail the fetch.
+      }
     }
   }
   return null;
