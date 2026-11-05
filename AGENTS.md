@@ -32,7 +32,7 @@ falls through to `public/404.html`.
 - **Prefer `const`** over `let`
 - **Strict TypeScript config** (strict: true, noUncheckedIndexedAccess: true)
 - **JSDoc** for exported functions in `scripts/utils/`
-- **ESLint + Prettier** - run `npm run lint` and `npm run format` before committing
+- **ESLint + Prettier** - run `npm run lint` and `npm run format` before committing. Lint covers `src/` and `scripts/`; Prettier currently covers `src/` only.
 
 ### Import Order (ESLint enforced)
 ```
@@ -72,10 +72,10 @@ npm run build:sitemap  # Generate sitemap.xml
 
 ### Data Pipeline
 ```
-1. harvest.js → 20+ CSV/XLSX sources
+1. harvest.js → CSV sources (main features, category, misc)
 2. normalize-row.js → unified schema
 3. Filter: details + price > 0
-4. dedupe.js → Make+Model+Year+Trim (priority: main-features > category > misc > XLSX)
+4. dedupe.js → Make+Model+Year+Trim (priority: main-features > category > misc)
 5. classify-category.js → EV/Hybrid/Fuel/Bus/Heavy/Other
 6. Price: CIF + $1000 → GHS at live rate (cached)
 7. master-inventory.csv (dormant master)
@@ -129,8 +129,8 @@ npm run build:sitemap  # Generate sitemap.xml
 | `npm run dev` | Dev server (port 5173) |
 | `npm run build` | Production build |
 | `npm run preview` | Preview dist/ |
-| `npm test` | Run tests (82 passing) |
-| `npm run lint` | ESLint (0 errors, 0 warnings) |
+| `npm test` | Run tests (89 passing) |
+| `npm run lint` | ESLint over src + scripts (0 errors, 0 warnings) |
 | `npm run lint:fix` | Auto-fix |
 | `npm run format` | Prettier format |
 | `npm run typecheck` | TypeScript check |
@@ -153,7 +153,7 @@ Types: `fix`, `feat`, `chore`, `refactor`, `docs`, `test`, `style`, `perf`
 
 ### Pre-push Checklist
 - [ ] `npm run lint` passes (0 errors, 0 warnings)
-- [ ] `npm test` passes (82/82)
+- [ ] `npm test` passes (89/89)
 - [ ] `npm run build` succeeds
 - [ ] No console.log in production code
 
