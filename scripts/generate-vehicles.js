@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { parse } from 'csv-parse/sync';
 
 import { findAllMatches } from './utils/fuzzy-match.js';
+import { parseMileage } from './utils/parse-mileage.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
@@ -123,13 +124,8 @@ function parsePrice(priceStr) {
 
 function parseIntSafe(val, fallback = 0) {
   if (!val) return fallback;
-  const cleaned = val.replace(/[^0-9]/g, '');
-  let num = parseInt(cleaned, 10);
-  // Reject unreasonably large numbers (e.g. "100-60,000 km" → 10060000)
-  if (num > 1000000) {
-    const first = val.match(/(\d+)/);
-    num = first ? parseInt(first[1], 10) : fallback;
-  }
+  const match = String(val).match(/\d+/);
+  const num = match ? parseInt(match[0], 10) : fallback;
   return isNaN(num) ? fallback : num;
 }
 
@@ -180,7 +176,7 @@ function transformMasterRow(row, imageMatches) {
     Drive: row.Drives?.trim() || 'Unknown',
     Color: row.Exterior_Colors?.split(',')[0]?.trim() || 'Unknown',
     Status: row.Conditions?.trim() || 'Available',
-    Mileage_km: parseIntSafe(row.Mileage),
+    Mileage_km: parseMileage(row.Mileage),
     Price_USD: priceUSD,
     Price_GHS: Math.round(priceUSD * USD_GHS_RATE),
     Key_Specs: buildKeySpecs(row),
@@ -343,7 +339,12 @@ async function main() {
     });
 }
 
-main().catch(err => {
-  console.error('Generation failed:', err);
-  process.exit(1);
-});
+const isDirectRun =
+  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+
+if (isDirectRun) {
+  main().catch(err => {
+    console.error('Generation failed:', err);
+    process.exit(1);
+  });
+}
