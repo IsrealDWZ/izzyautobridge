@@ -15,12 +15,16 @@ describe('computeObservedRatio', () => {
 });
 
 describe('computeAnchoredRate', () => {
-  it('applies the Fidelity gap to the market rate plus the safety margin', () => {
-    expect(computeAnchoredRate(11.67886)).toBe(12.11);
+  it('applies the Fidelity gap to the market rate without an extra buffer', () => {
+    expect(computeAnchoredRate(11.67886)).toBe(11.76);
   });
 
-  it('accepts an explicit ratio and margin', () => {
-    expect(computeAnchoredRate(10, 1.1, 0.1)).toBe(12.1);
+  it('tracks the market rate while keeping the Fidelity premium', () => {
+    expect(computeAnchoredRate(11.690671)).toBe(11.77);
+  });
+
+  it('accepts an explicit ratio', () => {
+    expect(computeAnchoredRate(10, 1.1)).toBe(11);
   });
 });
 

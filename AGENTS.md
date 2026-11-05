@@ -65,7 +65,7 @@ falls through to `public/404.html`.
 ```bash
 npm run build          # Full: fetch:rate → build:data → sitemap → vite build
 npm run build:data     # fetch:rate → build-image-index → generate-vehicles
-npm run fetch:rate     # Fetch live USD/GHS rate (3% margin)
+npm run fetch:rate     # Fetch live USD/GHS pricing rate
 npm run build:master   # Generate master-inventory.csv (manual)
 npm run build:sitemap  # Generate sitemap.xml
 ```
@@ -85,13 +85,13 @@ npm run build:sitemap  # Generate sitemap.xml
 Mileage ranges such as `19,000-22,000 km` are parsed by `scripts/utils/parse-mileage.js`, which uses the upper bound so a listing never overstates condition.
 
 ### Exchange Rate
-- **Formula**: `site_rate = marketRate × FIDELITY_RATIO × 1.03`. The market rate comes from exchangerate-api.com; `FIDELITY_RATIO` is Fidelity's observed **selling gap** over the market rate (currently +0.69%: 11.76 / 11.67886 = 1.006948).
+- **Formula**: `site_rate = marketRate × FIDELITY_RATIO`. The market rate comes from exchangerate-api.com; `FIDELITY_RATIO` is Fidelity's observed **selling gap** over the market rate (currently +0.69%: 11.76 / 11.67886 = 1.006948).
+- **No extra buffer**: the gap already carries Fidelity's retail premium, so the old 3% safety margin was removed — it stacked on top and pushed prices above the bank's own selling rate.
 - **Why the gap, not the absolute rate**: Fidelity's quote only updates once a day, so applying its absolute selling rate would freeze prices while the market moves. Applying the measured gap to the live market rate keeps prices responsive and still matches Fidelity's retail premium.
 - **Live quote is observational**: `scripts/fidelity-rate.js` fetches Fidelity Bank Ghana's published USD buying/selling (plain HTTP first, then headless Chrome when the Sucuri challenge hides the table). `fidelityLive.observedRatio` records today's actual gap; the build warns when it drifts 0.5 percentage points or more from `FIDELITY_ANCHOR` so the constant can be re-measured.
-- **Fallback chain**: cached `fidelityLive` quote (for the observed gap) → stored anchor ratio → 12.0 fallback. Pricing never depends on the live fetch succeeding.
+- **Fallback chain**: cached `fidelityLive` quote (for the observed gap) → stored anchor ratio → `11.67886` market fallback. Pricing never depends on the live fetch succeeding.
 - **Cache**: `src/data/exchange-rate.json` records `rate`, `marketRate`, `fidelityLive` (buying/selling/asAt/via/fetchedAt/observedRatio/marketRateAtFetch), the anchor sample and the ratio. It is rewritten only when the rounded rate or the Fidelity quote changes.
 - **Refresh**: `.github/workflows/refresh-exchange-rate.yml` runs every 6 hours with `FIDELITY_FORCE=1`, commits the new rate when it changes, and lets Vercel redeploy. If a `VERCEL_DEPLOY_HOOK_URL` repo secret exists, it triggers a rebuild even when the rate is unchanged. Builds outside CI reuse a quote younger than 24 hours instead of re-rendering the bank page.
-- **Margin**: 3% safety buffer on top of the Fidelity-gap rate
 - **Inlined** at build via `import rateData from '../data/exchange-rate.json'`
 
 ### Analytics

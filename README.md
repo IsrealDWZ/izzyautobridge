@@ -126,7 +126,7 @@ The project uses a sophisticated data pipeline to generate the vehicle catalog:
 
 ### Exchange Rate
 
-The USD/GHS exchange rate is fetched at build time from exchangerate-api.com with a 3% safety margin and cached to `src/data/exchange-rate.json`. The rate is inlined at build time.
+The USD/GHS pricing rate is derived at build time from exchangerate-api.com's live market rate plus Fidelity Bank Ghana's observed selling premium (+0.69%). No extra buffer is added, and the result is cached to `src/data/exchange-rate.json` and inlined at build time.
 
 ## Deployment
 

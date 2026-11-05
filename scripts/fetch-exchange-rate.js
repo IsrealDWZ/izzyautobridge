@@ -8,14 +8,17 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 const CACHE_PATH = path.join(ROOT_DIR, 'src', 'data', 'exchange-rate.json');
-const SAFETY_MARGIN = 0.03; // 3% buffer to avoid losses
 const API_URL = 'https://open.er-api.com/v6/latest/USD';
-const FALLBACK_RATE = 12.0;
+// Last-resort market proxy when both the live API and the cache are missing.
+// It is the market rate sampled with Fidelity's quote, so applying the ratio
+// reproduces Fidelity's published selling rate instead of inflating it.
+const FALLBACK_MARKET_RATE = 11.67886;
 
 // Fidelity's published quote is used as an observed gap, not as the absolute
 // pricing base. Sample both quotes on the same day, store the selling/market
-// ratio, and apply that ratio to the live market rate. The sample stays for
-// auditability and as the fallback when no live quote is available.
+// ratio, and apply that ratio to the live market rate. The gap already carries
+// Fidelity's retail premium, so no extra safety margin is added on top. The
+// sample stays for auditability and as the fallback when no quote is available.
 const FIDELITY_ANCHOR = {
   side: 'selling',
   sampleRate: 11.76,
@@ -41,8 +44,8 @@ export function computeObservedRatio(sellingRate, marketRate) {
   return Number((sellingRate / marketRate).toFixed(6));
 }
 
-export function computeAnchoredRate(marketRate, ratio = FIDELITY_RATIO, margin = SAFETY_MARGIN) {
-  return roundRate(marketRate * ratio * (1 + margin));
+export function computeAnchoredRate(marketRate, ratio = FIDELITY_RATIO) {
+  return roundRate(marketRate * ratio);
 }
 
 async function fetchMarketRate() {
@@ -158,11 +161,11 @@ async function main() {
   console.log('=== FETCHING EXCHANGE RATE ===');
 
   const cache = loadCache();
-  const marketRate = (await fetchMarketRate()) ?? cache?.marketRate ?? FALLBACK_RATE;
+  const marketRate = (await fetchMarketRate()) ?? cache?.marketRate ?? FALLBACK_MARKET_RATE;
   const fidelity = await resolveFidelityQuote(cache, marketRate);
 
   const finalRate = computeAnchoredRate(marketRate);
-  const source = 'exchangerate-api.com market rate x Fidelity gap + 3% margin';
+  const source = 'exchangerate-api.com market rate x Fidelity selling gap';
   console.log(
     `Applied Fidelity gap (x${FIDELITY_RATIO}) to market rate: ${marketRate} -> ${finalRate}`
   );
@@ -186,7 +189,6 @@ async function main() {
     },
     fetchedAt: new Date().toISOString(),
     source,
-    safetyMargin: SAFETY_MARGIN,
   };
 
   if (fidelity) {

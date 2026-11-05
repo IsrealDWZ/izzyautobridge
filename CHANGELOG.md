@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive README.md
 
 ### Changed
+- Exchange rate now applies Fidelity's observed selling gap to the live market rate; the extra 3% safety margin was removed
 - **BREAKING**: VehicleCard refactored into sub-components
 - **BREAKING**: Exchange rate now fetched at build time (was hardcoded 15.5)
 - **BREAKING**: Store no longer manipulates DOM (theme toggle moved to App.jsx useEffect)
