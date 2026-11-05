@@ -1,23 +1,21 @@
 import { describe, expect, it } from 'vitest';
 
-import { computeAnchoredRate, computeLiveRate, roundRate } from '../fetch-exchange-rate.js';
+import { computeAnchoredRate, computeObservedRatio, roundRate } from '../fetch-exchange-rate.js';
 
-describe('computeLiveRate', () => {
-  it('applies the 3% safety margin to Fidelity selling', () => {
-    expect(computeLiveRate(11.76)).toBe(12.11);
+describe('computeObservedRatio', () => {
+  it('measures the Fidelity selling gap over the market rate', () => {
+    expect(computeObservedRatio(11.76, 11.67886)).toBe(1.006948);
   });
 
-  it('rounds to two decimals', () => {
-    expect(computeLiveRate(11.45)).toBe(11.79);
-  });
-
-  it('accepts a custom margin', () => {
-    expect(computeLiveRate(10, 0.1)).toBe(11);
+  it('returns null when either side is missing', () => {
+    expect(computeObservedRatio(11.76, null)).toBeNull();
+    expect(computeObservedRatio(null, 11.67886)).toBeNull();
+    expect(computeObservedRatio(0, 11.67886)).toBeNull();
   });
 });
 
 describe('computeAnchoredRate', () => {
-  it('reproduces the sampled Fidelity rate from the market rate', () => {
+  it('applies the Fidelity gap to the market rate plus the safety margin', () => {
     expect(computeAnchoredRate(11.67886)).toBe(12.11);
   });
 

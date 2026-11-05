@@ -1,6 +1,6 @@
 {
-  "rate": 12.11,
-  "marketRate": 11.67886,
+  "rate": 12.13,
+  "marketRate": 11.690671,
   "fidelityAnchor": {
     "side": "selling",
     "sampleRate": 11.76,
@@ -9,15 +9,17 @@
     "source": "fidelitybank.com.gh/rates",
     "ratio": 1.006948
   },
-  "fetchedAt": "2026-11-05T00:46:08.789Z",
-  "source": "fidelitybank.com.gh/rates (live selling) + 3% margin",
+  "fetchedAt": "2026-11-05T01:06:33.884Z",
+  "source": "exchangerate-api.com market rate x Fidelity gap + 3% margin",
   "safetyMargin": 0.03,
   "fidelityLive": {
     "buying": 11.45,
     "selling": 11.76,
     "asAt": "4th November, 2026",
-    "fetchedAt": "2026-11-05T00:46:08.788Z",
+    "fetchedAt": "2026-11-05T01:06:33.883Z",
     "via": "headless-chrome",
-    "source": "https://fidelitybank.com.gh/rates"
+    "source": "https://fidelitybank.com.gh/rates",
+    "observedRatio": 1.00593,
+    "marketRateAtFetch": 11.690671
   }
 }

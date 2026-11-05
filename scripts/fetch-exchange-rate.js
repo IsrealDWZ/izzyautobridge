@@ -12,10 +12,10 @@ const SAFETY_MARGIN = 0.03; // 3% buffer to avoid losses
 const API_URL = 'https://open.er-api.com/v6/latest/USD';
 const FALLBACK_RATE = 12.0;
 
-// Fidelity's published quote is the primary source. The anchor below is the
-// last-resort fallback for when neither the live page nor a cached quote is
-// available: sample both quotes on the same day, store the ratio, and apply it
-// to the general market rate. Keep the sample for auditability.
+// Fidelity's published quote is used as an observed gap, not as the absolute
+// pricing base. Sample both quotes on the same day, store the selling/market
+// ratio, and apply that ratio to the live market rate. The sample stays for
+// auditability and as the fallback when no live quote is available.
 const FIDELITY_ANCHOR = {
   side: 'selling',
   sampleRate: 11.76,
@@ -36,8 +36,9 @@ export function roundRate(value) {
   return Math.round(value * 100) / 100;
 }
 
-export function computeLiveRate(sellingRate, margin = SAFETY_MARGIN) {
-  return roundRate(sellingRate * (1 + margin));
+export function computeObservedRatio(sellingRate, marketRate) {
+  if (!sellingRate || !marketRate) return null;
+  return Number((sellingRate / marketRate).toFixed(6));
 }
 
 export function computeAnchoredRate(marketRate, ratio = FIDELITY_RATIO, margin = SAFETY_MARGIN) {
@@ -103,23 +104,35 @@ function sameQuote(a, b) {
   return a.selling === b.selling && a.asAt === b.asAt;
 }
 
-async function resolveFidelityQuote(cache) {
+async function resolveFidelityQuote(cache, marketRate) {
   const force = process.env.FIDELITY_FORCE === '1';
 
   if (force || !isQuoteFresh(cache?.fidelityLive)) {
     console.log('Fetching live Fidelity Bank USD/GHS rate...');
     const live = await fetchFidelityRates();
     if (live) {
+      const observedRatio = computeObservedRatio(live.selling, marketRate);
       console.log(
-        `Fidelity USD: buying ${live.buying}, selling ${live.selling} (as at ${live.asAt ?? 'unknown'}) via ${live.via}`
+        `Fidelity USD: buying ${live.buying}, selling ${live.selling} (as at ${
+          live.asAt ?? 'unknown'
+        }) via ${live.via}`
       );
-      return live;
+      console.log(
+        `Observed Fidelity gap: ${((observedRatio - 1) * 100).toFixed(2)}% over the market rate`
+      );
+      return { ...live, observedRatio, marketRateAtFetch: marketRate };
     }
     warn('Live Fidelity rate unavailable; falling back to the cached quote if one exists.');
   }
 
   if (cache?.fidelityLive?.selling) {
     const age = quoteAgeHours(cache.fidelityLive);
+    const observedRatio =
+      cache.fidelityLive.observedRatio ??
+      computeObservedRatio(
+        cache.fidelityLive.selling,
+        cache.fidelityLive.marketRateAtFetch ?? cache.marketRate
+      );
     console.log(
       `Using cached Fidelity selling rate ${cache.fidelityLive.selling} (as at ${
         cache.fidelityLive.asAt ?? 'unknown'
@@ -130,7 +143,7 @@ async function resolveFidelityQuote(cache) {
         `Cached Fidelity quote is ${age.toFixed(0)} hours old; check the rate refresh workflow.`
       );
     }
-    return cache.fidelityLive;
+    return { ...cache.fidelityLive, observedRatio };
   }
 
   return null;
@@ -146,25 +159,22 @@ async function main() {
 
   const cache = loadCache();
   const marketRate = (await fetchMarketRate()) ?? cache?.marketRate ?? FALLBACK_RATE;
-  const fidelity = await resolveFidelityQuote(cache);
+  const fidelity = await resolveFidelityQuote(cache, marketRate);
 
-  let finalRate;
-  let source;
+  const finalRate = computeAnchoredRate(marketRate);
+  const source = 'exchangerate-api.com market rate x Fidelity gap + 3% margin';
+  console.log(
+    `Applied Fidelity gap (x${FIDELITY_RATIO}) to market rate: ${marketRate} -> ${finalRate}`
+  );
 
-  if (fidelity?.selling) {
-    finalRate = computeLiveRate(fidelity.selling);
-    source = 'fidelitybank.com.gh/rates (live selling) + 3% margin';
-    console.log(
-      `Applied ${(SAFETY_MARGIN * 100).toFixed(0)}% safety margin to Fidelity selling: ${
-        fidelity.selling
-      } -> ${finalRate}`
-    );
-  } else {
-    finalRate = computeAnchoredRate(marketRate);
-    source = 'exchangerate-api.com market rate x Fidelity anchor + 3% margin';
-    console.log(
-      `Applied Fidelity anchor (x${FIDELITY_RATIO}) to market rate: ${marketRate} -> ${finalRate}`
-    );
+  if (fidelity?.observedRatio) {
+    const driftPct = (fidelity.observedRatio - FIDELITY_RATIO) * 100;
+    if (Math.abs(driftPct) >= 0.5) {
+      const anchorPct = ((FIDELITY_RATIO - 1) * 100).toFixed(2);
+      warn(
+        `Fidelity's observed gap is ${driftPct.toFixed(2)} percentage points away from the stored +${anchorPct}% anchor; consider updating FIDELITY_ANCHOR.`
+      );
+    }
   }
 
   const payload = {
@@ -187,6 +197,8 @@ async function main() {
       fetchedAt: fidelity.fetchedAt,
       via: fidelity.via,
       source: fidelity.source,
+      observedRatio: fidelity.observedRatio,
+      marketRateAtFetch: fidelity.marketRateAtFetch ?? cache?.fidelityLive?.marketRateAtFetch,
     };
   }
 
