@@ -95,6 +95,22 @@ vehicles.json is only a fallback for vehicles missing `Price_USD`. The dormant
 master CSV keeps its own `Price_GHS` column; `scripts/prerender-routes.js`
 recomputes meta-description prices from `Price_USD × rate` the same way.
 
+### Markup ladder
+`Price_USD` is also computed, not trusted: `scripts/generate-vehicles.js`
+re-derives it at build time as `CIF_USD + currentMarkupUsd()` from
+`scripts/markup.js` (falling back to the stored `Price_USD` for rows without
+a CIF figure), and `scripts/build-master-catalog.js` applies the same ladder
+when generating the master CSV. `markup.js` is the single source of truth:
+
+- `$1,000` legacy markup until 30 Nov 2026
+- `$300` festive-season markup for 1 Dec – 31 Dec 2026 (profit-only,
+  agreed by Israel on 6 Nov 2026)
+- `$550` permanent markup from 1 Jan 2027 (the new steady level)
+
+The window is date-driven, so the festive cut and the January step-up apply
+automatically on the first build in each window — no CSV regen or manual flip
+is needed. Both scripts log the active markup/window on every run.
+
 ### Exchange Rate
 - **Formula**: `site_rate = marketRate × FIDELITY_RATIO`. The market rate comes from exchangerate-api.com; `FIDELITY_RATIO` is Fidelity's observed **selling gap** over the market rate (currently +0.69%: 11.76 / 11.67886 = 1.006948).
 - **No extra buffer**: the gap already carries Fidelity's retail premium, so the old 3% safety margin was removed — it stacked on top and pushed prices above the bank's own selling rate.

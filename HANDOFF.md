@@ -30,11 +30,13 @@ Update it at the end of a session and delete anything finished. Keep it short.
 
 ## Waiting on Israel
 
-- [ ] Drop markup $1,000 → $550 (needs `build:master` then `build:data`.
-  GHS prices now recompute at render time, but `Price_USD` still comes from
-  the CSV, so both steps are still required once he says go.)
-- [ ] Merge `preview/landing-merge` — not approved.
-- [ ] Find banks with lower rates — on hold.
+- ~~Drop markup $1,000 → $550~~ — re-planned by Israel 6 Nov: festive ladder
+  now coded in `scripts/markup.js` ($1,000 until 30 Nov → **$300 for all of
+  Dec 2026** → **$550 permanent from 1 Jan 2027**). Date-driven, applies
+  automatically on the first build in each window; verified a no-op today.
+- ~~Merge `preview/landing-merge`~~ — not approved.
+- ~~Find banks with lower rates~~ — superseded by the ladder: $550 lands
+  anyway on 1 Jan, so re-sourcing banks is deprioritized unless Israel revives it.
 
 ## Queued — all done 6 Nov 2026
 
@@ -54,7 +56,9 @@ Update it at the end of a session and delete anything finished. Keep it short.
 - GitHub token cannot `workflow_dispatch` (403). Rely on the 6-hour cron, or
   push a temporary trigger. Vercel redeploys automatically on `master`.
 - Node scripts are ESM. Data pipeline order is `build:master` → `build:data`.
-- Changing the markup requires regenerating both the CSV and `vehicles.json`.
+- Changing the markup is now automatic: `scripts/markup.js` decides the
+  per-vehicle markup from today's date, and every build re-prices
+  `Price_USD = CIF_USD + markup` before render-time GHS pricing kicks in.
 
 ## Separate thread
 

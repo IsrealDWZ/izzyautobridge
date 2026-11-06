@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { runHarvest } from './harvest.js';
+import { currentMarkupUsd, currentMarkupWindow } from './markup.js';
 import { generateAuditReport, writeAuditReport } from './utils/audit-report.js';
 import { classifyCategory } from './utils/classify-category.js';
 import { escapeCsvCell } from './utils/csv.js';
@@ -75,6 +76,9 @@ async function main() {
   }
 
   console.log('\nCategorizing and applying price rule...');
+  console.log(
+    `Applying markup: $${currentMarkupUsd()} per vehicle (${currentMarkupWindow()} window)`
+  );
   const categorizedCounts = {};
   const outputRows = [];
 
@@ -82,7 +86,7 @@ async function main() {
     const category = classifyCategory(row['Fuel Types'], row.Bodies);
 
     const cifPrice = parsePrice(row['Price (CIF USD)']);
-    const newPriceUSD = Math.round(cifPrice + 1000);
+    const newPriceUSD = Math.round(cifPrice + currentMarkupUsd());
     const newPriceGHS = Math.round(newPriceUSD * USD_GHS_RATE);
 
     categorizedCounts[category] = (categorizedCounts[category] || 0) + 1;

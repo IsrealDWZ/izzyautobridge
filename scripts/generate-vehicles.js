@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url';
 
 import { parse } from 'csv-parse/sync';
 
+import { currentMarkupUsd, currentMarkupWindow } from './markup.js';
 import { findAllMatches } from './utils/fuzzy-match.js';
 import { parseMileage } from './utils/parse-mileage.js';
 
@@ -158,7 +159,12 @@ function transformMasterRow(row, imageMatches) {
   const brand = row.Makes?.trim() || 'Unknown';
   const model = row.Models?.trim() || 'Unknown';
   const year = parseIntSafe(row.Years);
-  const priceUSD = parsePrice(row.Price_USD);
+  // Price at the markup in force on the build date, so promos like the
+  // festive window apply on their own without CSV regeneration. Fall back
+  // to the stored Price_USD when the row has no CIF figure.
+  const cifUSD = parsePrice(row.CIF_USD);
+  const priceUSD =
+    cifUSD > 0 ? Math.round(cifUSD + currentMarkupUsd()) : parsePrice(row.Price_USD);
 
   if (!brand || !model || !year || priceUSD === 0) {
     return null;
@@ -204,6 +210,9 @@ async function main() {
 
   const masterRows = loadMasterCSV();
   console.log(`Loaded ${masterRows.length} rows from master catalog`);
+  console.log(
+    `Pricing with MARKUP_USD=${currentMarkupUsd()} (${currentMarkupWindow()} window)`
+  );
 
   const allVehicles = [];
   let withImages = 0;
