@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/react';
 import { motion } from 'framer-motion';
-import { Ship, Moon, Sun } from 'lucide-react';
+import { Ship, Moon, Sun, Gift, Snowflake } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 
@@ -62,9 +62,18 @@ export default function App() {
   const isFirstRender = useRef(true);
   const season = currentSeason(uiNow());
   const seasonVisuals = season === 'anticipation' || season === 'festive';
-  const marqueeItems = seasonMarqueeItems(uiNow());
-  const seasonItems = marqueeItems.length > 0 ? marqueeItems : shipItems;
-
+  const marqueeItemsRaw = seasonMarqueeItems(uiNow());
+  const SeasonItemIcon = season === 'festive' ? Gift : Snowflake;
+  // Season marquee items are plain strings; wrap each into a JSX node with a
+  // small icon prefix. JSX nodes can't be join()-ed, so the sr-only copy
+  // reuses the raw strings.
+  const seasonItems = marqueeItemsRaw.map((text) => (
+    <span key={text} className="inline-flex items-center gap-2">
+      <SeasonItemIcon size={14} aria-hidden="true" />
+      {text}
+    </span>
+  ));
+  const marqueeItems = marqueeItemsRaw.length > 0 ? seasonItems : shipItems;
   // gtag's config call already records the landing page_view. Every later SPA
   // navigation needs its own hit, otherwise GA4 only ever sees the entry page.
   useEffect(() => {
@@ -122,15 +131,15 @@ export default function App() {
             }`}
           >
             <Marquee
-              items={seasonItems}
+              items={marqueeItems}
               duration={40}
               gap="gap-12"
               itemClassName="text-xs sm:text-sm font-bold uppercase tracking-wider"
             />
             {/* The moving track is aria-hidden, so the season notice needs a
                 static copy for screen readers. */}
-            {marqueeItems.length > 0 && (
-              <p className="sr-only">{marqueeItems.join('. ')}</p>
+            {marqueeItemsRaw.length > 0 && (
+              <p className="sr-only">{marqueeItemsRaw.join('. ')}</p>
             )}
           </motion.div>
           <nav className="flex items-center justify-between pl-4 pr-3 sm:px-6 py-3 bg-secondary">

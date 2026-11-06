@@ -135,18 +135,18 @@ export function seasonMarqueeItems(now = new Date()) {
     return [
       'Festive prices arrive 1 December',
       `${days} ${plural} to the festive price drop`,
-      'Pre-book your unit via WhatsApp',
+      'Pre-book your unit on WhatsApp',
     ];
   }
   if (phase === 'festive') {
     return [
-      'Festive prices are live — every unit cut for Christmas',
-      'Festive pricing ends 31 December',
+      'Festive prices live on every unit',
+      'This cut ends 31 December',
       'Free shipping to Tema, always',
     ];
   }
   if (phase === 'winddown') {
-    return ['Festive prices have ended — standard pricing is back'];
+    return ['Festive prices have ended. Standard pricing is back.'];
   }
   return [];
 }
@@ -159,7 +159,7 @@ export function seasonMarqueeItems(now = new Date()) {
  */
 export function seasonHeroLine(now = new Date()) {
   if (currentSeason(now) === 'festive') {
-    return 'Festive prices are on every unit through 31 December — lock yours in now.';
+    return 'Festive prices are on every unit through 31 December. Lock yours in now.';
   }
   return '';
 }

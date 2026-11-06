@@ -8,17 +8,22 @@ import ExchangeRateNote from '../components/ExchangeRateNote';
 import FilterSidebar from '../components/FilterSidebar';
 import InventorySearch from '../components/InventorySearch';
 import ProcessSection from '../components/ProcessSection';
+import FestiveTree from '../components/season/FestiveTree';
+import SeasonSnow from '../components/season/SeasonSnow';
 import VehicleGrid from '../components/VehicleGrid';
 import vehicles from '../data/vehicles';
 import { useAppStore } from '../store/useAppStore';
 import { trackEvent } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 import { filterVehicles } from '../utils/filterVehicles';
+import { currentSeason, uiNow } from '../utils/season';
 
 export default function InventoryPage() {
   const { filters } = useAppStore();
   const { pathname } = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
+  // The festive scene (snow + pines in the hero panel) is date-driven.
+  const isFestive = currentSeason(uiNow()) === 'festive';
 
   useEffect(() => {
     document.title =
@@ -85,6 +90,17 @@ export default function InventoryPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/40" />
         </div>
+
+        {/* Festive scene dressing (season.js gates the phase). */}
+        {isFestive && (
+          <>
+            <SeasonSnow />
+            <div className="pointer-events-none absolute bottom-0 right-4 sm:right-10 flex items-end gap-3">
+              <FestiveTree className="w-10 h-[52px] sm:h-14 sm:w-11 opacity-90 drop-shadow" />
+              <FestiveTree className="w-14 h-[72px] sm:w-20 sm:h-24" />
+            </div>
+          </>
+        )}
 
         <div className="relative z-10">
           <div className="inline-flex items-center gap-2 chip-badge px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wider mb-5">

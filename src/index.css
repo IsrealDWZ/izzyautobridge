@@ -106,6 +106,91 @@ html.dark.season-festive {
   --festive-surface: #241217;
 }
 
+/* Festive scene dressing (see src/components/season/): snowfall for dark
+   hero panels. Pure CSS — three repeating radial-gradient dot layers drifting
+   down at different speeds. Decorative only (aria-hidden) and fully hidden
+   under prefers-reduced-motion. */
+.season-snow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.season-snow > i {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+}
+
+.season-snow-layer-1 {
+  background-image: radial-gradient(
+    1.8px 1.8px at 14% 22%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 52%
+  );
+  background-size: 150px 170px;
+  opacity: 0.95;
+  animation: season-snow-drift-1 13s linear infinite;
+}
+
+.season-snow-layer-2 {
+  background-image: radial-gradient(
+    1.5px 1.5px at 62% 64%,
+    rgba(255, 255, 255, 0.7) 50%,
+    transparent 52%
+  );
+  background-size: 95px 115px;
+  opacity: 0.75;
+  animation: season-snow-drift-2 9s linear infinite;
+}
+
+.season-snow-layer-3 {
+  background-image: radial-gradient(
+    2.2px 2.2px at 82% 14%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 52%
+  );
+  background-size: 240px 260px;
+  opacity: 0.5;
+  animation: season-snow-drift-3 21s linear infinite;
+}
+
+/* Each drift is exactly one full background-size cell, so every layer loops
+   seamlessly (halved cells would also work, but full cells are unambiguous). */
+@keyframes season-snow-drift-1 {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 150px 170px;
+  }
+}
+
+@keyframes season-snow-drift-2 {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 95px 115px;
+  }
+}
+
+@keyframes season-snow-drift-3 {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 240px 260px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .season-snow {
+    display: none;
+  }
+}
+
 body {
   background: var(--bg-primary);
   color: var(--text-main);

@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 
 import { trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';
+import { currentSeason, uiNow } from '../utils/season';
 
 import BrandMark from './BrandMark';
 import ExchangeRateNote from './ExchangeRateNote';
+import FestiveTree from './season/FestiveTree';
 
 const footerLinks = {
   explore: [
@@ -98,6 +100,17 @@ export default function Footer() {
             </div>
           ))}
         </motion.div>
+
+        {/* Festive greeting — date-driven via season.js, gone by 3 Jan. */}
+        {currentSeason(uiNow()) === 'festive' && (
+          <div className="mb-10 flex items-center gap-3 font-display text-sm font-semibold">
+            <FestiveTree className="w-6 h-8 shrink-0" />
+            <span>
+              Merry Christmas from IzzyAutoBridge. Festive prices run through
+              31&nbsp;December.
+            </span>
+          </div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

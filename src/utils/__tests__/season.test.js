@@ -63,7 +63,7 @@ describe('seasonMarqueeItems', () => {
 
   it('closes the loop during winddown', () => {
     expect(seasonMarqueeItems(at('2027-01-01'))).toEqual([
-      'Festive prices have ended — standard pricing is back',
+      'Festive prices have ended. Standard pricing is back.',
     ]);
   });
 });

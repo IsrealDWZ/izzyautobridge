@@ -14,7 +14,7 @@ Update it at the end of a session and delete anything finished. Keep it short.
 - Rate: **11.78** (market 11.698248 × 1.006948, refreshed 6 Nov 2026)
 - Fidelity live: buy 11.45 / sell 11.785, as at 5 Nov 2026 (observed gap 0.81%)
 - Catalog: 219 master rows → 129 published vehicles
-- Tests 141 passing · lint 0/0 · Prettier clean
+- Tests 146 passing · lint 0/0 · Prettier clean
 - Pricing is now render-time: `src/data/vehicles.js` + `src/utils/pricing.js`
   recompute `Price_GHS` from `Price_USD × USD_GHS_RATE` on import, so the
   6-hourly rate refresh updates displayed GHS prices on the next Vercel build
@@ -72,6 +72,10 @@ Update it at the end of a session and delete anything finished. Keep it short.
   Nov), full crimson/pine accents + price badges (1–31 Dec), closing marquee
   line (1–2 Jan), then the site cleans itself up. Tokens/phases documented in
   `DESIGN.md` and `AGENTS.md`; phase boundaries in `src/utils/season.js`.
+- Decorations requested by Israel ("tree and stuff") are in: `FestiveTree.jsx`
+  + `SeasonSnow.jsx` mount in the home hero and footer during 'festive' only;
+  snow is hidden under prefers-reduced-motion. Screenshots reviewed with him
+  in Downloads/xmas-preview/.
 - **Preview build:** `npm run preview:xmas` pins 15 Dec inside the bundle and
   serves http://localhost:4173 — prices, marquee, hero line and badges all
   festive, marked "(preview)" so labelled previews can't be mistaken for
