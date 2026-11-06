@@ -123,8 +123,9 @@ Mileage ranges such as `19,000-22,000 km` are parsed by `scripts/utils/parse-mil
 | `scripts/build-master-catalog.js` | Master CSV generator |
 | `scripts/generate-vehicles.js` | vehicles.json generator |
 | `src/data/master-inventory.csv` | Dormant master catalog (219 vehicles) |
-| `src/data/vehicles.json` | Published vehicles (169 with images) |
+| `src/data/vehicles.json` | Published vehicles (129 with images) |
 | `src/data/exchange-rate.json` | Cached rate + metadata |
+| `HANDOFF.md` | Live state, open decisions and queued work (read first) |
 
 ## Commands Quick Reference
 
@@ -144,8 +145,7 @@ Mileage ranges such as `19,000-22,000 km` are parsed by `scripts/utils/parse-mil
 ## Git Workflow
 
 ### Branches
-- `master` - Production (deployed to Vercel)
-- `fix/ci-fixes` - Current feature branch
+- `master` - Production (deployed to Vercel) and the current working branch
 
 ### Commit Messages
 ```
