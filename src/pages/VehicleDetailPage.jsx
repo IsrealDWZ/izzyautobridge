@@ -158,7 +158,7 @@ export default function VehicleDetailPage() {
           target="_blank"
           rel="noreferrer"
           onClick={() => trackWhatsApp('vehicle_detail', vehicle)}
-          className="mt-5 inline-flex items-center gap-2 bg-action text-onaction text-sm font-bold px-6 py-3 rounded-lg hover:opacity-85 transition min-h-[44px]"
+          className="mt-5 inline-flex items-center gap-2 bg-whatsapp text-onwhatsapp text-sm font-bold px-6 py-3 rounded-lg hover:opacity-85 transition min-h-[44px]"
         >
           Enquire on WhatsApp
         </a>

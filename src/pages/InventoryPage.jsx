@@ -8,8 +8,13 @@ import ExchangeRateNote from '../components/ExchangeRateNote';
 import FilterSidebar from '../components/FilterSidebar';
 import InventorySearch from '../components/InventorySearch';
 import ProcessSection from '../components/ProcessSection';
+import Elf from '../components/season/Elf';
 import FestiveTree from '../components/season/FestiveTree';
+import Garland from '../components/season/Garland';
+import Gift from '../components/season/Gift';
+import SantaSleigh from '../components/season/SantaSleigh';
 import SeasonSnow from '../components/season/SeasonSnow';
+import Snowman from '../components/season/Snowman';
 import VehicleGrid from '../components/VehicleGrid';
 import vehicles from '../data/vehicles';
 import { useAppStore } from '../store/useAppStore';
@@ -91,13 +96,22 @@ export default function InventoryPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/40" />
         </div>
 
-        {/* Festive scene dressing (season.js gates the phase). */}
+        {/* Festive scene (season.js gates the phase): garland across the top
+            edge, Santa flying a cameo pass, snowman + elf + gifts joining the
+            pines on the deck. */}
         {isFestive && (
           <>
             <SeasonSnow />
-            <div className="pointer-events-none absolute bottom-0 right-4 sm:right-10 flex items-end gap-3">
-              <FestiveTree className="w-10 h-[52px] sm:h-14 sm:w-11 opacity-90 drop-shadow" />
-              <FestiveTree className="w-14 h-[72px] sm:w-20 sm:h-24" />
+            <Garland />
+            <SantaSleigh className="season-santa w-40 sm:w-56" />
+            <div className="pointer-events-none absolute bottom-0 right-4 sm:right-10 flex items-end gap-2 sm:gap-3">
+              <Gift color="pine" className="w-6 sm:w-8 h-8 sm:h-9" />
+              <Snowman className="w-11 sm:w-14 h-14 sm:h-[72px]" />
+              <FestiveTree className="w-12 sm:w-16 h-16 sm:h-20" />
+              <Gift color="gold" className="w-7 sm:w-9 h-8 sm:h-10" />
+              <FestiveTree className="w-9 sm:w-11 h-[48px] sm:h-14 opacity-90" />
+              <Gift color="crimson" className="w-6 sm:w-8 h-8 sm:h-9" />
+              <Elf className="season-elf w-9 sm:w-12 h-11 sm:h-14" />
             </div>
           </>
         )}

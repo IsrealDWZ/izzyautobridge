@@ -41,7 +41,7 @@ export function VehicleActions({
         target="_blank"
         rel="noreferrer"
         onClick={() => trackWhatsApp('vehicle_card', vehicle)}
-        className="flex-1 text-center bg-action text-onaction text-sm font-bold py-2.5 rounded-lg hover:opacity-85 transition min-h-[44px] flex items-center justify-center gap-1.5"
+        className="flex-1 text-center bg-whatsapp text-onwhatsapp text-sm font-bold py-2.5 rounded-lg hover:opacity-85 transition min-h-[44px] flex items-center justify-center gap-1.5"
       >
         <MessageCircle size={15} /> WhatsApp
       </a>

@@ -95,7 +95,7 @@ export default function FavoritesDrawer({ vehicles, whatsappNumber }) {
                   onClick={() =>
                     trackWhatsApp('favorites_drawer', null, { items_count: favVehicles.length })
                   }
-                  className="block text-center bg-action text-onaction text-sm font-bold py-2.5 rounded-lg hover:opacity-85 transition flex items-center justify-center gap-1.5"
+                  className="block text-center bg-whatsapp text-onwhatsapp text-sm font-bold py-2.5 rounded-lg hover:opacity-85 transition flex items-center justify-center gap-1.5"
                 >
                   <MessageCircle size={15} /> Send list on WhatsApp
                 </a>

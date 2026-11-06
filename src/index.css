@@ -46,6 +46,10 @@
   --accent-action: #1d1d1f; /* CTAs, links, chevrons, focus rings */
   --accent-action-rgb: 29 29 31;
   --text-on-action: #f5f5f7; /* Text/icons on --accent-action surfaces */
+  --accent-whatsapp: #15803d; /* WhatsApp CTAs only: 5.02:1 on white text.
+     Deliberately NOT recolored by season-festive — see DESIGN.md */
+  --accent-whatsapp-rgb: 21 128 61;
+  --text-on-whatsapp: #ffffff;
   --accent-alert: #6e6e73; /* Ash — validation states (never colored) */
   --accent-alert-rgb: 110 110 115;
   --accent-hover: #6e6e73; /* Neutral gray transitions */
@@ -68,6 +72,9 @@
   --accent-action: #f5f5f7;
   --accent-action-rgb: 245 245 247;
   --text-on-action: #1d1d1f;
+  --accent-whatsapp: #25d366; /* brighter brand green in dark: 7.06:1 on text */
+  --accent-whatsapp-rgb: 37 211 102;
+  --text-on-whatsapp: #0b3317;
   --accent-alert: #86868b;
   --accent-alert-rgb: 134 134 139;
   --accent-hover: #6e6e73;
@@ -82,7 +89,9 @@
    appendix. Ships no decoration outside the window because everything
    hangs off this one class. */
 html.season-festive {
-  --accent-action: #a4122e; /* Deep crimson — CTAs, links, focus rings */
+      --accent-action: #a4122e; /* Deep crimson — CTAs, links, focus rings.
+         IMPORTANT: `--accent-whatsapp` deliberately keeps its green —
+         WhatsApp CTAs stay brand-green through the season */
   --accent-action-rgb: 164 18 46;
   --text-on-action: #ffffff;
   --accent-festive: #a4122e;
@@ -188,6 +197,144 @@ html.dark.season-festive {
 @media (prefers-reduced-motion: reduce) {
   .season-snow {
     display: none;
+  }
+}
+
+/* Festive motion layer — Santa's flight, the elf's hop and the garland's
+   twinkle. Santa crosses the hero diagonally over ~7s, then hides off-canvas
+   for the rest of its 18s loop so it's a ten-second cameo, not a screensaver. */
+.season-santa {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+  animation: season-santa-fly 18s linear infinite;
+}
+
+.season-santa > svg {
+  animation: season-santa-bob 4.2s ease-in-out infinite;
+}
+
+@keyframes season-santa-fly {
+  0% {
+    transform: translateX(-24vw);
+  }
+  /* Mid-air it lifts slightly along a shallow arc. */
+  21% {
+    transform: translateX(44vw) translateY(-9px);
+  }
+  42% {
+    transform: translateX(112vw) translateY(-2px);
+  }
+  /* Landed? No — parked off-canvas until the next pass. */
+  100% {
+    transform: translateX(112vw);
+  }
+}
+
+@keyframes season-santa-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(-2.4deg);
+  }
+}
+
+.season-elf {
+  animation: season-elf-hop 2.6s ease-in-out infinite;
+}
+
+@keyframes season-elf-hop {
+  0%,
+  58%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  72% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+}
+
+/* Bulb row: wire as a dashed pseudo-element; colors cycle gold → crimson-mate
+   → pine; twinkle staggered across four delay groups. */
+.season-garland {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  height: 18px;
+  display: flex;
+  justify-content: space-evenly;
+  pointer-events: none;
+}
+
+.season-garland::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 4px;
+  border-top: 1.5px dashed rgba(240, 194, 75, 0.55);
+}
+
+.season-garland > i {
+  position: relative;
+  top: 4px;
+  width: 5px;
+  height: 12px;
+  border-radius: 3px 3px 2px 2px;
+  opacity: 0.55;
+  animation: season-bulb-twinkle 1.8s ease-in-out infinite;
+}
+
+.season-garland > i:nth-of-type(3n + 1) {
+  background: #f0c24b;
+}
+
+.season-garland > i:nth-of-type(3n + 2) {
+  background: #e04b63;
+}
+
+.season-garland > i:nth-of-type(3n) {
+  background: #58c08a;
+}
+
+.season-garland > i:nth-child(4n + 2) {
+  animation-delay: -0.45s;
+}
+
+.season-garland > i:nth-child(4n + 3) {
+  animation-delay: -0.9s;
+}
+
+.season-garland > i:nth-child(4n + 4) {
+  animation-delay: -1.35s;
+}
+
+@keyframes season-bulb-twinkle {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .season-santa {
+    display: none;
+  }
+
+  .season-santa > svg,
+  .season-elf,
+  .season-garland > i {
+    animation: none;
   }
 }
 

@@ -38,6 +38,8 @@ carries the same values as `prefers-color-scheme: dark`)
 |---|---|---|---|
 | `--accent-action` / rgb triple | `#1d1d1f` | `#f5f5f7` | CTAs, links, chevrons, progress bar, focus rings, native control tint — the **only** accent |
 | `--text-on-action` | `#f5f5f7` | `#1d1d1f` | Text/icons on `--accent-action` surfaces (always the inverse pair) |
+| `--accent-whatsapp` / rgb triple | `#15803d` | `#25d366` | WhatsApp CTAs only (`bg-whatsapp`): floating bubble, card/detail/compare/favorites/concierge buttons, footer social icon. Deliberately outside the festive recolor, decided by Israel 6 Nov 2026 |
+| `--text-on-whatsapp` | `#ffffff` | `#0b3317` | Text/icons on WhatsApp green (5.02:1 / 7.06:1 — PASS AA) |
 | `--accent-alert` | `#6e6e73` | `#86868b` | Validation text/borders — ash, never red |
 | `--accent-hover` | `#6e6e73` | `#6e6e73` | Neutral gray transitions and hover rings |
 | `--text-inverse` | `#1d1d1f` | `#f5f5f7` | Text on secondary surfaces (nav/footer) |

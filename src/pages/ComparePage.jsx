@@ -146,7 +146,7 @@ export default function ComparePage() {
             target="_blank"
             rel="noreferrer"
             onClick={() => trackWhatsApp('compare_page', v)}
-            className="flex items-center justify-center gap-2 bg-action text-onaction text-sm font-bold px-6 py-4 rounded-lg hover:opacity-85 transition min-h-[56px]"
+            className="flex items-center justify-center gap-2 bg-whatsapp text-onwhatsapp text-sm font-bold px-6 py-4 rounded-lg hover:opacity-85 transition min-h-[56px]"
           >
             <MessageCircle size={18} />
             Enquire on WhatsApp

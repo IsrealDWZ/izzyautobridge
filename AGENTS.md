@@ -134,6 +134,16 @@ pre-festive price) plus a savings badge during 'festive' only. Nothing is
 hardcoded: adjusting next year's window is editing the constants in
 `season.js`/`markup.js`.
 
+Decorations (the "tree and stuff" layer, all `src/components/season/`, mounted
+while festive — hero: `SeasonSnow`, `Garland`, a `SantaSleigh` cameo flight,
+`Snowman`/`Elf`/`Gift`s around the `FestiveTree`s; `FloatingWhatsApp` wears a
+`SantaHat`; footer keeps a tree + Merry Christmas line). Every layer is
+aria-hidden, image-free SVG/CSS, and hidden under prefers-reduced-motion.
+WhatsApp CTAs are exempt from the festive recolor on purpose (Israel's call):
+they use `bg-whatsapp text-onwhatsapp` mapping to `--accent-whatsapp`
+(#15803d light / #25d366 dark on `--text-on-whatsapp`), brand green with AA
+contrast in both themes and unchanged by the season.
+
 ### Exchange Rate
 - **Formula**: `site_rate = marketRate × FIDELITY_RATIO`. The market rate comes from exchangerate-api.com; `FIDELITY_RATIO` is Fidelity's observed **selling gap** over the market rate (currently +0.69%: 11.76 / 11.67886 = 1.006948).
 - **No extra buffer**: the gap already carries Fidelity's retail premium, so the old 3% safety margin was removed — it stacked on top and pushed prices above the bank's own selling rate.

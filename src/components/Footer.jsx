@@ -56,7 +56,7 @@ export default function Footer() {
                   rel="noreferrer"
                   aria-label={social.label}
                   onClick={() => trackWhatsApp('footer', null, { placement: 'social_icon' })}
-                  className="w-10 h-10 bg-primary border border-subtle rounded-full flex items-center justify-center text-onsecondary hover:bg-accent-hover hover:text-white hover:border-accent-hover transition-all"
+                  className="w-10 h-10 bg-whatsapp text-onwhatsapp border border-transparent rounded-full flex items-center justify-center hover:opacity-85 transition-all"
                 >
                   <social.icon size={18} />
                 </a>

@@ -116,7 +116,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
             href={waLink}
             target="_blank"
             rel="noreferrer"
-            className="block bg-action text-onaction font-bold py-3 rounded-lg hover:opacity-85 transition min-h-[44px] flex items-center justify-center gap-2"
+            className="block bg-whatsapp text-onwhatsapp font-bold py-3 rounded-lg hover:opacity-85 transition min-h-[44px] flex items-center justify-center gap-2"
           >
             <MessageCircle size={17} /> Continue on WhatsApp
           </a>
@@ -346,7 +346,7 @@ export default function ConciergeForm({ _vehicles, _whatsappNumber = WHATSAPP_NU
 
               <button
                 type="submit"
-                className="w-full bg-action text-onaction py-3.5 rounded-lg font-bold transition min-h-[44px] text-xl hover:opacity-85"
+                className="w-full bg-whatsapp text-onwhatsapp py-3.5 rounded-lg font-bold transition min-h-[44px] text-xl hover:opacity-85"
               >
                 {step === 3 ? 'Send Request on WhatsApp' : 'Find My Vehicle'}
               </button>

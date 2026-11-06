@@ -31,7 +31,8 @@ export default {
         panel: '#1d1d1f',
         gold: { DEFAULT: '#1d1d1f', light: '#f5f5f7' },
         success: '#6e6e73',
-        whatsapp: 'rgb(var(--accent-action-rgb) / <alpha-value>)',
+        whatsapp: 'rgb(var(--accent-whatsapp-rgb) / <alpha-value>)',
+        onwhatsapp: 'var(--text-on-whatsapp)',
       },
       fontFamily: {
         display: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],

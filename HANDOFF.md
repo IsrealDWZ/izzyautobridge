@@ -72,10 +72,15 @@ Update it at the end of a session and delete anything finished. Keep it short.
   Nov), full crimson/pine accents + price badges (1–31 Dec), closing marquee
   line (1–2 Jan), then the site cleans itself up. Tokens/phases documented in
   `DESIGN.md` and `AGENTS.md`; phase boundaries in `src/utils/season.js`.
-- Decorations requested by Israel ("tree and stuff") are in: `FestiveTree.jsx`
-  + `SeasonSnow.jsx` mount in the home hero and footer during 'festive' only;
-  snow is hidden under prefers-reduced-motion. Screenshots reviewed with him
-  in Downloads/xmas-preview/.
+- Decorations requested by Israel ("tree and stuff" → "AGGRESSIVE") are in:
+  hero scene = snow + garland + flying Santa cameo + snowman + waving elf +
+  gift parcels + pines; floating WhatsApp bubble wears a Santa hat. All in
+  `src/components/season/`, festive-only, reduced-motion-safe.
+- Israel also decided the WhatsApp CTAs stay **green** (true WhatsApp green,
+  `bg-whatsapp` from `--accent-whatsapp`), never crimsoned by the season.
+  Applied to floating bubble (+hat), card, detail, compare, favorites,
+  concierge, footer social icon. Verified AA in both themes (DESIGN.md).
+  Screenshots reviewed with him in Downloads/xmas-preview/.
 - **Preview build:** `npm run preview:xmas` pins 15 Dec inside the bundle and
   serves http://localhost:4173 — prices, marquee, hero line and badges all
   festive, marked "(preview)" so labelled previews can't be mistaken for

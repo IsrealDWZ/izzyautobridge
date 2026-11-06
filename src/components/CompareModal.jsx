@@ -98,7 +98,7 @@ export default function CompareModal({ vehicles, _whatsappNumber = WHATSAPP_NUMB
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => trackWhatsApp('compare_modal', v)}
-                className="text-center bg-action text-onaction text-sm font-bold py-3 rounded-lg min-h-[44px] flex items-center justify-center gap-1.5 hover:opacity-85 transition"
+                className="text-center bg-whatsapp text-onwhatsapp text-sm font-bold py-3 rounded-lg min-h-[44px] flex items-center justify-center gap-1.5 hover:opacity-85 transition"
               >
                 <MessageCircle size={15} /> {v.ID}
               </a>
