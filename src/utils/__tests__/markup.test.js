@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 
-import { currentMarkupUsd, currentMarkupWindow } from '../markup.js';
+import {
+  MARKUP_STEP_USD,
+  currentMarkupUsd,
+  currentMarkupWindow,
+} from '../markup.js';
 
 const at = (iso) => new Date(`${iso}T00:00:00Z`);
 
@@ -25,5 +29,9 @@ describe('currentMarkupUsd (festive pricing ladder)', () => {
     expect(currentMarkupWindow(at('2026-11-06'))).toBe('legacy');
     expect(currentMarkupWindow(at('2026-12-25'))).toBe('festive');
     expect(currentMarkupWindow(at('2027-01-01'))).toBe('standard');
+  });
+
+  it('exposes the pre-festive price delta used for honest anchors', () => {
+    expect(MARKUP_STEP_USD).toBe(700);
   });
 });

@@ -47,3 +47,12 @@ export function currentMarkupWindow(now = new Date()) {
   }
   return 'legacy';
 }
+
+/**
+ * How many USD a festive-period buyer saves per vehicle versus the pre-festive
+ * (legacy) markup. Used to render the honest "was" anchor on cards during the
+ * festive window. Zero outside the festive window conceptually — callers only
+ * use it when the season is festive.
+ * @type {number}
+ */
+export const MARKUP_STEP_USD = LEGACY_MARKUP_USD - FESTIVE_MARKUP_USD;

@@ -75,6 +75,37 @@
   color-scheme: dark;
 }
 
+/* Seasonal overlay — active only under html.season-festive (see
+   src/utils/season.js). Deliberately suspends the monochrome accent rule
+   (DESIGN.md) for the 2026 festive window: crimson/pine accents on the
+   usual monochrome base. Contrast pairs verified in DESIGN.md seasonal
+   appendix. Ships no decoration outside the window because everything
+   hangs off this one class. */
+html.season-festive {
+  --accent-action: #a4122e; /* Deep crimson — CTAs, links, focus rings */
+  --accent-action-rgb: 164 18 46;
+  --text-on-action: #ffffff;
+  --accent-festive: #a4122e;
+  --accent-festive-rgb: 164 18 46;
+  --accent-festive-mate: #14523c; /* Deep pine — secondary accents */
+  --accent-festive-mate-rgb: 20 82 60;
+  --text-on-festive: #ffffff;
+  --festive-surface: #fbeef0; /* Subtle warm wash for strips/badges */
+}
+
+/* Dark-mode variant: lighter crimson/pine to keep black-mode contrast */
+html.dark.season-festive {
+  --accent-action: #ff8f9b;
+  --accent-action-rgb: 255 143 155;
+  --text-on-action: #2a1518;
+  --accent-festive: #ff8f9b;
+  --accent-festive-rgb: 255 143 155;
+  --accent-festive-mate: #7fe0b0;
+  --accent-festive-mate-rgb: 127 224 176;
+  --text-on-festive: #2a1518;
+  --festive-surface: #241217;
+}
+
 body {
   background: var(--bg-primary);
   color: var(--text-main);

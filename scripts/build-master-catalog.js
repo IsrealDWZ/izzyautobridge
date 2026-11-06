@@ -2,8 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import { currentMarkupUsd, currentMarkupWindow } from '../src/utils/markup.js';
+
 import { runHarvest } from './harvest.js';
-import { currentMarkupUsd, currentMarkupWindow } from './markup.js';
 import { generateAuditReport, writeAuditReport } from './utils/audit-report.js';
 import { classifyCategory } from './utils/classify-category.js';
 import { escapeCsvCell } from './utils/csv.js';

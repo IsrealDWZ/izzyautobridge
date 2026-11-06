@@ -14,7 +14,7 @@ Update it at the end of a session and delete anything finished. Keep it short.
 - Rate: **11.78** (market 11.698248 × 1.006948, refreshed 6 Nov 2026)
 - Fidelity live: buy 11.45 / sell 11.785, as at 5 Nov 2026 (observed gap 0.81%)
 - Catalog: 219 master rows → 129 published vehicles
-- Tests 121 passing · lint 0/0 · Prettier clean
+- Tests 141 passing · lint 0/0 · Prettier clean
 - Pricing is now render-time: `src/data/vehicles.js` + `src/utils/pricing.js`
   recompute `Price_GHS` from `Price_USD × USD_GHS_RATE` on import, so the
   6-hourly rate refresh updates displayed GHS prices on the next Vercel build
@@ -65,3 +65,13 @@ Update it at the end of a session and delete anything finished. Keep it short.
 - Blender brand sting: script `/tmp/opencode/izzy_sting.py`, video
   `~/Videos/izzy_sting_10s_720p.mp4`. Blender is not on `PATH`:
   `/home/israel/Downloads/blender-5.2.3-linux-x64/blender`. No system ffmpeg.
+
+## Festive roadmap (agreed 6 Nov 2026)
+
+- Season code is in and inert until 24 Nov: marquee countdown copy (24–30
+  Nov), full crimson/pine accents + price badges (1–31 Dec), closing marquee
+  line (1–2 Jan), then the site cleans itself up. Tokens/phases documented in
+  `DESIGN.md` and `AGENTS.md`; phase boundaries in `src/utils/season.js`.
+- If he wants extra festive merch (banner images, WhatsApp status assets,
+  GA4 key-event marking for the promo), ask before 24 Nov so the teaser
+  phase carries it.

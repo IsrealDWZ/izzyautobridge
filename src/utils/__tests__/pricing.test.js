@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { ghsFromUsd, withFreshPrices } from '../pricing';
+import { festiveAnchorGhs, ghsFromUsd, withFreshPrices } from '../pricing';
 
 describe('ghsFromUsd', () => {
   it('converts a USD price to GHS and rounds like the data pipeline', () => {
@@ -29,5 +29,11 @@ describe('withFreshPrices (render-time pricing)', () => {
     expect(only.Brand).toBe('Toyota');
     expect(only.Model).toBe('Corolla');
     expect(only.Year).toBe(2022);
+  });
+});
+
+describe('festiveAnchorGhs (honest "was" anchor)', () => {
+  it('bakes in the $700 step the festive ladder removed', () => {
+    expect(festiveAnchorGhs(15000)).toBe(Math.round((15000 + 700) * 11.78));
   });
 });

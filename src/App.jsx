@@ -23,6 +23,7 @@ import VehicleDetailPage from './pages/VehicleDetailPage';
 import { useAppStore } from './store/useAppStore';
 import { trackPageView } from './utils/analytics';
 import { APP_CONFIG, WHATSAPP_NUMBER } from './utils/constants';
+import { currentSeason, seasonMarqueeItems } from './utils/season';
 
 const shipItems = Array.from({ length: 6 }, (_, i) => (
   <span key={i} className="flex items-center gap-2">
@@ -59,6 +60,10 @@ export default function App() {
   const { theme, toggleTheme } = useAppStore();
   const { pathname } = useLocation();
   const isFirstRender = useRef(true);
+  const season = currentSeason();
+  const seasonVisuals = season === 'anticipation' || season === 'festive';
+  const marqueeItems = seasonMarqueeItems();
+  const seasonItems = marqueeItems.length > 0 ? marqueeItems : shipItems;
 
   // gtag's config call already records the landing page_view. Every later SPA
   // navigation needs its own hit, otherwise GA4 only ever sees the entry page.
@@ -75,6 +80,12 @@ export default function App() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
   }, [theme]);
+
+  // Seasonal visuals hang off html.season-festive (tokens in index.css), so
+  // the whole festive look ships and reverts with one class per phase.
+  useEffect(() => {
+    document.documentElement.classList.toggle('season-festive', seasonVisuals);
+  }, [seasonVisuals]);
 
   // Auto-hide scrollbar: show the thumb while scrolling, hide it ~700ms after
   // the last scroll event (CSS in index.css keys off html.is-scrolling).
@@ -104,14 +115,23 @@ export default function App() {
             initial={{ y: -48 }}
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
-            className="bg-secondary text-onsecondary py-2 overflow-hidden"
+            className={`py-2 overflow-hidden ${
+              currentSeason() === 'festive'
+                ? 'bg-festive text-onfestive'
+                : 'bg-secondary text-onsecondary'
+            }`}
           >
             <Marquee
-              items={shipItems}
+              items={seasonItems}
               duration={40}
               gap="gap-12"
               itemClassName="text-xs sm:text-sm font-bold uppercase tracking-wider"
             />
+            {/* The moving track is aria-hidden, so the season notice needs a
+                static copy for screen readers. */}
+            {marqueeItems.length > 0 && (
+              <p className="sr-only">{marqueeItems.join('. ')}</p>
+            )}
           </motion.div>
           <nav className="flex items-center justify-between pl-4 pr-3 sm:px-6 py-3 bg-secondary">
             <div className="flex items-center gap-2 sm:gap-5">

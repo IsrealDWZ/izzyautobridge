@@ -98,7 +98,7 @@ recomputes meta-description prices from `Price_USD × rate` the same way.
 ### Markup ladder
 `Price_USD` is also computed, not trusted: `scripts/generate-vehicles.js`
 re-derives it at build time as `CIF_USD + currentMarkupUsd()` from
-`scripts/markup.js` (falling back to the stored `Price_USD` for rows without
+`src/utils/markup.js` (falling back to the stored `Price_USD` for rows without
 a CIF figure), and `scripts/build-master-catalog.js` applies the same ladder
 when generating the master CSV. `markup.js` is the single source of truth:
 
@@ -110,6 +110,19 @@ when generating the master CSV. `markup.js` is the single source of truth:
 The window is date-driven, so the festive cut and the January step-up apply
 automatically on the first build in each window — no CSV regen or manual flip
 is needed. Both scripts log the active markup/window on every run.
+
+### Seasonal (festive) visuals
+The Christmas look is date-driven and reverts by itself — every phase lives in
+`src/utils/season.js` ('anticipation' 24–30 Nov → 'festive' 1–31 Dec →
+'winddown' 1–2 Jan → 'off'), mirroring the markup ladder's dates. App toggles
+`html.season-festive` on `<html>`, which flips the crimson/pine festive tokens
+defined in `src/index.css` (documented with contrast values in `DESIGN.md`).
+The top marquee swaps to countdown/urgency items (also mirrored in an
+`sr-only` copy for screen readers), About's hero folds in `seasonHeroLine()`,
+and `VehiclePrice` renders an honest strike anchor (`festiveAnchorGhs` =
+pre-festive price) plus a savings badge during 'festive' only. Nothing is
+hardcoded: adjusting next year's window is editing the constants in
+`season.js`/`markup.js`.
 
 ### Exchange Rate
 - **Formula**: `site_rate = marketRate × FIDELITY_RATIO`. The market rate comes from exchangerate-api.com; `FIDELITY_RATIO` is Fidelity's observed **selling gap** over the market rate (currently +0.69%: 11.76 / 11.67886 = 1.006948).

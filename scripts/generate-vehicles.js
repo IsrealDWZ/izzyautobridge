@@ -4,7 +4,8 @@ import { fileURLToPath } from 'url';
 
 import { parse } from 'csv-parse/sync';
 
-import { currentMarkupUsd, currentMarkupWindow } from './markup.js';
+import { currentMarkupUsd, currentMarkupWindow } from '../src/utils/markup.js';
+
 import { findAllMatches } from './utils/fuzzy-match.js';
 import { parseMileage } from './utils/parse-mileage.js';
 

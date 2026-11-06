@@ -114,3 +114,43 @@ large-text-only exceptions left (the previous blue system had two).
   with a fixed `text-white`.
 - Scrollbars: auto-hide thumb `rgba(29,29,31,.3)` light / `rgba(245,245,247,.25)`
   dark — neutral, never colored.
+
+## Seasonal Override — 2026 Festive Window (approved by Israel 6 Nov 2026)
+
+The strict monochrome rule above is **deliberately suspended for a bounded
+window** by Israel's call: crimson/pine accents run the festive refresh while
+the markup ladder is at its $300 festive level. Everything is gated behind the
+`html.season-festive` class (toggled by `src/utils/season.js`), so outside
+24 Nov 2026 – 2 Jan 2027 no seasonal CSS applies at all.
+
+| Token | Light | Dark | Role (12 Nov–2 Jan only) |
+|---|---|---|---|
+| `--accent-festive` / `-rgb` | `#a4122e` | `#ff8f9b` | The "action" accent recolors to crimson: CTAs, links, focus rings, marquee strip |
+| `--accent-festive-mate` / `-rgb` | `#14523c` | `#7fe0b0` | Pine — reserved for secondary details |
+| `--text-on-festive` | `#ffffff` | `#2a1518` | Text/icons on festive-action surfaces |
+| `--festive-surface` | `#fbeef0` | `#241217` | Warm wash behind festive badges/strips |
+
+Contrast (computed against the mode canvases, WCAG 2.2):
+
+| Pair | Ratio | Need | Verdict |
+|---|---|---|---|
+| festive `#a4122e` on light canvas `#f5f5f7` | 7.15 | 4.5 | PASS |
+| on-festive `#ffffff` on `#a4122e` | 7.77 | 4.5 | PASS |
+| pine `#14523c` on light canvas | 8.39 | 4.5 | PASS |
+| dark festive `#ff8f9b` on black canvas | 9.63 | 4.5 | PASS |
+| dark on-festive `#2a1518` on `#ff8f9b` | 7.79 | 4.5 | PASS |
+| dark pine `#7fe0b0` on black | 11.1 | 4.5 | PASS |
+
+Implementation rules for the window:
+
+- Season phases, marquee copy and hero line all resolve from **today's date**
+  in `src/utils/season.js` — same date-driven pattern as the pricing ladder in
+  `src/utils/markup.js` ('anticipation' 24–30 Nov → 'festive' 1–31 Dec →
+  'winddown' 1–2 Jan → 'off').
+- No webfonts, no images, no particles: the festive look is tokens + copy +
+  the honest strike-anchor on cards (`festiveAnchorGhs`).
+- Framer/Marquee content swaps carry the countdown ("Festive prices arrive 1
+  December — {n} day(s) to go"); the moving track is aria-hidden, so App
+  mirrors the season copy in an `sr-only` paragraph for screen readers.
+- The strike anchor is factual: pre-festive price = `Price_USD + $700`
+  (legacy $1,000 − festive $300), converted at the live render-time rate.

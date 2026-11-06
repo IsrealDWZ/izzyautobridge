@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+import { currentSeason } from '../src/utils/season.js';
+
 // HTML escape for attribute context (prevents breaking out of content="...")
 function escapeAttr(input) {
   if (typeof input !== 'string') return '';
@@ -97,13 +99,15 @@ function buildVehicleRoutes() {
     typeof v.Price_USD === 'number' && v.Price_USD > 0 && rate
       ? Math.round(v.Price_USD * rate)
       : Number(v.Price_GHS) || 0;
+  // Mirror the on-site season so social/Google previews stay in sync.
+  const festiveTag = currentSeason() === 'festive' ? ' · festive prices live' : '';
   return vehicles.map((v) => {
     const title = `${v.Brand} ${v.Model} ${v.Year} — IzzyAutoBridge Ghana`;
     const variant = v.Variant ? ` (${v.Variant})` : '';
     const specs = v.Key_Specs ? ` Key specs: ${v.Key_Specs}.` : '';
     const description = `${v.Brand} ${v.Model} ${v.Year}${variant} available now in Ghana. GH₵${priceGhs(
       v
-    ).toLocaleString()} · SGS inspected · free shipping to Tema.${specs}`;
+    ).toLocaleString()} · SGS inspected · free shipping to Tema${festiveTag}.${specs}`;
     return {
       out: `vehicle/${v.ID}/index.html`,
       title,

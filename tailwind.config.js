@@ -21,6 +21,11 @@ export default {
         onaction: 'var(--text-on-action)',
         onsecondary: 'var(--text-inverse)',
         'onsecondary-muted': 'var(--text-inverse-muted)',
+        // Festive season accents (html.season-festive only; see index.css)
+        festive: 'rgb(var(--accent-festive-rgb) / <alpha-value>)',
+        'festive-mate': 'rgb(var(--accent-festive-mate-rgb) / <alpha-value>)',
+        'festive-surface': 'var(--festive-surface)',
+        onfestive: 'var(--text-on-festive)',
         // Legacy aliases remapped to the Apple palette (safety net for stray classes)
         navy: { DEFAULT: '#1d1d1f', deep: '#1d1d1f', dark: '#1d1d1f' },
         panel: '#1d1d1f',
