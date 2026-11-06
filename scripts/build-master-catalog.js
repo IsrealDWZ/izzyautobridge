@@ -78,7 +78,9 @@ async function main() {
 
   console.log('\nCategorizing and applying price rule...');
   console.log(
-    `Applying markup: $${currentMarkupUsd()} per vehicle (${currentMarkupWindow()} window)`
+    `Applying markup: $${currentMarkupUsd(previewDate())} per vehicle (${currentMarkupWindow(
+      previewDate()
+    )} window)`
   );
   const categorizedCounts = {};
   const outputRows = [];
@@ -87,7 +89,7 @@ async function main() {
     const category = classifyCategory(row['Fuel Types'], row.Bodies);
 
     const cifPrice = parsePrice(row['Price (CIF USD)']);
-    const newPriceUSD = Math.round(cifPrice + currentMarkupUsd());
+    const newPriceUSD = Math.round(cifPrice + currentMarkupUsd(previewDate()));
     const newPriceGHS = Math.round(newPriceUSD * USD_GHS_RATE);
 
     categorizedCounts[category] = (categorizedCounts[category] || 0) + 1;

@@ -111,6 +111,16 @@ The window is date-driven, so the festive cut and the January step-up apply
 automatically on the first build in each window — no CSV regen or manual flip
 is needed. Both scripts log the active markup/window on every run.
 
+### Seasonal previews (for Israel, no deploy needed)
+- `npm run preview:xmas` → builds with prices **and** visuals pinned to
+  15 Dec, serves http://localhost:4173. Badges are labelled "(preview)".
+- On any other build, `?season=festive|anticipation|winddown` forces the
+  phase in the browser (UI label "(preview)" appears when the real date
+  isn't in that phase — preview trick only; the true look always matches
+  the real calendar in production).
+- Preview knobs are inert on Vercel: production has no SEASON_DATE env and
+  no `?season` param, so the site always dresses by the real date.
+
 ### Seasonal (festive) visuals
 The Christmas look is date-driven and reverts by itself — every phase lives in
 `src/utils/season.js` ('anticipation' 24–30 Nov → 'festive' 1–31 Dec →
@@ -176,6 +186,8 @@ hardcoded: adjusting next year's window is editing the constants in
 | `npm run dev` | Dev server (port 5173) |
 | `npm run build` | Production build |
 | `npm run preview` | Preview dist/ |
+| `npm run build:xmas` | Full build pinned to the festive window (data + visuals) |
+| `npm run preview:xmas` | build:xmas + local server — the festive preview |
 | `npm test` | Run tests (113 passing) |
 | `npm run lint` | ESLint over src + scripts (0 errors, 0 warnings) |
 | `npm run lint:fix` | Auto-fix |

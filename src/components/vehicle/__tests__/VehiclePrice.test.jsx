@@ -45,4 +45,13 @@ describe('VehiclePrice festive window', () => {
     expect(screen.queryByText(/Festive:/)).not.toBeInTheDocument();
     expect(screen.getByText(/15,000 • 11.78 GHS\/USD/)).toBeInTheDocument();
   });
+
+  it('labels forced previews so stale data is never mistaken for the deal', () => {
+    at('2026-11-06'); // real date is off-season...
+    window.history.replaceState(null, '', '?season=festive'); // ...but forced
+    render(<VehiclePrice vehicle={vehicle} />);
+
+    expect(screen.getByText(/GH₵8,246 less \(preview\)/)).toBeInTheDocument();
+    window.history.replaceState(null, '', window.location.pathname);
+  });
 });

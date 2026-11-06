@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { parse } from 'csv-parse/sync';
 
 import { currentMarkupUsd, currentMarkupWindow } from '../src/utils/markup.js';
+import { previewDate } from '../src/utils/season.js';
 
 import { findAllMatches } from './utils/fuzzy-match.js';
 import { parseMileage } from './utils/parse-mileage.js';
@@ -165,7 +166,9 @@ function transformMasterRow(row, imageMatches) {
   // to the stored Price_USD when the row has no CIF figure.
   const cifUSD = parsePrice(row.CIF_USD);
   const priceUSD =
-    cifUSD > 0 ? Math.round(cifUSD + currentMarkupUsd()) : parsePrice(row.Price_USD);
+    cifUSD > 0
+      ? Math.round(cifUSD + currentMarkupUsd(previewDate()))
+      : parsePrice(row.Price_USD);
 
   if (!brand || !model || !year || priceUSD === 0) {
     return null;
@@ -212,7 +215,9 @@ async function main() {
   const masterRows = loadMasterCSV();
   console.log(`Loaded ${masterRows.length} rows from master catalog`);
   console.log(
-    `Pricing with MARKUP_USD=${currentMarkupUsd()} (${currentMarkupWindow()} window)`
+    `Pricing with MARKUP_USD=${currentMarkupUsd(previewDate())} (${currentMarkupWindow(
+      previewDate()
+    )} window)`
   );
 
   const allVehicles = [];

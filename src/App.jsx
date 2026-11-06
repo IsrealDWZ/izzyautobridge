@@ -23,7 +23,7 @@ import VehicleDetailPage from './pages/VehicleDetailPage';
 import { useAppStore } from './store/useAppStore';
 import { trackPageView } from './utils/analytics';
 import { APP_CONFIG, WHATSAPP_NUMBER } from './utils/constants';
-import { currentSeason, seasonMarqueeItems } from './utils/season';
+import { currentSeason, seasonMarqueeItems, uiNow } from './utils/season';
 
 const shipItems = Array.from({ length: 6 }, (_, i) => (
   <span key={i} className="flex items-center gap-2">
@@ -60,9 +60,9 @@ export default function App() {
   const { theme, toggleTheme } = useAppStore();
   const { pathname } = useLocation();
   const isFirstRender = useRef(true);
-  const season = currentSeason();
+  const season = currentSeason(uiNow());
   const seasonVisuals = season === 'anticipation' || season === 'festive';
-  const marqueeItems = seasonMarqueeItems();
+  const marqueeItems = seasonMarqueeItems(uiNow());
   const seasonItems = marqueeItems.length > 0 ? marqueeItems : shipItems;
 
   // gtag's config call already records the landing page_view. Every later SPA
@@ -116,7 +116,7 @@ export default function App() {
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
             className={`py-2 overflow-hidden ${
-              currentSeason() === 'festive'
+              currentSeason(uiNow()) === 'festive'
                 ? 'bg-festive text-onfestive'
                 : 'bg-secondary text-onsecondary'
             }`}

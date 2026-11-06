@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import { currentSeason } from '../src/utils/season.js';
+import { currentSeason, previewDate } from '../src/utils/season.js';
 
 // HTML escape for attribute context (prevents breaking out of content="...")
 function escapeAttr(input) {
@@ -100,7 +100,7 @@ function buildVehicleRoutes() {
       ? Math.round(v.Price_USD * rate)
       : Number(v.Price_GHS) || 0;
   // Mirror the on-site season so social/Google previews stay in sync.
-  const festiveTag = currentSeason() === 'festive' ? ' · festive prices live' : '';
+  const festiveTag = currentSeason(previewDate()) === 'festive' ? ' · festive prices live' : '';
   return vehicles.map((v) => {
     const title = `${v.Brand} ${v.Model} ${v.Year} — IzzyAutoBridge Ghana`;
     const variant = v.Variant ? ` (${v.Variant})` : '';

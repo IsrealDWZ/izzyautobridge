@@ -1,8 +1,12 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
-import { currentSeason, daysToFestive, seasonHeroLine, seasonMarqueeItems } from '../season.js';
+import { currentSeason, daysToFestive, isSeasonOverridden, seasonHeroLine, seasonMarqueeItems, uiNow } from '../season.js';
 
 const at = (iso) => new Date(`${iso}T00:00:00Z`);
+
+function setSearch(search) {
+  window.history.replaceState(null, '', `${window.location.pathname}${search}`);
+}
 
 describe('currentSeason (festive phase boundaries)', () => {
   it('is off before 24 Nov and from 3 Jan', () => {
@@ -69,5 +73,34 @@ describe('seasonHeroLine', () => {
     expect(seasonHeroLine(at('2026-11-25'))).toBe('');
     expect(seasonHeroLine(at('2026-12-25'))).toContain('31 December');
     expect(seasonHeroLine(at('2027-01-01'))).toBe('');
+  });
+});
+
+describe('preview overrides (?season= param)', () => {
+  afterEach(() => setSearch(''));
+
+  it('maps ?season= to a mid-phase sample date', () => {
+    setSearch('?season=festive');
+    expect(uiNow().toISOString().slice(0, 10)).toBe('2026-12-15');
+    expect(currentSeason(uiNow())).toBe('festive');
+    expect(isSeasonOverridden()).toBe(true);
+  });
+
+  it('anticipation override resolves to late November', () => {
+    setSearch('?season=anticipation');
+    expect(currentSeason(uiNow())).toBe('anticipation');
+  });
+
+  it('stays on the real date with no param, marking nothing as overridden', () => {
+    setSearch('');
+    expect(isSeasonOverridden()).toBe(false);
+    expect(uiNow(new Date('2026-11-06T12:00:00Z')).toISOString().slice(0, 10)).toBe(
+      '2026-11-06'
+    );
+  });
+
+  it('ignores unknown phases instead of breaking', () => {
+    setSearch('?season=halloween');
+    expect(currentSeason(uiNow(at('2026-11-06')))).toBe('off');
   });
 });

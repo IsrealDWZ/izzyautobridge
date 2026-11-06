@@ -15,8 +15,78 @@ const WINDDOWN_WINDOW = { start: '2027-01-01', end: '2027-01-02' };
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+// Canonical sample dates so a Forced preview shows each phase mid-flight
+// (teaser already shipping, festive running, December just ended).
+const PREVIEW_PHASE_DATES = {
+  anticipation: '2026-11-27',
+  festive: '2026-12-15',
+  winddown: '2027-01-01',
+};
+
 function isoOf(now) {
   return now.toISOString().slice(0, 10);
+}
+
+/**
+ * The reference date UI code should resolve the season against. Precedence:
+ *  1. A build-time pin via VITE_SEASON_DATE (the "preview:xmas" build).
+ *  2. A ?season=<phase> URL override for a live look at any build.
+ *  3. Today.
+ * Node-side scripts instead pin via {@link previewDate} (SEASON_DATE), so a
+ * preview build can align prices (built December-style) with pixels.
+ * @param {Date} [fallback] - Date to use when no override is present.
+ * @returns {Date} The effective preview date.
+ */
+export function uiNow(fallback = new Date()) {
+  const pinned = import.meta.env?.VITE_SEASON_DATE;
+  if (pinned) {
+    const parsed = Date.parse(`${pinned}T12:00:00Z`);
+    if (Number.isFinite(parsed)) return new Date(parsed);
+  }
+  if (typeof window !== 'undefined') {
+    const param = new URLSearchParams(window.location.search).get('season');
+    if (param && PREVIEW_PHASE_DATES[param]) {
+      return new Date(`${PREVIEW_PHASE_DATES[param]}T12:00:00Z`);
+    }
+  }
+  return fallback;
+}
+
+/**
+ * The reference date for build-process pricing (node side). Pinned by the
+ * SEASON_DATE env var so a preview build can price as December.
+ * @param {Date} [fallback] - Date to use when no env pin is present.
+ * @returns {Date} The effective preview date.
+ */
+export function previewDate(fallback = new Date()) {
+  const iso =
+    typeof process !== 'undefined' && process.env ? process.env.SEASON_DATE : undefined;
+  if (iso) {
+    const parsed = Date.parse(`${iso}T12:00:00Z`);
+    if (Number.isFinite(parsed)) return new Date(parsed);
+  }
+  return fallback;
+}
+
+/**
+ * True when the season was forced by a browser URL override (?season=…) or a
+ * build pin rather than the real calendar — used so preview-only states can
+ * be labeled as such in the UI.
+ * @returns {boolean} Whether a preview override is active.
+ */
+export function isSeasonOverridden() {
+  if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SEASON_DATE) {
+    return true;
+  }
+  if (typeof window !== 'undefined') {
+    return Boolean(
+      new URLSearchParams(window.location.search).get('season') &&
+        PREVIEW_PHASE_DATES[
+          new URLSearchParams(window.location.search).get('season')
+        ]
+    );
+  }
+  return false;
 }
 
 /**

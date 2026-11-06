@@ -2,10 +2,10 @@ import { Ship } from 'lucide-react';
 
 import { USD_GHS_RATE } from '../../utils/constants';
 import { festiveAnchorGhs, ghsFromUsd } from '../../utils/pricing';
-import { currentSeason } from '../../utils/season';
+import { currentSeason, isSeasonOverridden, uiNow } from '../../utils/season';
 
 export function VehiclePrice({ vehicle }) {
-  const isFestive = currentSeason() === 'festive';
+  const isFestive = currentSeason(uiNow()) === 'festive';
 
   return (
     <div className="mt-auto pt-3 border-t border-subtle">
@@ -23,7 +23,7 @@ export function VehiclePrice({ vehicle }) {
           <span className="bg-festive-surface text-festive font-semibold text-[10px] uppercase tracking-wide px-1.5 py-0.5 rounded">
             Festive: GH₵
             {(festiveAnchorGhs(vehicle.Price_USD) - ghsFromUsd(vehicle.Price_USD)).toLocaleString()}{' '}
-            less
+            less{isFestive && isSeasonOverridden() ? ' (preview)' : ''}
           </span>
         </div>
       )}

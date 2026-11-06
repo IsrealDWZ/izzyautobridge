@@ -72,6 +72,10 @@ Update it at the end of a session and delete anything finished. Keep it short.
   Nov), full crimson/pine accents + price badges (1–31 Dec), closing marquee
   line (1–2 Jan), then the site cleans itself up. Tokens/phases documented in
   `DESIGN.md` and `AGENTS.md`; phase boundaries in `src/utils/season.js`.
+- **Preview build:** `npm run preview:xmas` pins 15 Dec inside the bundle and
+  serves http://localhost:4173 — prices, marquee, hero line and badges all
+  festive, marked "(preview)" so labelled previews can't be mistaken for
+  production. `?season=` URL param forces one phase on any build.
 - If he wants extra festive merch (banner images, WhatsApp status assets,
   GA4 key-event marking for the promo), ask before 24 Nov so the teaser
   phase carries it.

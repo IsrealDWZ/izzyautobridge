@@ -9,7 +9,7 @@ import StatsRow from '../components/StatsRow';
 import TrustSection from '../components/TrustSection';
 import vehicles from '../data/vehicles';
 import { APP_CONFIG, WHATSAPP_NUMBER } from '../utils/constants';
-import { seasonHeroLine } from '../utils/season';
+import { seasonHeroLine, uiNow } from '../utils/season';
 
 const heroSubtitle =
   'Direct China vehicle imports to Ghana with transparent landed costs — free shipping to Tema included — and a route you can actually track from port to your driveway.';
@@ -17,8 +17,8 @@ const heroSubtitle =
 export default function AboutPage() {
   // Festive season copy: a real price statement only while prices are
   // actually cut (season.js resolves the phase from today's date).
-  const heroWithSeason = seasonHeroLine()
-    ? `${heroSubtitle} ${seasonHeroLine()}`
+  const heroWithSeason = seasonHeroLine(uiNow())
+    ? `${heroSubtitle} ${seasonHeroLine(uiNow())}`
     : heroSubtitle;
   useEffect(() => {
     document.title = 'About Us — IzzyAutoBridge Ghana';
