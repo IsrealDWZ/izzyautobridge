@@ -32,6 +32,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, '..');
 const OUT_DIR = path.resolve(process.argv[2] || path.join(ROOT_DIR, 'dist'));
 const VEHICLES_JSON_PATH = path.join(ROOT_DIR, 'src', 'data', 'vehicles.json');
+const EXCHANGE_RATE_PATH = path.join(ROOT_DIR, 'src', 'data', 'exchange-rate.json');
 const BASE = 'https://izzyautobridge.vercel.app';
 
 const STATIC_ROUTES = [
@@ -85,12 +86,23 @@ const STATIC_ROUTES = [
 function buildVehicleRoutes() {
   if (!fs.existsSync(VEHICLES_JSON_PATH)) return [];
   const vehicles = JSON.parse(fs.readFileSync(VEHICLES_JSON_PATH, 'utf-8'));
+  let rate = null;
+  if (fs.existsSync(EXCHANGE_RATE_PATH)) {
+    const cached = JSON.parse(fs.readFileSync(EXCHANGE_RATE_PATH, 'utf-8'));
+    rate = typeof cached.rate === 'number' ? cached.rate : null;
+  }
+  // Price in GHS the same way the app does at render time, so meta tags always
+  // match what the page re-computes from Price_USD and the site rate.
+  const priceGhs = (v) =>
+    typeof v.Price_USD === 'number' && v.Price_USD > 0 && rate
+      ? Math.round(v.Price_USD * rate)
+      : Number(v.Price_GHS) || 0;
   return vehicles.map((v) => {
     const title = `${v.Brand} ${v.Model} ${v.Year} — IzzyAutoBridge Ghana`;
     const variant = v.Variant ? ` (${v.Variant})` : '';
     const specs = v.Key_Specs ? ` Key specs: ${v.Key_Specs}.` : '';
-    const description = `${v.Brand} ${v.Model} ${v.Year}${variant} available now in Ghana. GH₵${Number(
-      v.Price_GHS
+    const description = `${v.Brand} ${v.Model} ${v.Year}${variant} available now in Ghana. GH₵${priceGhs(
+      v
     ).toLocaleString()} · SGS inspected · free shipping to Tema.${specs}`;
     return {
       out: `vehicle/${v.ID}/index.html`,

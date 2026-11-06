@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useMemo } from 'react';
 
-import vehicles from '../data/vehicles.json';
+import vehicles from '../data/vehicles';
 import { WHATSAPP_NUMBER } from '../utils/constants';
 
 const TABS = [

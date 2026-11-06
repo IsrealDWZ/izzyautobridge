@@ -48,6 +48,19 @@ export function computeAnchoredRate(marketRate, ratio = FIDELITY_RATIO) {
   return roundRate(marketRate * ratio);
 }
 
+/**
+ * Resolve the market rate for this build: live quote first, then the cached
+ * market rate, then the anchor sample as the last resort. Only null/undefined
+ * trigger the fallbacks — a fetch failure is expressed as null, never as 0,
+ * because fetchMarketRate() rejects falsy rates before returning.
+ * @param {number|null|undefined} liveRate - Live market rate, or null when the fetch fails.
+ * @param {{marketRate?: number}|null|undefined} cache - Cached exchange-rate payload.
+ * @returns {number} Market rate in GHS per USD.
+ */
+export function resolveMarketRate(liveRate, cache) {
+  return liveRate ?? cache?.marketRate ?? FALLBACK_MARKET_RATE;
+}
+
 async function fetchMarketRate() {
   try {
     console.log('Fetching USD/GHS market rate from exchangerate-api.com...');
@@ -161,7 +174,7 @@ async function main() {
   console.log('=== FETCHING EXCHANGE RATE ===');
 
   const cache = loadCache();
-  const marketRate = (await fetchMarketRate()) ?? cache?.marketRate ?? FALLBACK_MARKET_RATE;
+  const marketRate = resolveMarketRate(await fetchMarketRate(), cache);
   const fidelity = await resolveFidelityQuote(cache, marketRate);
 
   const finalRate = computeAnchoredRate(marketRate);

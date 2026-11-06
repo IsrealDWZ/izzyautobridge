@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 
 import { VehicleImage, VehiclePrice, VehicleActions, VehicleSpecs } from '../components/vehicle';
-import vehicles from '../data/vehicles.json';
+import vehicles from '../data/vehicles';
 import { useAppStore } from '../store/useAppStore';
 import { toItem, trackEvent, trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';

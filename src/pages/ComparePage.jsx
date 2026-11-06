@@ -3,7 +3,7 @@ import { ArrowLeft, MessageCircle, X, Ship } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import vehicles from '../data/vehicles.json';
+import vehicles from '../data/vehicles';
 import { useAppStore } from '../store/useAppStore';
 import { trackWhatsApp } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';

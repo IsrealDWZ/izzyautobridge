@@ -9,7 +9,7 @@ import FilterSidebar from '../components/FilterSidebar';
 import InventorySearch from '../components/InventorySearch';
 import ProcessSection from '../components/ProcessSection';
 import VehicleGrid from '../components/VehicleGrid';
-import vehicles from '../data/vehicles.json';
+import vehicles from '../data/vehicles';
 import { useAppStore } from '../store/useAppStore';
 import { trackEvent } from '../utils/analytics';
 import { WHATSAPP_NUMBER } from '../utils/constants';

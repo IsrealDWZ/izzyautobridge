@@ -1,6 +1,28 @@
 import { describe, expect, it } from 'vitest';
 
-import { computeAnchoredRate, computeObservedRatio, roundRate } from '../fetch-exchange-rate.js';
+import { computeAnchoredRate, computeObservedRatio, resolveMarketRate, roundRate } from '../fetch-exchange-rate.js';
+
+describe('resolveMarketRate (fallback chain)', () => {
+  it('uses the live market rate when the fetch succeeds', () => {
+    expect(resolveMarketRate(11.698248, { marketRate: 11.65 })).toBe(11.698248);
+  });
+
+  it('falls back to the cached market rate when the live fetch fails', () => {
+    expect(resolveMarketRate(null, { marketRate: 11.65 })).toBe(11.65);
+  });
+
+  it('falls back to the anchor sample when live and cache both fail', () => {
+    expect(resolveMarketRate(null, null)).toBe(11.67886);
+    expect(resolveMarketRate(null, {})).toBe(11.67886);
+  });
+
+  it('only falls through on null or undefined, matching fetchMarketRate', () => {
+    // fetchMarketRate() never returns 0 — falsy rates are rejected and surface
+    // as null — so a 0 here passes through by definition of the nullish chain.
+    expect(resolveMarketRate(0, { marketRate: 11.65 })).toBe(0);
+    expect(resolveMarketRate(undefined, { marketRate: 11.65 })).toBe(11.65);
+  });
+});
 
 describe('computeObservedRatio', () => {
   it('measures the Fidelity selling gap over the market rate', () => {

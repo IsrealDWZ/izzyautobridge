@@ -7,7 +7,7 @@ import ProcessSection from '../components/ProcessSection';
 import ShowcaseVideo from '../components/ShowcaseVideo';
 import StatsRow from '../components/StatsRow';
 import TrustSection from '../components/TrustSection';
-import vehicles from '../data/vehicles.json';
+import vehicles from '../data/vehicles';
 import { APP_CONFIG, WHATSAPP_NUMBER } from '../utils/constants';
 
 const heroSubtitle =

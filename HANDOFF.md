@@ -14,7 +14,11 @@ Update it at the end of a session and delete anything finished. Keep it short.
 - Rate: **11.78** (market 11.698248 × 1.006948, refreshed 6 Nov 2026)
 - Fidelity live: buy 11.45 / sell 11.785, as at 5 Nov 2026 (observed gap 0.81%)
 - Catalog: 219 master rows → 129 published vehicles
-- Tests 113 passing · lint 0/0 · Prettier clean
+- Tests 121 passing · lint 0/0 · Prettier clean
+- Pricing is now render-time: `src/data/vehicles.js` + `src/utils/pricing.js`
+  recompute `Price_GHS` from `Price_USD × USD_GHS_RATE` on import, so the
+  6-hourly rate refresh updates displayed GHS prices on the next Vercel build
+  with no manual `vehicles.json` regen. Decision made by Israel 6 Nov 2026.
 
 ## Pricing — do not change without asking
 
@@ -26,20 +30,24 @@ Update it at the end of a session and delete anything finished. Keep it short.
 
 ## Waiting on Israel
 
-- [ ] Drop markup $1,000 → $550 (needs `build:master` then `build:data`). He said "wait first".
+- [ ] Drop markup $1,000 → $550 (needs `build:master` then `build:data`.
+  GHS prices now recompute at render time, but `Price_USD` still comes from
+  the CSV, so both steps are still required once he says go.)
 - [ ] Merge `preview/landing-merge` — not approved.
 - [ ] Find banks with lower rates — on hold.
 
-## Queued, paused until he answers questions
+## Queued — all done 6 Nov 2026
 
-1. `git pull --ff-only` (picks up `a9addf1`, the 5 Nov rate)
-2. Tests for the fallback chain: live fail → cached quote → anchor
-3. `AGENTS.md` fallback wording is wrong — it says the chain uses the cached
-   `fidelityLive` quote, but it actually uses the cached `marketRate`
-4. Workflow hardening: sync `vehicles.json` on rate change (or move to
-   render-time pricing); bump GitHub Actions versions
-5. `VehicleCard` labels `Price_USD` (CIF + markup) as "CIF" — misleading,
-   worse if the markup drops to $550
+1. ~~`git pull --ff-only`~~ — branch up to date (`a9addf1` already in).
+2. ~~Fallback-chain tests~~ — `resolveMarketRate()` + 4 tests (117 total).
+3. ~~`AGENTS.md` fallback wording~~ — corrected to live → cached `marketRate`
+   → anchor sample; `fidelityLive` observational only.
+4. ~~Workflow/vehicles.json sync~~ — resolved by switching to render-time
+   pricing (above); action versions checked, checkout@v4 / setup-node@v4 are
+   current, no bump needed.
+5. ~~VehicleCard "CIF" label~~ — label dropped on Israel's call: the line now
+   reads `$8,500 • 11.78 GHS/USD`. Terms/Trust "CIF Tema included" claims are
+   untouched (those stay true regardless of the markup).
 
 ## Gotchas
 

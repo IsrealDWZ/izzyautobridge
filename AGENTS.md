@@ -84,12 +84,23 @@ npm run build:sitemap  # Generate sitemap.xml
 
 Mileage ranges such as `19,000-22,000 km` are parsed by `scripts/utils/parse-mileage.js`, which uses the upper bound so a listing never overstates condition.
 
+### Pricing at render time
+GHS figures are computed, not stored. `src/data/vehicles.js` wraps the raw
+`vehicles.json` with `withFreshPrices()` from `src/utils/pricing.js`, which
+recomputes `Price_GHS = Math.round(Price_USD × USD_GHS_RATE)` at import time
+using the inlined site rate. Every consumer imports `../data/vehicles` (never
+the raw JSON), so changing the rate is enough — no manual vehicles.json rebuild
+is needed to keep displayed prices in sync. The `Price_GHS` snapshot inside
+vehicles.json is only a fallback for vehicles missing `Price_USD`. The dormant
+master CSV keeps its own `Price_GHS` column; `scripts/prerender-routes.js`
+recomputes meta-description prices from `Price_USD × rate` the same way.
+
 ### Exchange Rate
 - **Formula**: `site_rate = marketRate × FIDELITY_RATIO`. The market rate comes from exchangerate-api.com; `FIDELITY_RATIO` is Fidelity's observed **selling gap** over the market rate (currently +0.69%: 11.76 / 11.67886 = 1.006948).
 - **No extra buffer**: the gap already carries Fidelity's retail premium, so the old 3% safety margin was removed — it stacked on top and pushed prices above the bank's own selling rate.
 - **Why the gap, not the absolute rate**: Fidelity's quote only updates once a day, so applying its absolute selling rate would freeze prices while the market moves. Applying the measured gap to the live market rate keeps prices responsive and still matches Fidelity's retail premium.
 - **Live quote is observational**: `scripts/fidelity-rate.js` fetches Fidelity Bank Ghana's published USD buying/selling (plain HTTP first, then headless Chrome when the Sucuri challenge hides the table). `fidelityLive.observedRatio` records today's actual gap; the build warns when it drifts 0.5 percentage points or more from `FIDELITY_ANCHOR` so the constant can be re-measured.
-- **Fallback chain**: cached `fidelityLive` quote (for the observed gap) → stored anchor ratio → `11.67886` market fallback. Pricing never depends on the live fetch succeeding.
+- **Fallback chain (market rate)**: live exchangerate-api.com quote → cached `marketRate` (in `exchange-rate.json`) → `11.67886` anchor sample (`FALLBACK_MARKET_RATE`). The gap applied on top is always the stored `FIDELITY_RATIO` constant, so even with both fetches failing the rate is `11.67886 × FIDELITY_RATIO` — Fidelity's published selling rate, never an inflated figure. The cached `fidelityLive` quote is observational only and never feeds pricing. Pricing never depends on the live fetches succeeding.
 - **Cache**: `src/data/exchange-rate.json` records `rate`, `marketRate`, `fidelityLive` (buying/selling/asAt/via/fetchedAt/observedRatio/marketRateAtFetch), the anchor sample and the ratio. It is rewritten only when the rounded rate or the Fidelity quote changes.
 - **Refresh**: `.github/workflows/refresh-exchange-rate.yml` runs every 6 hours with `FIDELITY_FORCE=1`, commits the new rate when it changes, and lets Vercel redeploy. If a `VERCEL_DEPLOY_HOOK_URL` repo secret exists, it triggers a rebuild even when the rate is unchanged. Builds outside CI reuse a quote younger than 24 hours instead of re-rendering the bank page.
 - **Inlined** at build via `import rateData from '../data/exchange-rate.json'`
@@ -124,6 +135,8 @@ Mileage ranges such as `19,000-22,000 km` are parsed by `scripts/utils/parse-mil
 | `scripts/generate-vehicles.js` | vehicles.json generator |
 | `src/data/master-inventory.csv` | Dormant master catalog (219 vehicles) |
 | `src/data/vehicles.json` | Published vehicles (129 with images) |
+| `src/data/vehicles.js` | Import point: raw vehicles + render-time GHS pricing |
+| `src/utils/pricing.js` | `ghsFromUsd` / `withFreshPrices` |
 | `src/data/exchange-rate.json` | Cached rate + metadata |
 | `HANDOFF.md` | Live state, open decisions and queued work (read first) |
 

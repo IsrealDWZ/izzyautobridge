@@ -12,7 +12,7 @@ import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Footer from './components/Footer';
 import Marquee from './components/Marquee';
 import ScrollProgress from './components/ScrollProgress';
-import vehicles from './data/vehicles.json';
+import vehicles from './data/vehicles';
 import AboutPage from './pages/AboutPage';
 import ComparePage from './pages/ComparePage';
 import InventoryPage from './pages/InventoryPage';
