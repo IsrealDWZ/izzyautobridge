@@ -1,53 +1,45 @@
-// Santa in his sleigh with a reindeer team, drawn side-on. Pure SVG — no
-// image payload, aria-hidden wherever it mounts. Flown across the hero by
-// CSS (`.season-santa` keyframes in index.css), mounted only while the
-// season is festive.
+// Santa's sleigh and reindeer as an elegant near-black silhouette with thin
+// gold accents — reads like a premium decal against the dark cargo photo
+// rather than a cartoon. Pure SVG, aria-hidden wherever it mounts; flown by
+// the `.season-santa` keyframes in index.css while the season is festive.
+const INK = '#25231f';
+const GOLD = '#d9a53c';
+
 export default function SantaSleigh({ className = '' }) {
   return (
-    <svg viewBox="0 0 260 132" className={className} aria-hidden="true" focusable="false">
-      {/* reindeer legs */}
-      <path d="M34 72l-4 16 5 2 4-15zM44 74l1 17 6 0-1-17zM56 74l1 17 6 0-1-17zM64 72l7 15 5-3-7-14z" fill="#6b4423" />
-      <path d="M30 88h8M43 91h9M54 91h9M67 85h8" stroke="#3f2a12" strokeWidth="3" strokeLinecap="round" />
-      {/* body + neck + head */}
-      <ellipse cx="50" cy="62" rx="24" ry="13" fill="#8a5a33" />
-      <path d="M68 56l14-14 4 3-12 15z" fill="#8a5a33" />
-      <circle cx="86" cy="43" r="8" fill="#8a5a33" />
-      {/* antlers */}
-      <path d="M84 35l-4-10M84 35l-8-6M84 35l4-11M84 35l7-7" stroke="#5b3a1e" strokeWidth="2.4" strokeLinecap="round" fill="none" />
-      {/* ear, nose, eye, tail, harness */}
-      <path d="M92 38c4-2 6-2 7 0l-6 3z" fill="#8a5a33" />
-      <circle cx="94" cy="42" r="2.6" fill="#c8102e" />
-      <circle cx="88" cy="41" r="1.3" fill="#2a1a0c" />
-      <path d="M27 58l-7-4 1 9z" fill="#6b4423" />
-      <path d="M84 45C70 55 66 58 62 62" stroke="#e0b23c" strokeWidth="2.2" fill="none" />
-      {/* reins */}
-      <path d="M92 40c12-4 24-6 34-10" stroke="#7a4a21" strokeWidth="1.8" fill="none" />
-      {/* gift sack behind santa */}
-      <path d="M148 66c-6-26 20-34 30-24 12 12 4 42-8 46-14 4-18-8-22-22z" fill="#7a4a21" />
-      <circle cx="172" cy="49" r="5" fill="#c8102e" />
+    <svg viewBox="0 0 260 120" className={className} aria-hidden="true" focusable="false">
+      {/* reindeer: strides rendered as slender ink shapes, no face */}
+      <g fill={INK}>
+        <ellipse cx="50" cy="60" rx="24" ry="9" />
+        <path d="M34 66l-3 17h4l3-15zM44 68l0 18h4l0-18zM56 68l0 18h4l0-18zM62 66l7 15 4-2-7-14z" stroke={INK} strokeWidth="2.6" fill="none" />
+        {/* neck + small head, muzzle lifted */}
+        <path d="M66 56l15-13c3-2 7 0 5 3l-10 13z" />
+        <circle cx="86" cy="42" r="6.4" />
+        {/* antlers — thin branching strokes */}
+        <path d="M84 36l-5-11M84 36l-9-5M84 36l5-11M84 36l8-6" stroke={INK} strokeWidth="2" strokeLinecap="round" fill="none" />
+        {/* tail */}
+        <path d="M27 56l-7-3 2 7z" />
+        {/* gift sack */}
+        <path d="M146 60c-5-22 17-30 27-21 11 10 4 36-7 40-12 3-16-7-20-19z" />
+        {/* santa torso + raised arm, head small, hat trailing back */}
+        <path d="M148 58c-1-12 7-20 17-20 9 0 15 8 14 20z" />
+        <path d="M156 44l-14-10" stroke={INK} strokeWidth="5" strokeLinecap="round" fill="none" />
+        <circle cx="169" cy="31" r="6.6" />
+        <path d="M162 26c-1-8 5-13 11-12l9 4-2 6c-5-2-12-2-18 2z" />
+      </g>
+      {/* cream details: beard wedge under the face, pom at the hat trail */}
+      <path d="M163 33c-1 7 2 10 6 10s7-3 6-9c-3 2-9 2-12-1z" fill="#f3f6f2" />
+      <circle cx="184" cy="20" r="2.8" fill="#f3f6f2" />
       {/* sleigh hull */}
       <path
-        d="M104 60c-4 36 20 50 44 50h64c24 0 32-16 30-32h-32c-2 12-14 18-30 18h-34c-20 0-32-12-34-36z"
-        fill="#a4122e"
+        d="M104 58c-4 34 20 48 44 48h62c22 0 30-15 28-30h-30c-2 11-13 16-28 16h-32c-19 0-31-11-34-34z"
+        fill={INK}
       />
-      {/* gold rail + runner */}
-      <path d="M104 60c2 22 14 34 34 36" stroke="#e0b23c" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <path d="M100 114c30 8 92 8 136 0" stroke="#d9a53c" strokeWidth="3.6" fill="none" strokeLinecap="round" />
-      {/* santa */}
-      <path d="M150 62c-2-14 8-24 20-24s18 10 16 24z" fill="#c8102e" />
-      <circle cx="170" cy="30" r="9" fill="#f8c9a4" />
-      {/* beard */}
-      <path d="M160 32c-2 12 4 17 10 17s12-4 10-16c-3 3-17 2-20-1z" fill="#f3f6f2" />
-      <circle cx="166.5" cy="29" r="1.4" fill="#2a1a0c" />
-      <circle cx="174" cy="29" r="1.4" fill="#2a1a0c" />
-      <circle cx="170" cy="33.5" r="2" fill="#e04b63" />
-      {/* hat */}
-      <path d="M159 24c-2-10 4-16 12-16s12 6 11 13l-2 5c-7-3-14-3-21-2z" fill="#c8102e" />
-      <path d="M159 24c9-3 16-3 21 2l-1 4c-6-4-13-4-20-2z" fill="#f3f6f2" />
-      <circle cx="182" cy="21" r="3.2" fill="#f3f6f2" />
-      {/* arm to reins */}
-      <path d="M158 44l-16-10" stroke="#c8102e" strokeWidth="5.5" fill="none" strokeLinecap="round" />
-      <circle cx="141" cy="34" r="3.4" fill="#f3f6f2" />
+      {/* gold accents: harness, reins, rail, runner */}
+      <path d="M85 44c-10 8-15 12-22 17" stroke={GOLD} strokeWidth="1.8" fill="none" />
+      <path d="M90 42c18-4 34-2 52-8" stroke={GOLD} strokeWidth="1.4" fill="none" />
+      <path d="M104 58c2 20 14 31 34 33" stroke={GOLD} strokeWidth="2.4" fill="none" strokeLinecap="round" />
+      <path d="M100 110c30 7 88 7 132 0" stroke={GOLD} strokeWidth="3" fill="none" strokeLinecap="round" />
     </svg>
   );
 }

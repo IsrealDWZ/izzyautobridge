@@ -73,9 +73,11 @@ Update it at the end of a session and delete anything finished. Keep it short.
   line (1–2 Jan), then the site cleans itself up. Tokens/phases documented in
   `DESIGN.md` and `AGENTS.md`; phase boundaries in `src/utils/season.js`.
 - Decorations requested by Israel ("tree and stuff" → "AGGRESSIVE") are in:
-  hero scene = snow + garland + flying Santa cameo + snowman + waving elf +
-  gift parcels + pines; floating WhatsApp bubble wears a Santa hat. All in
-  `src/components/season/`, festive-only, reduced-motion-safe.
+  hero scene = snow + garland + flying Santa cameo + snowman + elves with
+  lanterns + gift parcels + pines; floating WhatsApp bubble wears a Santa
+  hat. All in `src/components/season/`, festive-only, reduced-motion-safe.
+  Israel rejected the first cartoon pass — the cast is refined silhouettes
+  with gold accents (no cartoon faces, muted palette).
 - Israel also decided the WhatsApp CTAs stay **green** (true WhatsApp green,
   `bg-whatsapp` from `--accent-whatsapp`), never crimsoned by the season.
   Applied to floating bubble (+hat), card, detail, compare, favorites,

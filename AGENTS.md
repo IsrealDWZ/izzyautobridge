@@ -137,7 +137,9 @@ hardcoded: adjusting next year's window is editing the constants in
 Decorations (the "tree and stuff" layer, all `src/components/season/`, mounted
 while festive — hero: `SeasonSnow`, `Garland`, a `SantaSleigh` cameo flight,
 `Snowman`/`Elf`/`Gift`s around the `FestiveTree`s; `FloatingWhatsApp` wears a
-`SantaHat`; footer keeps a tree + Merry Christmas line). Every layer is
+`SantaHat`; footer keeps a tree + Merry Christmas line). Style note from
+Israel: too-cartoonish was rejected — characters are refined near-black
+silhouettes with thin gold accents, no cartoon faces. Every layer is
 aria-hidden, image-free SVG/CSS, and hidden under prefers-reduced-motion.
 WhatsApp CTAs are exempt from the festive recolor on purpose (Israel's call):
 they use `bg-whatsapp text-onwhatsapp` mapping to `--accent-whatsapp`

@@ -1,38 +1,37 @@
-// Elf helper — points a big ear, green floppy hat with a crimson band and a
-// gold bell, waving arm raised. Pure SVG, aria-hidden. The wrapper gets
-// `.season-elf` (hop animation) from index.css; mounted only while festive.
+// Elf as a slender near-black silhouette holding a lit gold lantern — no
+// cartoon face, just the hat's droop, a thin hat band and the curled shoes
+// carrying the character. Pure SVG, aria-hidden; `.season-elf` (gentle hop)
+// applies in index.css while the season is festive.
+const INK = '#25231f';
+
 export default function Elf({ className = '' }) {
   return (
     <svg viewBox="0 0 110 130" className={className} aria-hidden="true" focusable="false">
-      {/* legs + curly shoes */}
-      <path d="M42 96h9l-2 18h-9zM60 96h9l2 18h-9z" fill="#34322e" />
-      <path d="M38 114c-6 0-8 6-2 7l14 1 2-8zM74 116c6 1 9 6 3 8l-14 1-3-8z" fill="#a4122e" />
-      {/* tunic */}
-      <path d="M36 62c-4 18-2 34 0 36h40c3-4 4-20 0-36z" fill="#1c7a4c" />
-      {/* pointy collar */}
-      <path d="M42 60l9 8 9-8 9 8 9-8-4 10h-28z" fill="#f3f6f2" />
-      {/* belt */}
-      <rect x="38" y="80" width="38" height="5" rx="2" fill="#34322e" />
-      <rect x="53" y="79" width="7" height="7" rx="1.5" fill="#e0b23c" />
-      {/* idle arm (left) + waving arm (right) */}
-      <path d="M38 64l-10 20 6 3 10-15z" fill="#1c7a4c" />
-      <circle cx="31" cy="88" r="5" fill="#f8c9a4" />
-      <path d="M76 64l14-22" stroke="#1c7a4c" strokeWidth="9" strokeLinecap="round" fill="none" />
-      <circle cx="94" cy="38" r="5.5" fill="#f8c9a4" />
-      {/* head + ears */}
-      <circle cx="57" cy="34" r="19" fill="#f8c9a4" />
-      <path d="M38 32c-7-3-9 5-3 8zM76 32c7-3 9 5 3 8z" fill="#f8c9a4" />
-      {/* face */}
-      <circle cx="50" cy="31" r="2" fill="#34322e" />
-      <circle cx="64" cy="31" r="2" fill="#34322e" />
-      <circle cx="47" cy="40" r="3" fill="#f4a7a7" />
-      <circle cx="67" cy="40" r="3" fill="#f4a7a7" />
-      <path d="M52 41q5 5 10 0" stroke="#a04b2e" strokeWidth="2" fill="none" strokeLinecap="round" />
-      {/* floppy hat: crimson band, pine cone, gold bell */}
-      <path d="M40 24C38 8 50 2 60 6c10 4 12 16 8 24l-30 2z" fill="#14523c" />
-      <rect x="37" y="20" width="32" height="7" rx="3.5" fill="#a4122e" />
-      <circle cx="70" cy="28" r="4" fill="#e0b23c" />
-      <circle cx="57" cy="8" r="3" fill="#f3f6f2" />
+      <g fill={INK}>
+        {/* legs + curled shoes */}
+        <path d="M44 92l9-1-1 22-9 1zM60 92l9 1 1 21-9 1z" />
+        <path d="M41 113c-7 0-9 7-2 8l14 1 1-9zM73 115c7 0 10 7 3 8l-14 1-1-9z" stroke={INK} strokeWidth="2.4" />
+        {/* tunic, slightly tapered — grown-up proportions */}
+        <path d="M38 58c-4 18-3 34 0 38h37c3-4 3-22 0-38z" />
+        {/* collar point */}
+        <path d="M40 58l9 7 9-7 9 7 9-7-3 8h-30z" />
+        {/* idle arm, then lantern arm */}
+        <path d="M39 60l-9 22 6 2 8-16z" />
+        <path d="M74 60l13-20" stroke={INK} strokeWidth="7.5" strokeLinecap="round" fill="none" />
+        {/* head + ears, tiny and quiet */}
+        <circle cx="56" cy="34" r="15" />
+        <path d="M41 31c-6-2-8 4-3 7zM71 31c6-2 8 4 3 7z" />
+        {/* hat: droops to one side, thin band, bell */}
+        <path d="M42 25C41 10 51 4 60 7c9 3 12 13 9 20l-27 1z" />
+      </g>
+      {/* gold accents: hat band + bell, belt mark, lantern */}
+      <rect x="39" y="20" width="30" height="4.6" rx="2.3" fill="#a4122e" />
+      <circle cx="70" cy="27" r="3.4" fill="#d9a53c" />
+      <rect x="40" y="76" width="33" height="3.4" fill="#d9a53c" opacity="0.7" />
+      <circle cx="92" cy="36" r="3.6" fill="#f3f6f2" />
+      <path d="M92 40v8" stroke={INK} strokeWidth="2.4" fill="none" />
+      <path d="M87 50h10l-1.6 11h-6.8z" fill="#d9a53c" />
+      <circle cx="92" cy="55.5" r="6.5" fill="#d9a53c" opacity="0.28" />
     </svg>
   );
 }
