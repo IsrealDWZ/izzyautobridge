@@ -4,6 +4,7 @@ import { useMemo, useCallback } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { filterVehicles } from '../utils/filterVehicles';
 import VehicleCard from './VehicleCard';
+import SourcingCta from './SourcingCta';
 
 const CATEGORIES = ['EV', 'Hybrid', 'Fuel', 'Bus', 'Heavy', 'Other'];
 
@@ -95,6 +96,8 @@ export default function VehicleGrid({ vehicles, searchQuery = '', _whatsappNumbe
           </p>
         </div>
       )}
+
+      <SourcingCta />
     </section>
   );
 }
