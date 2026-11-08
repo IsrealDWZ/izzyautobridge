@@ -132,8 +132,8 @@ export default function InventoryPage() {
             )}
           </div>
           <p className="text-white/80 max-w-2xl">
-            Live stock from our China partners — filter by brand, price and year. Free shipping to
-            Tema included in every landed price.
+            Live stock from our China partners — filter by brand, price and year. Shipping to Tema
+            included (CIF). Duties and port clearing are separate.
           </p>
           <ExchangeRateNote className="text-white/80 mt-3" />
           {/* The brand marquee is decorative — on the home page the cars win the fold. */}

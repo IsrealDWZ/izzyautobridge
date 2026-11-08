@@ -40,8 +40,8 @@ export default function TermsPage() {
             We inspect each vehicle ourselves (road test) and SGS inspects at the port of loading.
           </li>
           <li>
-            Vehicles ship free — CIF Tema, with ocean freight and marine insurance included in the
-            quoted price.
+            Shipping to Tema is included (CIF): ocean freight and marine insurance are in the
+            quoted price. Duties and port clearing are separate and are the buyer's responsibility.
           </li>
           <li>Typical transit is about 60 days from payment to arrival at Tema Port.</li>
           <li>
@@ -62,7 +62,7 @@ export default function TermsPage() {
             A vehicle is secured only after full payment. We do not accept deposits or offer
             instalments.
           </li>
-          <li>We issue a proforma invoice with a full landed-cost breakdown before you pay.</li>
+          <li>We issue a proforma invoice with a full cost breakdown before you pay.</li>
           <li>
             Payment is by the methods stated on your proforma. Beware anyone asking you to pay
             outside that instruction.
@@ -72,9 +72,9 @@ export default function TermsPage() {
 
       <LegalSection title="4. Pricing" id="pricing">
         <p>
-          Prices shown on vehicle pages are the prices. The final landed cost is confirmed in your
+          Prices shown on vehicle pages are the prices. The final price is confirmed in your
           proforma invoice before you pay and is based on the prevailing exchange rate at the time
-          of processing. CIF prices in USD are also shown for transparency.
+          of processing. The USD figure on each listing is our quoted price, not the bare CIF cost.
         </p>
       </LegalSection>
 

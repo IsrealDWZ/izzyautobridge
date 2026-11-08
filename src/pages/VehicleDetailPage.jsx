@@ -115,7 +115,7 @@ export default function VehicleDetailPage() {
           <div className="mt-6 grid sm:grid-cols-2 gap-3">
             <div className="flex items-center gap-2.5 text-sm text-muted">
               <Ship size={16} className="text-main shrink-0" aria-hidden="true" />
-              Free shipping to Tema Port
+              Shipping to Tema included (CIF). Duties and clearing separate.
             </div>
             <div className="flex items-center gap-2.5 text-sm text-muted">
               <ShieldCheck size={16} className="text-main shrink-0" aria-hidden="true" />
@@ -150,7 +150,7 @@ export default function VehicleDetailPage() {
       <section className="rounded-2xl bg-secondary text-onsecondary p-8 sm:p-10 mt-8 overflow-hidden">
         <h2 className="font-display text-2xl font-bold">Interested in this vehicle?</h2>
         <p className="mt-2 max-w-xl">
-          Message us on WhatsApp for landed-cost breakdown, inspection reports and delivery
+          Message us on WhatsApp for a cost breakdown, inspection reports and delivery
           timelines.
         </p>
         <a

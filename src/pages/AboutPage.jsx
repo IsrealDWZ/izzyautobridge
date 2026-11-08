@@ -12,7 +12,7 @@ import { APP_CONFIG, WHATSAPP_NUMBER } from '../utils/constants';
 import { seasonHeroLine, uiNow } from '../utils/season';
 
 const heroSubtitle =
-  'Direct China vehicle imports to Ghana with transparent landed costs — free shipping to Tema included — and a route you can actually track from port to your driveway.';
+  'Direct China vehicle imports to Ghana with transparent pricing — shipping to Tema included (CIF), duties and port clearing separate — and a route you can actually track from port to your driveway.';
 
 export default function AboutPage() {
   // Festive season copy: a real price statement only while prices are

@@ -142,7 +142,7 @@ export function seasonMarqueeItems(now = new Date()) {
     return [
       'Festive prices live on every unit',
       'This cut ends 31 December',
-      'Free shipping to Tema, always',
+      'Shipping to Tema included (CIF); duties separate',
     ];
   }
   if (phase === 'winddown') {

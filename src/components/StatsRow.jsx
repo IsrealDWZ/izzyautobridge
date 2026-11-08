@@ -17,7 +17,7 @@ export default function StatsRow({ vehicles }) {
     {
       icon: DollarSign,
       value: `GH₵${avgPrice.toLocaleString()}`,
-      label: 'Average Landed Price',
+      label: 'Average Price',
       isGold: true,
     },
     { icon: CheckCircle, value: available.toLocaleString(), label: 'Ready to Ship', isGold: true },

@@ -43,14 +43,14 @@ const STATIC_ROUTES = [
     out: 'index.html',
     title: 'IzzyAutoBridge Ghana — Inspected Cars from China',
     description:
-      'Browse 129 SGS-inspected vehicles imported from China to Ghana. Transparent landed prices in GHS, free shipping to Tema, full payment only.',
+      'Browse 129 SGS-inspected vehicles imported from China to Ghana. Transparent prices in GHS. Shipping to Tema included (CIF); duties and clearing separate.',
     canonical: `${BASE}/`,
   },
   {
     out: 'about/index.html',
     title: 'About Us — IzzyAutoBridge Ghana',
     description:
-      'How IzzyAutoBridge sources, inspects and ships vehicles from China to Tema: transparent landed costs, SGS inspection, 60-day delivery and full-payment terms.',
+      'How IzzyAutoBridge sources, inspects and ships vehicles from China to Tema: transparent pricing, SGS inspection, 60-day delivery and full-payment terms.',
     canonical: `${BASE}/about`,
   },
   {
@@ -59,7 +59,7 @@ const STATIC_ROUTES = [
     out: 'inventory/index.html',
     title: 'Browse Inventory — IzzyAutoBridge Ghana',
     description:
-      'Browse 129 inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent landed costs and SGS inspection.',
+      'Browse 129 inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent pricing and SGS inspection.',
     canonical: `${BASE}/`,
   },
   {
@@ -80,7 +80,7 @@ const STATIC_ROUTES = [
     out: 'compare/index.html',
     title: 'Compare vehicles — IzzyAutoBridge Ghana',
     description:
-      'Compare inspected China-import vehicles side by side: price, year, fuel, body type and key specs, with transparent landed costs to Tema.',
+      'Compare inspected China-import vehicles side by side: price, year, fuel, body type and key specs, with transparent pricing and CIF shipping to Tema.',
     canonical: `${BASE}/compare`,
   },
 ];
@@ -107,7 +107,7 @@ function buildVehicleRoutes() {
     const specs = v.Key_Specs ? ` Key specs: ${v.Key_Specs}.` : '';
     const description = `${v.Brand} ${v.Model} ${v.Year}${variant} available now in Ghana. GH₵${priceGhs(
       v
-    ).toLocaleString()} · SGS inspected · free shipping to Tema${festiveTag}.${specs}`;
+    ).toLocaleString()} · SGS inspected · shipping to Tema included (CIF); duties separate${festiveTag}.${specs}`;
     return {
       out: `vehicle/${v.ID}/index.html`,
       title,

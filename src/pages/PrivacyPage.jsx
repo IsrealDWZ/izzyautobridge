@@ -17,7 +17,7 @@ export default function PrivacyPage() {
       <LegalSection title="Who we are" id="who">
         <p>
           IzzyAutoBridge Ghana Ltd is a licensed vehicle importer based in Accra, Ghana (DVLA Class
-          C). We import vehicles from China to Tema Port with transparent landed costs. This policy
+          C). We import vehicles from China to Tema Port with transparent pricing. This policy
           covers our website only.
         </p>
       </LegalSection>

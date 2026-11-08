@@ -28,7 +28,7 @@ import { currentSeason, seasonMarqueeItems, uiNow } from './utils/season';
 const shipItems = Array.from({ length: 6 }, (_, i) => (
   <span key={i} className="flex items-center gap-2">
     <Ship size={15} aria-hidden="true" />
-    Free shipping — CIF Tema port delivery included on every vehicle
+    Shipping to Tema included (CIF) — duties and port clearing separate
   </span>
 ));
 

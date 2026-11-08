@@ -6,19 +6,19 @@ const steps = [
     num: '1',
     icon: Search,
     title: 'Choose Your Vehicle',
-    desc: 'Browse 129 inspected vehicles with transparent landed costs. Filter by brand, fuel, body type, budget. Or request a specific model — we source it.',
+    desc: 'Browse 129 inspected vehicles with transparent pricing. Filter by brand, fuel, body type, budget. Or request a specific model — we source it.',
   },
   {
     num: '2',
     icon: DollarSign,
     title: 'Full Payment & Proforma',
-    desc: 'Proforma issued with full landed cost breakdown. Vehicle secured only upon full payment. No deposits, no installments.',
+    desc: 'Proforma issued with a full cost breakdown. Vehicle secured only upon full payment. No deposits, no installments.',
   },
   {
     num: '3',
     icon: Truck,
     title: 'We Ship — You Track',
-    desc: 'Friend sources, SGS inspects, ships free — CIF Tema (60 days), freight and insurance included in your price. Video loading proof, Bill of Lading, all docs via WhatsApp before vessel arrives.',
+    desc: 'Friend sources, SGS inspects, ships CIF to Tema (60 days), freight and insurance included in your price — duties and port clearing are separate. Video loading proof, Bill of Lading, all docs via WhatsApp before vessel arrives.',
   },
   {
     num: '4',

@@ -45,7 +45,7 @@ export default function Footer() {
               <span className="font-display font-bold text-xl">IzzyAutoBridge</span>
             </div>
             <p className="text-onsecondary-muted mb-6 max-w-xs">
-              Direct China vehicle supply to Ghana. Transparent landed costs. 60-day delivery.
+              Direct China vehicle supply to Ghana. Transparent pricing. 60-day delivery.
             </p>
             <div className="flex gap-4">
               {socialLinks.map(social => (
