@@ -1,7 +1,7 @@
-import { MessageCircle } from 'lucide-react';
+import { Megaphone, MessageCircle } from 'lucide-react';
 
-import { trackWhatsApp } from '../utils/analytics';
-import { WHATSAPP_NUMBER } from '../utils/constants';
+import { trackEvent, trackWhatsApp } from '../utils/analytics';
+import { WHATSAPP_CHANNEL_URL, WHATSAPP_NUMBER } from '../utils/constants';
 
 const WHATSAPP_MESSAGE =
   "Hi, I can't find the car I'm looking for on your site. Could you check what's available?";
@@ -20,6 +20,16 @@ export default function SourcingCta() {
           This isn&rsquo;t the full inventory — we source new units every week. Tell us the make,
           model and budget, and we&rsquo;ll check what&rsquo;s available.
         </p>
+        <a
+          href={WHATSAPP_CHANNEL_URL}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => trackEvent('whatsapp_channel_click', { placement: 'inventory_sourcing' })}
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-action hover:underline decoration-2 underline-offset-4 mt-3"
+        >
+          <Megaphone size={14} aria-hidden="true" />
+          Follow the WhatsApp channel for new arrivals
+        </a>
       </div>
       <a
         href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`}

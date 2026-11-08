@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Shield, Zap, MessageCircle } from 'lucide-react';
+import { Shield, Zap, MessageCircle, Megaphone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { trackEvent, trackWhatsApp } from '../utils/analytics';
@@ -30,6 +30,12 @@ const footerLinks = {
 
 const socialLinks = [
   { icon: MessageCircle, href: `https://wa.me/${WHATSAPP_NUMBER}`, label: 'WhatsApp' },
+  {
+    icon: Megaphone,
+    href: WHATSAPP_CHANNEL_URL,
+    label: 'WhatsApp Channel',
+    track: 'channel',
+  },
 ];
 
 function supportLinkClick(link) {
@@ -68,7 +74,11 @@ export default function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={social.label}
-                  onClick={() => trackWhatsApp('footer', null, { placement: 'social_icon' })}
+                  onClick={() =>
+                    social.track === 'channel'
+                      ? trackEvent('whatsapp_channel_click', { placement: 'social_icon' })
+                      : trackWhatsApp('footer', null, { placement: 'social_icon' })
+                  }
                   className="w-10 h-10 bg-whatsapp text-onwhatsapp border border-transparent rounded-full flex items-center justify-center hover:opacity-85 transition-all"
                 >
                   <social.icon size={18} />

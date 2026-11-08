@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { WHATSAPP_NUMBER } from '../../utils/constants';
+import { WHATSAPP_CHANNEL_URL, WHATSAPP_NUMBER } from '../../utils/constants';
 import SourcingCta from '../SourcingCta';
 
 describe('SourcingCta', () => {
@@ -20,5 +20,13 @@ describe('SourcingCta', () => {
     render(<SourcingCta />);
 
     expect(screen.getByText(/isn’t the full inventory/)).toBeInTheDocument();
+  });
+
+  it('links to the WhatsApp channel for new arrivals', () => {
+    render(<SourcingCta />);
+
+    expect(
+      screen.getByRole('link', { name: /follow the whatsapp channel/i }).getAttribute('href')
+    ).toBe(WHATSAPP_CHANNEL_URL);
   });
 });
