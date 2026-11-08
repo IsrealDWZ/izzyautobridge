@@ -1,18 +1,17 @@
 import { describe, expect, it } from 'vitest';
 
+import { USD_GHS_RATE } from '../constants';
 import { festiveAnchorGhs, ghsFromUsd, withFreshPrices } from '../pricing';
 
 describe('ghsFromUsd', () => {
   it('converts a USD price to GHS and rounds like the data pipeline', () => {
-    expect(ghsFromUsd(15000)).toBe(Math.round(15000 * 11.78));
+    expect(ghsFromUsd(15000)).toBe(Math.round(15000 * USD_GHS_RATE));
   });
 });
 
 describe('withFreshPrices (render-time pricing)', () => {
   it('recomputes Price_GHS from Price_USD and the site rate', () => {
-    const [fresh] = withFreshPrices([
-      { ID: 1, Price_USD: 15000, Price_GHS: 1 },
-    ]);
+    const [fresh] = withFreshPrices([{ ID: 1, Price_USD: 15000, Price_GHS: 1 }]);
     expect(fresh.Price_GHS).toBe(ghsFromUsd(15000));
     expect(fresh.Price_USD).toBe(15000);
   });
@@ -34,6 +33,6 @@ describe('withFreshPrices (render-time pricing)', () => {
 
 describe('festiveAnchorGhs (honest "was" anchor)', () => {
   it('bakes in the $700 step the festive ladder removed', () => {
-    expect(festiveAnchorGhs(15000)).toBe(Math.round((15000 + 700) * 11.78));
+    expect(festiveAnchorGhs(15000)).toBe(Math.round((15000 + 700) * USD_GHS_RATE));
   });
 });

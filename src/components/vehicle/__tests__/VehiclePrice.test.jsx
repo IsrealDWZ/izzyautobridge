@@ -1,16 +1,22 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { USD_GHS_RATE } from '../../../utils/constants';
+import { festiveAnchorGhs, ghsFromUsd } from '../../../utils/pricing';
 import { VehiclePrice } from '../VehiclePrice';
 
 const vehicle = {
   ID: 1,
   Price_USD: 15000,
-  Price_GHS: 176700, // 15000 × 11.78, as the render-time pricing computes
+  Price_GHS: ghsFromUsd(15000),
 };
 
-// 15000 × 11.78 = 176700 festive; (15000 + 700) × 11.78 = 184946 pre-festive.
-const at = (iso) => {
+// Derived from the live rate so a bot rate refresh never breaks these tests.
+const usdLine = new RegExp(`15,000 • ${USD_GHS_RATE} GHS\\/USD`);
+const anchor = festiveAnchorGhs(15000).toLocaleString();
+const savings = (festiveAnchorGhs(15000) - ghsFromUsd(15000)).toLocaleString();
+
+const at = iso => {
   vi.useFakeTimers();
   vi.setSystemTime(new Date(`${iso}T00:00:00Z`));
 };
@@ -25,7 +31,7 @@ describe('VehiclePrice festive window', () => {
     at('2026-11-06');
     render(<VehiclePrice vehicle={vehicle} />);
 
-    expect(screen.getByText(/15,000 • 11.78 GHS\/USD/)).toBeInTheDocument();
+    expect(screen.getByText(usdLine)).toBeInTheDocument();
     expect(screen.queryByText(/Festive:/)).not.toBeInTheDocument();
   });
 
@@ -33,9 +39,9 @@ describe('VehiclePrice festive window', () => {
     at('2026-12-25');
     render(<VehiclePrice vehicle={vehicle} />);
 
-    const strike = screen.getByText(/184,946/);
+    const strike = screen.getByText(new RegExp(anchor));
     expect(strike.closest('s')).toBeTruthy();
-    expect(screen.getByText(/GH₵8,246 less/)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`GH₵${savings} less`))).toBeInTheDocument();
   });
 
   it('reverts cleanly during the January winddown', () => {
@@ -43,7 +49,7 @@ describe('VehiclePrice festive window', () => {
     render(<VehiclePrice vehicle={vehicle} />);
 
     expect(screen.queryByText(/Festive:/)).not.toBeInTheDocument();
-    expect(screen.getByText(/15,000 • 11.78 GHS\/USD/)).toBeInTheDocument();
+    expect(screen.getByText(usdLine)).toBeInTheDocument();
   });
 
   it('labels forced previews so stale data is never mistaken for the deal', () => {
@@ -51,7 +57,7 @@ describe('VehiclePrice festive window', () => {
     window.history.replaceState(null, '', '?season=festive'); // ...but forced
     render(<VehiclePrice vehicle={vehicle} />);
 
-    expect(screen.getByText(/GH₵8,246 less \(preview\)/)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`GH₵${savings} less \\(preview\\)`))).toBeInTheDocument();
     window.history.replaceState(null, '', window.location.pathname);
   });
 });
