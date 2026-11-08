@@ -37,7 +37,7 @@ export default function TermsPage() {
         <p>We source vehicles from our partners in China and deliver them to Ghana:</p>
         <ul className="list-disc pl-5 space-y-1.5">
           <li>
-            We inspect each vehicle ourselves (road test) and SGS inspects at the port of loading.
+            We inspect each vehicle ourselves (road test) before loading.
           </li>
           <li>
             Shipping to Tema is included (CIF): ocean freight and marine insurance are in the
@@ -50,7 +50,7 @@ export default function TermsPage() {
           </li>
           <li>
             Clearance is handled by your agent (we supply all documents: BL, Commercial Invoice,
-            Packing List, SGS Certificate, G-CAP) or by us for a GH₵4,000 service fee. You choose
+            Packing List, G-CAP) or by us for a GH₵4,000 service fee. You choose
             per order.
           </li>
         </ul>
@@ -89,7 +89,7 @@ export default function TermsPage() {
 
       <LegalSection title="6. Inspection and vehicle condition" id="inspection">
         <p>
-          Every vehicle is road-tested by us and inspected by SGS before loading. Photos, mileage,
+          Every vehicle is road-tested by us before loading. Photos, mileage,
           year and specifications on each vehicle page describe the specific unit for sale. Our
           inventory includes both brand-new and pre-owned vehicles — each listing states the
           condition, year and mileage of the specific unit. Any cosmetic wear consistent with age

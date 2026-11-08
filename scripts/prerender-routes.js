@@ -43,14 +43,14 @@ const STATIC_ROUTES = [
     out: 'index.html',
     title: 'IzzyAutoBridge Ghana — Inspected Cars from China',
     description:
-      'Browse 129 SGS-inspected vehicles imported from China to Ghana. Transparent prices in GHS. Shipping to Tema included (CIF); duties and clearing separate.',
+      'Browse 129 inspected vehicles imported from China to Ghana. Transparent prices in GHS. Shipping to Tema included (CIF); duties and clearing separate.',
     canonical: `${BASE}/`,
   },
   {
     out: 'about/index.html',
     title: 'About Us — IzzyAutoBridge Ghana',
     description:
-      'How IzzyAutoBridge sources, inspects and ships vehicles from China to Tema: transparent pricing, SGS inspection, 60-day delivery and full-payment terms.',
+      'How IzzyAutoBridge sources, inspects and ships vehicles from China to Tema: transparent pricing, inspection before loading, 60-day delivery and full-payment terms.',
     canonical: `${BASE}/about`,
   },
   {
@@ -59,7 +59,7 @@ const STATIC_ROUTES = [
     out: 'inventory/index.html',
     title: 'Browse Inventory — IzzyAutoBridge Ghana',
     description:
-      'Browse 129 inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent pricing and SGS inspection.',
+      'Browse 129 inspected vehicles imported from China to Ghana. BYD, Toyota, Honda and more — transparent pricing and inspection before loading.',
     canonical: `${BASE}/`,
   },
   {
@@ -107,7 +107,7 @@ function buildVehicleRoutes() {
     const specs = v.Key_Specs ? ` Key specs: ${v.Key_Specs}.` : '';
     const description = `${v.Brand} ${v.Model} ${v.Year}${variant} available now in Ghana. GH₵${priceGhs(
       v
-    ).toLocaleString()} · SGS inspected · shipping to Tema included (CIF); duties separate${festiveTag}.${specs}`;
+    ).toLocaleString()} · road-tested · shipping to Tema included (CIF); duties separate${festiveTag}.${specs}`;
     return {
       out: `vehicle/${v.ID}/index.html`,
       title,

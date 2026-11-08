@@ -69,7 +69,7 @@ export default function ComparisonSection() {
                 <p>
                   • {vehicles.length} vehicles across {brandCount} brands
                 </p>
-                <p>• Video proof &amp; SGS inspection</p>
+                <p>• Video proof &amp; road test</p>
               </div>
             </div>
           </div>

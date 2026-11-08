@@ -6,14 +6,14 @@ const trustItems = [
     num: '01',
     question: 'How do you know the vehicle is real?',
     answer:
-      'We drive each vehicle ourselves before container loading — actual road test, not a workshop walkaround. SGS inspection at port of loading. Video documentation of every container sent before ship sails.',
+      'We drive each vehicle ourselves before container loading — actual road test, not a workshop walkaround. Video documentation of every container sent before ship sails.',
     icon: CheckCircle,
   },
   {
     num: '02',
     question: 'Who handles clearance at Tema?',
     answer:
-      'Your agent (we supply all docs: BL, Commercial Invoice, Packing List, SGS Cert, G-CAP) OR we clear for GH₵4,000 service fee. You choose per order.',
+      'Your agent (we supply all docs: BL, Commercial Invoice, Packing List, G-CAP) OR we clear for GH₵4,000 service fee. You choose per order.',
     icon: Truck,
   },
   {

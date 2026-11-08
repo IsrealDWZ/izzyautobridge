@@ -1,7 +1,7 @@
 {
   "name": "IzzyAutoBridge Ghana",
   "short_name": "IzzyAutoBridge",
-  "description": "Direct China vehicle imports to Ghana with transparent landed costs and SGS inspection.",
+  "description": "Direct China vehicle imports to Ghana with transparent pricing and inspection before loading.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f5f5f7",
