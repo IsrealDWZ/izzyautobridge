@@ -1,5 +1,7 @@
 // Centralized constants - single source of truth
 export const WHATSAPP_NUMBER = '233536225804';
+export const WHATSAPP_CHANNEL_URL =
+  'https://whatsapp.com/channel/0029Vb8hcO1LCoX9RUSVy81F';
 
 // Exchange rate loaded at build time from src/data/exchange-rate.json
 // Market rate plus Fidelity's selling premium; no extra buffer

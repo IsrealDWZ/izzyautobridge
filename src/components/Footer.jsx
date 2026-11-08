@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { Shield, Zap, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import { trackWhatsApp } from '../utils/analytics';
-import { WHATSAPP_NUMBER } from '../utils/constants';
+import { trackEvent, trackWhatsApp } from '../utils/analytics';
+import { WHATSAPP_CHANNEL_URL, WHATSAPP_NUMBER } from '../utils/constants';
 import { currentSeason, uiNow } from '../utils/season';
 
 import BrandMark from './BrandMark';
@@ -18,7 +18,10 @@ const footerLinks = {
     { label: 'Why Us', to: '/about#trust' },
     { label: 'Request a Vehicle', to: '/about#concierge' },
   ],
-  support: [{ label: 'Contact Us', href: `https://wa.me/${WHATSAPP_NUMBER}` }],
+  support: [
+    { label: 'Contact Us', href: `https://wa.me/${WHATSAPP_NUMBER}` },
+    { label: 'WhatsApp Channel', href: WHATSAPP_CHANNEL_URL, track: 'channel' },
+  ],
   legal: [
     { label: 'Privacy Policy', to: '/privacy' },
     { label: 'Terms of Service', to: '/terms' },
@@ -28,6 +31,16 @@ const footerLinks = {
 const socialLinks = [
   { icon: MessageCircle, href: `https://wa.me/${WHATSAPP_NUMBER}`, label: 'WhatsApp' },
 ];
+
+function supportLinkClick(link) {
+  if (link.track === 'channel') {
+    return () => trackEvent('whatsapp_channel_click', { placement: 'footer' });
+  }
+  if (link.href.includes('wa.me')) {
+    return () => trackWhatsApp('footer', null, { placement: 'support_link' });
+  }
+  return undefined;
+}
 
 export default function Footer() {
   return (
@@ -84,11 +97,7 @@ export default function Footer() {
                         href={link.href}
                         target={link.href.startsWith('http') ? '_blank' : undefined}
                         rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                        onClick={
-                          link.href.includes('wa.me')
-                            ? () => trackWhatsApp('footer', null, { placement: 'support_link' })
-                            : undefined
-                        }
+                        onClick={supportLinkClick(link)}
                         className="text-onsecondary-muted hover:text-onsecondary hover:underline hover:decoration-accent-hover hover:decoration-2 underline-offset-4 transition-colors text-sm"
                       >
                         {link.label}
