@@ -9,16 +9,16 @@
     "source": "fidelitybank.com.gh/rates",
     "ratio": 1.006948
   },
-  "fetchedAt": "2026-11-13T05:40:14.690Z",
+  "fetchedAt": "2026-11-13T14:09:45.972Z",
   "source": "exchangerate-api.com market rate x Fidelity selling gap",
   "fidelityLive": {
     "buying": 11.45,
-    "selling": 11.785,
-    "asAt": "11th November, 2026",
-    "fetchedAt": "2026-11-13T05:40:14.689Z",
+    "selling": 11.8,
+    "asAt": "13th November, 2026",
+    "fetchedAt": "2026-11-13T14:09:45.971Z",
     "via": "headless-chrome",
     "source": "https://fidelitybank.com.gh/rates",
-    "observedRatio": 1.005865,
+    "observedRatio": 1.007145,
     "marketRateAtFetch": 11.716289
   }
 }
